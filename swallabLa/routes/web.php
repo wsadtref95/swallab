@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductController;
 
 
 Route::get('/test', function() {
@@ -18,7 +19,7 @@ Route::get('/test', function() {
 Route::get('/', function () {
     return view('welcome');
 });
-
+// ================================登入====================================
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -30,3 +31,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// ===============================產品進購物車========================================
+
+Route::get('/update-product', function() {
+    return view('products');
+})->name('products.view');
+
+Route::post('/update-product', [ProductController::class, 'updateQuantity'])
+->name('products.update');
+
