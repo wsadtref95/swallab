@@ -1,0 +1,40 @@
+.breadcrumb {
+    list-style: none;
+    overflow: hidden;
+    font: 15px Helvetica, Arial, sans-serif;
+}
+
+.breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    padding: 10px 0 10px 55px;
+    position: relative;
+    display: block;
+    float: left;
+}
+
+.breadcrumb span {
+    color: #666;
+    text-decoration: none;
+    padding: 10px 0 10px 20px;
+    position: relative;
+    display: block;
+    float: left;
+}
+
+.breadcrumb a.active,
+.breadcrumb a:hover {
+    color: #5d5d5d;
+    text-decoration: underline;
+}
+
+.sidebar {
+    position: fixed;
+    top: 20%;
+    background-color: white;
+    height: 180px;
+    margin: 5% 3% 0 0;
+    padding: 1%;
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px #aaa;
+}
