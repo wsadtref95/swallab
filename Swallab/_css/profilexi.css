@@ -3,7 +3,7 @@ header{
     background-color: #EEE9D5;
     }
 body{
-    background-image: url("./../image/大專bg.png");
+    background-image: url("./../_images/background.webp");
     background-attachment: fixed;
 }
 footer{background-color: #ecdea8;}
@@ -126,7 +126,7 @@ header, footer {
     padding:0px 40px;
     text-align: center;
     margin-top: 10px;
-    
+    margin-left: 20px;
 }
 .icon{
     font-size: 30px;
@@ -134,8 +134,8 @@ header, footer {
     border-bottom: 1px solid black;
     padding:0px 40px;
     text-align: center;
-    margin-top: 20px;
-    
+    margin-top: 50px;
+    margin-left: 20px;
 }
 .follow{
     font-size: 25px;
@@ -145,10 +145,11 @@ header, footer {
     text-align: center;
     display: inline-block;
     margin-top: 10px;
+    margin-left: 20px;
 }
 .edit{
-    margin-top: 70px;
-    margin-left: 60px;
+    margin-top: 60px;
+    margin-left: 90px;
     color: white;
     font-size: 15px;
     display: block;
