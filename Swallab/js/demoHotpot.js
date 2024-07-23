@@ -3,7 +3,7 @@ document.getElementById("top").addEventListener("click", function () {
 });
 
 $(".noColorHeart").on("click", function () {
-  $(".colorHeart").css({
+  $("#heart").css({
     "display": "inline",
     "color":"red"
   });
@@ -11,7 +11,7 @@ $(".noColorHeart").on("click", function () {
     "display":"none"
   })
 });
-$(".colorHeart").on("click", function () {
+$("#heart").on("click", function () {
   $(".noColorHeart").css({
     display: "inline",
   });

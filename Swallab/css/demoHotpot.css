@@ -100,6 +100,7 @@ footer{
     margin:0px 5px;
     font-size: 25px;
 }
+#heart{display: none;}
 .fa-instagram,.fa-facebook,.fa-heart:hover{cursor: pointer;}
 /* 右邊文章-內文 */
 .bigArticle>p{
