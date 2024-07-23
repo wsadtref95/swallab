@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/writeBlogPost.css">
+    <title>Write Blog Post</title>
+</head>
+<body>
+    <header>header</header>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="mySidebar col-2">
+                <a href="./profile.html">
+                    <p>個人檔案</p>
+                </a>
+                <a href="./order.html">
+                    <p>我的訂單</p>
+                </a>
+                <a href="#">
+                    <p>歷史紀錄</p>
+                </a>
+                <a href="./writeBlogPost.html" class="active">
+                    <p>發布食記</p>
+                </a>
+            </div>
+            <div class="col">
+                <h3>撰寫食記</h3>
+                <form action="submit.php" method="post">
+                    <div class="formCon">
+                        <label for="title">標&emsp;&emsp;題 : &emsp;&emsp;</label>
+                        <input id="title" class="formInput" name="title">
+                    </div>
+                    <div class="formCon">
+                        <label for="titleImage">標題圖片 : &emsp;&emsp;</label>
+                        <input id="titleImage" class="formInput" name="titleImage" type="file">
+                        <span>
+                            <img src="../images/火鍋/暮藏和牛鍋物.jpg">
+                        </span>
+                    </div>
+                    <div class="formCon">
+                        <label for="restaurantClass">餐廳分類 : &emsp;&emsp;</label>
+                        <select name="restaurantClass" id="restaurantClass" class="formInput">
+                            <option selected disabled>請選擇...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="formCon">
+                        <label for="restaurantName">店&emsp;&emsp;名 : &emsp;&emsp;</label>
+                        <select name="restaurantName" id="restaurantName" class="formInput">
+                            <option selected disabled>請選擇...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="formCon">
+                        <label for="averageCost">平均消費 : &emsp;&emsp;</label>
+                        <input id="averageCost" class="formInput" name="averageCost">
+                    </div>
+                    
+                    <div class="formCon">
+                        <label for="eatTime">用餐日期 :&emsp;&emsp; </label>
+                        <input id="eatTime" class="formInput" name="eatTime" type="datetime-local">
+                    </div>
+                    
+                    
+                    <textarea name="editor" id="editor"></textarea>
+                    <div class="editorBtn">
+                        <button id="editorBtn" type="submit">送出</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-3.7.1.js"></script>
+    
+    <script src="../js/writeBlogPost.js"></script>
+</body>
+</html>
