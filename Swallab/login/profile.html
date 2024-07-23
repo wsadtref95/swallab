@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人檔案</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<<<<<<< HEAD
     <link href="./../css/profile.css" rel="stylesheet">
+=======
+    <link rel="stylesheet" href="../_css/bootstrap.css">
+    <link rel="stylesheet" href="./../_css/backstage.css">
+    <link rel="stylesheet" href="./../_css/profilexi.css">
+    <title>個人檔案</title>
+>>>>>>> 372fd8885204ee04c74dcfc07bfdf1ee04a9ec91
 </head>
+
 <body>
+<<<<<<< HEAD
     <header>
         <div class="container-md">
             <div class="row ">
@@ -22,15 +27,27 @@
             </div>
         </div>  
     </header>
+=======
+    <header>header</header>
+>>>>>>> 372fd8885204ee04c74dcfc07bfdf1ee04a9ec91
     <div class="container">
+
         <div class="row">
-            <div class="col-md-2 sidebar ">
-                <a href="#">個人檔案</a>
-                <a href="./order.html">我的訂單</a>
-                <a href="#">歷史紀錄</a>
-                <a href="#">發布食記</a>
+            <div class="mySidebar col-2">
+                <a href="./profile.html" class="active">
+                    <p>個人檔案</p>
+                </a>
+                <a href="./order.html">
+                    <p>我的訂單1</p>
+                </a>
+                <a href="">
+                    <p>歷史紀錄</p>
+                </a>
+                <a href="" >
+                    <p>發布食記</p>
+                </a>
             </div>
-            <div class="col-md-10">
+            <div class="col-9">
                 <div class="row mt-3">
                     <div class="col-12 d-flex justify-content-between">
                         <h4>會員中心 -> 個人檔案</h4>
@@ -40,9 +57,9 @@
                 <div class="container mt-3">
                     <div class="row">
                        <div class="  ml-5 d-flex">
-                        <img src="../image/大專logo.png"  style="width: 180px; height: auto;"> 
+                        <img src="./../_images/root/LOGO.jpg"  style="width: 180px; height: auto;"> 
 
-                        <div class="col-md-5 ml-5 ">
+                        <div class="col-md-5 ml-10 ">
                             <div class="name">王小明</div>
                             <div class="icon">
                                 <i class="fa-brands fa-instagram me-2 ms-2"></i>
@@ -72,118 +89,7 @@
             </div>
         </div>
     </div>
-    
-    <footer>
-        <div class="container-md">
-            <div class="row">
-                <div class="col-6">
-                    <img src="./../image/大專logo.png" style="border-radius: 50%; width:15%" class="m-2 ">
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script>
-        
-        
-        let totalprices = [];    
-        function removeProduct(rowId) {
-            const productRow = document.getElementById(rowId);
-            if (productRow) {
-                productRow.remove();
-                updateSubtotal();
-                
-            }
-        }
-        function updateSubtotal() {
-            
-            //var totalPrices = document.getElementById();
-            var subtotal = 0;
-            for (let i = 0; i < totalprices.length; i++) {
-                subtotal += totalprices[i];
-            }
-            console.log(subtotal);
-            document.getElementById('subtotal').textContent = `總計: $${subtotal.toFixed(0)}`;
-        }
-        function increment(numberSpanId, priceId, totalPriceId) {
-            // 獲取數量的 span 元素
-            var numberSpan = document.getElementById(numberSpanId);
-            // 獲取當前數量並轉換為數字
-            var currentNumber = parseInt(numberSpan.innerText);
-            // 增加數量
-            currentNumber++;
-            // 更新數量的 span 元素的文本
-            numberSpan.innerText = currentNumber;
-            // 在控制台輸出 2
-            // console.log(2);
-            // 更新總價（這部分取決於你的邏輯，可以省略）
-            updateTotalPrice(numberSpanId, priceId, totalPriceId);
-        }
-
-        function decrement(numberSpanId, priceId, totalPriceId) {
-            // 獲取數量的 span 元素
-            var numberSpan = document.getElementById(numberSpanId);
-            // 獲取當前數量並轉換為數字
-            var currentNumber = parseInt(numberSpan.innerText);
-            // 檢查當前數量是否大於 0，以防止數量變為負數
-            if (currentNumber > 0) {
-                // 減少數量
-                currentNumber--;
-                // 更新數量的 span 元素的文本
-                numberSpan.innerText = currentNumber;
-                // 在控制台輸出當前數量
-                console.log(currentNumber);
-                // 更新總價（這部分取決於你的邏輯，可以省略）
-                updateTotalPrice(numberSpanId, priceId, totalPriceId);
-            }
-        }
-
-        function updateTotalPrice(numberSpanId, priceId, totalPriceId) {
-        
-            // 獲取數量的 span 元素
-            var numberSpan = document.getElementById(numberSpanId);
-            // 獲取價格元素
-            var priceElement = document.getElementById(priceId);
-            // 獲取總價的元素
-            var totalPriceElement = document.getElementById(totalPriceId);
-            // 獲取當前數量和單價
-            var currentNumber = parseInt(numberSpan.innerText);
-            var price = parseFloat(priceElement.textContent.replace('$', ''));
-            
-            // 計算總價
-            var totalPrice = currentNumber * price;
-            // 更新總價的元素的文本
-            totalPriceElement.innerText = totalPrice.toFixed(0);
-            document.getElementById(totalPriceId).textContent = `$${totalPrice}`
-            // 存入陣列
-            totalprices.push(totalPrice)
-            //console.log(totalprices);
-            updateSubtotal();
-        }
-        //日期選單
-        
-        let today = new Date();
-    
-        let dateOptions = [
-            today.toLocaleDateString(),
-            new Date(today.setDate(today.getDate() + 1)).toLocaleDateString(),
-            new Date(today.setDate(today.getDate() + 1)).toLocaleDateString()
-        ];
-
-        
-        let dateDropdown = document.getElementById('dateDropdown');
-        dateOptions.forEach(function(date) {
-            var dateOption = document.createElement('a');
-            dateOption.className = 'dropdown-item';
-            dateOption.href = '#';
-            dateOption.textContent = date;
-            dateOption.onclick = function() {
-                document.getElementById('dropdownMenuButton').textContent = date;
-            };
-            dateDropdown.appendChild(dateOption);
-            
-        });
-        //時間選單
-    </script>
+    <script src="../js/backstage.js"></script>
 </body>
-</html>
 
+</html>
