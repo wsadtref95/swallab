@@ -9,15 +9,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./../_css/orderxi.css" rel="stylesheet">
-    <link rel="stylesheet" href="./../_css/backstage.css">
+    <link href="./../css/orderxi.css" rel="stylesheet">
+    <link rel="stylesheet" href="./../css/backstage.css">
 </head>
 <body>
     <header>
         <div class="container">
             <div class="row ">
                 <div class="col-6">
-                    <img src="./../image/大專logo.png" style="border-radius: 50%; width:15%" class="m-2 ">
+                    <img src="./../images/root/LOGO.jpg" style="border-radius: 50%; width:15%" class="m-2 ">
                 </div>
             </div>
         </div>  
@@ -56,13 +56,13 @@
                 </div>
                 <div class="row mt-5 product-row" id="product-row-1">
                     <div class="col-md-2 d-flex align-items-center">
-                        <img src="./../image/hotpot/青花驕內頁/個人即享餐/1.avif" class="product-img" >
+                        <img src="./../images/qhjpage/person/2.avif" class="product-img" >
                     </div>
-                    <div class="col-md-4 product-details">
-                        <span class="items">個人即享鍋</span>
-                        <div>
-                        <span class="price">$</span>
-                        <span class="price" id="price-1">310</span>
+                    <div class="col-md-3 product-details">
+                        <div class="items">個人即享鍋</div>
+                        <div class="d-flex">
+                            <div class="price">$</div>
+                            <div class="price" id="price-1">310</div>
                         </div>
                     </div>
                     <div class="col-md-4 product-actions">
@@ -79,13 +79,13 @@
                 </div>
                 <div class="row mt-5 product-row" id="product-row-2">
                     <div class="col-md-2 d-flex align-items-center">
-                        <img src="./../image/hotpot/青花驕內頁/單點 主菜/1.avif" class="product-img" alt="Fries">
+                        <img src="./../images/qhjpage/meat/1.avif" class="product-img" alt="Fries">
                     </div>
-                    <div class="col-md-4 product-details">
-                        <span class="items">美國安格斯牛小排 (200g)</span>
-                        <div>
-                            <span class="price">$</span>
-                            <span class="price" id="price-2">620</span>
+                    <div class="col-md-3 product-details">
+                        <div class="items">美國安格斯牛小排</div>
+                        <div class="d-flex">
+                            <div class="price">$</div>
+                            <div class="price" id="price-2">620</div>
                         </div>
                     </div>
                     <div class="col-md-4 product-actions">
@@ -102,13 +102,13 @@
                 </div>
                 <div class="row mt-5 product-row" id="product-row-3">
                     <div class="col-md-2 d-flex align-items-center">
-                        <img src="./../image/hotpot/青花驕內頁/單點 主食/2.avif" class="product-img" alt="Fries">
+                        <img src="./../images/qhjpage/rice/2.avif" class="product-img" alt="Fries">
                     </div>
-                    <div class="col-md-4 product-details">
-                        <span class="items">白飯</span>
-                        <div>
-                            <span class="price">$</span>
-                            <span class="price" id="price-3">20</span>
+                    <div class="col-md-3 product-details">
+                        <div class="items">白飯</div>
+                        <div class="d-flex">
+                            <div class="price">$</div>
+                            <div class="price" id="price-3">20</div>
                         </div>
                     </div>
                     <div class="col-md-4 product-actions">
@@ -123,7 +123,7 @@
                         <button class="btn btn-link trash" onclick="removeProduct('product-row-3')"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
-                <div class="col-md-9 d-flex justify-content-end">
+                <div class="col-md-9 d-flex justify-content-end ml-5">
                     <h4 id="subtotal">總計:$0</h4>
                 </div>
                 <hr>

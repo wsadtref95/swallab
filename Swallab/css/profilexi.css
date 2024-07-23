@@ -3,7 +3,7 @@ header{
     background-color: #EEE9D5;
     }
 body{
-    background-image: url("./../_images/background.webp");
+    background-image: url("./../images/background.webp");
     background-attachment: fixed;
 }
 footer{background-color: #ecdea8;}
@@ -123,7 +123,7 @@ header, footer {
     font-size: 25px;
     font-weight: bold;
     border-bottom: 1px solid black;
-    padding:0px 40px;
+    padding:0px 30px;
     text-align: center;
     margin-top: 10px;
     margin-left: 20px;

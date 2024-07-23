@@ -56,11 +56,19 @@ html, body {
     background-color: #003f7f;
 }
 
-.product-details, .product-actions {
+.product-details {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-left: 100px;
+}
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
 }
 .product-details span, .product-actions span {
     margin: 5px 0;
@@ -112,5 +120,5 @@ html, body {
     width: 100px;
 }
 .myorder{
-    margin-left: 50px;
+    margin-left: 30px;
 }
