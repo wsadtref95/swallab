@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../_css/bootstrap.css">
-    <link rel="stylesheet" href="../_css/backstage.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/backstage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -49,7 +49,7 @@
                         <div class="menuContainer row">
                             <div class="col-4">
                                 <h5>餐點分類 : </h5>
-                                <select id="className" name="menuList1">
+                                <select id="className1" name="menuList1">
                                     <option value="" disabled selected>請選擇...(動態)</option>
                                     <option value="signature">招牌餐點</option>
                                     <option value="individual">個人即享餐</option>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-4">
                                 <h5>餐點名稱 : </h5>
-                                <select id="mealName" name="menuName1">
+                                <select id="mealName1" name="menuName1">
                                     <option value="" disabled selected>請選擇...(動態)</option>
                                     <option value="signature">招牌餐點</option>
                                     <option value="individual">個人即享餐</option>
@@ -66,7 +66,7 @@
                             <div class="col-4">
                                 <h5>價格 : </h5>
                                 <input type="number" name="menuPrice1">
-                                <p>原始價格為 : <span id="originalPrice">300(動態)</span></p>
+                                <p>原始價格為 : <span id="originalPrice1">300(動態)</span></p>
                             </div>
                             <div class="col-6">
                                 <h5>開始時間 : </h5>
@@ -88,174 +88,9 @@
             </div>
         </div>
     </div>
-    <script src="../_js/jquery-3.7.1.js"></script>
-    <script src="../_js/backstage.js"></script>
-    <script>
-        $().ready(function () {
-
-
-            // // 資料庫練習
-            // // 抓分類
-            // fetch('http://localhost/myProj/mysql.php/GetClass')
-            //     .then(response => {
-            //         return response.json()
-            //         // return response.text()
-            //     }).then(text => {
-            //         console.log(text);
-            //         let html = ''
-                    
-            //         for (let i = 0; i < text.length; i++) {
-            //             const element = text[i][0];
-            //             // console.log(element);
-            //             html += `<option>${element}</option>`
-            //         }
-            //         console.log(html);
-            //         className.innerHTML += html
-            //     })
-
-            // // 抓名稱
-            // fetch('http://localhost/myProj/mysql.php/GetName')
-            //     .then(response => {
-            //         return response.json()
-            //         // return response.text()
-            //     }).then(text => {
-            //         // console.log(text);
-            //         let html = ''
-                    
-            //         for (let i = 0; i < text.length; i++) {
-            //             const element = text[i][3];
-            //             // console.log(element);
-            //             html += `<option>${element}</option>`
-            //         }
-            //         // console.log(html);
-            //         mealName.innerHTML += html
-            //     })
-
-
-
-
-
-
-            let index = 1;
-
-
-            // 檢查日期
-
-            
-            
-            $('#discountForm').on('click', '.col-6:nth-child(4) input', function () {
-                let id = this.id.replace(/[^\d]/g, "");
-                let nowAttr = new Date().toISOString().slice(0, 16);
-                // console.log(now);
-                $(`#startTime${id}`).attr('min', nowAttr);
-            })
-
-            $('#discountForm').on('change', '.col-6:nth-child(4) input', function () {
-
-                // let startTime = new Date($(`#startTime${index}`).val());
-                let startTime = new Date($(`#${this.id}`).val());
-                // console.log(this.id); // startTime1
-                let id = this.id.replace(/[^\d]/g, "");
-                // console.log( id);
-                // console.log(startTime);
-                let now = new Date();
-                // console.log('index : ' + index);
-                // console.log('value : ' + startTime);
-                // console.log('now :' + now);
-                if (startTime < now) {
-                    $(`#startTimeResult${id}`).text('開始時間不能小於當前時間');
-                    $(`#startTime${id}`).val('');
-                } else {
-                    $(`#startTimeResult${id}`).text('');
-                    console.log(this);
-                    $(`#endTime${id}`).attr('min', $(this).val());
-                }
-
-                if ($(`#startTime${id}`).val()) {
-                    $(`#endTime${id}`).removeAttr('disabled');
-                }
-            });
-            // ============================
-            $('#discountForm').on('change', '.col-6:nth-child(5) input', function () {
-                console.log(this.id); // endTime1
-                let id = this.id.replace(/[^\d]/g, "");
-                console.log(id);
-
-
-                let endTime = new Date($(`#${this.id}`).val());
-                let startTime = new Date($(`#startTime${id}`).val());
-                if (endTime < startTime) {
-                    $(`#endTimeResult${id}`).text('結束時間不能小於開始時間');
-                    $(`#endTime${id}`).val('');
-                } else {
-                    $(`#endTimeResult${id}`).text('');
-                }
-            })
-
-            
-            // 新增表單
-            $('#addDiscount').on('click', function () {
-                index++;
-                console.log(index);
-                let discountForm = `
-                <div class="optionContainer mt-20" id="add${index}">
-                    <div class="newDiscountBtn">
-                        <h5><b>${index}</b></h5>
-                        <p><i onclick="removeCon('#add${index}')" class="fa-solid fa-trash-can"></i></p>
-                        </div>
-                        <div class="menuContainer row">
-                        
-                            <div class="col-4">
-                                <h5>餐點分類 : </h5>
-                                <select name="menuList${index}">
-                                    <option value="" disabled selected>請選擇...(動態)</option>
-                                    <option value="signature">招牌餐點</option>
-                                <option value="individual">個人即享餐</option>
-                            </select>
-                            </div>
-                            <div class="col-4">
-                            <h5>餐點名稱 : </h5>
-                            <select name="menuName${index}">
-                                <option value="" disabled selected>請選擇...(動態)</option>
-                                <option value="signature">招牌餐點</option>
-                                <option value="individual">個人即享餐</option>
-                                </select>
-                                </div>
-                                <div class="col-4">
-                                    <h5>價格 : </h5>
-                                    <input type="number" name="menuPrice${index}">
-                                    <p>原始價格為 : <span id="originalPrice">300(動態)</span></p>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5>開始時間 : </h5>
-                                        <input type="datetime-local" id="startTime${index}" name="startTime${index}"         >
-                                        <p id="startTimeResult${index}"></p>
-                        </div>
-                        <div class="col-6">
-                            <h5>結束時間 : </h5>
-                            <input type="datetime-local" id="endTime${index}" name="endTime${index}" disabled>
-                            <p id="endTimeResult${index}"></p>
-                            </div>
-                            </div>
-                            </div>`;
-                            $('#addList').append(discountForm);
-                        })
-
-                        
-                        
-                    })
-                    
-                    // 移除
-                    
-                    
-                    function removeCon(Con) {
-                        console.log(Con);
-                        $(Con).fadeOut(500, function () {
-                            $(this).remove();
-                        })
-                    }
-                    
-                    </script>
+    <script src="../js/jquery-3.7.1.js"></script>
+    <script src="../js/backstage.js"></script>
+    <script src="../js/management1.js"></script>
 </body>
 
 </html>
