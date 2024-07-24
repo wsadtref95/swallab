@@ -23,29 +23,44 @@
 // //  icon 替換 end
 
 // 當滑鼠經過時，顯示兩個 icon
-document.getElementById('popup').addEventListener('mouseover', function () {
+document.getElementById('theicon').addEventListener('mouseover', function () {
     console.log(123);
-    document.getElementById('popupBlog').style.display = 'block';
-    document.getElementById('popupRest').style.display = 'block';
+    document.getElementById('popupBR').style.display = 'flex';
+    document.getElementById('popupBlog').style.display = 'flex';
+    document.getElementById('popupRest').style.display = 'flex';
 });
 
 // 當滑鼠離開時，只顯示已選擇的 icon
-document.getElementById('popup').addEventListener('mouseout', function () {
+document.getElementById('theicon').addEventListener('mouseout', function () {
     document.getElementById('popupBlog').style.display = 'none';
     document.getElementById('popupRest').style.display = 'none';
 });
 
 // 點擊時，更換顯示的 icon
-document.getElementById('popupBlog').addEventListener('click', function () {
-    // document.documentElement.style.setProperty('--icon-rest', 'var(--icon-blog)');
-    document.documentElement.style.setProperty('--icon-rest', '\f2e7');
-});
 
-document.getElementById('popupRest').addEventListener('click', function () {
-    // document.documentElement.style.setProperty('--icon-rest', 'var(--icon-rest)');
-    document.documentElement.style.setProperty('--icon-rest', '\f518');
-});
+class Theicon {
+    constructor(type, icon) {
+        this.type = type;
+        this.icon = icon;
+    }
+    toIcon(type) {
+        console.log(1);
+        return this.icon;
+    }
+}
 
+let restIcon = new Theicon("rest", "fa-solid fa-utensils")
+let blogIcon = new Theicon("blog", "fa-solid fa-book-open")
+
+window.onload = function () {
+    document.getElementById('showicon').className = restIcon.toIcon();
+    document.getElementById('popupBlog').addEventListener('click', function () {
+        document.getElementById('showicon').className = blogIcon.toIcon();
+    })
+    document.getElementById('popupRest').addEventListener('click', function () {
+        document.getElementById('showicon').className = restIcon.toIcon();
+    })
+}
 
 // 搜尋框
 // 點擊輸入框，切換下拉選單的顯示和隱藏
@@ -118,7 +133,7 @@ function fillInput2(value) {
     // 'myInput' 和 'myInput2' 的值作為查詢條件
 }
 // 點擊其他地方隱藏下拉
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (!event.target.matches('#myInput')) {
         var dropdown = document.getElementById("myDropdown");
         if (dropdown.style.display === "block") {

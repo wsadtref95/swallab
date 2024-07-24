@@ -1,19 +1,9 @@
-/* 餐廳或食記 icon */
-.theicon {
-    height: 1.5em !important;
-    width: 4em;
-    /* background-size: 1.5em; */
-    /* background-repeat: no-repeat; */
-    /* z-index: 999; */
-}
-
 .nav_mainbtn {
     white-space: nowrap;
 }
 
 .icon {
     height: 1.5em;
-    /* z-index:999; */
     background-size: cover;
 }
 
@@ -24,64 +14,46 @@
     z-index: 1;
 }
 
+/* 餐廳或食記 icon */
+.theicon {
+    width: 15%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+}
+
 /* 餐廳或食記 icon 觸發 */
-:root {
-    --icon-blog: "\f518";
-    --icon-rest: "\f2e7";
-}
-
-.theicon::after {
-    content: var(--icon-rest);
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    position: relative;
-    top: -100%;
-    background-color: #ffffff;
-}
-
-/* 預設隱藏彈出的 icon */
 .popup{
-    width: 1.5em;
-    height: 1.5em;
+    width: 100%;
+    align-items: center;
+    visibility: visible;
 }
-.popupBlog{
-    content: "\f518";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
+.popupBR{
     display: none;
-    position: relative;
-    top: -100%;
-    width: 1.5em;
-    height: 1.5em;
-    /* content: var(--icon-rest); */
-}
-
-
-.popupBlog, .popupRest {
-    display: none;
+    width: 100%;
+    height: 3em;
     position: absolute;
     top: 100%;
+    
+}
+.popupBlog{
+    display: none;
     width: 1.5em;
-    height: 1.5em;
+    left: 50%;
 }
-
-/* 當滑鼠經過時，顯示彈出的 icon */
-#popup:hover .popupBlog, #popup:hover .popupRest {
-    display: block;
-}
-
-/* 設定彈出 icon 的位置 */
-.popupBlog {
-    top: 0;
-    left: -1.5em;
-}
-
 .popupRest {
-    top: 0;
-    left: 1.5em;
+    display: none;
+    width: 50%;
 }
+
+/* .theicon:hover .popupBlog,
+.theicon:hover .popupRest {
+    display: flex;
+} */
 
 /*  */
+
+
 .logo {
     height: 5em;
     width: auto;
@@ -113,5 +85,3 @@
 .dropdown-content a:hover {
     background-color: rgba(111, 107, 107)
 }
-
-
