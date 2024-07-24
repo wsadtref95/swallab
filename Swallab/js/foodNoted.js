@@ -3,245 +3,245 @@ document.getElementById("top").addEventListener("click", function () {
 });
 
 //側邊欄-本週熱門
-$(".custom-ul > div:nth-child(1)>img").on("click", function () {
-  $(".title").text("");
-  $(".col-9").text("");
-  let hotTitle = `<div class="col-8 p-0">
-                <div class="height500">
-                    <img src="../images/bbq/hutong.jpg" class="img-fluid">
-                    <div class="text-con">
-                        <p class="ellipsis">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
-                        <p></p>
-                        <p class="latestDate-1">2024/7/14</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4 row p-0">
-                <div class="col-12">
-                    <div class="img-con">
-                        <img src="../images/dessert/shichu.jpg">
-                        <div class="text-con">
-                            <p class="ellipsis">蒔初甜點五權店:清新可愛綠葡萄戚風蛋糕</p>
-                            <p></p>
-                            <p class="latestDate-1">2024/6/30</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="img-con">
-                        <img src="../images/izakaya/woliu.jpeg">
-                        <div class="text-con">
-                            <p class="ellipsis">台中我流精緻烤物WOLIU 吃的很精緻 價格卻很平實</p>
-                            <p></p>
-                            <p class="latestDate-1">2024/6/15</p>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-  let hot = `<div class="row">
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden" >
-                            <div class="card-body p-0">
-                                <img src="../images/hotpot/qinghj.jpg" alt="" class="img-fluid notesImage" >
-                            </div>
-                            <div class="card-footer align-items-center">
-                                <p class="ellipsis notesTitle">【台中】青花驕麻辣鍋(崇德店)王品集團麻辣鍋、酸菜白肉鍋火鍋餐廳 牛三拼盛宴比臉大氣勢十足</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202489</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/bbq/kodo.png" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">全程專人代烤壽星優惠95折，KODO和牛燒肉</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202377</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/bbq/fengjian.jpeg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">【台中-南屯區】燒肉風間｜套餐份量超多，桌邊服務超讚的啦</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202256</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/dessert/erlin.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">甜點秘境「貳林工作室」，必嚐ig爆紅「芋泥抹茶戚風三明治」超美味又超好拍！</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202203</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/ramen/xuanri.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">懸日拉麵｜以水果入湯頭，主打新潮系的精緻創意拉麵店</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202189</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/ramen/shouren.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">MEN monster 挺有意思的香料拉麵，味道濃郁，但口感清爽充滿衝突的特色拉麵</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202138</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/hotpot/roudd.png" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">【台中西區】肉多多火鍋（台中廣三店）CP值超高的平價吃到飽火鍋 會員免費送肉</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202076</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/dessert/liyu.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">台中西區│離域Cafe-老宅咖啡館，多了新品千層酥的選擇，審計新村附近甜點咖啡美食推薦</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">202010</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/izakaya/xiaoms_qinmei.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">【台中食記】西區近科博館老宅改建〔 小麥所居酒屋 〕台日結合創意料理，高人氣聚餐地點，深夜食堂好所在。</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">201989</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/hotpot/yuemc.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">月暮藏涮涮鍋 |台中西屯活體海鮮、日本和牛，浮誇貴氣裝潢+個人火鍋套餐499元起</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">201956</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/dessert/overture.jpg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">【台中甜點推薦】Overture序曲 千層蛋糕水果蛋糕IG網美人氣名店！</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">201907</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 mb-4">
-                        <div class="card overflow-hidden">
-                            <div class="card-body p-0">
-                                <img src="../images/hotpot/tangzhan.jpeg" alt="" class="img-fluid notesImage">
-                            </div>
-                            <div class="card-footer">
-                                <p class="ellipsis notesTitle">台中火鍋-湯棧 公益店，麻油雞鍋、剝皮辣椒鍋 營業到凌晨二點冷冬宵夜首選</p>
-                                <div class="fixed-bottom-center">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../images/other/eye.png" alt="">
-                                        <p class="m-0 viewNumber">201896</p>
-                                    </div>
-                                </div>
-                            </div>
+// $(".custom-ul > div:nth-child(1)>img").on("click", function () {
+//   $(".title").text("");
+//   $(".col-9").text("");
+//   let hotTitle = `<div class="col-8 p-0">
+//                 <div class="height500">
+//                     <img src="../images/bbq/hutong.jpg" class="img-fluid">
+//                     <div class="text-con">
+//                         <p class="ellipsis">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
+//                         <p></p>
+//                         <p class="latestDate-1">2024/7/14</p>
+//                     </div>
+//                 </div>
+//             </div>
+//             <div class="col-4 row p-0">
+//                 <div class="col-12">
+//                     <div class="img-con">
+//                         <img src="../images/dessert/shichu.jpg">
+//                         <div class="text-con">
+//                             <p class="ellipsis">蒔初甜點五權店:清新可愛綠葡萄戚風蛋糕</p>
+//                             <p></p>
+//                             <p class="latestDate-1">2024/6/30</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div class="col-12">
+//                     <div class="img-con">
+//                         <img src="../images/izakaya/woliu.jpeg">
+//                         <div class="text-con">
+//                             <p class="ellipsis">台中我流精緻烤物WOLIU 吃的很精緻 價格卻很平實</p>
+//                             <p></p>
+//                             <p class="latestDate-1">2024/6/15</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>`;
+//   let hot = `<div class="row">
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden" >
+//                             <div class="card-body p-0">
+//                                 <img src="../images/hotpot/qinghj.jpg" alt="" class="img-fluid notesImage" >
+//                             </div>
+//                             <div class="card-footer align-items-center">
+//                                 <p class="ellipsis notesTitle">【台中】青花驕麻辣鍋(崇德店)王品集團麻辣鍋、酸菜白肉鍋火鍋餐廳 牛三拼盛宴比臉大氣勢十足</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202489</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/bbq/kodo.png" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">全程專人代烤壽星優惠95折，KODO和牛燒肉</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202377</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/bbq/fengjian.jpeg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">【台中-南屯區】燒肉風間｜套餐份量超多，桌邊服務超讚的啦</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202256</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/dessert/erlin.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">甜點秘境「貳林工作室」，必嚐ig爆紅「芋泥抹茶戚風三明治」超美味又超好拍！</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202203</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/ramen/xuanri.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">懸日拉麵｜以水果入湯頭，主打新潮系的精緻創意拉麵店</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202189</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/ramen/shouren.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">MEN monster 挺有意思的香料拉麵，味道濃郁，但口感清爽充滿衝突的特色拉麵</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202138</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/hotpot/roudd.png" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">【台中西區】肉多多火鍋（台中廣三店）CP值超高的平價吃到飽火鍋 會員免費送肉</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202076</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/dessert/liyu.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">台中西區│離域Cafe-老宅咖啡館，多了新品千層酥的選擇，審計新村附近甜點咖啡美食推薦</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">202010</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/izakaya/xiaoms_qinmei.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">【台中食記】西區近科博館老宅改建〔 小麥所居酒屋 〕台日結合創意料理，高人氣聚餐地點，深夜食堂好所在。</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">201989</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/hotpot/yuemc.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">月暮藏涮涮鍋 |台中西屯活體海鮮、日本和牛，浮誇貴氣裝潢+個人火鍋套餐499元起</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">201956</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/dessert/overture.jpg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">【台中甜點推薦】Overture序曲 千層蛋糕水果蛋糕IG網美人氣名店！</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">201907</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col-4 mb-4">
+//                         <div class="card overflow-hidden">
+//                             <div class="card-body p-0">
+//                                 <img src="../images/hotpot/tangzhan.jpeg" alt="" class="img-fluid notesImage">
+//                             </div>
+//                             <div class="card-footer">
+//                                 <p class="ellipsis notesTitle">台中火鍋-湯棧 公益店，麻油雞鍋、剝皮辣椒鍋 營業到凌晨二點冷冬宵夜首選</p>
+//                                 <div class="fixed-bottom-center">
+//                                     <div class="d-flex align-items-center justify-content-center">
+//                                         <img src="../images/other/eye.png" alt="">
+//                                         <p class="m-0 viewNumber">201896</p>
+//                                     </div>
+//                                 </div>
+//                             </div>
 
-                        </div>
-                    </div>
-                </div>`;
-  $(".title").append(hotTitle);
-  $(".col-9").append(hot);
-});
+//                         </div>
+//                     </div>
+//                 </div>`;
+//   $(".title").append(hotTitle);
+//   $(".col-9").append(hot);
+// });
 
 // 側邊欄-火鍋
 $(".custom-ul > div:nth-child(2)>img").on("click", function () {
-  $(".col-9").text('')
-  $(".title").text('')
-  console.log(113)
+  $(".col-9").text("");
+  $(".title").text("");
+  console.log(113);
   let hotPot = `<div class="row">
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden" >
@@ -439,42 +439,41 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                 </div>`;
   let hotPotTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/hotpot/zhaort.jpg" class="img-fluid">
+                    <img src="../images/hotpot/zhaort.jpg" class="img-fluid newTitle">
                     <div class="text-con">
-                        <p class="ellipsis">台中 | 昭日堂燒肉鍋煮－近IKEA高CP值火鍋店，自助吧超多選擇讓你吃到飽</p>
-                        <p class="latestDate-1">2024/7/16</p>
+                        <p class="ellipsis" id="title1">台中 | 昭日堂燒肉鍋煮－近IKEA高CP值火鍋店，自助吧超多選擇讓你吃到飽</p>
+                        <p class="latestDate-1" id="date1">2024/7/16</p>
                     </div>
                 </div>
             </div>
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/hotpot/senxiang.jpg">
+                        <img src="../images/hotpot/senxiang.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">台中｜森饗鍋物：絕美森林系火鍋店！人氣必點胡椒豬肚、川香酸菜魚</p>
-                            <p class="latestDate-1">2024/7/15</p>
+                            <p class="ellipsis" id="title2">台中｜森饗鍋物：絕美森林系火鍋店！人氣必點胡椒豬肚、川香酸菜魚</p>
+                            <p class="latestDate-1" id="date2">2024/7/15</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/hotpot/jiuwei.jpg">
+                        <img src="../images/hotpot/jiuwei.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">久違石頭火鍋｜台中超美復古鳥籠火鍋餐廳，不但有火烤兩吃，還有鮮蔬鍋料吃到飽！現在加購龍蝦不用100元！</p>
-                            <p class="latestDate-1">2024/7/13</p>
+                            <p class="ellipsis" id="title3">久違石頭火鍋｜台中超美復古鳥籠火鍋餐廳，不但有火烤兩吃，還有鮮蔬鍋料吃到飽！現在加購龍蝦不用100元！</p>
+                            <p class="latestDate-1" id="date3">2024/7/13</p>
                         </div>
                     </div>
                 </div>
             </div>`;
-    $(".col-9").append(hotPot)
-    $(".title").append(hotPotTitle)
+  $(".col-9").append(hotPot);
+  $(".title").append(hotPotTitle);
 });
 
-
 //側邊欄-燒肉
-$(".custom-ul >div:nth-child(3)>img").on("click",function(){
-  $(".col-9").text('')
-  $(".title").text('')
+$(".custom-ul >div:nth-child(3)>img").on("click", function () {
+  $(".col-9").text("");
+  $(".title").text("");
   let bbq = `<div class="row">
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden" >
@@ -672,45 +671,45 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                 </div>`;
   let bbqTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/bbq/hutong.jpg" class="img-fluid">
+                    <img src="../images/bbq/hutong.jpg" class="img-fluid newTitle">
                     <div class="text-con">
-                        <p class="ellipsis">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
+                        <p class="ellipsis" id="title1">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
                         <p></p>
-                        <p class="latestDate-1">2024/7/14</p>
+                        <p class="latestDate-1" id="date1">2024/7/14</p>
                     </div>
                 </div>
             </div>
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/bbq/anda.jpg">
+                        <img src="../images/bbq/anda.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">俺達の肉屋 | 台中日本和牛燒肉專賣店，台中米其林指南一星推薦。台中燒肉推薦</p>
+                            <p class="ellipsis" id="title2">俺達の肉屋 | 台中日本和牛燒肉專賣店，台中米其林指南一星推薦。台中燒肉推薦</p>
                             <p></p>
-                            <p class="latestDate-1">2024/6/30</p>
+                            <p class="latestDate-1" id="date2">2024/6/30</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/bbq/chaliu.jpg">
+                        <img src="../images/bbq/chaliu.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">茶六燒肉堂公益店｜台中必吃燒肉，超難訂位的茶六，雙人和牛套餐好吃，有包廂營業到半夜2點</p>
+                            <p class="ellipsis" id="title3">茶六燒肉堂公益店｜台中必吃燒肉，超難訂位的茶六，雙人和牛套餐好吃，有包廂營業到半夜2點</p>
                             <p></p>
-                            <p class="latestDate-1">2024/6/15</p>
+                            <p class="latestDate-1" id="date3">2024/6/15</p>
                         </div>
                     </div>
                 </div>
             </div>`;
-  $(".col-9").append(bbq)
-  $(".title").append(bbqTitle)
-})
+  $(".col-9").append(bbq);
+  $(".title").append(bbqTitle);
+});
 
 //側邊欄-拉麵
-$(".custom-ul>div:nth-child(4)>img").on("click",function(){
-    $(".col-9").text('')
-    $(".title").text('')
-    let romen = `<div class="row">
+$(".custom-ul>div:nth-child(4)>img").on("click", function () {
+  $(".col-9").text("");
+  $(".title").text("");
+  let romen = `<div class="row">
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden" >
                             <div class="card-body p-0">
@@ -905,48 +904,47 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                         </div>
                     </div>
                 </div>`;
-    let romenTitle = `<div class="col-8 p-0">
+  let romenTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/ramen/shanxgy.jpg" class="img-fluid">
+                    <img src="../images/ramen/shanxgy.jpg" class="img-fluid newTitle">
                     <div class="text-con">
-                        <p class="ellipsis">【台中】山下公園 ラーメン 第六市場，常常需要排隊的拉麵店</p>
+                        <p class="ellipsis" id="title1">【台中】山下公園 ラーメン 第六市場，常常需要排隊的拉麵店</p>
                         <p></p>
-                        <p class="latestDate-1">2024/7/17</p>
+                        <p class="latestDate-1" id="date1">2024/7/17</p>
                     </div>
                 </div>
             </div>
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/ramen/yuezun.jpg">
+                        <img src="../images/ramen/yuezun.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">「月樽拉麵精誠店」台中深夜食堂！柚見花香蝦湯拉麵、炙牛肉魂叉燒泡飯味道好驚艷！</p>
+                            <p class="ellipsis" id="title2">「月樽拉麵精誠店」台中深夜食堂！柚見花香蝦湯拉麵、炙牛肉魂叉燒泡飯味道好驚艷！</p>
                             <p></p>
-                            <p class="latestDate-1">2024/7/7</p>
+                            <p class="latestDate-1" id="date2">2024/7/7</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/ramen/niuan.jpg">
+                        <img src="../images/ramen/niuan.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">牛庵拉麵｜台中拉麵推薦，狸匠系列咖哩牛骨拉麵，超濃郁咖哩飯吃到飽，唐揚雞必點</p>
+                            <p class="ellipsis" id="title3">牛庵拉麵｜台中拉麵推薦，狸匠系列咖哩牛骨拉麵，超濃郁咖哩飯吃到飽，唐揚雞必點</p>
                             <p></p>
-                            <p class="latestDate-1">2024/6/29</p>
+                            <p class="latestDate-1" id="date3">2024/6/29</p>
                         </div>
                     </div>
                 </div>
             </div>`;
-    $(".col-9").append(romen)
-    $(".title").append(romenTitle)
-})
-
+  $(".col-9").append(romen);
+  $(".title").append(romenTitle);
+});
 
 //側邊欄-居酒屋
-$(".custom-ul>div:nth-child(5)>img").on("click",function(){
-    $(".col-9").text('')
-    $(".title").text('')
-    let beer = `<div class="row">
+$(".custom-ul>div:nth-child(5)>img").on("click", function () {
+  $(".col-9").text("");
+  $(".title").text("");
+  let beer = `<div class="row">
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden" >
                             <div class="card-body p-0">
@@ -1141,47 +1139,47 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                         </div>
                     </div>
                 </div>`;
-    let beerTitle = `<div class="col-8 p-0">
+  let beerTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/izakaya/liuyyh.jpg" class="img-fluid">
+                    <img src="../images/izakaya/liuyyh.jpg" class="img-fluid newTitle">
                     <div class="text-con">
-                        <p class="ellipsis">六月螢火｜台中深夜食堂，日料串燒結合調酒，時髦現代居酒屋，消費超平價</p>
+                        <p class="ellipsis" id="title1">六月螢火｜台中深夜食堂，日料串燒結合調酒，時髦現代居酒屋，消費超平價</p>
                         <p></p>
-                        <p class="latestDate-1">2024/7/20</p>
+                        <p class="latestDate-1" id="date1">2024/7/20</p>
                     </div>
                 </div>
             </div>
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/izakaya/wucao.jpg">
+                        <img src="../images/izakaya/wucao.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">太原夜市人氣串燒”吾曹炭燒專門”開店囉！！40種以上創意串燒+獨門醬料，日式關東煮暖暖吃超滿足(寵物友善餐廳)</p>
+                            <p class="ellipsis" id="title2">太原夜市人氣串燒”吾曹炭燒專門”開店囉！！40種以上創意串燒+獨門醬料，日式關東煮暖暖吃超滿足(寵物友善餐廳)</p>
                             <p></p>
-                            <p class="latestDate-1">2024/7/1</p>
+                            <p class="latestDate-1" id="date2">2024/7/1</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/izakaya/zhiju.jpg">
+                        <img src="../images/izakaya/zhiju.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">【灸居｜台中 北屯區居酒屋】 無低消 高cp值 寵物友善串燒居酒屋 串物價格40元起</p>
+                            <p class="ellipsis" id="title3">【灸居｜台中 北屯區居酒屋】 無低消 高cp值 寵物友善串燒居酒屋 串物價格40元起</p>
                             <p></p>
-                            <p class="latestDate-1">2024/6/15</p>
+                            <p class="latestDate-1" id="date3">2024/6/15</p>
                         </div>
                     </div>
                 </div>
             </div>`;
-    $(".col-9").append(beer)
-    $(".title").append(beerTitle)
-})
+  $(".col-9").append(beer);
+  $(".title").append(beerTitle);
+});
 
 //側邊欄-甜點
-$(".custom-ul>div:nth-child(6)>img").on("click",function(){
-    $(".col-9").text('')
-    $(".title").text('')
-    let dessert = `<div class="row">
+$(".custom-ul>div:nth-child(6)>img").on("click", function () {
+  $(".col-9").text("");
+  $(".title").text("");
+  let dessert = `<div class="row">
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden" >
                             <div class="card-body p-0">
@@ -1376,95 +1374,252 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                         </div>
                     </div>
                 </div>`;
-    let dessertTitle = `<div class="col-8 p-0">
+  let dessertTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/dessert/ruocao.jpg" class="img-fluid">
+                    <img src="../images/dessert/ruocao.jpg" class="img-fluid newTitle">
                     <div class="text-con">
-                        <p class="ellipsis">若草．台中模範街神秘甜點店，水果千層、焦糖布丁大推</p>
+                        <p class="ellipsis" id="title1">若草．台中模範街神秘甜點店，水果千層、焦糖布丁大推</p>
                         <p></p>
-                        <p class="latestDate-1">2024/7/10</p>
+                        <p class="latestDate-1" id="date1">2024/7/10</p>
                     </div>
                 </div>
             </div>
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/dessert/riri.jpg">
+                        <img src="../images/dessert/riri.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">台中西區 日日鬆餅 平價舒芙蕾鬆餅 審計新村必吃美食</p>
+                            <p class="ellipsis" id="title2">台中西區 日日鬆餅 平價舒芙蕾鬆餅 審計新村必吃美食</p>
                             <p></p>
-                            <p class="latestDate-1">2024/6/25</p>
+                            <p class="latestDate-1" id="date2">2024/6/25</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/dessert/kekekuqi.jpg">
+                        <img src="../images/dessert/kekekuqi.jpg" class="newTitle">
                         <div class="text-con">
-                            <p class="ellipsis">台中北區 可可庫奇甜點工坊 到中友一中商圈逛街、用餐後的甜點午茶好選擇</p>
+                            <p class="ellipsis" id="title3">台中北區 可可庫奇甜點工坊 到中友一中商圈逛街、用餐後的甜點午茶好選擇</p>
                             <p></p>
-                            <p class="latestDate-1">2024/5/29</p>
+                            <p class="latestDate-1" id="date3">2024/5/29</p>
                         </div>
                     </div>
                 </div>
             </div>`;
-    $(".col-9").append(dessert)
-    $(".title").append(dessertTitle)
-})
+  $(".col-9").append(dessert);
+  $(".title").append(dessertTitle);
+});
 
+//側邊欄-熱門 =>後端資料庫 =>ok (圖片+食記標題+瀏覽人數)
+hot.onclick = async function () {
+  //card的食記標題+瀏覽人數
+  $.ajax({
+    url: "http://localhost/swallabTest/Getcontent",
+    method: "GET",
+  })
+    .done(function (mydata) {
+      console.log(mydata);
+      let notesTitle = document.querySelectorAll(".notesTitle");
+      let viewNumber = document.querySelectorAll(".viewNumber");
 
+      for (let k = 0; k < mydata.length; k++) {
+        notesTitle[k].innerHTML = "";
+        viewNumber[k].innerHTML = "";
+        notesTitle[k].innerHTML = mydata[k].comment;
+        viewNumber[k].innerHTML = mydata[k].viewNumber;
+        console.log(mydata[k].comment);
+        console.log(mydata[k].viewNumber);
+      }
+    })
+    .fail(function (cat) {
+      console.log("2.fail:", cat);
+    })
+    .always(function () {
+      console.log("3.always:咖波");
+    });
 
-//側邊欄-居酒屋(RESTful=>未完成)
-// beer.onclick = function () {
-//   $.ajax({
-//     url: "http://localhost/foodNotes/Getcontent",
-//     method: "GET",
-//   })
-//     .done(function (mydata) {
-//       console.log(mydata);
-//       let notesTitle = document.querySelectorAll(".notesTitle");
-//       let viewNumber = document.querySelectorAll(".viewNumber");
+  //card的照片
+  let notesImage = document.querySelectorAll(".notesImage");
 
-//       for (let k = 0; k < mydata.length; k++) {
-//         notesTitle[k].innerText = "";
-//         viewNumber[k].innerText = "";
-//         notesTitle[k].innerHTML = mydata[k].content;
-//         viewNumber[k].innerHTML = mydata[k].viewNumber;
-//         console.log(mydata[k].content)
-//         console.log(mydata[k].viewNumber);
-//       }
-//     })
-//     .fail(function (cat) {
-//       console.log("2.fail:", cat);
-//     })
-//     .always(function () {
-//       console.log("3.always:咖波");
-//     });
-// };
+  for (let i = 0; i < notesImage.length; i++) {
+    fetch(`http://localhost/test/php/download.php?id=${i + 1}`)
+      .then((response) => {
+        console.log(response.url);
+        return response.blob();
+      })
+      .then((blob) => {
+        let imgURL = URL.createObjectURL(blob); //BLOB專用來轉換可以放到SRC
+        notesImage[i].src = imgURL;
+      })
+      .catch((error) => {
+        console.error("獲取圖片失敗", i + 1, error);
+      });
+  }
 
+  //最新文章1+2 ==>標題+日期 ==> 用id
+  $.ajax({
+    url: "http://localhost/swallabTest/GetNewTitle",
+    method: "GET",
+  })
+    .done(function (mytitle) {
+      console.log(mytitle);
 
-//側邊欄-甜點(RESTful=>未完成)
-// dessert.onclick = function () {
-//   $.ajax({
-//     url: `http://localhost/foodNotes/GetAll`,
-//     method: "GET",
-//   })
-//     .done(function (mydata) {
-//       console.log(mydata);
-//       let notesImage = document.querySelectorAll(".notesImage");
+      $("#title1").text(mytitle[0].comment);
+      $("#title2").text(mytitle[1].comment);
+      $("#title3").text(mytitle[2].comment);
 
-//       for (let k = 0; k < mydata.length; k++) {
-//         notesImage[k].src = "";
-//         notesImage[k].src = mydata[k].image;
-//         console.log(mydata[k].image);
-//       }
-//     })
-//     .fail(function (cat) {
-//       console.log("2.fail:", cat);
-//     })
-//     .always(function () {
-//       console.log("3.always:咖波");
-//     });
-// }
+      //指定日期格式
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        console.log(date);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        return `${year}/${month}/${day}`;
+      }
 
+      $("#date1").text(formatDate(mytitle[0].date));
+      $("#date2").text(formatDate(mytitle[1].date));
+      $("#date3").text(formatDate(mytitle[2].date));
 
+      for (let k = 0; k < mytitle.length; k++) {
+        // title[k].innerHTML = "";
+        // latestDate[k].innerHTML = "";
+        //   $('#title1') = mytitle[0].comment;
+        //   latestDate[2].innerHTML = mytitle[2].date;
+        console.log(mytitle[k].comment);
+        console.log(mytitle[k].date);
+      }
+    })
+    .fail(function (cat) {
+      console.log("2.最新文章fail:", cat);
+    })
+    .always(function () {
+      console.log("3.always:最新文章");
+    });
+
+  //最新文章的照片1+2
+  let newTitle = document.querySelectorAll(".newTitle");
+
+  for (let i = 0; i < newTitle.length; i++) {
+    fetch(`http://localhost/test/php/newTitle.php?id=${i + 1}`)
+      .then((response) => {
+        console.log(response.url);
+        return response.blob();
+      })
+      .then((blob) => {
+        let imgURL = URL.createObjectURL(blob); //BLOB專用來轉換可以放到SRC
+        newTitle[i].src = imgURL;
+      })
+      .catch((error) => {
+        console.error("獲取圖片失敗", i + 1, error);
+      });
+  }
+};
+
+//首頁，網頁載入顯示圖片+食記標題+瀏覽人數 =>ok
+window.onload = function () {
+  //card的食記標題+瀏覽人數
+  $.ajax({
+    url: "http://localhost/swallabTest/Getcontent",
+    method: "GET",
+  })
+    .done(function (mydata) {
+      console.log(mydata);
+      let notesTitle = document.querySelectorAll(".notesTitle");
+      let viewNumber = document.querySelectorAll(".viewNumber");
+
+      for (let k = 0; k < mydata.length; k++) {
+        notesTitle[k].innerHTML = "";
+        viewNumber[k].innerHTML = "";
+        notesTitle[k].innerHTML = mydata[k].comment;
+        viewNumber[k].innerHTML = mydata[k].viewNumber;
+        console.log(mydata[k].comment);
+        console.log(mydata[k].viewNumber);
+      }
+    })
+    .fail(function (cat) {
+      console.log("2.fail:", cat);
+    })
+    .always(function () {
+      console.log("3.always:咖波");
+    });
+
+  //card的照片
+  let notesImage = document.querySelectorAll(".notesImage");
+
+  for (let i = 0; i < notesImage.length; i++) {
+    fetch(`http://localhost/test/php/download.php?id=${i + 1}`)
+      .then((response) => {
+        console.log(response.url);
+        return response.blob();
+      })
+      .then((blob) => {
+        let imgURL = URL.createObjectURL(blob); //BLOB專用來轉換可以放到SRC
+        notesImage[i].src = imgURL;
+      })
+      .catch((error) => {
+        console.error("獲取圖片失敗", i + 1, error);
+      });
+  }
+
+  //最新文章1+2 ==>標題+日期 ==> 用id
+  $.ajax({
+    url: "http://localhost/swallabTest/GetNewTitle",
+    method: "GET",
+  })
+    .done(function (mytitle) {
+      console.log(mytitle);
+
+      $("#title1").text(mytitle[0].comment);
+      $("#title2").text(mytitle[1].comment);
+      $("#title3").text(mytitle[2].comment);
+
+      //指定日期格式
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        console.log(date);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        return `${year}/${month}/${day}`;
+      }
+
+      $("#date1").text(formatDate(mytitle[0].date));
+      $("#date2").text(formatDate(mytitle[1].date));
+      $("#date3").text(formatDate(mytitle[2].date));
+
+      for (let k = 0; k < mytitle.length; k++) {
+        // title[k].innerHTML = "";
+        // latestDate[k].innerHTML = "";
+        //   $('#title1') = mytitle[0].comment;
+        //   latestDate[2].innerHTML = mytitle[2].date;
+        console.log(mytitle[k].comment);
+        console.log(mytitle[k].date);
+      }
+    })
+    .fail(function (cat) {
+      console.log("2.最新文章fail:", cat);
+    })
+    .always(function () {
+      console.log("3.always:最新文章");
+    });
+
+  //最新文章的照片1+2
+  let newTitle = document.querySelectorAll(".newTitle");
+
+  for (let i = 0; i < newTitle.length; i++) {
+    fetch(`http://localhost/test/php/newTitle.php?id=${i + 1}`)
+      .then((response) => {
+        console.log(response.url);
+        return response.blob();
+      })
+      .then((blob) => {
+        let imgURL = URL.createObjectURL(blob); //BLOB專用來轉換可以放到SRC
+        newTitle[i].src = imgURL;
+      })
+      .catch((error) => {
+        console.error("獲取圖片失敗", i + 1, error);
+      });
+  }
+};
