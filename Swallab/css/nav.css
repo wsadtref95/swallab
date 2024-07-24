@@ -83,5 +83,17 @@
 }
 
 .dropdown-content a:hover {
-    background-color: rgba(111, 107, 107)
+    background-color: #e5a67a;
+    color: white;
+}
+
+.btnLogin{
+    border: 2px, solid,#e5a67a !important;
+    border-radius: 5%;
+    color: #e5a67a !important;
+}
+
+.btnLogin:hover{
+    background-color: #e5a67a !important;
+    color: white !important;
 }
