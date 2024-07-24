@@ -8,7 +8,7 @@ $(".custom-ul > div:nth-child(1)>img").on("click", function () {
   $(".col-9").text("");
   let hotTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/bbq/胡同.jpg" class="img-fluid">
+                    <img src="../images/bbq/hutong.jpg" class="img-fluid">
                     <div class="text-con">
                         <p class="ellipsis">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
                         <p></p>
@@ -19,7 +19,7 @@ $(".custom-ul > div:nth-child(1)>img").on("click", function () {
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/dessert/蒔初.jpg">
+                        <img src="../images/dessert/shichu.jpg">
                         <div class="text-con">
                             <p class="ellipsis">蒔初甜點五權店:清新可愛綠葡萄戚風蛋糕</p>
                             <p></p>
@@ -29,7 +29,7 @@ $(".custom-ul > div:nth-child(1)>img").on("click", function () {
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/izakaya/我流精緻烤物.jpeg">
+                        <img src="../images/izakaya/woliu.jpeg">
                         <div class="text-con">
                             <p class="ellipsis">台中我流精緻烤物WOLIU 吃的很精緻 價格卻很平實</p>
                             <p></p>
@@ -310,7 +310,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/嗑肉石鍋.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/kerou.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">嗑肉石鍋美術店 百樣自助吧吃到飽。北高雄首間嗑肉石鍋二代店</p>
@@ -326,7 +326,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/偈亭.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/jiting.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">偈亭泡菜鍋| 台中超狂小火鍋，火鍋配料多到滿出來</p>
@@ -342,7 +342,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/有火鍋.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/youhg.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">有火鍋|台中南屯火鍋美食，麻辣湯居然可喝又不加牛油</p>
@@ -358,7 +358,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/涮乃葉.png" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/shuanny.png" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">雲雀集團-涮乃葉日式涮涮鍋來基隆展店囉。火鍋吃到飽。雙和牛、海鮮吃到飽</p>
@@ -374,7 +374,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/漂亮火鍋.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/piaoliang.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">漂亮火鍋 |台中火鍋吃到飽，20多種豐富海鮮、8款肉品吃到飽，哈根達斯、星巴克咖啡無限供應</p>
@@ -390,7 +390,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/良食煮意.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/liangszy.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">台中｜良食煮意有機鍋物：養生者天堂！有機葉菜無限續加的吃到飽火鍋！</p>
@@ -406,7 +406,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/鍋食主艺.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/guoszy.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">[台中北屯區]蔬菜飲料自助吧吃到飽－鍋食主艺</p>
@@ -422,7 +422,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/hotpot/鼎王.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/hotpot/dingwang.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">鼎王麻辣鍋公益店，台中老字號麻辣鍋店，麻辣鴨血豆腐無限續</p>
@@ -439,7 +439,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                 </div>`;
   let hotPotTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/hotpot/昭日堂鍋煮.jpg" class="img-fluid">
+                    <img src="../images/hotpot/zhaort.jpg" class="img-fluid">
                     <div class="text-con">
                         <p class="ellipsis">台中 | 昭日堂燒肉鍋煮－近IKEA高CP值火鍋店，自助吧超多選擇讓你吃到飽</p>
                         <p class="latestDate-1">2024/7/16</p>
@@ -449,7 +449,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/hotpot/森饗鍋物.jpg">
+                        <img src="../images/hotpot/senxiang.jpg">
                         <div class="text-con">
                             <p class="ellipsis">台中｜森饗鍋物：絕美森林系火鍋店！人氣必點胡椒豬肚、川香酸菜魚</p>
                             <p class="latestDate-1">2024/7/15</p>
@@ -458,7 +458,7 @@ $(".custom-ul > div:nth-child(2)>img").on("click", function () {
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/hotpot/久違石頭火鍋.jpg">
+                        <img src="../images/hotpot/jiuwei.jpg">
                         <div class="text-con">
                             <p class="ellipsis">久違石頭火鍋｜台中超美復古鳥籠火鍋餐廳，不但有火烤兩吃，還有鮮蔬鍋料吃到飽！現在加購龍蝦不用100元！</p>
                             <p class="latestDate-1">2024/7/13</p>
@@ -511,7 +511,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/屋馬燒肉.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/bbq/wuma.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">訂位很容易爆滿的知名台中燒肉店，屋馬菜單怎麼點才划算</p>
@@ -527,7 +527,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/山鯨燒肉.png" alt="" class="img-fluid notesImage">
+                                <img src="../images/bbq/shanjing.png" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">山鯨燒肉漢口店．一秒飛日本用餐還可以體驗穿和服拍美照！</p>
@@ -543,7 +543,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/川原痴.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/bbq/chaliu.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">台中日式燒肉推薦，不需要動手！專業代烤好滋味</p>
@@ -559,7 +559,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/森森燒肉.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/bbq/sensen.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">森森燒肉-洲際店 雙人套餐家自助吧無限量吃到飽，限時120分鐘</p>
@@ -575,7 +575,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/燒肉smile.png" alt="" class="img-fluid notesImage">
+                                <img src="../images/bbq/smile.png" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">燒肉Smile－個人燒肉、生菜沙拉自助飲料吧</p>
@@ -591,7 +591,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/碳佐麻里燒肉.jpeg" alt="" class="img-flui notesImaged">
+                                <img src="../images/bbq/tanzml.jpeg" alt="" class="img-flui notesImaged">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">碳佐麻里精品燒肉｜燒肉界南霸天，無用餐時間限制</p>
@@ -607,7 +607,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/紅巢燒肉工房.jpeg" alt="" class="img-fluid notesImaged">
+                                <img src="../images/bbq/hongchao.jpeg" alt="" class="img-fluid notesImaged">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">【紅巢燒肉工房】吃燒烤全程服務生代烤等吃就好～</p>
@@ -623,7 +623,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/老井.jpeg" alt="" class="img-fluid notesImaged">
+                                <img src="../images/bbq/laojing.jpeg" alt="" class="img-fluid notesImaged">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">專人剝蝦 老井極上燒肉 美村店 台中在地人推薦必吃 台中高級燒肉|銷魂A5和牛 雞湯冰沙無限續|老井訂位 |桌邊服務烤海鮮 和牛| 1公分超厚切牛舌</p>
@@ -639,7 +639,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/肉肉燒肉.jpeg" alt="" class="img-fluid notesImaged">
+                                <img src="../images/bbq/rourou.jpeg" alt="" class="img-fluid notesImaged">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">台中南屯||肉肉燒肉，單人用餐經濟實惠，雙人套餐高貴不貴!</p>
@@ -655,7 +655,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/bbq/胡同.jpg" alt="" class="img-fluid notesImaged">
+                                <img src="../images/bbq/hutong.jpg" alt="" class="img-fluid notesImaged">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
@@ -672,7 +672,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                 </div>`;
   let bbqTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/bbq/胡同.jpg" class="img-fluid">
+                    <img src="../images/bbq/hutong.jpg" class="img-fluid">
                     <div class="text-con">
                         <p class="ellipsis">胡同燒肉-燒肉食材新鮮就是王道，還有專人代烤、貼心解說服務，讓人怎能不愛呢。</p>
                         <p></p>
@@ -683,7 +683,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/bbq/俺達の肉屋.jpg">
+                        <img src="../images/bbq/anda.jpg">
                         <div class="text-con">
                             <p class="ellipsis">俺達の肉屋 | 台中日本和牛燒肉專賣店，台中米其林指南一星推薦。台中燒肉推薦</p>
                             <p></p>
@@ -693,7 +693,7 @@ $(".custom-ul >div:nth-child(3)>img").on("click",function(){
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/bbq/茶六.jpg">
+                        <img src="../images/bbq/chaliu.jpg">
                         <div class="text-con">
                             <p class="ellipsis">茶六燒肉堂公益店｜台中必吃燒肉，超難訂位的茶六，雙人和牛套餐好吃，有包廂營業到半夜2點</p>
                             <p></p>
@@ -746,7 +746,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/Concept La’麺KnockOut.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/concept.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">La麺Knock Out│由日本人主廚坐鎮，以濃郁蝦濃湯為基底再加松露的拉麵超特別</p>
@@ -762,7 +762,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/伊禾.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/yihe.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">伊禾白湯｜宛如在吃板前料理的醇厚牛白湯拉麵</p>
@@ -778,7 +778,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/初拉麵.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/chu.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">拉麵王者 濃郁好吃的家系拉麵 不用排隊就可以享受一碗熱騰騰的日式拉麵</p>
@@ -794,7 +794,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/宋囍.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/songxi.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">:只有平日吃得到，雞湯濃醇肉超軟．宋囍拉麵</p>
@@ -810,7 +810,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/山嵐安通.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/shanlan.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">山嵐拉麵安通溫泉店｜安通溫泉飯店內．精緻日式庭院景觀．泡湯後來碗拉麵吧!</p>
@@ -826,7 +826,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/悠然.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/youran.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">創作拉麵 悠然｜淡麗系拉麵的指標性名店！用多元食材創造新穎日式口味</p>
@@ -842,7 +842,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/福屋.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/fuwu.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">福屋｜超強素食拉麵，醇厚湯頭有著不輸葷食的鮮美風味</p>
@@ -858,7 +858,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/金晴川.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/jinqc.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">金晴川拉麵，濃郁湯頭搭配超大塊叉燒</p>
@@ -874,7 +874,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/麵処佐藤北海道ラーメン.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/sato.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">麵處佐藤北海道拉麵，台灣台中西區，香濃開胃帶廣辣味噌拉麵</p>
@@ -890,7 +890,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/ramen/黑心.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/ramen/heixin.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">台中霧峰日式拉麵店～麵屋黑心，以雞白湯與雞清湯為主打，辣肉丁烤飯有特色！</p>
@@ -907,7 +907,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                 </div>`;
     let romenTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/ramen/山下公園ラーメン.jpg" class="img-fluid">
+                    <img src="../images/ramen/shanxgy.jpg" class="img-fluid">
                     <div class="text-con">
                         <p class="ellipsis">【台中】山下公園 ラーメン 第六市場，常常需要排隊的拉麵店</p>
                         <p></p>
@@ -918,7 +918,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/ramen/月樽拉麵.jpg">
+                        <img src="../images/ramen/yuezun.jpg">
                         <div class="text-con">
                             <p class="ellipsis">「月樽拉麵精誠店」台中深夜食堂！柚見花香蝦湯拉麵、炙牛肉魂叉燒泡飯味道好驚艷！</p>
                             <p></p>
@@ -928,7 +928,7 @@ $(".custom-ul>div:nth-child(4)>img").on("click",function(){
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/ramen/牛庵.jpg">
+                        <img src="../images/ramen/niuan.jpg">
                         <div class="text-con">
                             <p class="ellipsis">牛庵拉麵｜台中拉麵推薦，狸匠系列咖哩牛骨拉麵，超濃郁咖哩飯吃到飽，唐揚雞必點</p>
                             <p></p>
@@ -966,7 +966,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/十八魂.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/shibh.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">【十八魂手串燒烤｜逢甲串燒烤】逢甲必吃平價串燒.逢甲宵夜居酒屋首選.用心的料理讓人無法抗拒的美味</p>
@@ -982,7 +982,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/容燒居酒屋-南屯文心總店.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/rongshao_ntwenxin.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">【台中居酒屋】容燒居酒屋 寵物友善餐廳推薦！還有狗狗專屬串燒好狗命炒飯</p>
@@ -998,7 +998,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/將軍府.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/jiangjf.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">台中高人氣日式居酒屋｜將軍府勤美店，大啖比手掌大的大生蠔、串燒、特色清酒，菜單完全無雷絕對讓人再回訪！！</p>
@@ -1014,7 +1014,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/我流精緻烤物WOLIU.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/woliu.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">我流精緻烤物│營業到凌晨二點的吃宵夜看球賽好去處，套餐新上市讓點餐更方便，對面就有免費特約停車場喔～</p>
@@ -1030,7 +1030,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/拿手串日式串燒居酒屋.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/nashouchuan.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">【台中北區】拿手串日式串燒居酒屋－招牌烤肉串與熱炒應有盡有，朋友聚會與下班小酌聊天的好所在！</p>
@@ -1046,7 +1046,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/港町十三番地.png" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/gangting13.png" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">【台中北屯。美食】『港町十三番地-太原店』老字號居酒屋！營業到凌晨的宵夜聚餐好去處！</p>
@@ -1062,7 +1062,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/激旨燒き鳥.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/jizhisn.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">「激旨燒き鳥GEKIUMA YAKITORI 台灣總店」逢甲夜市人氣串燒店推出外帶優惠</p>
@@ -1078,7 +1078,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/織田信長串燒酒場 東興店.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/zhitxc.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">織田信長串燒、酒場-西屯本舖│台中深夜美食推薦！日式居酒屋，串燒好吃，品項超多，宵夜最佳首選～</p>
@@ -1094,7 +1094,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/草津田日式串燒.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/caojt.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">台中美食║北區║草津田居酒屋║台中北區深夜食堂</p>
@@ -1110,7 +1110,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/虎川千代日式居酒屋.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/hucqd.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">虎川千代居酒屋|台中居酒屋推薦中國醫日式老宅網評滿分!聚餐宵夜慶生老闆送很大</p>
@@ -1126,7 +1126,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/izakaya/鳥忠とりちゅう.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/izakaya/niaozhong.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">鳥忠とりちゅう：台中西區美食-鄰近草悟道的深夜食堂日式居酒屋，必點尚青的海鮮料理！</p>
@@ -1143,7 +1143,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                 </div>`;
     let beerTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/izakaya/六月螢火.jpg" class="img-fluid">
+                    <img src="../images/izakaya/liuyyh.jpg" class="img-fluid">
                     <div class="text-con">
                         <p class="ellipsis">六月螢火｜台中深夜食堂，日料串燒結合調酒，時髦現代居酒屋，消費超平價</p>
                         <p></p>
@@ -1154,7 +1154,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/izakaya/吾曹.jpg">
+                        <img src="../images/izakaya/wucao.jpg">
                         <div class="text-con">
                             <p class="ellipsis">太原夜市人氣串燒”吾曹炭燒專門”開店囉！！40種以上創意串燒+獨門醬料，日式關東煮暖暖吃超滿足(寵物友善餐廳)</p>
                             <p></p>
@@ -1164,7 +1164,7 @@ $(".custom-ul>div:nth-child(5)>img").on("click",function(){
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/izakaya/炙居.jpg">
+                        <img src="../images/izakaya/zhiju.jpg">
                         <div class="text-con">
                             <p class="ellipsis">【灸居｜台中 北屯區居酒屋】 無低消 高cp值 寵物友善串燒居酒屋 串物價格40元起</p>
                             <p></p>
@@ -1233,7 +1233,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/J.W CAFE.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/jw_cafe.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">J.W. Cafe｜網路爆紅的貓掌印布丁就是這間！每日限量供應</p>
@@ -1249,7 +1249,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/ten thousand.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/ten_thousand.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">人氣咖啡「Ten Thousand Coffee」插旗台中！純白基地打造海島度假概念店</p>
@@ -1265,7 +1265,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/二月森甜點.webp" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/eryuesen.webp" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">二月森甜點工作室｜台中人氣法式手工餅乾甜點專賣</p>
@@ -1281,7 +1281,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/偷偷.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/toutou.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">偷偷toutou | 台中超浮誇甜點16宮格乾冰塔</p>
@@ -1297,7 +1297,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/克莉絲塔.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/kelisita.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">克莉斯塔｜多達10多種鹹甜口味，最推焦糖佐海鹽蛋塔</p>
@@ -1313,7 +1313,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/勞咖.jpeg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/laoka.jpeg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">LOWCA勞咖| 台中炸饅頭早午餐還有超邪惡的台版蜜糖吐司</p>
@@ -1329,7 +1329,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/查壹茶Charlie Tea & Coffee.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/charlietea.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">【台中西屯美食】查壹茶Charlie Tea & Coffee，神等級好吃流心感巴斯克蛋糕、爆漿抹茶鬆餅</p>
@@ -1345,7 +1345,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/綠町抹茶專門店.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/lvting.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">綠町抹茶專門店-巷弄裡的抹茶專賣店，使用丸久小山園抹茶粉製作，抹茶控必收藏</p>
@@ -1361,13 +1361,13 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                     <div class="col-4 mb-4">
                         <div class="card overflow-hidden">
                             <div class="card-body p-0">
-                                <img src="../images/dessert/蒔初.jpg" alt="" class="img-fluid notesImage">
+                                <img src="../images/dessert/shichu.jpg" alt="" class="img-fluid notesImage">
                             </div>
                             <div class="card-footer">
                                 <p class="ellipsis notesTitle">蒔初甜點五權店:清新可愛綠葡萄戚風蛋糕</p>
                                 <div class="fixed-bottom-center">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <img src="../_images/eye.png" alt="">
+                                        <img src="../images/other/eye.png" alt="">
                                         <p class="m-0 viewNumber">201622</p>
                                     </div>
                                 </div>
@@ -1378,7 +1378,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                 </div>`;
     let dessertTitle = `<div class="col-8 p-0">
                 <div class="height500">
-                    <img src="../images/dessert/若草蛋糕店.jpg" class="img-fluid">
+                    <img src="../images/dessert/ruocao.jpg" class="img-fluid">
                     <div class="text-con">
                         <p class="ellipsis">若草．台中模範街神秘甜點店，水果千層、焦糖布丁大推</p>
                         <p></p>
@@ -1389,7 +1389,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
             <div class="col-4 row p-0">
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/dessert/日日鬆餅.jpg">
+                        <img src="../images/dessert/riri.jpg">
                         <div class="text-con">
                             <p class="ellipsis">台中西區 日日鬆餅 平價舒芙蕾鬆餅 審計新村必吃美食</p>
                             <p></p>
@@ -1399,7 +1399,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click",function(){
                 </div>
                 <div class="col-12">
                     <div class="img-con">
-                        <img src="../images/dessert/可可庫奇.jpg">
+                        <img src="../images/dessert/kekekuqi.jpg">
                         <div class="text-con">
                             <p class="ellipsis">台中北區 可可庫奇甜點工坊 到中友一中商圈逛街、用餐後的甜點午茶好選擇</p>
                             <p></p>
