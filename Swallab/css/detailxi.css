@@ -6,7 +6,7 @@ header{
     background-color: #EEE9D5;
     }
 body{
-    background-image: url("./../image/大專bg.png");
+    background-image: url("./../images/root/bgi.png");
     flex-direction: column;
 }
 footer{
@@ -133,4 +133,7 @@ footer{
     width: 50px; 
     height: auto; 
     z-index: 1000; 
+}
+.hidden{
+    display: none;
 }

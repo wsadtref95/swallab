@@ -3,7 +3,7 @@ header{
     background-color: #EEE9D5;
     }
 body{
-    background-image: url("./../image/大專bg.png");
+    background-image: url("./../images/background.webp");
     background-attachment: fixed;
 }
 li{margin: 5% 0;}
