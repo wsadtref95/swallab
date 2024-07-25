@@ -40,8 +40,8 @@ $().ready(function () {
         return fetch(`http://localhost/myProj/management_menu1.php/${parts}`, {
             // 用post
             method: 'post',
-            headers: headers,
-            body: body
+            headers,
+            body
         }).then(response => {
             return response.json()
             // return response.text()
