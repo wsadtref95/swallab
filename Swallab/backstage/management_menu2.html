@@ -44,7 +44,7 @@
                     <h5><b>我的菜單</b></h5>
                     <p id="editMenu">新增</p>
                 </div>
-                <div class="menuListContainer row">
+                <!-- <div class="menuListContainer row">
                     <div class="col-2">分類</div>
                     <div class="col-2">圖片</div>
                     <div class="col-2">名稱</div>
@@ -169,21 +169,24 @@
                         </div>
 
                     </div>
-                </div>
+                </div> -->
 
 
                 <!-- 新增菜單 module -->
 
                 <div class="addOptionContainerBg d-none" id="newForm">
-                <!-- <div class="addOptionContainerBg" id="newForm"> -->
-                    
-                    <form action="" method="post" enctype="multipart/form-data" id="editForm">
+                    <!-- <div class="addOptionContainerBg" id="newForm"> -->
+
+                    <!-- <form action="" method="post" enctype="multipart/form-data" id="editForm"> -->
+                    <form id="editForm">
                         <i id="myClose" class="fa-solid fa-xmark"></i>
                         <div class="addOptionContainer row container">
                             <div class="col">
                                 <p id="photoResult">新增食品照片</p>
-                                <input type="file" name="foodPhoto1" id="foodPhoto">
-
+                                <!-- <p id="photoResult">
+                                    <img src="../images/background.webp" alt="">
+                                </p> -->
+                                <input type="file" name="foodPhoto" id="foodPhoto" accept="image/*">
                             </div>
                             <div class="col row">
 
@@ -223,7 +226,7 @@
         </div>
     </div>
     <script src="../js/jquery-3.7.1.js"></script>
-    <script src="../js/backstage.js"></script>
+    <!-- <script src="../js/backstage.js"></script> -->
     <script src="../js/management2.js"></script>
 </body>
 

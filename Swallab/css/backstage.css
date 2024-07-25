@@ -345,12 +345,34 @@ input[type=hidden]{
     font-weight: bolder;
     box-shadow: 0 0 0 1px #000;
 }
+
+
+/* 新增表單 */
+.addOptionContainerBg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #00000080;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#editForm {
+    position: relative;
+}
+#myClose {
+    position: absolute;
+    top: -40px;
+    right:-40px;
+}
 .addOptionContainer {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 5px 5px 5px #aaa;
-    /* text-align: center; */
 }
 .addOptionContainer > .col >input {
     /* border: 1px solid #000; */
@@ -367,6 +389,12 @@ input[type=hidden]{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#photoResult img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+
 }
 .addOptionContainer>.col>.col-12 {
     display: flex;

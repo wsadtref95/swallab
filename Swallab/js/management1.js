@@ -21,9 +21,9 @@ $().ready(function () {
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i]['class'];
                     // console.log(element);
-                    html += `<option value=${data[i]['id']}>${element}</option>`
+                    html += `<option value=${data[i]['class_num']}>${element}</option>`
                 }
-                // console.log(html);
+                console.log(html);
 
                 $(`#className${id}`).html(html);
             })
