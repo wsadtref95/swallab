@@ -54,7 +54,7 @@
                             </button>
                             <button class="position-absolute translate-middle rounded-pill"
                                 style="display: block; margin-left: 90%; margin-top: 1.5em; white-space: nowrap;">
-                                <img class="icon" src="../images/other/disabled-people.png" alt="">無障礙
+                                <img class="icon" src="../images/other/disabledpeople.png" alt="">無障礙
                             </button>
                         </div>
                         <!-- 搜尋 icon = submit -->
@@ -183,16 +183,19 @@
 
                             <!-- Modal body -->
                             <div class="modal-body p-4">
-                                <form>
+                                <form name="myForm" method="post" id="myForm">
                                     <label for="message">留言：</label>
-                                    <textarea id="message" name="message" rows="5"></textarea>
+                                    <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+                                    <button type="submit" form="myForm" class="btn btn-primary" id="btnSubmit">送出</button>
                                 </form>
+
                             </div>
 
                             <!-- Modal footer -->
                             <div class="modal-footer d-flex justify-content-center align-items-center">
-                                <button type="submit" class="btn login" data-bs-dismiss="modal">送出</button>
+                                
                             </div>
+
 
                         </div>
                     </div>
@@ -200,56 +203,58 @@
 
             </div>
                 
-
-            <div class="d-flex justify-content-center mt-4 m-0">
-                <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
-                    <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
-                        <img src="../images/other/小豬皮傑.jpg" alt="">
-                        <div >小豬皮傑</div>
+            <div id="messages-container">
+                <div class="d-flex justify-content-center mt-4 m-0">
+                    <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
+                        <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
+                            <img src="../images/other/小豬皮傑.jpg" alt="">
+                            <div >小豬皮傑</div>
+                        </div>
+                        <div class="col-8 p-0 d-flex flex-column">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
+                            </p>
+                            <p >2024-07-20</p>
+                        </div>
                     </div>
-                    <div class="col-8 p-0 d-flex flex-column">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
-                        </p>
-                        <p style="align-self: flex-end; margin-right: 10px;">2024-07-20</p>
+                </div>
+                <!-- <hr style="border: 2px solid black;"> -->
+
+                <div class="d-flex justify-content-center mt-4 m-0">
+                    <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
+                        <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
+                            <img src="../images/other/屹耳.webp" alt="">
+                            <div >屹耳</div>
+                        </div>
+                        <div class="col-8 p-0 d-flex flex-column">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
+                            </p>
+                            <p >2024-06-30</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <hr style="border: 2px solid black;"> -->
+
+                <div class="d-flex justify-content-center mt-4 m-0">
+                    <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
+                        <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
+                            <img src="../images/other/跳跳虎.jpg" alt="">
+                            <div >跳跳虎</div>
+                        </div>
+                        <div class="col-8 p-0 d-flex flex-column">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
+                            </p>
+                            <p >2024-05-20</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- <hr style="border: 2px solid black;"> -->
-
-            <div class="d-flex justify-content-center mt-4 m-0">
-                <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
-                    <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
-                        <img src="../images/other/屹耳.webp" alt="">
-                        <div >屹耳</div>
-                    </div>
-                    <div class="col-8 p-0 d-flex flex-column">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
-                        </p>
-                        <p style="align-self: flex-end; margin-right: 10px;">2024-06-30</p>
-                    </div>
-                </div>
-            </div>
-            <!-- <hr style="border: 2px solid black;"> -->
-
-            <div class="d-flex justify-content-center mt-4 m-0">
-                <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
-                    <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
-                        <img src="../images/other/跳跳虎.jpg" alt="">
-                        <div >跳跳虎</div>
-                    </div>
-                    <div class="col-8 p-0 d-flex flex-column">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
-                        </p>
-                        <p >2024-05-20</p>
-                    </div>
-                </div>
-            </div>
+            
 
 
 
@@ -313,5 +318,61 @@
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/jquery-3.7.1.js"></script>
     <script src="../js/demoHotpot.js"></script>
+    <script>
+    
+        window.onload = () => {
+            const button = document.getElementById('btnSubmit');
+            const form = document.getElementById('myForm');
+            const messagesContainer = document.getElementById('messages-container');
+
+            // 更新留言列表的函數
+            const updateMessages = () => {
+                fetch('../php/messageOnWeb.php')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('資料庫抓留言有錯');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        messagesContainer.innerHTML = html;
+                    })
+                    .catch(error => console.error('資料庫抓留言最後有錯', error));
+            };
+
+            button.onclick = (event) => {
+                event.preventDefault(); // 防止默認表單提交行為
+
+                fetch('../php/message.php', {
+                    method: 'POST',
+                    body: new FormData(form), // 使用 FormData 來提交表單數據
+                })
+                .then(response => response.text())
+                .then(text => {
+                    console.log(text);
+                    
+                    // 提交成功後關閉 modal (bootstrap的)
+                    const modalElement = document.querySelector('.modal');
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) {
+                        modal.hide();
+                    }
+
+                    // 提交成功後更新留言列表
+                    updateMessages();
+
+                    // 清空表單
+                    form.reset();
+                })
+                .catch(error => console.error('Error:', error));
+            };
+
+            // 初次載入頁面時加載留言
+            updateMessages();
+        };
+
+
+</script>
+
 </body>
 </html>
