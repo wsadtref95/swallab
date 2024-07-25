@@ -1442,7 +1442,7 @@ hot.onclick = async function () {
   let notesImage = document.querySelectorAll(".notesImage");
 
   for (let i = 0; i < notesImage.length; i++) {
-    fetch(`http://localhost/test/php/download.php?id=${i + 1}`)
+    fetch(`http://localhost/swallab/Swallab/php/download.php?id=${i + 1}`)
       .then((response) => {
         console.log(response.url);
         return response.blob();
@@ -1502,7 +1502,7 @@ hot.onclick = async function () {
   let newTitle = document.querySelectorAll(".newTitle");
 
   for (let i = 0; i < newTitle.length; i++) {
-    fetch(`http://localhost/test/php/newTitle.php?id=${i + 1}`)
+    fetch(`http://localhost/swallab/Swallab/php/newTitle.php?id=${i + 1}`)
       .then((response) => {
         console.log(response.url);
         return response.blob();
@@ -1549,7 +1549,7 @@ window.onload = function () {
   let notesImage = document.querySelectorAll(".notesImage");
 
   for (let i = 0; i < notesImage.length; i++) {
-    fetch(`http://localhost/test/php/download.php?id=${i + 1}`)
+    fetch(`http://localhost/swallab/Swallab/php/download.php?id=${i + 1}`)
       .then((response) => {
         console.log(response.url);
         return response.blob();
@@ -1609,7 +1609,7 @@ window.onload = function () {
   let newTitle = document.querySelectorAll(".newTitle");
 
   for (let i = 0; i < newTitle.length; i++) {
-    fetch(`http://localhost/test/php/newTitle.php?id=${i + 1}`)
+    fetch(`http://localhost/swallab/Swallab/php/newTitle.php?id=${i + 1}`)
       .then((response) => {
         console.log(response.url);
         return response.blob();
