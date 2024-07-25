@@ -1,4 +1,4 @@
-let totalprices = [];    
+
         function removeProduct(rowId) {
             const productRow = document.getElementById(rowId);
             if (productRow) {
@@ -8,13 +8,15 @@ let totalprices = [];
             }
         }
         function updateSubtotal() {
-            
-            //var totalPrices = document.getElementById();
+            //抓所有要計算的Html元素陣列
+            var allTotalPrice = document.querySelectorAll('.total-price-forupdateSubtotal');
             var subtotal = 0;
-            for (let i = 0; i < totalprices.length; i++) {
-                subtotal += totalprices[i];
-            }
-            console.log(subtotal);
+            //迭代這個陣列去處理每個元素
+            allTotalPrice.forEach(Element=>{
+                //取值轉換完加總
+                subtotal += parseInt(Element.innerHTML.replace('$', ''));
+            })
+
             document.getElementById('subtotal').textContent = `總計: $${subtotal.toFixed(0)}`;
         }
         function increment(numberSpanId, priceId, totalPriceId) {
@@ -51,7 +53,7 @@ let totalprices = [];
         }
 
         function updateTotalPrice(numberSpanId, priceId, totalPriceId) {
-        
+            
             // 獲取數量的 span 元素
             var numberSpan = document.getElementById(numberSpanId);
             // 獲取價格元素
@@ -67,8 +69,7 @@ let totalprices = [];
             // 更新總價的元素的文本
             totalPriceElement.innerText = totalPrice.toFixed(0);
             document.getElementById(totalPriceId).textContent = `$${totalPrice}`
-            // 存入陣列
-            totalprices.push(totalPrice);
+            
             //console.log(totalprices);
             updateSubtotal();
         }
