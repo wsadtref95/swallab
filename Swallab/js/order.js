@@ -7,17 +7,24 @@
                 
             }
         }
+        //更新總計
         function updateSubtotal() {
             //抓所有要計算的Html元素陣列
-            var allTotalPrice = document.querySelectorAll('.total-price-forupdateSubtotal');
+            var allTotalPrice = document.querySelectorAll('.total-price-forUpdateSubtotal');
+            // [
+            //     <span>20</span>
+            //     <span>310</span>
+            //     <span>0</span>
+            // ]
             var subtotal = 0;
             //迭代這個陣列去處理每個元素
+            //這邊的Element就是一個一個的網頁元素（名字隨便你取）
             allTotalPrice.forEach(Element=>{
                 //取值轉換完加總
                 subtotal += parseInt(Element.innerHTML.replace('$', ''));
             })
 
-            document.getElementById('subtotal').textContent = `總計: $${subtotal.toFixed(0)}`;
+            document.getElementById('subtotal').textContent = `總計: $${subtotal}`;
         }
         function increment(numberSpanId, priceId, totalPriceId) {
             // 獲取數量的 span 元素
@@ -51,7 +58,7 @@
                 updateTotalPrice(numberSpanId, priceId, totalPriceId);
             }
         }
-
+        // 更新小計
         function updateTotalPrice(numberSpanId, priceId, totalPriceId) {
             
             // 獲取數量的 span 元素
@@ -62,13 +69,11 @@
             var totalPriceElement = document.getElementById(totalPriceId);
             // 獲取當前數量和單價
             var currentNumber = parseInt(numberSpan.innerText);
-            var price = parseFloat(priceElement.textContent.replace('$', ''));
-            
+            var price = parseInt(priceElement.innerText);
             // 計算總價
             var totalPrice = currentNumber * price;
             // 更新總價的元素的文本
-            totalPriceElement.innerText = totalPrice.toFixed(0);
-            document.getElementById(totalPriceId).textContent = `$${totalPrice}`
+            totalPriceElement.innerText = `$${totalPrice}`;
             
             //console.log(totalprices);
             updateSubtotal();
@@ -101,3 +106,6 @@
         //抓每樣商品加入購物車按鈕的id 
         //購物車增減時更新總價
         //按垃圾桶會移除該商品
+        
+
+        

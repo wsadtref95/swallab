@@ -18,3 +18,7 @@ function showMore (elenentId){
     comment.style.display = "flex";
 }
 
+
+
+
+
