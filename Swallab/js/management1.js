@@ -40,8 +40,8 @@ $().ready(function () {
         return fetch(`http://localhost/myProj/management_menu1.php/${parts}`, {
             // 用post
             method: 'post',
-            headers,
-            body
+            headers: headers,
+            body: body
         }).then(response => {
             return response.json()
             // return response.text()
@@ -94,8 +94,9 @@ $().ready(function () {
         // console.log(this);
         let id = this.id.replace(/[^\d]/g, "");
         // console.log(id);
+        // let price = $(`#originalPrice${id}`).text();
         let price = parseInt($(`#originalPrice${id}`).text());
-        console.log(price);
+        // console.log(price);
         let price1 = price;
         let inputValue = parseInt($(`#${this.id}`).val());
         // console.log(inputValue);
@@ -132,9 +133,6 @@ $().ready(function () {
         // console.log( id);
         // console.log(startTime);
         let now = new Date();
-        // console.log('index : ' + index);
-        // console.log('value : ' + startTime);
-        // console.log('now :' + now);
         if (startTime < now) {
             $(`#startTimeResult${id}`).text('開始時間不能小於當前時間');
             $(`#startTime${id}`).val('');
@@ -157,7 +155,7 @@ $().ready(function () {
 
         let endTime = new Date($(`#${this.id}`).val());
         let startTime = new Date($(`#startTime${id}`).val());
-        if (endTime < startTime) {
+        if (endTime <= startTime) {
             $(`#endTimeResult${id}`).text('結束時間不能小於開始時間');
             $(`#endTime${id}`).val('');
         } else {
@@ -196,7 +194,7 @@ $().ready(function () {
                 </div>
                 <div class="col-4">
                     <h5>價格 : </h5>
-                    <input menuPrice${index} type="number" name="menuPrice${index}">
+                    <input id="menuPrice${index}" type="number" name="menuPrice${index}">
                     <p>原始價格為 : <span id="originalPrice${index}"></span></p>
                 </div>
                 <div class="col-6">
@@ -213,10 +211,9 @@ $().ready(function () {
         </div>`;
         if (index <= 5) {
             $('#addList').append(discountForm);
-            console.log(index);
+            // console.log(index);
         } else {
             $('#addDiscount').addClass('disable');
-            console.log(index);
         }
     })
 
