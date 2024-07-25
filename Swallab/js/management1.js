@@ -1,5 +1,10 @@
 $().ready(function () {
 
+    // 間隔時間控制
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
 
     // // 資料庫練習
     // // 抓分類
@@ -85,6 +90,21 @@ $().ready(function () {
     })
 
     // 檢查價格是否正確
+    $('#discountForm').on('change', '.col-4:nth-child(3) input', async function () {
+        // console.log(this);
+        let id = this.id.replace(/[^\d]/g, "");
+        // console.log(id);
+        let price = parseInt($(`#originalPrice${id}`).text());
+        console.log(price);
+        let price1 = price;
+        let inputValue = parseInt($(`#${this.id}`).val());
+        // console.log(inputValue);
+        if (inputValue >= price || inputValue <= 0) {
+            $(`#originalPrice${id}`).text('請輸入正確金額')
+            await sleep(3000);
+            $(`#originalPrice${id}`).text(price1)
+        }
+    })
 
 
 
@@ -200,9 +220,7 @@ $().ready(function () {
         }
     })
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    
 
     // 傳送表單
     $('#discountBtn').on('click', async event => {

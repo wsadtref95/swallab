@@ -10,7 +10,8 @@ $dbname = 'myprojtest';
 $user = 'root';
 
 try {
-    $db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $user);
+    // $db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $user);
+    $db = new PDO("mysql:host={$host};dbname={$dbname};", $user);
     $parts = explode('/', $_SERVER['REQUEST_URI']);
     // var_dump($parts);
 
