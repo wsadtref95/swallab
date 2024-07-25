@@ -4,13 +4,13 @@ $().ready(function () {
     // // 資料庫練習
     // // 抓分類
     let getClass = id => {
-        fetch('http://localhost/myProj/management_menu2.php/getClass')
+        fetch('http://localhost/myProj/management_menu1.php/getClass')
             .then(response => {
                 return response.json()
                 // return response.text()
             }).then(data => {
                 // console.log(data);
-                console.log(id);
+                // console.log(id);
                 let html = '<option disabled selected>請選擇...</option>'
 
                 for (let i = 0; i < data.length; i++) {
@@ -32,15 +32,15 @@ $().ready(function () {
             'content-type': 'application/x-www-form-urlencoded'
         }
         // fetch(`http://localhost/myProj/management_menu2.php/getClassList/${this.value}`, {
-        return fetch(`http://localhost/myProj/management_menu2.php/${parts}`, {
+        return fetch(`http://localhost/myProj/management_menu1.php/${parts}`, {
             // 用post
             method: 'post',
             headers: headers,
             body: body
         }).then(response => {
-                return response.json()
-                // return response.text()
-            })
+            return response.json()
+            // return response.text()
+        })
 
     }
 
@@ -56,7 +56,7 @@ $().ready(function () {
         const body = new URLSearchParams({ classId: this.value }).toString();
         // console.log(body);
         let data = await getDetail('getClassList', body);
-        console.log(data);
+        // console.log(data);
         let myHtml = '<option disabled selected>請選擇...</option>'
 
         for (let i = 0; i < data.length; i++) {
@@ -78,12 +78,13 @@ $().ready(function () {
         // console.log(foodId);
         const body = new URLSearchParams({ foodId: this.value }).toString();
         let data = await getDetail('getPrice', body);
-        console.log(data);
-        console.log(data[0].price);
+        // console.log(data);
+        // console.log(data[0].price);
+        $(`#menuPrice${id}`).attr('max', data[0].price);
         $(`#originalPrice${id}`).text(data[0].price);
     })
 
-
+    // 檢查價格是否正確
 
 
 
@@ -119,7 +120,7 @@ $().ready(function () {
             $(`#startTime${id}`).val('');
         } else {
             $(`#startTimeResult${id}`).text('');
-            console.log(this);
+            // console.log(this);
             $(`#endTime${id}`).attr('min', $(this).val());
         }
 
@@ -129,9 +130,9 @@ $().ready(function () {
     });
     // ============================
     $('#discountForm').on('change', '.col-6:nth-child(5) input', function () {
-        console.log(this.id); // endTime1
+        // console.log(this.id); // endTime1
         let id = this.id.replace(/[^\d]/g, "");
-        console.log(id);
+        // console.log(id);
 
 
         let endTime = new Date($(`#${this.id}`).val());
@@ -149,49 +150,91 @@ $().ready(function () {
     $('#addDiscount').on('click', function () {
         index++;
         getClass(index)
-        console.log(index);
+        // console.log(index);
         let discountForm = `
         <div class="optionContainer mt-20" id="add${index}">
             <div class="newDiscountBtn">
                 <h5><b>${index}</b></h5>
                 <p><i onclick="removeCon('#add${index}')" class="fa-solid fa-trash-can"></i></p>
-                </div>
-                <div class="menuContainer row">
-                
-                    <div class="col-4">
-                        <h5>餐點分類 : </h5>
-                        <select id="className${index}" name="menuList${index}">
-                            <option value="" disabled selected>請選擇...(動態)</option>
-                            <option value="signature">招牌餐點</option>
-                        <option value="individual">個人即享餐</option>
-                    </select>
-                    </div>
-                    <div class="col-4">
-                    <h5>餐點名稱 : </h5>
-                    <select id="mealName${index}" name="menuName${index}">
-                        <option value="" disabled selected>請選擇...(動態)</option>
+            </div>
+            <div class="menuContainer row">
+                <div class="col-4">
+                    <h5>餐點分類 : </h5>
+                    <select id="className${index}" name="menuList${index}">
+                        <option value="" disabled selected>請選擇...</option>
                         <option value="signature">招牌餐點</option>
-                        <option value="individual">個人即享餐</option>
-                        </select>
-                        </div>
-                        <div class="col-4">
-                            <h5>價格 : </h5>
-                            <input type="number" name="menuPrice${index}">
-                            <p>原始價格為 : <span id="originalPrice${index}">300(動態)</span></p>
-                            </div>
-                            <div class="col-6">
-                                <h5>開始時間 : </h5>
-                                <input type="datetime-local" id="startTime${index}" name="startTime${index}"         >
-                                <p id="startTimeResult${index}"></p>
+                    <option value="individual">個人即享餐</option>
+                </select>
+                </div>
+                <div class="col-4">
+                <h5>餐點名稱 : </h5>
+                <select id="mealName${index}" name="menuName${index}">
+                    <option value="" disabled selected>請選擇...</option>
+                    <option value="signature">招牌餐點</option>
+                    <option value="individual">個人即享餐</option>
+                </select>
+                </div>
+                <div class="col-4">
+                    <h5>價格 : </h5>
+                    <input menuPrice${index} type="number" name="menuPrice${index}">
+                    <p>原始價格為 : <span id="originalPrice${index}"></span></p>
+                </div>
+                <div class="col-6">
+                    <h5>開始時間 : </h5>
+                    <input type="datetime-local" id="startTime${index}" name="startTime${index}"         >
+                    <p id="startTimeResult${index}"></p>
                 </div>
                 <div class="col-6">
                     <h5>結束時間 : </h5>
                     <input type="datetime-local" id="endTime${index}" name="endTime${index}" disabled>
                     <p id="endTimeResult${index}"></p>
-                    </div>
-                    </div>
-                    </div>`;
-        $('#addList').append(discountForm);
+                </div>
+            </div>
+        </div>`;
+        if (index <= 5) {
+            $('#addList').append(discountForm);
+            console.log(index);
+        } else {
+            $('#addDiscount').addClass('disable');
+            console.log(index);
+        }
+    })
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // 傳送表單
+    $('#discountBtn').on('click', async event => {
+        event.preventDefault();
+
+        let body = new FormData(discountForm)
+        body = new URLSearchParams(body).toString()
+        console.log(body);
+
+        const headers = {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+
+        let response = await fetch('http://localhost/myProj/insertDiscount.php', {
+            method: 'POST',
+            headers,  // headers: headers
+            body  // body: body
+        })
+        // let result = await response.json()
+        let result = await response.text()
+        console.log(result);
+        if (result.includes('ok')) {
+            discountForm.reset()
+            $('#submitResult').text('儲存成功')
+            await sleep(3000);
+            $('#submitResult').text('')
+
+        } else if (result == "") {
+            $('#submitResult').text('表格尚未填寫完成')
+        } else {
+            $('#submitResult').text('儲存失敗')
+        }
     })
 
 
@@ -202,7 +245,7 @@ $().ready(function () {
 
 
 function removeCon(Con) {
-    console.log(Con);
+    // console.log(Con);
     $(Con).fadeOut(500, function () {
         $(this).remove();
     })
