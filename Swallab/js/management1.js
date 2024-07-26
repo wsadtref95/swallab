@@ -9,7 +9,7 @@ $().ready(function () {
     // // 資料庫練習
     // // 抓分類
     let getClass = id => {
-        fetch('http://localhost/myProj/management_menu1.php/getClass')
+        fetch('http://localhost/myProj/php/management_menu1.php/getClass')
             .then(response => {
                 return response.json()
                 // return response.text()
@@ -37,7 +37,7 @@ $().ready(function () {
             'content-type': 'application/x-www-form-urlencoded'
         }
         // fetch(`http://localhost/myProj/management_menu2.php/getClassList/${this.value}`, {
-        return fetch(`http://localhost/myProj/management_menu1.php/${parts}`, {
+        return fetch(`http://localhost/myProj/php/management_menu1.php/${parts}`, {
             // 用post
             method: 'post',
             headers: headers,
@@ -231,7 +231,7 @@ $().ready(function () {
             'content-type': 'application/x-www-form-urlencoded'
         }
 
-        let response = await fetch('http://localhost/myProj/insertDiscount.php', {
+        let response = await fetch('http://localhost/myProj/php/insertDiscount.php', {
             method: 'POST',
             headers,  // headers: headers
             body  // body: body

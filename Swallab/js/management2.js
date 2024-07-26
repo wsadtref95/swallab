@@ -4,7 +4,7 @@ $().ready(function () {
         newForm.classList.remove('d-none');
 
         // 顯示分類
-        fetch('http://localhost/myProj/management_menu1.php/getClass')
+        fetch('http://localhost/myProj/php/management_menu1.php/getClass')
         .then(response => {
             return response.json()
             // return response.text()
@@ -63,15 +63,16 @@ $().ready(function () {
         event.preventDefault();
         
         let body = new FormData(editForm);
-        body = new URLSearchParams(body).toString();
+        // body = new URLSearchParams(body).toString();
         // console.log(body);
     
-        let response = await fetch('http://localhost/myProj/insertMenu.php', {
+        let response = await fetch('http://localhost/myProj/php/insertMenu.php', {
             method: 'POST',
-            headers,
+            // headers,
             body
         })
     
+        // let result = await response.json();
         let result = await response.text();
         console.log(result);
     })

@@ -15,7 +15,7 @@ try {
     $parts = explode('/', $_SERVER['REQUEST_URI']);
     // var_dump($parts);
 
-    switch ($parts[3]) {
+    switch ($parts[4]) {
         case 'getClass':
             $sql = 'SELECT * FROM class';
             $result = $db->query($sql);
