@@ -110,9 +110,16 @@ footer{
     font-size: 20px;
     margin-top: 10px;
 }
-.price{
-    text-align: center;
+.fs-20{
     font-size: 20px;
+}
+.money{
+    margin-left: 100px;
+}
+.price{
+
+    font-size: 20px;
+    
 }
 .date{
     text-align: right;
@@ -137,3 +144,41 @@ footer{
 .hidden{
     display: none;
 }
+/* 購物車從右邊滑入的動畫 */
+@keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+  
+  .modal.slide-in-right .modal-dialog {
+    animation: slideInRight 0.5s forwards;
+  }
+  
+  .modal.fade-out-right .modal-dialog {
+    animation: slideOutRight 0.5s forwards;
+  }
+  .star-rating .fa-star {
+    font-size: 25px; 
+    color: gold;
+}
+
+  
+
+
