@@ -114,6 +114,22 @@ function updateTotalPrice(numberSpanId, priceId, totalPriceId) {
     updateSubtotal();
 }
 
-
-
+//評分
+document.getElementById('score').addEventListener('click',function(){
+    $.ajax({
+        url:'http://localhost/Swallab/swallab/back-end/comment.php?commentUid=C05&userUid=U05&restaurantUid=R05&score=5&commentContent=corgi',
+        method:'GET'
+    }).done(function(a){
+        console.log(a);
+    })
+})
+//windowonload的的時候抓使用者uid跟餐廳uid
+document.getElementById('score').addEventListener('load',function(){
+    $.ajax({
+        url:'http://localhost/Swallab/swallab/back-end/comment.php?commentUid=C05&userUid=U05&restaurantUid=R05&score=5&commentContent=corgi',
+        method:'GET'
+    }).done(function(a){
+        console.log(a);
+    })
+})
 
