@@ -19,11 +19,11 @@ $().ready(function () {
                 let html = '<option disabled selected>請選擇...</option>'
 
                 for (let i = 0; i < data.length; i++) {
-                    const element = data[i]['class'];
+                    const element = data[i]['className'];
                     // console.log(element);
                     html += `<option value=${data[i]['class_num']}>${element}</option>`
                 }
-                console.log(html);
+                // console.log(html);
 
                 $(`#className${id}`).html(html);
             })
@@ -82,6 +82,7 @@ $().ready(function () {
         // let foodId = this.value;
         // console.log(foodId);
         const body = new URLSearchParams({ foodId: this.value }).toString();
+        // console.log(body);
         let data = await getDetail('getPrice', body);
         // console.log(data);
         // console.log(data[0].price);
