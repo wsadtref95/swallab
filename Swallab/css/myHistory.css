@@ -29,12 +29,36 @@
 }
 
 .sidebar {
-    position: sticky;
-    top: 30%;
-    background-color: white;
-    height: 180px;
-    margin: 0% 0% 0 0;
-    padding: 1%;
-    border-radius: 5%;
+    height: 300px;
+    margin: 15% 30px 0 0;
+    background-color: #fff;
+    border-radius: 10px;
     box-shadow: 5px 5px 5px #aaa;
+    position: sticky;
+    top: 200px;
+}
+
+.sidebar a{
+    text-decoration: none;
+    color: #000;
+}
+
+.sidebar a p {
+    border: 2px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.sidebar .active>p:nth-child(1) {
+    background-color: #e5a67a;
+    color: #fff;
+}
+
+.sidebar a p:hover {
+    background-color: #e5a67a;
+    color: #fff;
 }
