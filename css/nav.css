@@ -1,0 +1,81 @@
+            /* 餐廳或食記 icon */
+            
+            .theicon {
+                height: 1.5em !important;
+                background-size: 1.5em;
+                background-image: url(../_images/nav_icon/restaurant.png);
+                background-repeat: no-repeat;
+                /* z-index: 999; */
+            }
+
+            .icon {
+                height: 1.5em;
+                /* z-index:999; */
+                background-size: cover;
+            }
+
+            /* 餐廳或食記 icon 觸發 */
+            .popup {
+                display: none;
+                position: relative;
+                top: 100%;
+                width: 1.5em;
+                height: 1.5em;
+                /* background-image: url('./img/blog.png'); */
+                background-size: cover;
+            }
+
+            /* 食記 icon 彈出 */
+            .popupBlog {
+                display: none;
+                position: relative;
+                /* top: 100%; */
+                width: 1.5em;
+                height: 1.5em;
+                background-image: url('../_images/nav_icon/blog.png');
+                background-size: cover;
+            }
+
+            /* 餐廳 icon 彈出 */
+            .popupRest {
+                display: none;
+                position: relative;
+                top: -100%;
+                left: 100%;
+                width: 1.5em;
+                height: 1.5em;
+                background-image: url('../_images/nav_icon/restaurant.png');
+                background-size: cover;
+            }
+
+            .logo {
+                height: 5em;
+                width: auto;
+                border-radius: 50%;
+            }
+
+            /* .btnPills{
+                display: block; 
+                margin-left: 10%; 
+                margin-top: 1.5em; 
+                white-space: nowrap; z-index: 1;
+            } */
+            /* 搜尋框相關 */
+            .dropdown-content a {
+                background-color: #fff;
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                border: 1px solid #ddd;
+                /* 淺色框線 */
+                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+                /* 立體感 */
+                position: absolute;
+                z-index: 99999 !important;
+
+            }
+
+            .dropdown-content a:hover {
+                background-color: rgba(111, 107, 107)
+            }
