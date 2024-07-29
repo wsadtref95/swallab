@@ -38,7 +38,7 @@ try {
             $sql = "SELECT * FROM restaurant WHERE class = ?";
             $stmt = $db->prepare($sql);
             $stmt->execute([$classId]);
-            $result = $stmt->fetchAll();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             $data = [];
             foreach ($result as  $value) {
@@ -142,7 +142,9 @@ try {
             $stmt = $db->prepare($sql);
             $stmt->execute([$id]);
 
-            // echo json_encode(['message' => $stmt]);
+            // $affect = $stmt->affected_rows;
+            // $affectedRows = $stmt->affected_rows;
+            // echo json_encode(['message' => $affectedRows]);
             echo json_encode(['message' => 'ok']);
 
             break;
