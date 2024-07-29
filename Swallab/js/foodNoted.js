@@ -1410,7 +1410,7 @@ $(".custom-ul>div:nth-child(6)>img").on("click", function () {
   $(".title").append(dessertTitle);
 });
 
-//側邊欄-熱門 =>後端資料庫 =>ok (圖片+食記標題+瀏覽人數) 20240729-2
+//側邊欄-熱門 =>後端資料庫 =>ok (圖片+食記標題+瀏覽人數)
 hot.onclick = async function () {
   //card的食記標題+瀏覽人數
   $.ajax({
