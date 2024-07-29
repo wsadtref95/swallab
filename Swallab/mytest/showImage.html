@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Selected Image</title>
+</head>
+
+<body>
+    <h1>Upload and Display Image</h1>
+    <input type="file" id="imageInput" accept="image/*">
+    <div id="imagePreview"></div>
+    <img src="W29iamVjdCBGaWxlXQ==" alt="123">
+
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            console.log(111);
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Selected Image';
+                    img.style.maxWidth = '100%'; // Adjust as needed
+                    img.style.height = 'auto'; // Adjust as needed
+
+                    // Clear the previous image
+                    const preview = document.getElementById('imagePreview');
+                    preview.innerHTML = '';
+                    preview.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="../js/jquery-3.7.1.js"></script>
+</head>
+
+<body>
+    <form id="editForm" enctype="multipart/form-data">
+        <i id="myClose" class="fa-solid fa-xmark"></i>
+        <div class="addOptionContainer row container">
+            <div class="col">
+                <p id="photoResult">新增食品照片</p>
+                <input type="file" name="foodPhoto" id="foodPhoto" accept="image/*">
+            </div>
+            <div class="col row">
+                <div class="col-12">
+                    <h5>
+                        <label for="foodPrice">價&emsp;&emsp;格 : &emsp;&emsp;</label>
+                    </h5>
+                    <input type="number" name="foodPrice" id="foodPrice">
+                </div>
+                <div class="col-12">
+                    <h5>
+                        <label for="classification">名&emsp;&emsp;稱 :&emsp;&emsp;</label>
+                    </h5>
+                    <input name="foodName">
+                </div>
+                <div class="col-12">
+                    <h5>
+                        <label for="classification">餐點分類 : &emsp;&emsp;</label>
+                    </h5>
+                    <select name="classification" id="classification">
+                        <option value="" disabled selected>請選擇...(動態)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="addElement"></div>
+        <div class="discountBtn">
+            <input type="submit" value="存檔" id="editMenuBtn">
+        </div>
+    </form>
+    <script>
+        $('#editMenuBtn').on('click', async event => {
+            event.preventDefault();
+
+            let formData = new FormData(editForm);
+
+            let response = await fetch('http://localhost/myProj/0727.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            let result = await response.text();
+            console.log(result);
+        });
+    </script>
+</body>
+
+</html>

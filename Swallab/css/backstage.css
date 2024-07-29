@@ -486,7 +486,7 @@ input[type=hidden]{
 #restaurantInfo input[type=text],
 #restaurantInfo select {
     width: 500px;
-    height: 30px;
+    height: 35px;
     text-align: center;
 }
 
