@@ -40,7 +40,8 @@
                         <h3>新增/修改菜單</h3>
                     </a>
                 </div>
-                <form action="http://localhost/myProj/getDiscount.php" id="discountForm" method="post">
+                <!-- <form action="http://localhost/myProj/getDiscount.php" id="discountForm" method="post"> -->
+                <form id="discountForm">
                     <div class="optionContainer">
                         <div class="newDiscountBtn">
                             <h5><b>1</b></h5>
@@ -50,7 +51,7 @@
                             <div class="col-4">
                                 <h5>餐點分類 : </h5>
                                 <select id="className1" name="menuList1">
-                                    <option value="" disabled selected>請選擇...(動態)</option>
+                                    <option value="" disabled selected>請選擇...</option>
                                     <option value="signature">招牌餐點</option>
                                     <option value="individual">個人即享餐</option>
                                 </select>
@@ -58,15 +59,15 @@
                             <div class="col-4">
                                 <h5>餐點名稱 : </h5>
                                 <select id="mealName1" name="menuName1">
-                                    <option value="" disabled selected>請選擇...(動態)</option>
+                                    <option value="" disabled selected>請選擇...</option>
                                     <option value="signature">招牌餐點</option>
                                     <option value="individual">個人即享餐</option>
                                 </select>
                             </div>
                             <div class="col-4">
                                 <h5>價格 : </h5>
-                                <input type="number" name="menuPrice1">
-                                <p>原始價格為 : <span id="originalPrice1">300(動態)</span></p>
+                                <input id="menuPrice1" type="number" name="menuPrice1">
+                                <p>原始價格為 : <span id="originalPrice1"></span></p>
                             </div>
                             <div class="col-6">
                                 <h5>開始時間 : </h5>
@@ -82,6 +83,7 @@
                     </div>
                     <div id="addList"></div>
                     <div class="discountBtn">
+                        <span id="submitResult"></span>
                         <input type="submit" value="存檔" id="discountBtn">
                     </div>
                 </form>
@@ -89,7 +91,7 @@
         </div>
     </div>
     <script src="../js/jquery-3.7.1.js"></script>
-    <script src="../js/backstage.js"></script>
+    <!-- <script src="../js/backstage.js"></script> -->
     <script src="../js/management1.js"></script>
 </body>
 

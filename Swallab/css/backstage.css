@@ -281,7 +281,7 @@ input[type=hidden]{
     margin: 30px;
     text-align: right;
 }
-#discountBtn, #editMenuBtn {
+#discountBtn, #addMenuBtn, #modifyMenuBtn {
     border: 1px solid #000;
     padding: 10px 20px;
     border-radius: 5px;
@@ -292,9 +292,19 @@ input[type=hidden]{
     color: #fff;
 }
 
-#discountBtn:hover, #editMenuBtn:hover {
+#discountBtn:hover, #addMenuBtn:hover, #modifyMenuBtn:hover {
     font-weight: bolder;
     box-shadow: 0 0 0 1px #000;
+}
+
+#submitResult,
+#mySubmitResult,
+#deleteResult {
+    color: #f00;
+    margin-right: 20px;
+    /* background-color: #ffffff7e; */
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 /* ================================== */
 
@@ -340,12 +350,49 @@ input[type=hidden]{
     font-weight: bolder;
     box-shadow: 0 0 0 1px #000;
 }
+
+
+/* 新增表單 */
+.addOptionContainerBg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #00000080;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#editForm,
+#modifyForm {
+    position: relative;
+    width: 80%; /* 設置固定寬度，根據需要調整 */
+    max-width: 800px; /* 設置最大寬度，根據需要調整 */
+    margin: auto; /* 中心對齊 */
+}
+
+#deleteForm{
+    position: relative;
+    margin: auto;
+}
+#myClose,
+#myClose2 {
+    position: absolute;
+    top: -4%;
+    right:-2%;
+}
+#myClose3 {
+    position: absolute;
+    top: -10%;
+    right: -10%;
+}
 .addOptionContainer {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 5px 5px 5px #aaa;
-    /* text-align: center; */
 }
 .addOptionContainer > .col >input {
     /* border: 1px solid #000; */
@@ -353,7 +400,8 @@ input[type=hidden]{
     display: flex;
     width: 200px;
 }
-#photoResult {
+#photoResult,
+#myPhotoResult {
     border: 1px solid #000;
     width: 200px;
     height: 200px;
@@ -362,6 +410,16 @@ input[type=hidden]{
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+#photoResult img,
+#myPhotoResult img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    /* width: 100%;
+    height: 100%; */
+
 }
 .addOptionContainer>.col>.col-12 {
     display: flex;
@@ -371,9 +429,26 @@ input[type=hidden]{
 }
 .addOptionContainer>.col>.col-12>input, 
 .addOptionContainer>.col>.col-12>select{
-    width: 125px;
+    width: 55%;
     height: 33px;
+    margin: 0;
 }
+
+.colBtn {
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 30px;
+    cursor: pointer;
+}
+
+.colBtn:hover{
+    font-weight: bolder;
+    box-shadow: 0 0 0 1px #000;
+}
+/* .colBtn:nth-child(1) {
+    color: #f00;
+} */
 /* ================ */
 
 /* 編輯餐廳資訊 */
