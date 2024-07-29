@@ -1,0 +1,23 @@
+        /* 餐廳大門圖 */
+        #mainImageRest {
+            transform-origin: left;
+            transition: all 1.5s ease-in-out;
+        }
+
+        /* 食記大門圖 */
+        #mainImageNotes {
+            transform-origin: right;
+            transition: all 1.5s ease-in-out;
+        }
+
+        /* 餐廳開門動畫 */
+        .doorOpenLeft {
+            transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(105deg);
+            animation-fill-mode: forwards;
+        }
+
+        /* 食記開門動畫 */
+        .doorOpenRight {
+            transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg);
+            animation-fill-mode: forwards;
+        }
