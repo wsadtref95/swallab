@@ -3,7 +3,7 @@ $host = 'localhost';
 $dbname = "demo";
 $user = "root";
 $password = "";
-$message = $_POST["message"];
+$message = $_POST["message"];  //表單name的message
 
 try {
     // 建立資料庫連接
@@ -19,7 +19,7 @@ try {
     // 執行 SQL 語句
     $stmt->execute([$message]);
 
-    echo "留言已成功提交。";
+    echo "留言：${message}";
 } catch (PDOException $e) {
     // 顯示錯誤信息
     echo "錯誤: " . $e->getMessage();

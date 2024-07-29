@@ -33,7 +33,7 @@ footer{
     z-index: 1;
     }
 .overflow-hidden{overflow: hidden;}
-
+.mt8{margin-top: 8%;}
 /* 新增食記按鈕 */
 #write{
     position: fixed;
