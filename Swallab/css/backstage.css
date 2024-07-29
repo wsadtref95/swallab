@@ -460,18 +460,39 @@ input[type=hidden]{
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 5px 5px 5px #aaa;
+    justify-content: center;
 }
 #restaurantInfo {
-    margin: 50px;
+    margin: 40px;
+}
+#restaurantInfo .row .col-6 {
+    margin: auto;
+    display: flex;
+    /* justify-content: flex-end; */
+    /* text-align: center; */
+    border: 1px solid #000;
+}
+#restaurantInfo .row .col-6:nth-child(2) {
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    border: 1px solid #000;
 }
 
-#restaurantInfo>label>h5 {
+#restaurantInfo label>h5 {
     padding: 20px;
     display: inline-block;
 }
+#restaurantInfo input[type=text],
+#restaurantInfo select {
+    width: 500px;
+    height: 30px;
+    text-align: center;
+}
 
 .submit-container {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
     padding: 20px;
     /* background-color: #e5a67a; */
 }
@@ -482,6 +503,7 @@ input[type=hidden]{
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+    margin-right: 50px
 }
 
 .submit-container input[type="submit"]:hover {
