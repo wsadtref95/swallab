@@ -23,29 +23,44 @@
 // //  icon 替換 end
 
 // 當滑鼠經過時，顯示兩個 icon
-document.getElementById('popup').addEventListener('mouseover', function () {
+document.getElementById('theicon').addEventListener('mouseover', function () {
     console.log(123);
-    document.getElementById('popupBlog').style.display = 'block';
-    document.getElementById('popupRest').style.display = 'block';
+    document.getElementById('popupBR').style.display = 'flex';
+    document.getElementById('popupBlog').style.display = 'flex';
+    document.getElementById('popupRest').style.display = 'flex';
 });
 
 // 當滑鼠離開時，只顯示已選擇的 icon
-document.getElementById('popup').addEventListener('mouseout', function () {
+document.getElementById('theicon').addEventListener('mouseout', function () {
     document.getElementById('popupBlog').style.display = 'none';
     document.getElementById('popupRest').style.display = 'none';
 });
 
 // 點擊時，更換顯示的 icon
-document.getElementById('popupBlog').addEventListener('click', function () {
-    // document.documentElement.style.setProperty('--icon-rest', 'var(--icon-blog)');
-    document.documentElement.style.setProperty('--icon-rest', '\f2e7');
-});
 
-document.getElementById('popupRest').addEventListener('click', function () {
-    // document.documentElement.style.setProperty('--icon-rest', 'var(--icon-rest)');
-    document.documentElement.style.setProperty('--icon-rest', '\f518');
-});
+class Theicon {
+    constructor(type, icon) {
+        this.type = type;
+        this.icon = icon;
+    }
+    toIcon(type) {
+        console.log(1);
+        return this.icon;
+    }
+}
 
+let restIcon = new Theicon("rest", "fa-solid fa-utensils")
+let blogIcon = new Theicon("blog", "fa-solid fa-book-open")
+
+window.onload = function () {
+    document.getElementById('showicon').className = restIcon.toIcon();
+    document.getElementById('popupBlog').addEventListener('click', function () {
+        document.getElementById('showicon').className = blogIcon.toIcon();
+    })
+    document.getElementById('popupRest').addEventListener('click', function () {
+        document.getElementById('showicon').className = restIcon.toIcon();
+    })
+}
 
 // 搜尋框
 // 點擊輸入框，切換下拉選單的顯示和隱藏
@@ -118,7 +133,7 @@ function fillInput2(value) {
     // 'myInput' 和 'myInput2' 的值作為查詢條件
 }
 // 點擊其他地方隱藏下拉
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (!event.target.matches('#myInput')) {
         var dropdown = document.getElementById("myDropdown");
         if (dropdown.style.display === "block") {
@@ -133,111 +148,3 @@ window.onclick = function(event) {
         }
     }
 }
-
-
-
-// 暫存
-/* 餐廳或食記 icon */
-// .theicon {
-//     height: 1.5em !important;
-//     width: 4em;
-//     /* background-size: 1.5em; */
-//     /* background-repeat: no-repeat; */
-//     /* z-index: 999; */
-// }
-// .theicon::after{
-//     content: "\f2e7";
-//     font-family: "Font Awesome 5 Free";
-//     font-weight: 900;
-// }
-
-// .nav_mainbtn {
-//     white-space: nowrap;
-// }
-
-// .icon {
-//     height: 1.5em;
-//     /* z-index:999; */
-//     background-size: cover;
-// }
-
-// .filter_btn {
-//     display: block;
-//     margin-top: 1.5em;
-//     white-space: nowrap;
-//     z-index: 1;
-// }
-
-// 餐廳或食記 icon 觸發
-// .popup {
-//     display: none;
-//     position: relative;
-//     /* padding-top: 10%; */
-//     top: 100%;
-//     left: -25%;
-//     width: 1.5em;
-//     height: 1.5em;
-//     /* background-image: url('./img/blog.png'); */
-//     background-size: cover;
-// }
-
-// /* 食記 icon 彈出 */
-// .popupBlog {
-//     display: none;
-//     position: relative;
-//     /* top: 100%; */
-//     width: 1.5em;
-//     height: 1.5em;
-// }
-// .popupBlog::after{
-//     content: "\f518";
-//     font-family: "Font Awesome 5 Free";
-//     font-weight: 900;
-// }
-
-// /* 餐廳 icon 彈出 */
-// .popupRest {
-//     display: none;
-//     position: relative;
-//     top: -100%;
-//     left: 100%;
-//     width: 1.5em;
-//     height: 1.5em;
-// }
-// .popupRest::after{
-//     content: "\f2e7";
-//     font-family: "Font Awesome 5 Free";
-//     font-weight: 900;
-// }
-
-// .logo {
-//     height: 5em;
-//     width: auto;
-//     border-radius: 50%;
-// }
-
-// /* .btnPills{
-//                 display: block; 
-//                 margin-left: 10%; 
-//                 margin-top: 1.5em; 
-//                 white-space: nowrap; z-index: 1;
-//             } */
-// /* 搜尋框相關 */
-// .dropdown-content a {
-//     background-color: #fff;
-//     color: black;
-//     padding: 12px 16px;
-//     text-decoration: none;
-//     display: block;
-//     border: 1px solid #ddd;
-//     /* 淺色框線 */
-//     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-//     /* 立體感 */
-//     position: absolute;
-//     z-index: 99999 !important;
-
-// }
-
-// .dropdown-content a:hover {
-//     background-color: rgba(111, 107, 107)
-// }

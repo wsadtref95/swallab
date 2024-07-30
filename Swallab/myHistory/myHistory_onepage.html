@@ -42,20 +42,21 @@
                     <div class="d-flex" style="width: 100%;">
                         <!-- hover、click 換 icon -> src="./img/blog.png" -->
                         <div id="theicon" class="theicon mt-2 me-0 align-items-center justify-content-center">
-                            <div id="popup" class="popup text-center d-flex align-items-center justify-content-center">
+                            <div id="popup"
+                                class="popup row text-center d-flex align-items-center justify-content-center">
                                 <p><i id="showicon" class=""></i></p>
                             </div>
                             <div id="popupBR" class="popupBR">
-                                <div id="popupBlog" class="col-4 text-center">
+                                <div id="popupBlog" class="col-6 text-center">
                                     <p class="text-center"><i class="fa-solid fa-book-open"></i></p>
                                 </div>
-                                <div id="popupRest" class="col-4 text-center">
+                                <div id="popupRest" class="col-6 text-center">
                                     <p><i class="fa-solid fa-utensils"></i></p>
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
 
                         <!-- 搜尋框 + 情境按鈕(pill 會改成底線) -->
                         <div class="d-block position-relative m-0 p-0 col">
@@ -146,18 +147,14 @@
                 <!-- <div id="sidebar" class="sidebar col-2 sticky-top text-center"> -->
                 <div id="sidebar" class="sidebar col-2 text-center">
                     <div class="col align-self-center">
-                        <a href="#" >
-                            <p>個人檔案</p>
-                        </a>
-                        <a href="#">
-                            <p>我的訂單</p>
-                        </a>
-                        <a href="#" class="active">
-                            <p>歷史紀錄</p>
-                        </a>
-                        <a href="#" >
-                            <p>發布食記</p>
-                        </a>
+                        <a href="#" class="btn btn-outline-danger">
+                            <span>個人檔案</span></a>
+                        <a href="#" class="btn btn-outline-danger">
+                            <span>我的訂單</span></a>
+                        <a href="#" class="btn btn-outline-danger active">
+                            <span>歷史紀錄</span></a>
+                        <a href="#" class="btn btn-outline-danger">
+                            <span>發布食記</span></a>
                     </div>
                 </div>
                 <!-- sidebar_end -->
@@ -189,79 +186,41 @@
                     <!-- 4 btn of jr.nav in history_end -->
 
                     <!-- records_begin 先判斷有 n 筆資料，產生 n 個 row-->
-                    <!-- 我的訂單 -->
                     <div class="row mt-5 myRecordsTemp align-self-center">
                         <div class="col-2">
                             <div class="myRecordsContainer align-self-center">
                                 <img src="../images/headpage_mainphoto/食記_1.jpeg" alt="">
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-8">
                             <!-- title -->
                             <div class="row myRecordsTitle">
-                                <a href="#"><span>(餐廳名)</span></a><br>
+                                <a href="#"><span>餐廳名</span></a><br>
                             </div>
                             <!-- info -->
-                            <div class="row myRecordsInfo container">
+                            <div class="row myRecordsInfo container-fluid">
                                 <span>
-                                    <span>(幾)</span>份<span>($$$)</span>的<span>(餐點)</span>
-                                </span>
-                                <span>
-                                    <span>(幾)</span>份<span>($$$)</span>的<span>(餐點)</span>
-                                </span>
-                                <span>
-                                    <span>(幾)</span>份<span>($$$)</span>的<span>(餐點)</span>
+                                    <span>幾</span>份<span>$$$</span>的餐點，
+                                    <span>MMDD</span>的<span>hhmm</span>
+                                    <a href="">檢視電子明細</a>儲存收據<a href=""></a>
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-2">
-                            <span>訂單金額</span>
-                            <span>$($$$$) NT</span>
+                            <!-- detail -->
+                            <div class="row myRecordsDetail">
+
+                            </div>
                         </div>
                         <div class="col-2 myRecordsBtn">
-                            <span>(YYYYMMDD<br>HHMM )</span>
                             <a href="">
                                 <button class="btn"> 檢視內容 </button>
                             </a>
+                            <a href="">
+                                <button class="btn"> 請為你的訂單評分？？</button>
+                            </a>
                         </div>
                     </div>
-
-                    <!-- 我的收藏 -->
-                    <div class="row mt-5 myRecordsTemp align-self-center">
-                        <div class="col-2">
-                            <div class="myRecordsContainer align-self-center">
-                                <img src="../images/headpage_mainphoto/食記_1.jpeg" alt="">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <!-- title -->
-                            <div class="row myRecordsTitle">
-                                <a href="#"><span>(餐廳名)</span></a><br>
-                            </div>
-                            <!-- info -->
-                            <div class="row myRecordsInfo container">
-                                <span>
-                                    <span>(5)</span><i class="fa-solid fa-star mt-1"></i><span>均消$</span>($$$)-($$$)
-                                </span>
-                                <span>
-                                    <span>營業時間：</span><span>(HH):(MM)-(HH):(MM)</span>
-                                </span>
-                                <span>
-                                    <span>(台北市大安區XX路)</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-2">
-
-                        </div>
-                        <div class="col-2 myRecordsBtn">
-                            <span>(YYYYMMDD<br>HHMM )</span>
-                            <div class="text-center">
-                                <i class="fa-solid fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 我的評論 -->
+                    <!-- records_end -->
+                    <!-- records_begin 先判斷有 n 筆資料，產生 n 個 row-->
                     <div class="row mt-5 myRecordsTemp align-self-center">
                         <div class="col-2">
                             <div class="myRecordsContainer align-self-center">
@@ -271,31 +230,32 @@
                         <div class="col-8">
                             <!-- title -->
                             <div class="row myRecordsTitle">
-                                <a href="#"><span>(餐廳名)</span></a><br>
+                                <a href="#"><span>餐廳名</span></a><br>
                             </div>
                             <!-- info -->
-                            <div class="row myRecordsInfo container">
+                            <div class="row myRecordsInfo container-fluid">
                                 <span>
-                                    <span>(台北市大安區XX路)</span>
+                                    <span>幾</span>份<span>$$$</span>的餐點，
+                                    <span>MMDD</span>的<span>hhmm</span>
+                                    <a href="">檢視電子明細</a>儲存收據<a href=""></a>
                                 </span>
-                                <span>
-                                    <span>(5)</span><i class="fa-solid fa-star mt-1"></i>
-                                </span>
-                                <span style="border: 1px solid black;">
-                                    <span>(評論內容)</span>
-                                </span>
+                            </div>
+                            <!-- detail -->
+                            <div class="row myRecordsDetail">
+
                             </div>
                         </div>
                         <div class="col-2 myRecordsBtn">
-                            <span>(YYYYMMDD<br>HHMM )</span>
-                            <div class="text-center">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                &nbsp;&nbsp;&nbsp;
-                                <i class="fa-solid fa-trash-can"></i>
-                            </div>
+                            <a href="">
+                                <button class="btn"> 檢視內容 </button>
+                            </a>
+                            <a href="">
+                                <button class="btn"> 請為你的訂單評分？？</button>
+                            </a>
                         </div>
                     </div>
-                    <!-- 我的食記 -->
+                    <!-- records_end -->
+                    <!-- records_begin 先判斷有 n 筆資料，產生 n 個 row-->
                     <div class="row mt-5 myRecordsTemp align-self-center">
                         <div class="col-2">
                             <div class="myRecordsContainer align-self-center">
@@ -305,23 +265,28 @@
                         <div class="col-8">
                             <!-- title -->
                             <div class="row myRecordsTitle">
-                                <a href="#"><span>(食記標題)</span></a><br>
+                                <a href="#"><span>餐廳名</span></a><br>
                             </div>
                             <!-- info -->
-                            <div class="row myRecordsInfo container-fluid" style="height: 60px;">
-                                <span style="border: 1px solid black;">
-                                    <span >(食記內容)</span>
+                            <div class="row myRecordsInfo container-fluid">
+                                <span>
+                                    <span>幾</span>份<span>$$$</span>的餐點，
+                                    <span>MMDD</span>的<span>hhmm</span>
+                                    <a href="">檢視電子明細</a>儲存收據<a href=""></a>
                                 </span>
                             </div>
-                        </div>
+                            <!-- detail -->
+                            <div class="row myRecordsDetail">
 
-                        <div class="col-2 myRecordsBtn">
-                            <span>(YYYYMMDD<br>HHMM )</span>
-                            <div class="text-center">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                &nbsp;&nbsp;&nbsp;
-                                <i class="fa-solid fa-trash-can"></i>
                             </div>
+                        </div>
+                        <div class="col-2 myRecordsBtn">
+                            <a href="">
+                                <button class="btn"> 檢視內容 </button>
+                            </a>
+                            <a href="">
+                                <button class="btn"> 再次訂購</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -368,8 +333,8 @@
         </div>
     </footer>
     <!-- Footer_end -->
-    <script src="../js/nav.js"></script>
-    <script src="../js/footer.js"></script>
+    <script scr="../js/nav.js"></script>
+    <script scr="../js/footer.js"></script>
     <script src="../js/jquery-3.7.1.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
 </body>

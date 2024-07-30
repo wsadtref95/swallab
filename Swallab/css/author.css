@@ -3,7 +3,7 @@ header{
     background-color: #EEE9D5;
     }
 body{
-    background-image: url("../_images/其他/subtle_white_feathers.webp");
+    background-image: url("../images/other/subtle_white_feathers.webp");
     background-attachment: fixed;
     display: flex;
     flex-direction: column;

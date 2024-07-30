@@ -3,15 +3,15 @@ document.getElementById("top").addEventListener("click", function () {
 });
 
 $(".noColorHeart").on("click", function () {
-  $(".colorHeart").css({
-    "display": "inline",
-    "color":"red"
+  $("#heart").css({
+    display: "inline",
+    color: "red",
   });
   $(this).css({
-    "display":"none"
-  })
+    display: "none",
+  });
 });
-$(".colorHeart").on("click", function () {
+$("#heart").on("click", function () {
   $(".noColorHeart").css({
     display: "inline",
   });

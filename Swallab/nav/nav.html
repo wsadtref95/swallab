@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../css/myHistory.css">
-    <link rel="stylesheet" href="../css/myHistory_temp_order.css">
 </head>
 
 <body>
@@ -22,12 +20,12 @@
     <nav class="navbar navbar-expand sticky-top shadow">
         <div class="container">
             <!-- LOGO -->
-            <a class="navbar-brand ms-5" href="../headpage/headpage.html">
-                <img src="../images/root/LOGO.jpg" alt="" class="logo d-inline-block align-text-top">
+            <a class="navbar-brand ms-5 col-1" href="../headpage/headpage.html">
+                <img src="../images/root/logo.jpg" alt="" class="logo d-inline-block align-text-top">
             </a>
             <!-- 伸縮 -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="nav ms-0 me-5 row">
+            <div class="collapse navbar-collapse col-10" id="navbarSupportedContent">
+                <div class="nav ms-0 me-3 row">
                     <div class="nav-item col-6">
                         <!-- 首頁沒有 active -->
                         <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
@@ -38,22 +36,30 @@
                     </div>
                 </div>
                 <!-- Input 都在這 -->
-                <form class="ms-0 me-5 w-100" role="search" name="search">
-                    <div class="d-flex container">
+                <form class="ms-2 me-1 w-100" role="search" name="search">
+                    <div class="d-flex" style="width: 100%;">
                         <!-- hover、click 換 icon -> src="./img/blog.png" -->
-                        <div class="theicon mt-2">
-                            <!-- <img src="./img/restaurant.png" class="icon" alt=""> -->
-                            <div id="popup" class="popup position-relative">
-                                <div id="popupBlog" class="popupBlog"></div>
-                                <div id="popupRest" class="popupRest">123</div>
+                        <div id="theicon" class="theicon mt-2 me-0 align-items-center justify-content-center">
+                            <div id="popup" class="popup text-center d-flex align-items-center justify-content-center">
+                                <p><i id="showicon" class=""></i></p>
+                            </div>
+                            <div id="popupBR" class="popupBR">
+                                <div id="popupBlog" class="col-4 text-center">
+                                    <p class="text-center"><i class="fa-solid fa-book-open"></i></p>
+                                </div>
+                                <div id="popupRest" class="col-4 text-center">
+                                    <p><i class="fa-solid fa-utensils"></i></p>
+                                </div>
                             </div>
                         </div>
+                        
+                        
 
                         <!-- 搜尋框 + 情境按鈕(pill 會改成底線) -->
-                        <div class="d-block container position-relative m-0 p-0">
+                        <div class="d-block position-relative m-0 p-0 col">
                             <!-- 搜尋框 start -->
                             <!-- <input class="form-control m-0" type="search" placeholder="Click" aria-label="Search"> -->
-                            <div style="display: flex;" clas="container row">
+                            <div style="display: flex;" clas="row">
                                 <div class="col-6">
                                     <input type="text" id="myInput" onclick="myFunction()" placeholder="點擊我"
                                         class="form-control m-0">
@@ -120,9 +126,9 @@
                     </div>
                 </form>
                 <!-- 登入及註冊按鈕 -->
-                <div class="ms-auto me-5">
-                    <a href="#" class="container">
-                        <button class="btn btn-outline-success btn-sm text-nowrap">登入/註冊</button>
+                <div class="ms-3 me-5 col-1">
+                    <a href="#" class="">
+                        <button class="btn btn-sm btnLogin text-nowrap">登入/註冊</button>
                     </a>
                 </div>
             </div>

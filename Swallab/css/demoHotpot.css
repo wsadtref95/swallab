@@ -3,7 +3,7 @@ header{
     background-color: #EEE9D5;
     }
 body{
-    background-image: url("../_images/其他/subtle_white_feathers.webp");
+    background-image: url("../images/other/subtle_white_feathers.webp");
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
@@ -100,6 +100,7 @@ footer{
     margin:0px 5px;
     font-size: 25px;
 }
+#heart{display: none;}
 .fa-instagram,.fa-facebook,.fa-heart:hover{cursor: pointer;}
 /* 右邊文章-內文 */
 .bigArticle>p{

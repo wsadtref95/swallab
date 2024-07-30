@@ -4,6 +4,7 @@ rest.addEventListener("click", toggleDoorLeft);
 btnRest.addEventListener("click", toggleDoorLeft);
 
 function toggleDoorLeft() {
+    console.log(123);
     rest.classList.toggle("doorOpenLeft");
     setTimeout(function () {
         window.location.href = '#';
