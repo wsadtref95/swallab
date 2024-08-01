@@ -9,7 +9,7 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
     // 從資料庫中獲取資料
-    $sql = "SELECT * FROM message ORDER BY date DESC";
+    $sql = 'SELECT userinfo.name,userinfo.image, message.message, message.date FROM userinfo INNER JOIN message ON userinfo.id = message.uid ORDER BY message.date DESC;';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 
@@ -19,8 +19,8 @@ try {
     foreach ($rows as $row) {
         $message = htmlspecialchars($row['message']); 
         $date = htmlspecialchars($row['date']); 
-
-        $photoBlob = $row['photo'];
+        $username = $row['name'];
+        $photoBlob = $row['image'];
 
         // 自動判斷照片格式型態
         $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
@@ -35,7 +35,7 @@ try {
             <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto">
                 <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3">
                     <img src="${photoSrc}" alt="">
-                    <div>小豬皮傑</div>
+                    <div>${username}</div>
                 </div>
                 <div class="col-8 p-0 d-flex flex-column">
                     <p>$message</p>

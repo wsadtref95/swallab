@@ -5,6 +5,7 @@ $user = "root";
 $password = "";
 $message = $_POST["message"];  //表單name的message
 
+$uid=1;
 try {
     // 建立資料庫連接
     $db = new PDO("mysql:host=${host};dbname=${dbname}", $user, $password);
@@ -13,11 +14,11 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // 準備 SQL 語句
-    $sql = "INSERT INTO message (message, date) VALUES (?, NOW())";
+    $sql = "INSERT INTO message (message, date,uid) VALUES (?, NOW(),?)";
     $stmt = $db->prepare($sql);
 
     // 執行 SQL 語句
-    $stmt->execute([$message]);
+    $stmt->execute([$message,$uid]);
 
     echo "留言：${message}";
 } catch (PDOException $e) {

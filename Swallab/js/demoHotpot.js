@@ -31,11 +31,11 @@ window.onload = () => {
   const updateMessages = () => {
     fetch("../php/messageOnWeb.php")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         return response.text();
       })
       .then((text) => {
-        // console.log(text);
+        console.log(text);
         messagesContainer.innerHTML = text;
       })
       .catch((error) => console.error("資料庫抓留言最後有錯", error));

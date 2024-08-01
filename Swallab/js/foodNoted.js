@@ -1427,15 +1427,12 @@ hot.onclick = async function () {
         viewNumber[k].innerHTML = "";
         notesTitle[k].innerHTML = mydata[k].comment;
         viewNumber[k].innerHTML = mydata[k].viewNumber;
-        console.log(mydata[k].comment);
-        console.log(mydata[k].viewNumber);
+        // console.log(mydata[k].comment);
+        // console.log(mydata[k].viewNumber);
       }
     })
     .fail(function (cat) {
-      console.log("2.fail:", cat);
-    })
-    .always(function () {
-      console.log("3.always:咖波");
+    //   console.log("2.fail:", cat);
     });
 
   //card的照片
@@ -1444,7 +1441,7 @@ hot.onclick = async function () {
   for (let i = 0; i < notesImage.length; i++) {
     fetch(`http://localhost/swallab/Swallab/php/download.php?id=${i + 1}`)
       .then((response) => {
-        console.log(response.url);
+        // console.log(response.url);
         return response.blob();
       })
       .then((blob) => {
@@ -1462,7 +1459,7 @@ hot.onclick = async function () {
     method: "GET",
   })
     .done(function (mytitle) {
-      console.log(mytitle);
+    //   console.log(mytitle);
 
       $("#title1").text(mytitle[0].comment);
       $("#title2").text(mytitle[1].comment);
@@ -1471,7 +1468,7 @@ hot.onclick = async function () {
       //指定日期格式
       function formatDate(dateString) {
         const date = new Date(dateString);
-        console.log(date);
+        // console.log(date);
         const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
@@ -1487,15 +1484,15 @@ hot.onclick = async function () {
         // latestDate[k].innerHTML = "";
         //   $('#title1') = mytitle[0].comment;
         //   latestDate[2].innerHTML = mytitle[2].date;
-        console.log(mytitle[k].comment);
-        console.log(mytitle[k].date);
+        // console.log(mytitle[k].comment);
+        // console.log(mytitle[k].date);
       }
     })
     .fail(function (cat) {
-      console.log("2.最新文章fail:", cat);
+    //   console.log("2.最新文章fail:", cat);
     })
     .always(function () {
-      console.log("3.always:最新文章");
+    //   console.log("3.always:最新文章");
     });
 
   //最新文章的照片1+2
@@ -1504,15 +1501,17 @@ hot.onclick = async function () {
   for (let i = 0; i < newTitle.length; i++) {
     fetch(`http://localhost/swallab/Swallab/php/newTitle.php?id=${i + 1}`)
       .then((response) => {
-        console.log(response.url);
+        // console.log(response.url);
         return response.blob();
       })
       .then((blob) => {
+        console.log("照片", blob);
         let imgURL = URL.createObjectURL(blob); //BLOB專用來轉換可以放到SRC
+        
         newTitle[i].src = imgURL;
       })
       .catch((error) => {
-        console.error("獲取圖片失敗", i + 1, error);
+        // console.error("獲取圖片失敗", i + 1, error);
       });
   }
 };
