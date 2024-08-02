@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/root.css">
     <script scr="../js/nav.js"></script>
+    <script src="../js/jquery-3.7.1.js"></script>
     <title>Set Information</title>
 </head>
 
@@ -49,40 +50,41 @@
             <div class="col">
                 <h3 class="p-20">編輯餐廳資料</h3>
                 <div class="restaurantInfo row">
-                    <form action="" method="post" id="restaurantInfo">
+                    <form id="restaurantInfo">
                         <label for="restaurantName">
                             <h5>
                                 餐廳名稱 :
                             </h5>
-                            <input type="text" id="restaurantName">
+                            <input type="text" id="restaurantName" name="restaurantName">
                         </label><br>
                         <label for="restaurantTel">
                             <h5>
                                 電&emsp;&emsp;話 :
                             </h5>
-                            <input type="text" id="restaurantTel">
+                            <input type="text" id="restaurantTel" name="restaurantTel" placeholder="04-1234-5678">
                         </label><br>
                         <label for="restaurantAddress">
                             <h5>
                                 地&emsp;&emsp;址 :
                             </h5>
-                            <input type="text" id="restaurantAddress">
+                            <input type="text" id="restaurantAddress" name="restaurantAddress" placeholder="台中市南屯區公益路二段61號">
                         </label><br>
-                        <label for="restaurantAvergae">
+                        <label for="restaurantAverage">
                             <h5>
                                 平均消費 :
                             </h5>
-                            <input type="text" id="restaurantAvergae">
+                            <input type="text" id="restaurantAverage" name="restaurantAverage" placeholder="100 - 200">
                         </label><br>
                         <label>
                             <h5>
                                 餐廳分類 :
                             </h5>
                         </label>
-                        <select name="restaurantClassification">
+                        <select name="restaurantClassification" id="restaurantClassification">
                             <option>餐廳分類</option>
                         </select>
                         <div class="submit-container">
+                            <span id="submitResult"></span>
                             <input type="submit" value="存檔">
                         </div>
                     </form>
@@ -90,7 +92,8 @@
             </div>
         </div>
     </div>
-    <script src="../js/backstage.js"></script>
+    <!-- <script src="../js/backstage.js"></script> -->
+    <script src="../js/set_info.js"></script>
 </body>
 
 </html>

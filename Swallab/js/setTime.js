@@ -15,7 +15,7 @@ let selectedWeekdays = [];
                 element.classList.remove('selected');
             }
             
-            const hiddenInput = document.querySelector(`input[name="myWeekdays[]"][value="${day}"]`);
+            const hiddenInput = document.querySelector(`input[name="Weekdays[]"][value="${day}"]`);
             hiddenInput.disabled = index !== -1;
         }
         
@@ -33,7 +33,7 @@ let selectedWeekdays = [];
                 element.classList.remove('selected');
             }
 
-            const hiddenInput = document.querySelector(`input[name="myHolidays[]"][value="${day}"]`);
+            const hiddenInput = document.querySelector(`input[name="Holidays[]"][value="${day}"]`);
             hiddenInput.disabled = index !== -1;
         }
 
@@ -50,7 +50,7 @@ let selectedWeekdays = [];
             // 若重新選擇，要清除舊資料
             let closeTime = $('#closeTime');
             closeTime.empty();
-            closeTime.append('<option>小時</option>');
+            closeTime.append('<option disabled selected>小時</option>');
 
             for (var i = 0; i <= 24; i++) {
                 $('#closeTime').append('<option value="' + i + '">' + i + '</option>');
@@ -71,12 +71,12 @@ let selectedWeekdays = [];
         // 假日打烊時間
         $('#holidayOpenTime').change(function () {
             let holidayOpenTime = $(this).val();
-            console.log(holidayOpenTime);
+            // console.log(holidayOpenTime);
 
             // 若重新選擇，要清除舊資料
             let holidayCloseTime = $('#holidayCloseTime');
             holidayCloseTime.empty();
-            holidayCloseTime.append('<option>小時</option>');
+            holidayCloseTime.append('<option disabled selected>小時</option>');
 
             for (var i = 0; i <= 24; i++) {
                 $('#holidayCloseTime').append('<option value="' + i + '">' + i + '</option>');
@@ -85,7 +85,7 @@ let selectedWeekdays = [];
             // 取得打烊時間
             $('#holidayCloseTime').change(function () {
                 let holidayCloseTime = $(this).val();
-                console.log(holidayCloseTime);
+                // console.log(holidayCloseTime);
             })
         })
         // 新增平日休息時間
@@ -95,21 +95,21 @@ let selectedWeekdays = [];
                 <div class="col-6 p-20" id="breakTime${breakIndex}">
                     <h5>休息時間 ${breakIndex}</h5>
                     <select name="breakStartTimeHour${breakIndex}" class="breakStartTimeHour">
-                        <option>小時</option>
+                        <option disabled selected>小時</option>
                     </select>
                     <span> : </span>
                     <select name="breakStartTimeMin${breakIndex}" class="Min">
-                        <option>分鐘</option>
+                        <option disabled selected>分鐘</option>
                         <option value="00">00</option>
                         <option value="30">30</option>
                     </select>
                     <span>-</span>
                     <select name="breakEndTimeHour${breakIndex}" class="breakEndTimeHour">
-                        <option>小時</option>
+                        <option disabled selected>小時</option>
                     </select>
                     <span> : </span>
                     <select name="breakEndTimeMin${breakIndex}" class="Min">
-                        <option>分鐘</option>
+                        <option disabled selected>分鐘</option>
                         <option value="00">00</option>
                         <option value="30">30</option>
                     </select>
@@ -120,12 +120,14 @@ let selectedWeekdays = [];
             // 取得打烊時間
             let closeTime = $('#closeTime').val();
 
+            console.log(breakIndex);
             for (var i = parseInt(openTime); i <= parseInt(closeTime); i++) {
 
                 $(`#breakTime${breakIndex} .breakStartTimeHour`).append('<option value="' + i + '">' + i + '</option>');
                 $(`#breakTime${breakIndex} .breakEndTimeHour`).append('<option value="' + i + '">' + i + '</option>');
             }
             if (breakIndex == 2) {
+                console.log('測試');
                 $('#addBreakTime').addClass('disable');
 
             }
@@ -137,21 +139,21 @@ let selectedWeekdays = [];
                 <div class="col-6 p-20" id="holidayBreakTime${breakIndex}">
                     <h5>休息時間 ${breakIndex}</h5>
                     <select name="holidayBreakStartTimeHour${breakIndex}" class="holidayBreakStartTimeHour">
-                        <option>小時</option>
+                        <option disabled selected>小時</option>
                     </select>
                     <span> : </span>
                     <select name="holidayBreakStartTimeMin${breakIndex}" class="Min">
-                        <option>分鐘</option>
+                        <option disabled selected>分鐘</option>
                         <option value="00">00</option>
                         <option value="30">30</option>
                     </select>
                     <span>-</span>
                     <select name="holidayBreakEndTimeHour${breakIndex}" class="holidayBreakEndTimeHour">
-                        <option>小時</option>
+                        <option disabled selected>小時</option>
                     </select>
                     <span> : </span>
                     <select name="holidayBreakEndTimeMin${breakIndex}" class="Min">
-                        <option>分鐘</option>
+                        <option disabled selected>分鐘</option>
                         <option value="00">00</option>
                         <option value="30">30</option>
                     </select>
@@ -193,9 +195,80 @@ let selectedWeekdays = [];
         //     }
         // })
 
-        function submitForm() {
-            const form = document.getElementById('businessHoursForm');
-            form.submit();
-        }
+        
+
+        document.getElementById('businessHoursForm').addEventListener('submit', async event => {
+            event.preventDefault();
+            const headers = {
+                'content-type': 'application/json'
+            }
+            const formData = new FormData(event.target);
+            // 抓日期
+            const weekdays = formData.getAll('Weekdays[]');
+            const holiday = formData.getAll('Holidays[]');
+
+            // 抓營業時間
+            const wOpenTimeH = formData.get('weekdayStartTimeHour');
+            const wOpenTimeM = formData.get('weekdayStartTimeMin');
+            const wCloseTimeH = formData.get('weekdayEndTimeHour');
+            const wCloseTimeM = formData.get('weekdayEndTimeMin');
+            const hOpenTimeH = formData.get('holidayStartTimeHour');
+            const hOpenTimeM = formData.get('holidayStartTimeMin');
+            const hCloseTimeH = formData.get('holidayEndTimeHour');
+            const hCloseTimeM = formData.get('holidayEndTimeMin');
+
+            const wSBreakTimeH1 = formData.get('breakStartTimeHour1');
+            const wSBreakTimeM1 = formData.get('breakStartTimeMin1');
+            const wEBreakTimeH1 = formData.get('breakEndTimeHour1');
+            const wEBreakTimeM1 = formData.get('breakEndTimeMin1');
+            
+            const wBreakTimeH2 = formData.get('breakStartTimeHour2');
+            const wBreakTimeM2 = formData.get('breakStartTimeMin2');
+            const wEBreakTimeH2 = formData.get('breakEndTimeHour2');
+            const wEBreakTimeM2 = formData.get('breakEndTimeMin2');
+
+            const hSBreakTimeH1 = formData.get('holidayBreakStartTimeHour1');
+            const hSBreakTimeM1 = formData.get('holidayBreakStartTimeMin1');
+            const hEBreakTimeH1 = formData.get('holidayBreakEndTimeHour1');
+            const hEBreakTimeM1 = formData.get('holidayBreakEndTimeMin1');
+
+            const hSBreakTimeH2 = formData.get('holidayBreakStartTimeHour2');
+            const hSBreakTimeM2 = formData.get('holidayBreakStartTimeMin2');
+            const hEBreakTimeH2 = formData.get('holidayBreakEndTimeHour2');
+            const hEBreakTimeM2 = formData.get('holidayBreakEndTimeMin2');
+            console.log(weekdays);
+            console.log(holiday);
+            console.log(wOpenTimeH + wOpenTimeM);
+            console.log(wCloseTimeH + wCloseTimeM);
+
+
+            // const body = JSON.stringify(Object.fromEntries(formData));
+            const body = JSON.stringify({
+                weekdays,
+                holiday,
+                wOpenTime: [wOpenTimeH, wOpenTimeM],
+                wCloseTime: [wCloseTimeH, wCloseTimeM],
+                hOpenTime: [hOpenTimeH, hOpenTimeM],
+                hCloseTime: [hCloseTimeH, hCloseTimeM],
+                wSBreakTime1: [wSBreakTimeH1, wSBreakTimeM1],
+                wEBreakTime1: [wEBreakTimeH1, wEBreakTimeM1],
+                wSBreakTime2: [wBreakTimeH2, wBreakTimeM2],
+                wEBreakTime2: [wEBreakTimeH2, wEBreakTimeM2],
+
+                hSBreakTime1: [hSBreakTimeH1, hSBreakTimeM1],
+                hEBreakTime1: [hEBreakTimeH1, hEBreakTimeM1],
+                hSBreakTime2: [hSBreakTimeH2, hSBreakTimeM2],
+                hEBreakTime2: [hEBreakTimeH2, hEBreakTimeM2],
+            })
+
+            const url = 'http://localhost/MySwallab/public/api/worktime';
+            let response = await fetch(url, {
+                method: 'POST',
+                headers,
+                body
+            });
+            let data = await response.json();
+            console.log(data);
+        })
         // ===========================
         
