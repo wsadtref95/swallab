@@ -3,11 +3,17 @@
             transform-origin: center center;
             transition: all 1.5s ease-in-out;
         }
+        #mainImageRest img{
+            position: relative; left: 0%;
+        }
 
         /* 食記大門圖 */
         #mainImageNotes {
             transform-origin: center center;
             transition: all 1.5s ease-in-out;
+        }
+        #mainImageNotes img{
+            position: relative; left: -30%;
         }
 
         /* 餐廳開門動畫 */
