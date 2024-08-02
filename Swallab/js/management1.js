@@ -61,11 +61,11 @@ $().ready(function () {
         const body = new URLSearchParams({ classId: this.value }).toString();
         // console.log(body);
         let data = await getDetail('getClassList', body);
-        // console.log(data);
+        console.log(data);
         let myHtml = '<option disabled selected>請選擇...</option>'
 
         for (let i = 0; i < data.length; i++) {
-            const element = data[i][3];
+            const element = data[i]['meals_name'];
             // console.log(element);
             myHtml += `<option value=${data[i]['id']}>${element}</option>`
         }

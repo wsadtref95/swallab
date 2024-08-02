@@ -126,7 +126,7 @@ $().ready(function () {
         console.log(id);
         let body = new URLSearchParams({id}).toString();
         let data = await connectDB('deleteMenu', body);
-        console.log(data);
+        // console.log(data);
         let deleteResult = '';
         if (data['message'] == ('ok')) {
             deleteResult = '刪除成功';
@@ -243,16 +243,16 @@ $().ready(function () {
         let foodName = $('#foodName').val();
         let classification = $('#classification').val();
         let addClass = $('#addClass').val();
-        console.log(foodPrice);
-        console.log(foodName);
-        console.log(classification);
-        console.log(addClass);
+        // console.log(foodPrice);
+        // console.log(foodName);
+        // console.log(classification);
+        // console.log(addClass);
         let myClass = classification ? classification : addClass
 
 
         // 檢查新增類別的項目是否有存在
         let data = await getClass('getClass');
-        console.log(data);
+        // console.log(data);
         let dataList = [];
         for (let i = 0; i < data.length; i++) {
             // console.log(data[i]['class']);
@@ -277,7 +277,7 @@ $().ready(function () {
             let body = new FormData(editForm);
             // console.log(body);
 
-            let response = await fetch('http://localhost/myProj/php/insertMenu.php', {
+            let response = await fetch('http://localhost/swallab/Swallab/php/insertMenu.php', {
                 method: 'POST',
                 body
             })
