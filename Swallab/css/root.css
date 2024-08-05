@@ -1,14 +1,14 @@
 :root {
 
     nav {
-        background-color: #E5A67A !important;
+        background-color: #EEE9D5 !important;
     }
 
     body {
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        background-image: url(./img/bgi.png);
+        background-image: url(../images/root/bgi.png);
         background-color: #EEE9D5;
     }
 
