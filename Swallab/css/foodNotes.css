@@ -34,6 +34,10 @@ footer{
     }
 .overflow-hidden{overflow: hidden;}
 .mt8{margin-top: 8%;}
+.sideBar {
+    position: sticky;
+    top: 50px; /* 導覽列的高度 */
+}
 /* 新增食記按鈕 */
 #write{
     position: fixed;
