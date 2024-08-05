@@ -20,7 +20,8 @@ try {
 
     foreach ($rows as $row) {
         $comment = htmlspecialchars($row['comment']); 
-        $viewNumber = htmlspecialchars($row['viewNumber']); 
+        $viewNumber = htmlspecialchars($row['viewNumber']);
+        $href = $row['href'];
         $photoBlob = $row['image'];
 
         // 自動判斷照片格式型態
@@ -35,7 +36,9 @@ try {
         <div class="col-4 mb-4">
           <div class="card overflow-hidden">
             <div class="card-body p-0">
-              <img src="${photoSrc}" alt="" class="img-fluid notesImage" />
+              <a href="${href}">
+                <img src="${photoSrc}" alt="" class="img-fluid notesImage" />
+              </a>
             </div>
             <div class="card-footer align-items-center">
               <p class="ellipsis notesTitle">${comment}</p>

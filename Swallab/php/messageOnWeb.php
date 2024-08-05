@@ -9,7 +9,7 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
     // 從資料庫中獲取資料
-    $sql = 'SELECT userinfo.name,userinfo.image, message.message, message.date FROM userinfo INNER JOIN message ON userinfo.id = message.uid ORDER BY message.date DESC;';
+    $sql = 'SELECT users.name,users.avatar, message.message, message.date from userinfo insert into message on userinfo.id = message.uid order by message.date desc;';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 

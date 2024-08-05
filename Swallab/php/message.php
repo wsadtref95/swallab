@@ -14,7 +14,7 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // 準備 SQL 語句
-    $sql = "INSERT INTO message (message, date,uid) VALUES (?, NOW(),?)";
+    $sql = "insert into message (message, date,uid) VALUES (?, NOW(),?)";
     $stmt = $db->prepare($sql);
 
     // 執行 SQL 語句
