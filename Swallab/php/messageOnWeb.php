@@ -9,7 +9,7 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
     // 從資料庫中獲取資料
-    $sql = 'SELECT users.name,users.avatar, message.message, message.date from userinfo insert into message on userinfo.id = message.uid order by message.date desc;';
+    $sql = 'SELECT users.name,users.avatar, message.message, message.date FROM users INNER JOIN message ON users.id = message.uid ORDER BY message.date DESC;';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 
@@ -20,7 +20,7 @@ try {
         $message = htmlspecialchars($row['message']); 
         $date = htmlspecialchars($row['date']); 
         $username = $row['name'];
-        $photoBlob = $row['image'];
+        $photoBlob = $row['avatar'];
 
         // 自動判斷照片格式型態
         $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
