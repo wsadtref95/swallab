@@ -9,7 +9,8 @@ $().ready(function () {
     // // 資料庫練習
     // // 抓分類
     let getClass = id => {
-        fetch('http://localhost/myProj/php/management_menu1.php/getClass')
+        // fetch('http://localhost/myProj/php/management_menu1.php/getClass') // php
+        fetch('http://localhost/MySwallab/public/api/getfoodclass') // laravel
             .then(response => {
                 return response.json()
                 // return response.text()
@@ -36,8 +37,8 @@ $().ready(function () {
         const headers = {
             'content-type': 'application/x-www-form-urlencoded'
         }
-        // fetch(`http://localhost/myProj/management_menu2.php/getClassList/${this.value}`, {
-        return fetch(`http://localhost/myProj/php/management_menu1.php/${parts}`, {
+        // return fetch(`http://localhost/myProj/php/management_menu1.php/${parts}`, {
+        return fetch(`http://localhost/MySwallab/public/api/${parts}`, {
             // 用post
             method: 'post',
             headers: headers,
@@ -60,15 +61,20 @@ $().ready(function () {
         // 抓名稱
         const body = new URLSearchParams({ classId: this.value }).toString();
         // console.log(body);
-        let data = await getDetail('getClassList', body);
-        console.log(data);
+        let data = await getDetail('getfoodname', body);
+        // console.log(data);
         let myHtml = '<option disabled selected>請選擇...</option>'
 
-        for (let i = 0; i < data.length; i++) {
-            const element = data[i]['meals_name'];
-            // console.log(element);
-            myHtml += `<option value=${data[i]['id']}>${element}</option>`
-        }
+        data.forEach(({ id, meals_name }) => {
+            // console.log(meals_name);
+            myHtml += `<option value=${id}>${meals_name}</option>`
+
+        });
+        // for (let i = 0; i < data.length; i++) {
+        //     const element = data[i]['meals_name'];
+        //     // console.log(element);
+        //     myHtml += `<option value=${data[i]['id']}>${element}</option>`
+        // }
         // console.log(myHtml);
         $(`#mealName${id}`).html(myHtml);
 
@@ -83,11 +89,14 @@ $().ready(function () {
         // console.log(foodId);
         const body = new URLSearchParams({ foodId: this.value }).toString();
         // console.log(body);
-        let data = await getDetail('getPrice', body);
+        // let data = await getDetail('getPrice', body); // php
+        let data = await getDetail('getfoodprice', body); // laravel
+
         // console.log(data);
+        let { price } = data;
         // console.log(data[0].price);
-        $(`#menuPrice${id}`).attr('max', data[0].price);
-        $(`#originalPrice${id}`).text(data[0].price);
+        $(`#menuPrice${id}`).attr('max', price);
+        $(`#originalPrice${id}`).text(price);
     })
 
     // 檢查價格是否正確
@@ -218,38 +227,91 @@ $().ready(function () {
         }
     })
 
-    
+
 
     // 傳送表單
     $('#discountBtn').on('click', async event => {
         event.preventDefault();
 
-        let body = new FormData(discountForm)
-        body = new URLSearchParams(body).toString()
-        console.log(body);
+        let formData = new FormData(discountForm)
+        console.log(formData);
+
+        // ==========
+        let discounts = [];
+
+        formData.forEach((value, key) => {
+                console.log('value: ', value);
+                console.log('key: ', key);
+            let match = key.match(/(\D+)(\d)$/);
+                console.log('match: ', match); 
+            if (match) {
+                let field = match[1];
+                let suffix = match[2];
+                    console.log('field: ', field);
+                    console.log('suffix: ', suffix);
+                let discount = discounts.find(d => d.suffix === suffix);
+                    console.log('discount: ', discount);
+                if (!discount) {
+                    discount = { suffix: suffix };
+                        console.log('discount: ', discount);
+                    
+                    discounts.push(discount);
+                        console.log('discounts: ', discount);
+                    
+                }
+                
+                discount[field] = value;
+                    console.log('discount: ', discount);
+            }
+        })
+        discounts = discounts.map(({ suffix, ...rest }) => {
+                console.log('suffix: ', suffix);
+                console.log('rest: ', rest);
+            return rest
+        })
+
+            console.log('discounts: ', discounts);
+        
+        let body = JSON.stringify({ discounts });
+        
+
+        // ==========
+
+
+        // body = new URLSearchParams(body).toString()
+        // let body = JSON.stringify(Object.fromEntries(formData))
+        console.log('body', body);
 
         const headers = {
-            'content-type': 'application/x-www-form-urlencoded'
+            'content-type': 'application/json'
         }
 
-        let response = await fetch('http://localhost/myProj/php/insertDiscount.php', {
+        let response = await fetch('http://localhost/MySwallab/public/api/discount/insert', {
             method: 'POST',
             headers,  // headers: headers
             body  // body: body
         })
-        // let result = await response.json()
-        let result = await response.text()
+        let result = await response.json()
+        // let result = await response.text()
         console.log(result);
-        if (result.includes('ok')) {
+        let {status} = result;
+        console.log(status);
+        
+        if (status == 'ok') {
             discountForm.reset()
             $('#submitResult').text('儲存成功')
             await sleep(3000);
             $('#submitResult').text('')
 
-        } else if (result == "") {
-            $('#submitResult').text('表格尚未填寫完成')
-        } else {
-            $('#submitResult').text('儲存失敗')
+        } else if (status == "fail") {
+            let {message} = result;
+            console.log(message);
+            
+            if (message == 'Invalid input data') {
+                $('#submitResult').text('儲存失敗')
+            } else {
+                $('#submitResult').text('表格尚未填寫完成')
+            }
         }
     })
 
