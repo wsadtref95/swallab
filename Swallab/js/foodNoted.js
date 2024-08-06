@@ -4,12 +4,12 @@ document.getElementById("top").addEventListener("click", function () {
 
 //網頁載入-最熱門
 window.onload = function () {
-  //最新文章1+2 ==>標題+日期 ==> 用id
-    $.ajax({
-        url: "../php/hotTitle.php",
-        method: "POST",
-        dataType: "json", 
-    })
+  ///最新文章1+2 ==>標題+日期 ==> 用id
+  $.ajax({
+    url: "../php/hotTitle.php",
+    method: "POST",
+    dataType: "json",
+  })
     .done(function (mytitle) {
       console.log(mytitle);
 
@@ -56,7 +56,6 @@ window.onload = function () {
     .catch((error) => {
       console.error("失敗", error);
     });
-
 
   //card的照片+標題+瀏覽人數
   let cardTop = document.getElementById("cardTop");
