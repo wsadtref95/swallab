@@ -35,7 +35,7 @@ try {
         $photoSrc = "data:${photoMimeType};base64,${photoBase64}";
 
         echo <<<HTML
-        <div class="d-flex justify-content-center mt-4 m-0 test"  data-uid=${uid} data-mid=${mid}">
+        <div class="d-flex justify-content-center mt-4 m-0 test"  data-uid=${uid} data-mid=${mid} id="test">
             <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto">
                 <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3">
                     <img src="${photoSrc}" alt="">    
@@ -45,7 +45,7 @@ try {
 
                 </div>
                 <div class="col-8 p-0 d-flex flex-column">
-                    <p>$message</p>
+                    <p class="comment">$message</p>
                     <p id="edit" class="d-flex justify-content-end"></p>
                     <p class="d-flex justify-content-end">$date</p>
                 </div>
