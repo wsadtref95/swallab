@@ -25,36 +25,6 @@ window.onload = () => {
   //const form=document.getElementById("myform")
   const messagesContainer = document.getElementById("messages-container");
 
-  //新增留言
-  let btnSubmit = document.getElementById("btnSubmit");
-  btnSubmit.onclick = (event) => {
-    event.preventDefault(); // 防止默認表單提交行為
-    console.log("送出按鈕");
-
-    fetch("../php/message.php", {
-      method: "POST",
-      body: new FormData(myForm), // 使用 FormData 來提交表單數據
-    })
-      .then((response) => response.text())
-      .then((text) => {
-        console.log(text);
-
-        // 提交成功後關閉 modal (bootstrap的)
-        const modalElement = document.querySelector(".modal");
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        if (modal) {
-          modal.hide();
-        }
-
-        // 提交成功後更新留言列表
-        updateMessages();
-
-        // 清空表單
-        myForm.reset();
-      })
-      .catch((error) => console.error("新增留言失敗:", error));
-  };
-
   // 更新留言列表的函數
   const updateMessages = () => {
     fetch("../php/messageOnWeb.php")
@@ -108,7 +78,7 @@ window.onload = () => {
                       </form>
                   </div>
               </div>
-          </div>`);
+              </div>`);
 
             // 觸發修改的modal留言框
             var myModal2 = new bootstrap.Modal(
@@ -168,7 +138,7 @@ window.onload = () => {
             console.log(`我是刪除${index}`);
 
             $("#testEdit")
-              .html(`<div class="modal fade" id="myModal3" data-bs-backdrop="static">
+              .html(`<div class="modal fade modal3" id="myModal3" data-bs-backdrop="static">
               <div class="modal-dialog">
                   <div class="modal-content modal-bg">
                       <!-- Modal Header -->
@@ -187,7 +157,7 @@ window.onload = () => {
                           </div>
                           <!-- Modal footer -->
                           <div class="modal-footer d-flex justify-content-end align-items-center">
-                              <button type="submit" form="myDeleteForm" class="btn" id="btnSubmit">確認</button>
+                              <button type="button" class="btn btn-danger deleteMessage" data-mid="${dataMid}">確認</button>
                               <button type="submit" form="myDeleteForm" class="btn" data-bs-dismiss="modal">取消</button>
                           </div>
                       </form>
@@ -213,11 +183,59 @@ window.onload = () => {
               .catch((error) => {
                 console.error(`刪除內容有錯:`, error);
               });
+
+            $(".deleteMessage").on("click",function(){
+              fetch(`../php/myDelete.php?id=${dataMid}`)
+                .then((response) => {
+                  return response.text();
+                })
+                .then((text) => {
+                  console.log(`獲取到的留言內容:`, text);
+                  //$(".test").css('display','none');
+                  myModal3.hide();
+                  updateMessages();
+                })
+                .catch((error) => {
+                  console.error(`留言刪不掉:`, error);
+                });
+            })
+
+
           }
         });
       })
 
       .catch((error) => console.error("資料庫抓留言最後有錯", error));
+  };
+
+  //新增留言
+  let btnSubmit = document.getElementById("btnSubmit");
+  btnSubmit.onclick = (event) => {
+    event.preventDefault(); // 防止默認表單提交行為
+    console.log("送出按鈕");
+
+    fetch("../php/message.php", {
+      method: "POST",
+      body: new FormData(myForm), // 使用 FormData 來提交表單數據
+    })
+      .then((response) => response.text())
+      .then((text) => {
+        console.log(text);
+
+        // 提交成功後關閉 modal (bootstrap的)
+        const modalElement = document.querySelector(".modal");
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+          modal.hide();
+        }
+
+        // 提交成功後更新留言列表
+        updateMessages();
+
+        // 清空表單
+        myForm.reset();
+      })
+      .catch((error) => console.error("新增留言失敗:", error));
   };
 
   // 初次載入頁面時加載留言
