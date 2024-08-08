@@ -27,7 +27,9 @@ function showMore(elenentId) {
 function showComment() {
   let comment = document.getElementById("inputcomment");
 }
-document.getElementById("enterComment").addEventListener("click", function () {});
+document
+  .getElementById("enterComment")
+  .addEventListener("click", function () {});
 //購物車
 function removeProduct(rowId) {
   const productRow = document.getElementById(rowId);
@@ -155,8 +157,6 @@ document.getElementById("enterComment").addEventListener("click", function () {
       selectedRating = index + 1;
     }
   });
-
-  
 
   saveComment(commentInput, selectedRating);
   // 更新留言
@@ -310,7 +310,7 @@ function menu(input_className, input_restaurant_name) {
                 <div class="fs-20 ">$</div>
                 <div class="price" id="price-1">${item.price}</div>
             </div>
-            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.meals_name}" data-price="${item.price}" data-photo="${item.photo}" onclick="showAlert()">加入購物車</button>
+            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.meals_name}" data-price="${item.price}" data-photo="${item.photo}" ">加入購物車</button>
         </div>    
                         `;
           container.append(html);
@@ -376,7 +376,7 @@ function allMenu(input_restaurant_name) {
                 <div class="fs-20 ">$</div>
                 <div class="price" id="price-1">${item.price}</div>
             </div>
-            <button id="aa" class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
+            <button id="aa" class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.meals_name}' , ${item.price});">加入購物車</button>
         </div>    
                         `;
           container.append(html);
@@ -409,16 +409,16 @@ function saleMenu(input_restaurant_name) {
   })
     .done(function (responseData) {
       var container = $("#menu-container");
-      
+
       container.empty();
       if (responseData.length > 0) {
         responseData.forEach(function (item) {
-        let nowDateTime = new Date();
-        let end_time = new Date(item.end_time);
-        let saleTimeCount = end_time - nowDateTime;
-        let saleTime = Math.round(saleTimeCount / (1000 * 60 * 60));
-        console.log("saleTimeCount : " + saleTimeCount);
-        console.log("saleTime : " + saleTime);
+          let nowDateTime = new Date();
+          let end_time = new Date(item.end_time);
+          let saleTimeCount = end_time - nowDateTime;
+          let saleTime = Math.round(saleTimeCount / (1000 * 60 * 60));
+          console.log("saleTimeCount : " + saleTimeCount);
+          console.log("saleTime : " + saleTime);
           var html = `
           <div class=" col-4 mb-4 position-relative" >
             <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" > 
@@ -429,15 +429,113 @@ function saleMenu(input_restaurant_name) {
               <div class="price" id="price-1">${item.price}</div>
             </div>
           
-          <button class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
+          <button class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.meals_name}' , ${item.price});">加入購物車</button>
       </div>
                         `;
           container.append(html);
-
         });
       }
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
       console.error("AJAX 請求失敗:", textStatus, errorThrown);
     });
+}
+
+//渲染購物車
+function showShoppingCar(photo, meals_name, price) {
+  var form = new FormData();
+  form.append("service", "queryShopCart");
+  form.append("userid", "1");
+  form.append("restaurantid", "1");
+
+  $.ajax({
+    url: "http://localhost/Swallab/swallab/back-end/detail.php",
+    method: "POST",
+    timeout: 0,
+    processData: false,
+    contentType: false,
+    data: form,
+    dataType: "json",
+  })
+  .done(function(responseData) {
+    var container = $(".lan-papapapa");
+    container.empty(); 
+
+    
+    var html = `
+      <div class="row" style="text-align: center;">
+        <div>
+          <img src="data:image/jpeg;base64,${photo}" class="product-img">
+        </div>
+        <div class="product-details ml-3">
+          <div class="items mt-3">${meals_name}</div>
+          <div class="d-flex mt-4 ml-4">
+            <span>$</span>
+            <span class="prices" id="car-price-1">${price}</span>
+          </div>
+        </div>
+        <div class="product-actions">
+          <div class="ml-5 mt-3">
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-button" 
+              onclick="decrement('car-number-span-1', 'car-price-1', 'car-total-price-1')">-</button>
+            <span class="number-span fs-20" id="car-number-span-1">0</span>
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-button" 
+              onclick="increment('car-number-span-1', 'car-price-1', 'car-total-price-1')">+</button>
+            <div id="car-total-price-1" class="mt-3 ml-1">$0</div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center ml-5">
+          <button class="btn btn-link trash" onclick="removeProduct('product-row-1')">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+      </div>
+    `;
+    container.append(html);
+let count = 1;
+    // 渲染从后端返回的数据
+    if (responseData.length > 0) {
+      responseData.forEach(function(item) {
+        count++;
+        var itemHtml = `
+          <div class="row" style="text-align: center;">
+            <div>
+              <img src="data:image/jpeg;base64,${item.photo}" class="product-img">
+            </div>
+            <div class="product-details ml-3">
+              <div class="items mt-3">${item.meals_name}</div>
+              <div class="d-flex mt-4 ml-4">
+                <span>$</span>
+                <span class="prices" id="car-price-${count}">${item.price}</span>
+              </div>
+            </div>
+            <div class="product-actions">
+              <div class="ml-5 mt-3">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-button" 
+                  onclick="decrement('car-number-span-${count}', 'car-price-${count}', 'car-total-price-${count}')">-</button>
+                <span class="number-span fs-20" id="car-number-span-${count}">0</span>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-button" 
+                  onclick="increment('car-number-span-${count}', 'car-price-${count}', 'car-total-price-${count}')">+</button>
+                <div id="car-total-price-${count}" class="mt-3 ml-1">$0</div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center ml-5">
+              <button class="btn btn-link trash" onclick="removeProduct('product-row-1')">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        container.append(itemHtml);
+      // }
+    });
+    }
+
+    // 显示模态框
+    var cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    cartModal.show();
+  })
+  .fail(function(jqXHR, textStatus, errorThrown) {
+    console.error("AJAX 请求失败:", textStatus, errorThrown);
+  });
 }

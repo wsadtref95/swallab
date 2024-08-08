@@ -29,6 +29,12 @@ switch ($service) {
     case 'saleMenu':
         saleMenu($_POST["restaurant_name"]);
         break;
+    case 'queryShopCart':
+        queryShopCart($_POST["userid"],$_POST["restaurantid"]);
+        break;
+    case 'saveShopCart':
+        saleMenu($_POST["restaurant_name"]);
+        break;
     default:
         print("未知的服務");
         break;
@@ -252,3 +258,101 @@ function saleMenu($restaurant_name){
             echo json_encode(["error" => "資料庫錯誤"]);
         }
     }
+
+    //查詢購物車
+    function queryShopCart($userid, $restaurantid) {
+        global $db;
+        
+        try {
+            // 建立 SQL 語句
+            $sql = "SELECT meals_name , price , photo , mealsCount FROM shoppingCar left join restaurant on shoppingCar.mealsId = restaurant.id where userid = ? and restaurantid = ?";
+            $stmt = $db->prepare($sql);
+            
+            // 綁定參數 (注意：索引從 1 開始)
+            $stmt->bindParam(1, $userid, PDO::PARAM_INT);
+            $stmt->bindParam(2, $restaurantid, PDO::PARAM_INT);
+            
+            $stmt->execute();
+        // 把所有的查詢結果存在 rows 裡
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rows as &$row){
+            $imgPath = $row['photo'];
+            $img = file_get_contents('/Applications' . $imgPath);
+            // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
+            // print($img);
+        //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
+
+            $row['photo'] = base64_encode($img);
+        };
+
+        // 返回 JSON 格式的數據
+        header('Content-Type: application/json');
+        echo json_encode($rows);
+        } catch (PDOException $e) {
+            // 錯誤處理
+            echo "Error: " . $e->getMessage();
+        }
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // 加入購物車
+    function saveShopCart($userid, $restaurantid, $mealsId, $mealsCount) {
+        global $db;
+        
+        try {
+            // 建立 SQL 語句
+            $sql = "INSERT INTO shoppingCart VALUES (?, ?, ?, ? )";
+            $stmt = $db->prepare($sql);
+            
+            // 綁定參數 (注意：索引從 1 開始)
+            $stmt->bindParam(1, $userid, PDO::PARAM_STR);
+            $stmt->bindParam(2, $restaurantid, PDO::PARAM_INT);
+            $stmt->bindParam(3, $mealsId, PDO::PARAM_INT);
+            $stmt->bindParam(4, $mealsCount, PDO::PARAM_INT);
+            
+            // 執行 SQL 語句
+            $stmt->execute();
+            
+            echo "Comment successfully added.";
+        } catch (PDOException $e) {
+            // 錯誤處理
+            echo "Error: " . $e->getMessage();
+        }
+    };
+
+
+    //  移除購物車商品
+    function deleteShopCart($userid, $restaurantid, $star, $comment) {
+        global $db;
+        
+        try {
+            // 建立 SQL 語句
+            $sql = "INSERT INTO rating (userid, restaurantid, rating, comment) VALUES (?, ?, ?, ?)";
+            $stmt = $db->prepare($sql);
+            
+            // 綁定參數 (注意：索引從 1 開始)
+            $stmt->bindParam(1, $userid, PDO::PARAM_STR);
+            $stmt->bindParam(2, $restaurantid, PDO::PARAM_STR);
+            $stmt->bindParam(3, $star, PDO::PARAM_INT);
+            $stmt->bindParam(4, $comment, PDO::PARAM_STR);
+            
+            // 執行 SQL 語句
+            $stmt->execute();
+            
+            echo "Comment successfully added.";
+        } catch (PDOException $e) {
+            // 錯誤處理
+            echo "Error: " . $e->getMessage();
+        }
+    };
