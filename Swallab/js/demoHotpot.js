@@ -73,7 +73,7 @@ window.onload = () => {
                           </div>
                           <!-- Modal footer -->
                           <div class="modal-footer d-flex justify-content-end align-items-center">
-                              <button type="submit" form="myForm" class="btn" id="btnUpdate">確認修改</button>
+                              <button type="submit" form="myForm" class="btn btnUpdate">確認修改</button>
                           </div>
                       </form>
                   </div>
@@ -81,9 +81,7 @@ window.onload = () => {
               </div>`);
 
             // 觸發修改的modal留言框
-            var myModal2 = new bootstrap.Modal(
-              document.getElementById("myModal2")
-            );
+            var myModal2 = new bootstrap.Modal(document.getElementById("myModal2"));
             myModal2.show();
 
             fetch(`../php/myedit.php?id=${dataMid}`)
@@ -100,7 +98,7 @@ window.onload = () => {
               });
 
             //修改更新留言
-            $("#btnUpdate").on("click", function () {
+            $("#testEdit").on("click", ".btnUpdate", function () {
               event.preventDefault();
               let editMessage = document.getElementById("editMessage").value;
               console.log("修改留言的dataMid", dataMid);
@@ -113,9 +111,7 @@ window.onload = () => {
                   // 提交成功後關閉 modal (bootstrap的)
                   const modalElement = document.querySelector(".modal2");
                   const modal = bootstrap.Modal.getInstance(modalElement);
-                  if (modal) {
-                    modal.hide();
-                  }
+                  if (modal) {modal.hide();}
 
                   // 提交成功後更新留言列表
                   updateMessages();
@@ -166,9 +162,7 @@ window.onload = () => {
           </div>`);
 
             // 觸發修改的modal留言框
-            var myModal3 = new bootstrap.Modal(
-              document.getElementById("myModal3")
-            );
+            var myModal3 = new bootstrap.Modal(document.getElementById("myModal3"));
             myModal3.show();
 
             fetch(`../php/myedit.php?id=${dataMid}`)
@@ -184,26 +178,27 @@ window.onload = () => {
                 console.error(`刪除內容有錯:`, error);
               });
 
-            $(".deleteMessage").on("click",function(){
+            $("#testEdit").on("click", ".deleteMessage", function () {
               fetch(`../php/myDelete.php?id=${dataMid}`)
                 .then((response) => {
                   return response.text();
                 })
                 .then((text) => {
                   console.log(`獲取到的留言內容:`, text);
-                  //$(".test").css('display','none');
                   myModal3.hide();
                   updateMessages();
                 })
                 .catch((error) => {
                   console.error(`留言刪不掉:`, error);
                 });
-            })
+            });
 
 
           }
         });
       })
+
+      
 
       .catch((error) => console.error("資料庫抓留言最後有錯", error));
   };
