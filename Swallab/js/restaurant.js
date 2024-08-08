@@ -38,9 +38,11 @@ function restaurantInfo(b) {
             var cardHtml = `
                 <div class="col-4 mb-4">
                     <div class="card overflow-hidden">
-                        <div class="card-body">
-                            <img src="data:image/jpeg;base64,${item.restaurant_image}" alt="" class="img-fluid">
-                        </div>
+                        <a href="./detail.html">
+                            <div class="card-body">
+                                <img src="data:image/jpeg;base64,${item.restaurant_image}" alt="" class="img-fluid">
+                            </div>
+                        </a>
                         <div class="card-footer">
                             <div>
                                 <p>${item.restaurant_name}</p>

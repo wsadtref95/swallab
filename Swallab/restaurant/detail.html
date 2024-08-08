@@ -13,6 +13,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
     <header>
@@ -65,7 +67,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="scoreLabel" >無老鍋-公益店</h5>
+                            <h5 class="modal-title" id="scoreLabel" >青花驕-公益店</h5>
                             <button type="button" class="close" data-dismiss="modal">
                                 <span>x</span>
                             </button>
@@ -103,7 +105,7 @@
                             <img src="./../images/other/hot_2.png" style="width: 150px;" alt="" >
                             <li>全部餐點</li>
                         </div>
-                        <div class="">
+                        <div class="" onclick="saleMenu('青花驕-公益店')">
                             <img src="./../images/other/limited_time_offer.png " style="width: 100px;" alt="" onclick="">
                             <li>限時優惠</li>
                         </div>
@@ -126,7 +128,10 @@
                     </div>
                     <!-- 餐點 -->
                     <div class="col-9 mb-5 ml-5">
-                        <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">全部餐點</div>
+
+                        <div id="title">
+                            <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">全部餐點</div>
+                        </div>
                         <div class="row" id="menu-container">   
                             <!-- <div class=" col-4 mb-4" >
                                 <img class="ml-3 myimg" src="./../images/qhjpage/person/1.avif" alt="" >
@@ -157,8 +162,8 @@
                             </div> -->
                             
                         </div>
-                        <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">限時優惠</div>
-                        <div class="row">       
+                        <!-- <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">限時優惠</div>
+                        <div class="row" id="menu-container">       
                             <div class=" col-4 mb-4 position-relative" >
                                 <img class="ml-3 myimg" src="./../images/qhjpage/meat/1.avif" alt="" > 
                                 <span class="countDown">倒數<span>1</span>hr</span>  
@@ -170,17 +175,9 @@
                                 
                                 <button class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
                             </div>
-                            <div class=" col-4 mb-4">
-                                <img class="ml-3 myimg" src="./../images/qhjpage/meat/14.avif" alt="" >
-                                <div class="name">大腸頭 (220g)</div>
-                                <div class="d-flex money">
-                                    <div class="fs-20 ">$</div>
-                                    <div class="price" id="price-5">300</div>
-                                </div>
-                                <button class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
-                            </div>
+                            
                         
-                        </div>
+                        </div> -->
                         <!-- <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">餃類</div> -->
                         <div class="row" id="menu-container">       
                             <!-- <div class=" col-4 mb-4">
@@ -205,39 +202,35 @@
                         </div>
                         <!-- 留言區 -->
                         <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">大家怎麼說</div>
-                        
-                        <div class="row" id="inputcomment">
-                            <div class="col-3">
-                              <img class="ml-2" src="./../images/root/LOGO.jpg" style="width: 150px;">
+                        <div id="inputcomment">
+                            <!-- <div class="row" >
+                            <div class="col-3 d-flex" >
+                              <img class="ml-2" src="./../images/other/David.png" style="width: 150px;">
+                              <div>David</div>
                             </div>
                             <div class="col-9 position-relative">
                               <div id="userComment">
                               </div>
                               <p class="position-absolute date p-0">2024/5/1</p>
                             </div>
+                            
+                            </div>
+                            <hr> -->
                         </div>
-                        <hr>
-                        <div class="row">
+                        
+                        
+                        <!-- <div class="row">
                             <div class="col-3">
                             <img class="ml-2" src="./../images/root/LOGO.jpg" style="width: 150px;">
                             </div>
                             <div class="col-9 position-relative">
                                 <div>
-                                    好吃平日雙人套餐優惠
-                                    份量多 還吃不完
-                                    沒吃完會主動詢問要不要打包👍
-                                    吃麻辣鍋湯底有鴨血豆腐
-                                    外帶還另外給一包鴨血豆腐
-                                    超貼心、餐點又好吃
-                                    便宜！真的大推
-                                    第一次吃很稱讚👏
-                                    
                                 </div>
                                 <div class="date">2024/6/1</div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row hidden"  id="hidden-Comment" style="display: none;">
+                        </div> -->
+                        
+                        <!-- <div class="row hidden"  id="hidden-Comment" style="display: none;">
                             <div class="col-3">
                             <img class="ml-2" src="./../images/root/LOGO.jpg" style="width: 150px;">
                             </div>
@@ -247,7 +240,7 @@
                                 </div>
                                 <div class="date" style="margin-top: 60px;">2024/8/1</div>
                             </div>
-                        </div>
+                        </div> -->
                         <button class="score" style="margin-left: auto; margin-top: 10px;" onclick="showMore('hidden-Comment')">顯示更多</button>
                         
                         <!-- 購物車model -->
@@ -255,13 +248,13 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="cartLabel">無老鍋-公益店</h5>
+                                        <h5 class="modal-title" id="cartLabel">青花驕-公益店</h5>
                                         <button type="button" class="close" data-dismiss="modal">
                                             <span>x</span>
                                         </button>
                                     </div>
                                     <div class="modal-body d-flex">
-                                        <div class="row">
+                                        <div class="row" style="text-align: center;">
                                             <div>
                                                 <img src="./../images/qhjpage/person/1.avif" class="product-img">
                                             </div>
@@ -286,7 +279,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">前往購物車</button>
+                                        <button type="button" class="btn btn-primary">加入購物車</button>
                                     </div>
                                 </div>
                             </div>

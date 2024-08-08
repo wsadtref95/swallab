@@ -2,6 +2,7 @@
 window.onload = function () {
   sale("青花驕-公益店");
   allMenu("青花驕-公益店");
+  showComment("青花驕-公益店");
 };
 // 按下愛心
 document.getElementById("hearticon").addEventListener("click", function () {
@@ -23,13 +24,10 @@ function showMore(elenentId) {
   comment.style.display = "flex";
 }
 //留言區要送出留言後才顯示
-function showComment(){
-  let comment = document.getElementById('inputcomment');
-  
+function showComment() {
+  let comment = document.getElementById("inputcomment");
 }
-document.getElementById('enterComment').addEventListener("click",function(){
-  
-})
+document.getElementById("enterComment").addEventListener("click", function () {});
 //購物車
 function removeProduct(rowId) {
   const productRow = document.getElementById(rowId);
@@ -86,7 +84,7 @@ function decrement(numberSpanId, priceId, totalPriceId) {
     // 更新數量的 span 元素的文本
     numberSpan.innerText = currentNumber;
     // 在控制台輸出當前數量
-    console.log(currentNumber);
+    // console.log(currentNumber);
     // 更新總價（這部分取決於你的邏輯，可以省略）
     updateTotalPrice(numberSpanId, priceId, totalPriceId);
   }
@@ -151,19 +149,20 @@ document.getElementById("enterComment").addEventListener("click", function () {
   const commentInput = document.getElementById("commentInput").value;
   let selectedRating = 0;
   let stars = document.querySelectorAll(".star-rating i");
-  // commentInput.innerText = 
+
   stars.forEach((star, index) => {
     if (star.classList.contains("fa-solid")) {
       selectedRating = index + 1;
     }
   });
 
-  comment(commentInput, selectedRating);
+  
+
+  saveComment(commentInput, selectedRating);
   // 更新留言
   const updateComment = document.getElementById("userComment");
   updateComment.innerText = `${commentInput}`;
 });
-
 
 let stars = document.querySelectorAll(".star-rating i");
 
@@ -181,17 +180,19 @@ stars.forEach((star, index) => {
     });
   });
 });
-//按送出後model要消失
-$(document).ready(function() {
-  $('#enterComment').click(function() {
-      $('#scoreModal').modal('hide');
-  });
-});
+//加入購物車modal
+// const showAlert = () => {
+//   Swal.fire({
+//       icon: 'success',
+//       title: 'Hi',
+//       text: 'Thanks for coming!',
+//   })
+//
 //按評分星星
 
-function comment(x, y) {
+function saveComment(x, y) {
   var form = new FormData();
-  form.append("service", "comment");
+  form.append("service", "saveComment");
   form.append("userid", "1");
   form.append("restaurantid", "1");
   form.append("star", y);
@@ -208,9 +209,76 @@ function comment(x, y) {
   };
 
   $.ajax(settings).done(function (response) {
-    console.log(response);
+    // console.log(response);
+    showComment("青花驕-公益店");
   });
 }
+//抓評論在留言區
+function showComment(input_restaurant_name) {
+  //console.log(1);
+  var form = new FormData();
+  form.append("service", "showComment");
+  form.append("restaurant_name", input_restaurant_name);
+  $.ajax({
+    url: "http://localhost/Swallab/swallab/back-end/detail.php",
+    method: "POST",
+    timeout: 0,
+    processData: false,
+    mimeType: "multipart/form-data",
+    contentType: false,
+    data: form,
+    dataType: "json",
+  })
+    .done(function (responseData) {
+      var container = $("#inputcomment");
+
+      container.empty();
+      if (responseData.length > 0) {
+        i = 0;
+        responseData.forEach(function (item) {
+          i += 1;
+          if (i <= 3) {
+            var html = `
+           <div class="row" >
+                            <div class="col-3">
+                              <img class="ml-2" src="./../images/other/David.png" style="width: 150px;">
+                              <div style="text-align: center;">David</div>
+                            </div>
+                            <div class="col-9 position-relative">
+                              <div id="userComment">
+                              ${item.comment}
+                              </div>
+                              <p class="position-absolute date p-0">${item.createDate}</p>
+                            </div>
+                            
+                            </div>
+                            <hr> 
+                        `;
+            container.append(html);
+          } else {
+            var html = `
+            <div class="row hidden"  id="hidden-Comment" style="display: none;">
+            <div class="col-3">
+            <img class="ml-2" src="./../images/other/David.png" style="width: 150px;">
+            </div>
+            <div class="col-9">
+                <div>
+                ${item.comment}
+                </div>
+                <div class="date" style="margin-top: 60px;">${item.createDate}</div>
+            </div>
+        </div>
+                          `;
+            container.append(html);
+          }
+        });
+      }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.error("AJAX 請求失敗:", textStatus, errorThrown);
+    });
+}
+
 //抓各類別餐廳菜單
 function menu(input_className, input_restaurant_name) {
   var form = new FormData();
@@ -226,17 +294,14 @@ function menu(input_className, input_restaurant_name) {
     mimeType: "multipart/form-data",
     contentType: false,
     data: form,
-    dataType: "json"
+    dataType: "json",
   })
     .done(function (responseData) {
       var container = $("#menu-container");
-      console.log(responseData);
+
       container.empty();
       if (responseData.length > 0) {
         responseData.forEach(function (item) {
-            console.log('====================================');
-            console.log(item);
-            console.log('====================================');
           var html = `
         <div class=" col-4 mb-4">
             <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" >
@@ -245,24 +310,47 @@ function menu(input_className, input_restaurant_name) {
                 <div class="fs-20 ">$</div>
                 <div class="price" id="price-1">${item.price}</div>
             </div>
-            <button class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
+            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.meals_name}" data-price="${item.price}" data-photo="${item.photo}" onclick="showAlert()">加入購物車</button>
         </div>    
                         `;
           container.append(html);
+
+          var title = $("#title");
+
+          title.empty();
+          var html = `
+            <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">${responseData[0].className}</div>
+          `;
+          title.append(html);
         });
       }
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
       console.error("AJAX 請求失敗:", textStatus, errorThrown);
     });
+
+  // 加入購物車的商品跟資料庫商品可以對應
+  $(document).on("click", ".score", function () {
+    var name = $(this).data("name");
+    var price = $(this).data("price");
+    var photo = $(this).data("photo");
+
+    // console.log('名字',name);
+    // console.log('價格',price);
+    // console.log('照片',photo);
+
+    $("#cartModal .product-img").attr("src", "data:image/jpeg;base64," + photo);
+    $("#cartModal .items").text(name);
+    $("#cartModal .prices").text(price);
+  });
 }
 
 //抓全部類別的菜單
 function allMenu(input_restaurant_name) {
   var form = new FormData();
-  form.append("service", "menu");
+  form.append("service", "allMenu");
   form.append("restaurant_name", input_restaurant_name);
-
+  // console.log(123);
   $.ajax({
     url: "http://localhost/Swallab/swallab/back-end/detail.php",
     method: "POST",
@@ -271,18 +359,16 @@ function allMenu(input_restaurant_name) {
     mimeType: "multipart/form-data",
     contentType: false,
     data: form,
-    dataType: "json"
+    dataType: "json",
   })
     .done(function (responseData) {
       var container = $("#menu-container");
-      console.log(responseData);
+      console.log("名字", responseData[0].meals_name);
       container.empty();
       if (responseData.length > 0) {
         responseData.forEach(function (item) {
-            console.log('====================================');
-            console.log(item);
-            console.log('====================================');
           var html = `
+        
         <div class=" col-4 mb-4">
             <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" >
             <div class="name">${item.meals_name}</div>
@@ -290,10 +376,64 @@ function allMenu(input_restaurant_name) {
                 <div class="fs-20 ">$</div>
                 <div class="price" id="price-1">${item.price}</div>
             </div>
-            <button class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
+            <button id="aa" class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
         </div>    
                         `;
           container.append(html);
+
+          document.getElementById("aa").onclick = function aa() {
+            // console.log("名字",responseData);
+          };
+        });
+      }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.error("AJAX 請求失敗:", textStatus, errorThrown);
+    });
+}
+//抓限時優惠的菜單
+function saleMenu(input_restaurant_name) {
+  var form = new FormData();
+  form.append("service", "saleMenu");
+  form.append("restaurant_name", input_restaurant_name);
+
+  $.ajax({
+    url: "http://localhost/Swallab/swallab/back-end/detail.php",
+    method: "POST",
+    timeout: 0,
+    processData: false,
+    contentType: false,
+    data: form,
+    //後端傳回來的格式
+    dataType: "json",
+  })
+    .done(function (responseData) {
+      var container = $("#menu-container");
+      
+      container.empty();
+      if (responseData.length > 0) {
+        responseData.forEach(function (item) {
+        let nowDateTime = new Date();
+        let end_time = new Date(item.end_time);
+        let saleTimeCount = end_time - nowDateTime;
+        let saleTime = Math.round(saleTimeCount / (1000 * 60 * 60));
+        console.log("saleTimeCount : " + saleTimeCount);
+        console.log("saleTime : " + saleTime);
+          var html = `
+          <div class=" col-4 mb-4 position-relative" >
+            <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" > 
+            <span class="countDown">倒數<span>${saleTime}</span>hr</span>  
+            <div class="name">${item.meals_name}</div>
+            <div class="d-flex money">
+              <div class="fs-20 ">$</div>
+              <div class="price" id="price-1">${item.price}</div>
+            </div>
+          
+          <button class="score ml-5" data-toggle="modal" data-target="#cartModal">加入購物車</button>
+      </div>
+                        `;
+          container.append(html);
+
         });
       }
     })
