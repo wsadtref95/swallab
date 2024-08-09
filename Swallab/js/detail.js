@@ -492,8 +492,8 @@ function showShoppingCar(photo, meals_name, price) {
       </div>
     `;
     container.append(html);
-let count = 1;
-    // 渲染从后端返回的数据
+  let count = 1;
+    
     if (responseData.length > 0) {
       responseData.forEach(function(item) {
         count++;
@@ -531,11 +531,12 @@ let count = 1;
     });
     }
 
-    // 显示模态框
+    
     var cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
     cartModal.show();
   })
   .fail(function(jqXHR, textStatus, errorThrown) {
-    console.error("AJAX 请求失败:", textStatus, errorThrown);
+    console.error("AJAX 請求失敗:", textStatus, errorThrown);
   });
 }
+

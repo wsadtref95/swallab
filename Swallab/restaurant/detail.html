@@ -40,7 +40,7 @@
                 </div>
             </div>
             <!-- 購物車icon -->
-            <div class="icon-shopping icon-circle" data-toggle="modal" data-target="#cartModal">
+            <div class="icon-shopping icon-circle" data-toggle="modal" data-target="#orderCartModal">
                 <i class="fa-solid fa-cart-shopping"></i>
             </div>
 
@@ -251,6 +251,9 @@
                         onclick="showMore('hidden-Comment')">顯示更多</button>
 
                     <!-- 購物車model -->
+                    <div id="">
+
+                    </div>
                     <div class="modal fade slide-in-right" id="cartModal">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -300,7 +303,56 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 加入訂單購物車modal -->
+                    <div class="modal fade slide-in-right" id="orderCartModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="cartLabel">青花驕-公益店</h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span>x</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body d-flex">
+                                    <div id="addOrderCart">
+                                        <!-- <div class="row" style="text-align: center;">
+                                            <div>
+                                                <img src="./../images/qhjpage/person/1.avif" class="product-img">
+                                            </div>
+                                            <div class="product-details ml-3">
+                                                <div class="items mt-3">個人即享鍋</div>
+                                                <div class="d-flex mt-4 ml-4">
+                                                    <span>$</span>
+                                                    <span class="prices" id="price-1">310</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-actions">
+                                                <div class="ml-5 mt-3">
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-secondary rounded-button"
+                                                        onclick="decrement('number-span-1', 'price-1', 'total-price-1')">-</button>
+                                                    <span class="number-span fs-20" id="number-span-1">0</span>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-secondary rounded-button"
+                                                        onclick="increment('number-span-1', 'price-1', 'total-price-1')">+</button>
+                                                    <div id="total-price-1" class="mt-3 ml-1">$0</div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-center ml-5">
+                                                <button class="btn btn-link trash"
+                                                    onclick="removeProduct('product-row-1')"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">送出訂單</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
