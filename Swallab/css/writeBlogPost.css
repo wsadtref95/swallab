@@ -50,6 +50,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 15px;
+    position: relative;
 }
 
 .formCon label {
@@ -75,22 +76,75 @@ body {
 }
 
 .formCon:nth-child(2) span{
-
+    
     border: 2px solid #000;
     border-radius: 10px;
     overflow: hidden;
     width: 220px;
     height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+/* #photoResult img {
+    width: 200px;
+    height: 200px; */
+    /* object-fit: contain; */
+    /* width: 100%;
+    height: 100%; */
+/* } */
 
 .formCon img {
-    object-fit: cover;
     width: 220px;
-    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    /* width: 200px; */
+    /* width: 100%; */
 }
 .editorBtn {
     margin: 10px;
     text-align: right;
+}
+
+.formCon:nth-child(3) {
+    position: relative;
+}
+
+.result-container {
+    display: flex;
+    justify-content: end;
+    position: absolute; 
+    top: 45px; 
+    right: 35%;
+    z-index: 10;
+}
+
+#result {
+    background-color: #eee;
+    width: 80%;
+    min-width: 200px;
+    text-align: right;
+    display: block;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    display: none;
+}
+
+#result > li {
+    list-style:none;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+}
+
+#eatTimeResult {
+    color: #f00;
+    position: absolute;
+    top: 10px;
+    left: 45%;
+    display: none;
 }
 
 #editorBtn {

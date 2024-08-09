@@ -9,8 +9,6 @@
     <link href="../css/nav.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/root.css">
     <link rel="stylesheet" href="../css/writeBlogPost.css">
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/root.css">
     <script scr="../js/nav.js"></script>
     <script scr="../js/footer.js"></script>
     <title>Write Blog Post</title>
@@ -156,7 +154,7 @@
             </div>
             <div class="col">
                 <h3>撰寫食記</h3>
-                <form action="submit.php" method="post">
+                <form id="myBlog">
                     <div class="formCon">
                         <label for="title">標&emsp;&emsp;題 : &emsp;&emsp;</label>
                         <input id="title" class="formInput" name="title">
@@ -164,32 +162,31 @@
                     <div class="formCon">
                         <label for="titleImage">標題圖片 : &emsp;&emsp;</label>
                         <input id="titleImage" class="formInput" name="titleImage" type="file">
-                        <span>
-                            <img src="../images/火鍋/暮藏和牛鍋物.jpg">
+                        <span id="photoResult">
+                            新增圖片
                         </span>
                     </div>
-                    <div class="formCon">
-                        <label for="restaurantClass">餐廳分類 : &emsp;&emsp;</label>
-                        <select name="restaurantClass" id="restaurantClass" class="formInput">
-                            <option selected disabled>請選擇...</option>
-                        </select>
-                    </div>
-                    
-                    <div class="formCon">
-                        <label for="restaurantName">店&emsp;&emsp;名 : &emsp;&emsp;</label>
-                        <select name="restaurantName" id="restaurantName" class="formInput">
-                            <option selected disabled>請選擇...</option>
-                        </select>
+                    <div style="position: relative;">
+                        <div class="formCon">
+                            <label for="restaurantName">店&emsp;&emsp;名 : &emsp;&emsp;</label>
+                            <input name="restaurantName" id="restaurantName" class="formInput">
+                        
+                        </div>
+                        <div class="result-container">
+                            <ul id="result"></ul>
+                        </div>
                     </div>
                     
                     <div class="formCon">
                         <label for="averageCost">平均消費 : &emsp;&emsp;</label>
                         <input id="averageCost" class="formInput" name="averageCost">
                     </div>
-                    
-                    <div class="formCon">
-                        <label for="eatTime">用餐日期 :&emsp;&emsp; </label>
-                        <input id="eatTime" class="formInput" name="eatTime" type="datetime-local">
+                    <div style="position: relative;">
+                        <div class="formCon">
+                            <label for="eatTime">用餐日期 :&emsp;&emsp; </label>
+                            <input id="eatTime" class="formInput" name="eatTime" type="datetime-local">
+                        </div>
+                        <p id="eatTimeResult">開始時間不能大於當前時間</p>
                     </div>
                     
                     
@@ -224,7 +221,7 @@
                 <div class="row justify-content-center">
                     <!-- 二個 icon -->
                     <a href="#" class="col-6 text-center">
-                        <i class="fa-brands fa-facebook"></i> <!-- facebook -->
+                        <i class="fa-brands fa-facebook"></i>  <!-- facebook -->
                     </a>
                     <a href="#" class="col-6 text-center">
                         <i class="fa-brands fa-instagram"></i> <!-- instagram -->

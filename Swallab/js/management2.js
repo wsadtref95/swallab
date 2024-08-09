@@ -14,7 +14,7 @@ $().ready(function () {
 
     // 獲得分類
     let getClass = path => {
-        return fetch(`http://localhost/MySwallab/public/api/${path}`, { mode: 'cors' })
+        return fetch(`http://localhost/MySwallab/public/api/${path}`)
             .then(response => {
                 return response.json()
                 // return response.text()
@@ -27,7 +27,6 @@ $().ready(function () {
             method: 'POST',
             headers,
             body,
-            mode: 'cors'
         }).then(response => response.json())
         // }).then(response => response.text())
     }
@@ -35,6 +34,8 @@ $().ready(function () {
     // 按下編輯菜單
     $('#menuList').on('click', '.fa-pen', async function () {
         let myMenuListDiv = $(this).closest('.myMenuList');
+        // console.log(this);
+        
         // console.log(myMenuListDiv[0]['id']);
         let id = myMenuListDiv[0]['id'];
         modifyFormCon.classList.remove('d-none');
@@ -43,16 +44,17 @@ $().ready(function () {
 
         let data = await connectDB('getsinglemenu', body)
         // console.log(data);
-        const { meals_name, price, photo } = data;
+        const { item_name, item_price, item_photo } = data;
         // 照片
         // console.log(data[0]['photo']);
         let img = $('<img>');
-        img.prop('src', `http://localhost/MySwallab/public/${photo}`);
+        img.prop('src', `http://localhost/MySwallab/public/${item_photo}`);
         $('#myPhotoResult').append(img);
         // 價格
-        $('#myFoodPrice').val(price);
+        $('#myFoodPrice').val(item_price
+        );
         // 名稱
-        $('#myFoodName').val(meals_name);
+        $('#myFoodName').val(item_name);
         // 給btn一個id
         document.getElementById('modifyMenuBtn').dataset.id = id;
     });
@@ -66,7 +68,7 @@ $().ready(function () {
         // console.log(body);
 
         let data = await connectDB('getsinglemenu', body)
-        const { meals_name, price } = data;
+        const { item_name, item_price } = data;
         // let price = data[0]['price'];
         // let mealName = data[0]['meals_name'];
         // console.log(price, mealName);
@@ -75,7 +77,7 @@ $().ready(function () {
         // console.log(updatePrice, updateMealName);
         // console.log(price == updatePrice);
         let mySubmitResult = '';
-        if (price == updatePrice && meals_name == updateMealName) {
+        if (item_price == updatePrice && item_name == updateMealName) {
             // console.log('並未修改內容');
             mySubmitResult = '並未修改內容';
         } else {
@@ -88,7 +90,7 @@ $().ready(function () {
             // .then(data => {
 
             let data = await connectDB('updatemenu', body);
-            console.log(data);
+            // console.log(data);
             const { status } = data;
             if (status == 'ok') {
                 mySubmitResult = '存檔成功';
@@ -127,10 +129,10 @@ $().ready(function () {
     $('.colBtn:nth-child(2)').on('click', async function () {
         // console.log(this);
         let id = $(this).attr('data-id');
-        console.log(id);
+        // console.log(id);
         let body = new URLSearchParams({ id }).toString();
         let data = await connectDB('deletemenu', body);
-        console.log(data);
+        // console.log(data);
         let { status } = data;
         // console.log(status);
 
@@ -158,18 +160,18 @@ $().ready(function () {
         let html = '';
 
         data.forEach(item => {
-            let { className, meals_name, photo, price, id } = item;
+            let { section, item_name, item_photo, item_price, id } = item;
             // console.log(className);
             // console.log(meals_name);
 
             html += `
                 <div class="myMenuList row" id="${id}">
-                    <div class="col-2">${className}</div>
+                    <div class="col-2">${section}</div>
                     <div class="col-2">
-                        <img src="http://localhost/MySwallab/public/${photo}">
+                        <img src="http://localhost/MySwallab/public/${item_photo}">
                     </div>
-                    <div class="col-2">${meals_name}</div>
-                    <div class="col-2">${price}</div>
+                    <div class="col-2">${item_name}</div>
+                    <div class="col-2">${item_price}</div>
                     <div class="col-2">
                         <i class="fa-solid fa-pen"></i>
                         <i class="fa-solid fa-trash-can"></i>
@@ -192,9 +194,9 @@ $().ready(function () {
         let html = '<option disabled selected>請選擇...</option>'
 
         for (let i = 0; i < data.length; i++) {
-            const element = data[i]['className'];
+            const element = data[i]['section'];
             // console.log(element);
-            html += `<option value=${data[i]['class_num']}>${element}</option>`
+            html += `<option value=${data[i]['id']}>${element}</option>`
         }
         // console.log(html);
 
@@ -227,9 +229,6 @@ $().ready(function () {
 
     // 顯示圖片
     document.getElementById('foodPhoto').addEventListener('change', function (event) {
-        // $('#foodPhoto').on('change', event =>{
-
-        // console.log(event);
         let file = event.target.files[0];
         if (file) {
             let reader = new FileReader();
