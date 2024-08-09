@@ -46,59 +46,156 @@ window.onload = () => {
         });
 
         // "編輯"按鈕點開的modal
-        document.addEventListener("click", function (event) {
-          if (event.target.classList.contains("myedit")) {
-            const index = event.target.dataset.index;
-            const dataMid = event.target.dataset.mid;
+        // document
+        //   .querySelector(".myedit")
+        //   .addEventListener("click", function (event) {
+        //     // console.log(event.target.classList.contains("myedit"));
 
-            console.log(`我是修改編輯${index}`);
+        //     // if (event.target.classList.contains("myedit")) {
+        //     const index = event.target.dataset.index;
+        //     const dataMid = event.target.dataset.mid;
 
-            $("#testEdit")
-              .html(`<div class="modal fade modal2" id="myModal2" data-bs-backdrop="static">
+        //     console.log(`我是修改編輯${index}`);
+
+        //     $(
+        //       "#testEdit"
+        //     ).html(`<div class="modal fade modal2" id="myModal2" data-bs-backdrop="static">
+        //       <div class="modal-dialog">
+        //           <div class="modal-content modal-bg">
+        //               <!-- Modal Header -->
+        //               <div class="modal-header">
+        //                   <div>
+        //                       <h4 class="modal-title">修改留言</h4>
+        //                   </div>
+        //                   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        //               </div>
+
+        //               <form name="myFormUpdate" method="post" id="myEditForm">
+        //                   <!-- Modal body -->
+        //                   <div class="modal-body p-4">
+        //                       <label for="message">留言：</label>
+        //                       <textarea id="editMessage" rows="5" class="form-control" required></textarea>
+        //                   </div>
+        //                   <!-- Modal footer -->
+        //                   <div class="modal-footer d-flex justify-content-end align-items-center">
+        //                       <button type="submit" form="myForm" class="btn btnUpdate">確認修改</button>
+        //                   </div>
+        //               </form>
+        //           </div>
+        //       </div>
+        //       </div>`);
+
+        //     // 觸發修改的modal留言框
+        //     var myModal2 = new bootstrap.Modal(
+        //       document.getElementById("myModal2")
+        //     );
+        //     myModal2.show();
+
+        //     fetch(`../php/myedit.php?id=${dataMid}`)
+        //       .then((response) => {
+        //         return response.text();
+        //       })
+        //       .then((text) => {
+        //         console.log(`獲取到的留言內容:`, text);
+        //         // 更新 modal 中的輸入框內容
+        //         $("#editMessage").val(text);
+        //       })
+        //       .catch((error) => {
+        //         console.error(`編輯內容有錯:`, error);
+        //       });
+
+        //     //修改更新留言
+        //     // $("#testEdit").on("click", ".btnUpdate", function () {
+        //     $("#testEdit")
+        //       .off("click", ".btnUpdate")
+        //       .on("click", ".btnUpdate", function () {
+        //         event.preventDefault();
+        //         let editMessage = document.getElementById("editMessage").value;
+        //         console.log("修改留言的dataMid", dataMid);
+        //         console.log("新留言：", editMessage);
+        //         fetch(
+        //           `../php/myUpdate.php?id=${dataMid}&message=${editMessage}`
+        //         )
+        //           .then((response) => response.text())
+        //           .then((text) => {
+        //             console.log(text);
+
+        //             // 提交成功後關閉 modal (bootstrap的)
+        //             const modalElement = document.querySelector(".modal2");
+        //             const modal = bootstrap.Modal.getInstance(modalElement);
+        //             if (modal) {
+        //               modal.hide();
+        //             }
+
+        //             // 提交成功後更新留言列表
+        //             updateMessages();
+
+        //             // // 清空表單
+        //             // form.reset();
+        //           })
+        //           .catch((error) => console.error("修改留言有錯:", error));
+        //       });
+        //     // }
+        //   });
+
+        // 測試
+        // 防止重复绑定事件：移除之前的事件监听器
+        document.querySelectorAll(".myedit").forEach((button) => {
+          button.removeEventListener("click", myedit);
+          button.addEventListener("click", myedit);
+        });
+
+        function myedit(event) {
+          const index = event.target.dataset.index;
+          const dataMid = event.target.dataset.mid;
+
+          console.log(`我是修改編輯${index}`);
+
+          $("#testEdit").html(`
+            <div class="modal fade modal2" id="myModal2" data-bs-backdrop="static">
               <div class="modal-dialog">
-                  <div class="modal-content modal-bg">
-                      <!-- Modal Header -->
-                      <div class="modal-header">
-                          <div>
-                              <h4 class="modal-title">修改留言</h4>
-                          </div>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                      </div>
-                    
-                      <form name="myFormUpdate" method="post" id="myEditForm">
-                          <!-- Modal body -->
-                          <div class="modal-body p-4">
-                              <label for="message">留言：</label>
-                              <textarea id="editMessage" rows="5" class="form-control" required></textarea>
-                          </div>
-                          <!-- Modal footer -->
-                          <div class="modal-footer d-flex justify-content-end align-items-center">
-                              <button type="submit" form="myForm" class="btn btnUpdate">確認修改</button>
-                          </div>
-                      </form>
+                <div class="modal-content modal-bg">
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <div>
+                      <h4 class="modal-title">修改留言</h4>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
+                  <form name="myFormUpdate" method="post" id="myEditForm">
+                    <!-- Modal body -->
+                    <div class="modal-body p-4">
+                      <label for="message">留言：</label>
+                      <textarea id="editMessage" rows="5" class="form-control" required></textarea>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer d-flex justify-content-end align-items-center">
+                      <button type="submit" form="myForm" class="btn btnUpdate">確認修改</button>
+                    </div>
+                  </form>
+                </div>
               </div>
-              </div>`);
+            </div>`);
 
-            // 觸發修改的modal留言框
-            var myModal2 = new bootstrap.Modal(document.getElementById("myModal2"));
-            myModal2.show();
+          // 触发修改的modal留言框
+          var myModal2 = new bootstrap.Modal(document.getElementById("myModal2"));
+          myModal2.show();
 
-            fetch(`../php/myedit.php?id=${dataMid}`)
-              .then((response) => {
-                return response.text();
-              })
-              .then((text) => {
-                console.log(`獲取到的留言內容:`, text);
-                // 更新 modal 中的輸入框內容
-                $("#editMessage").val(text);
-              })
-              .catch((error) => {
-                console.error(`編輯內容有錯:`, error);
-              });
+          fetch(`../php/myedit.php?id=${dataMid}`)
+            .then((response) => response.text())
+            .then((text) => {
+              console.log(`獲取到的留言內容:`, text);
+              // 更新 modal 中的输入框内容
+              $("#editMessage").val(text);
+            })
+            .catch((error) => {
+              console.error(`编辑内容有错:`, error);
+            });
 
-            //修改更新留言
-            $("#testEdit").on("click", ".btnUpdate", function () {
+          // 确保只绑定一次事件
+          $("#testEdit")
+            .off("click", ".btnUpdate")
+            .on("click", ".btnUpdate", function (event) {
               event.preventDefault();
               let editMessage = document.getElementById("editMessage").value;
               console.log("修改留言的dataMid", dataMid);
@@ -108,25 +205,26 @@ window.onload = () => {
                 .then((text) => {
                   console.log(text);
 
-                  // 提交成功後關閉 modal (bootstrap的)
+                  // 提交成功后关闭 modal (bootstrap的)
                   const modalElement = document.querySelector(".modal2");
                   const modal = bootstrap.Modal.getInstance(modalElement);
-                  if (modal) {modal.hide();}
+                  if (modal) {
+                    modal.hide();
+                  }
 
-                  // 提交成功後更新留言列表
+                  // 提交成功后更新留言列表
                   updateMessages();
-
-                  // // 清空表單
-                  // form.reset();
                 })
-                .catch((error) => console.error("修改留言有錯:", error));
+                .catch((error) => console.error("修改留言有错:", error));
             });
-          }
-        });
+        }
 
         // "刪除"按鈕點開的modal
-        document.addEventListener("click", function (event) {
-          if (event.target.classList.contains("mydelete")) {
+        document.querySelectorAll(".mydelete").forEach((button) => {
+          button.removeEventListener("click", mydelete);
+          button.addEventListener("click", mydelete);
+        });
+        function mydelete(event) {
             const index = event.target.dataset.index;
             const dataMid = event.target.dataset.mid;
             // console.log(event.target);
@@ -159,7 +257,7 @@ window.onload = () => {
                       </form>
                   </div>
               </div>
-          </div>`);
+              </div>`);
 
             // 觸發修改的modal留言框
             var myModal3 = new bootstrap.Modal(document.getElementById("myModal3"));
@@ -178,27 +276,25 @@ window.onload = () => {
                 console.error(`刪除內容有錯:`, error);
               });
 
-            $("#testEdit").on("click", ".deleteMessage", function () {
-              fetch(`../php/myDelete.php?id=${dataMid}`)
-                .then((response) => {
-                  return response.text();
-                })
-                .then((text) => {
-                  console.log(`獲取到的留言內容:`, text);
-                  myModal3.hide();
-                  updateMessages();
-                })
-                .catch((error) => {
-                  console.error(`留言刪不掉:`, error);
-                });
-            });
-
-
-          }
-        });
+            $("#testEdit")
+              .off("click", ".btnUpdate")
+              .on("click", ".deleteMessage", function () {
+                fetch(`../php/myDelete.php?id=${dataMid}`)
+                  .then((response) => {
+                    return response.text();
+                  })
+                  .then((text) => {
+                    console.log(`獲取到的留言內容:`, text);
+                    myModal3.hide();
+                    updateMessages();
+                  })
+                  .catch((error) => {
+                    console.error(`留言刪不掉:`, error);
+                  });
+              });
+          
+        };
       })
-
-      
 
       .catch((error) => console.error("資料庫抓留言最後有錯", error));
   };
@@ -236,4 +332,3 @@ window.onload = () => {
   // 初次載入頁面時加載留言
   updateMessages();
 };
-
