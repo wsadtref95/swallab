@@ -89,61 +89,61 @@ $('#eatTime').on('change', async function () {
 })
 
 
-// 抓所有餐廳名稱，並存到陣列
-let restaurantName = [];
-let getRestaurantName = async () => {
-    const url = 'http://localhost/MySwallab/public/api/getrestaurantname';
-    let response = await fetch(url);
-    let data = await response.json();
-    // console.log(data);
-    data.map(element => {
-        // console.log(element);
-        let { id, restaurant_name, restaurant_class } = element
-        // console.log(restaurant_name);
-        restaurantName = [restaurant_name, ...restaurantName]
+// // 抓所有餐廳名稱，並存到陣列
+// let restaurantName = [];
+// let getRestaurantName = async () => {
+//     const url = 'http://localhost/MySwallab/public/api/getrestaurantname';
+//     let response = await fetch(url);
+//     let data = await response.json();
+//     // console.log(data);
+//     data.map(element => {
+//         // console.log(element);
+//         let { id, restaurant_name, restaurant_class } = element
+//         // console.log(restaurant_name);
+//         restaurantName = [restaurant_name, ...restaurantName]
 
-        // console.log('111', restaurantName);
+//         // console.log('111', restaurantName);
 
-    });
-}
+//     });
+// }
 
-// 把陣列變成全域
-let allRestaurantName = async () => {
-    await getRestaurantName();
-    return restaurantName;
-}
+// // 把陣列變成全域
+// let allRestaurantName = async () => {
+//     await getRestaurantName();
+//     return restaurantName;
+// }
 
-allRestaurantName().then()
+// allRestaurantName().then()
 
-$('#restaurantName').on('compositionupdate', event => {
-    // console.log(event);
-    // console.log(event.originalEvent.data);
-    // console.log(restaurantName);
-    let name = restaurantName.filter(name => {
-        // console.log(event.originalEvent.data.indexOf(name));
-        // return event.originalEvent.data.indexOf(name) >= 0;
-        for (let char of event.originalEvent.data) {
-            if (name.indexOf(char) >= 0) {
-                return true;
-            }
-            return false
-        }
-    })
-    // console.log('name', name);
-    $('#result').css('display', 'block');
-    $('#result').empty();
-    if (name.length > 0) {
-        $.each(name, function (index, item) {
-            $('#result').append('<li>' + item + '</li>');
-        })
-    } else {
-        $('#result').append('<li>沒有此店家</li>');
-    }
+// $('#restaurantName').on('compositionupdate', event => {
+//     // console.log(event);
+//     // console.log(event.originalEvent.data);
+//     // console.log(restaurantName);
+//     let name = restaurantName.filter(name => {
+//         // console.log(event.originalEvent.data.indexOf(name));
+//         // return event.originalEvent.data.indexOf(name) >= 0;
+//         for (let char of event.originalEvent.data) {
+//             if (name.indexOf(char) >= 0) {
+//                 return true;
+//             }
+//             return false
+//         }
+//     })
+//     // console.log('name', name);
+//     $('#result').css('display', 'block');
+//     $('#result').empty();
+//     if (name.length > 0) {
+//         $.each(name, function (index, item) {
+//             $('#result').append('<li>' + item + '</li>');
+//         })
+//     } else {
+//         $('#result').append('<li>沒有此店家</li>');
+//     }
 
-    $('#result').on('click', 'li', function () {
-        let selectedText = $(this).text();
-        $('#restaurantName').val(selectedText);
-        $('#result').empty();
-        $('#result').css('display', 'none');
-    });
-})
+//     $('#result').on('click', 'li', function () {
+//         let selectedText = $(this).text();
+//         $('#restaurantName').val(selectedText);
+//         $('#result').empty();
+//         $('#result').css('display', 'none');
+//     });
+// })
