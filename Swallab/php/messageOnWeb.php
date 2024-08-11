@@ -19,7 +19,24 @@ try {
     $index=0;
     foreach ($rows as $row) {
         $message = htmlspecialchars($row['message']); 
-        $date = htmlspecialchars($row['date']); 
+        $DateTime = new DateTime($row['date']); 
+        $currentDateTime = new DateTime();
+        $minus = $currentDateTime->diff($DateTime);
+    
+        // 時間相差的判斷
+        if ($minus->y > 0) {
+            $date = $minus->y . ' 年前';
+        } elseif ($minus->m > 0) {
+            $date = $minus->m . ' 個月前';
+        } elseif ($minus->d > 0) {
+            $date = $minus->d . ' 天前';
+        } elseif ($minus->h > 0) {
+            $date = $minus->h . ' 小時前';
+        } elseif ($minus->i > 0) {
+            $date = $minus->i . ' 分鐘前';
+        } else {
+            $date = '剛剛';
+        }
         $username = $row['name'];
         $href = $row['href'];
         $photoBlob = $row['avatar2'];
@@ -47,7 +64,7 @@ try {
                 <div class="col-8 p-0 d-flex flex-column">
                     <p class="comment">$message</p>
                     <p id="edit" class="d-flex justify-content-end"></p>
-                    <p class="d-flex justify-content-end">$date</p>
+                    <p class="d-flex justify-content-end me-3">$date</p>
                 </div>
                 
             </div>
