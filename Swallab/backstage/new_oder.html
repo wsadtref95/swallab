@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/backstage.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/root.css">
+    <link rel="stylesheet" href="../css/loading.css">
     <script scr="../js/nav.js"></script>
     <title>New Oder</title>
 </head>
@@ -56,40 +57,32 @@
                 <div class="orderStatus">
                     <h4>
                         新訂單 : 
-                        <span>1</span>
+                        <span id="status1"></span>
                     </h4>
                     <h4>
                         準備出餐 : 
-                        <span>2</span>
+                        <span id="status2"></span>
                     </h4>
                     <p id="stopOrder">暫停接單</p>
                     <p id="recoverOrder" class="d-none">恢復接單</p>
                 </div>
-                <div class="optionContainer">
-                    <div class="item d-flex justify-content-between">
-                        <h4>下訂單的使用者名稱</h4>
-                        <p>電話 : 0912345678</p>
-                        <p>下單時間 : 11:00</p>
-                        <h4>取餐時間 : 12:30</h4>
-                    </div>
-                    <div class="itemContainer row">
-                        <div class="col-9 row">
-                            <div class="col-6">品項</div>
-                            <div class="col-6">數量</div>
-                            <div class="col-6">個人即享鍋</div>
-                            <div class="col-6">1</div>
-                            <div class="col-6">青花驕麻辣燙</div>
-                            <div class="col-6">2</div>
-                            <div class="col-6">白飯</div>
-                            <div class="col-6">2</div>
-
-                        </div>
-                        <div class="col">
-                            <div class="myButton">
-                                <p>接受訂單</p>
-                                <p>取消訂單</p>
+                <div id="myOrders1">
+                    <div id="myLoading">
+                        <div class="loadingio-spinner-spinner-2by998twmg8">
+                            <div class="ldio-yzaezf3dcmj">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-$().ready(function() {
+$().ready(function () {
 
     // 時間控制
     let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -9,18 +9,18 @@ $().ready(function() {
         const url = 'http://localhost/MySwallab/public/api/restaurantinfo/1';
         let response = await fetch(url);
         let data = await response.json();
-        // console.log(data);
-        let {restaurant_name, restaurant_class, phone, address, average_fee, own} = data;
-        if({restaurant_name}) {
+        console.log(data);
+        let { users, address, avg_price } = data;
+        if ({ users }) {
             // console.log(restaurant_name);
             // console.log(own[0].name);
-            $('#restaurantName').attr('value', restaurant_name);
-            if (phone) {
-                $('#restaurantTel').attr('value', phone);
+            $('#restaurantName').attr('value', users.name);
+            if (users.phone) {
+                $('#restaurantTel').attr('value', users.phone);
                 $('#restaurantAddress').attr('value', address);
-                $('#restaurantAverage').attr('value', average_fee);
+                $('#restaurantAverage').attr('value', avg_price);
             }
-            
+
         }
     })()
 
@@ -32,10 +32,10 @@ $().ready(function() {
         // let data = await response.test();
         // console.log(data);
         let myHtml = '<option disabled selected>請選擇...</option>';
-        data.forEach(({id, name}) => {
+        data.forEach(({ id, restclass }) => {
             // console.log(id);
             // console.log(name);
-            myHtml += `<option value=${id}>${name}</option>`
+            myHtml += `<option value=${id}>${restclass}</option>`
         });
         $('#restaurantClassification').html(myHtml);
     }
@@ -57,7 +57,7 @@ $().ready(function() {
         let restaurantAverage = formData.get('restaurantAverage');
         let restaurantClassification = formData.get('restaurantClassification');
         const body = JSON.stringify(Object.fromEntries(formData));
-        let reset = '';
+        let result = '';
         if (restaurantName && restaurantTel && restaurantAddress && restaurantAverage && restaurantClassification) {
             let response = await fetch(url, {
                 method: 'POST',
@@ -66,15 +66,20 @@ $().ready(function() {
             })
             let data = await response.json();
             console.log(data);
-            result = '存檔成功';
+            let { status } = data;
+            if(status == 'ok') {
+                result = '存檔成功';
+            } else {
+                result = '存檔失敗';
+            }
         } else {
             result = '表格尚未填寫完成';
         }
-        
+
         $('#submitResult').text(result);
         await sleep(3000);
         $('#submitResult').text('')
     })
-    
-    
+
+
 })

@@ -8,7 +8,7 @@ $().ready(function () {
 
     // // 資料庫練習
     // // 抓分類
-    let getClass = id => {
+    let getClass = index => {
         // fetch('http://localhost/myProj/php/management_menu1.php/getClass') // php
         fetch('http://localhost/MySwallab/public/api/getfoodclass') // laravel
             .then(response => {
@@ -16,17 +16,15 @@ $().ready(function () {
                 // return response.text()
             }).then(data => {
                 // console.log(data);
-                // console.log(id);
                 let html = '<option disabled selected>請選擇...</option>'
-
-                for (let i = 0; i < data.length; i++) {
-                    const element = data[i]['className'];
-                    // console.log(element);
-                    html += `<option value=${data[i]['class_num']}>${element}</option>`
-                }
+                // console.log(id);
+                data.map(({ id, section }) => {
+                    // console.log(section);
+                    html += `<option value=${id}>${section}</option>`
+                })
                 // console.log(html);
 
-                $(`#className${id}`).html(html);
+                $(`#className${index}`).html(html);
             })
     }
     getClass(1);
@@ -62,12 +60,12 @@ $().ready(function () {
         const body = new URLSearchParams({ classId: this.value }).toString();
         // console.log(body);
         let data = await getDetail('getfoodname', body);
-        // console.log(data);
+        console.log(data);
         let myHtml = '<option disabled selected>請選擇...</option>'
 
-        data.forEach(({ id, meals_name }) => {
+        data.forEach(({ id, item_name }) => {
             // console.log(meals_name);
-            myHtml += `<option value=${id}>${meals_name}</option>`
+            myHtml += `<option value=${id}>${item_name}</option>`
 
         });
         // for (let i = 0; i < data.length; i++) {
@@ -92,11 +90,11 @@ $().ready(function () {
         // let data = await getDetail('getPrice', body); // php
         let data = await getDetail('getfoodprice', body); // laravel
 
-        // console.log(data);
-        let { price } = data;
+        console.log(data);
+        let { item_price } = data;
         // console.log(data[0].price);
-        $(`#menuPrice${id}`).attr('max', price);
-        $(`#originalPrice${id}`).text(price);
+        $(`#menuPrice${id}`).attr('max', item_price);
+        $(`#originalPrice${id}`).text(item_price);
     })
 
     // 檢查價格是否正確
@@ -240,40 +238,40 @@ $().ready(function () {
         let discounts = [];
 
         formData.forEach((value, key) => {
-                console.log('value: ', value);
-                console.log('key: ', key);
+            // console.log('value: ', value);
+            // console.log('key: ', key);
             let match = key.match(/(\D+)(\d)$/);
-                console.log('match: ', match); 
+            // console.log('match: ', match);
             if (match) {
                 let field = match[1];
                 let suffix = match[2];
-                    console.log('field: ', field);
-                    console.log('suffix: ', suffix);
+                // console.log('field: ', field);
+                // console.log('suffix: ', suffix);
                 let discount = discounts.find(d => d.suffix === suffix);
-                    console.log('discount: ', discount);
+                // console.log('discount: ', discount);
                 if (!discount) {
                     discount = { suffix: suffix };
-                        console.log('discount: ', discount);
-                    
+                    // console.log('discount: ', discount);
+
                     discounts.push(discount);
-                        console.log('discounts: ', discount);
-                    
+                    // console.log('discounts: ', discount);
+
                 }
-                
+
                 discount[field] = value;
-                    console.log('discount: ', discount);
+                // console.log('discount: ', discount);
             }
         })
         discounts = discounts.map(({ suffix, ...rest }) => {
-                console.log('suffix: ', suffix);
-                console.log('rest: ', rest);
+            // console.log('suffix: ', suffix);
+            // console.log('rest: ', rest);
             return rest
         })
 
-            console.log('discounts: ', discounts);
-        
+        console.log('discounts: ', discounts);
+
         let body = JSON.stringify({ discounts });
-        
+
 
         // ==========
 
@@ -294,9 +292,9 @@ $().ready(function () {
         let result = await response.json()
         // let result = await response.text()
         console.log(result);
-        let {status} = result;
+        let { status } = result;
         console.log(status);
-        
+
         if (status == 'ok') {
             discountForm.reset()
             $('#submitResult').text('儲存成功')
@@ -304,9 +302,9 @@ $().ready(function () {
             $('#submitResult').text('')
 
         } else if (status == "fail") {
-            let {message} = result;
+            let { message } = result;
             console.log(message);
-            
+
             if (message == 'Invalid input data') {
                 $('#submitResult').text('儲存失敗')
             } else {

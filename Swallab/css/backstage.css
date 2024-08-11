@@ -7,6 +7,10 @@ header {
     height: 100px;
     background-color: #eee9d5;
 }
+
+#myLoading {
+    text-align: center;
+}
 .item>div{
     background-color: #f00;
     width: 15%;
@@ -81,6 +85,7 @@ header {
 }
 .optionContainer{
     padding: 20px;
+    margin: 20px 0;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 5px 5px 5px #aaa;
