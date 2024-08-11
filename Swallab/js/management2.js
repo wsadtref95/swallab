@@ -35,14 +35,15 @@ $().ready(function () {
     $('#menuList').on('click', '.fa-pen', async function () {
         let myMenuListDiv = $(this).closest('.myMenuList');
         // console.log(this);
-        
+
         // console.log(myMenuListDiv[0]['id']);
         let id = myMenuListDiv[0]['id'];
         modifyFormCon.classList.remove('d-none');
         let body = new URLSearchParams({ myFoodId: id }).toString();
         // console.log(body);
-
+        mySmallLoading.classList.remove('d-none');
         let data = await connectDB('getsinglemenu', body)
+        mySmallLoading.classList.add('d-none');
         // console.log(data);
         const { item_name, item_price, item_photo } = data;
         // 照片
@@ -66,7 +67,8 @@ $().ready(function () {
         // console.log(id);
         let body = new URLSearchParams({ myFoodId: id }).toString();
         // console.log(body);
-
+        
+        mySmallLoading.classList.remove('d-none');
         let data = await connectDB('getsinglemenu', body)
         const { item_name, item_price } = data;
         // let price = data[0]['price'];
@@ -82,14 +84,8 @@ $().ready(function () {
             mySubmitResult = '並未修改內容';
         } else {
             let body = new URLSearchParams({ id, updatePrice, updateMealName }).toString();
-            // fetch(`http://localhost/myProj/php/management_menu1.php/updateMenu`, {
-            //     method: 'POST',
-            //     headers,
-            //     body
-            // }).then(response => response.text())
-            // .then(data => {
-
             let data = await connectDB('updatemenu', body);
+            mySmallLoading.classList.add('d-none');
             // console.log(data);
             const { status } = data;
             if (status == 'ok') {
@@ -97,8 +93,6 @@ $().ready(function () {
             } else {
                 mySubmitResult = '存檔失敗';
             }
-
-            // })
         }
         $('#mySubmitResult').text(mySubmitResult);
         displayMenu(); // 刷新菜單
@@ -131,7 +125,9 @@ $().ready(function () {
         let id = $(this).attr('data-id');
         // console.log(id);
         let body = new URLSearchParams({ id }).toString();
+        mySmallLoading.classList.remove('d-none');
         let data = await connectDB('deletemenu', body);
+        mySmallLoading.classList.add('d-none');
         // console.log(data);
         let { status } = data;
         // console.log(status);
@@ -298,7 +294,9 @@ $().ready(function () {
                 body
             })
 
+            mySmallLoading.classList.remove('d-none');
             let result = await response.json();
+            mySmallLoading.classList.add('d-none');
             // console.log(result);
             let { status } = result
             // console.log('status : ', status);

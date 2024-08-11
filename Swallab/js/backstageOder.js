@@ -40,10 +40,13 @@ let showOrders1 = async () => {
     let html = '';
     data.forEach(({ id, booking_date, booking_time, created_at, details, members: { users: { name, phone } } }) => {
 
-        booking_time = JSON.parse(booking_time);
-        booking_time = Array.from(new Set(booking_time));
+        try {
+            booking_time = JSON.parse(booking_time);
+        } catch (e) {
+            return;
+        }
+        
         let [h, m] = booking_time;
-
         let myDate = new Date(created_at)
         // console.log(myDate);
         let month = String(myDate.getMonth() + 1).padStart(2, '0');
