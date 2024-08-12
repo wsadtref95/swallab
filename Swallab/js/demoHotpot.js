@@ -2,6 +2,21 @@ document.getElementById("top").addEventListener("click", function () {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+const collectOK = () => {
+  Swal.fire({
+    icon: "success",
+    title: "收藏成功!",
+    text: "已成功收藏此文章",
+  });
+};
+const collectNO = () => {
+  Swal.fire({
+    icon: "success",
+    title: "已移除",
+    text: "已從收藏中移除此文章",
+  });
+};
+
 $(".noColorHeart").on("click", function () {
   $("#heart").css({
     display: "inline",
@@ -10,6 +25,19 @@ $(".noColorHeart").on("click", function () {
   $(this).css({
     display: "none",
   });
+  collectOK();
+  fetch("../php/collect.php?action=collectOK")
+    .then(function (response) {
+      console.log(response);
+
+      return response.text();
+    })
+    .then(function (text) {
+      console.log(text);
+    })
+    .catch(function (error) {
+      console.error("文章收藏錯誤:", error);
+    });
 });
 
 $("#heart").on("click", function () {
@@ -19,6 +47,19 @@ $("#heart").on("click", function () {
   $(this).css({
     display: "none",
   });
+  collectNO();
+  fetch("../php/collect.php?action=collectNO")
+    .then(function (response) {
+      console.log(response);
+
+      return response.text();
+    })
+    .then(function (text) {
+      console.log(text);
+    })
+    .catch(function (error) {
+      console.error("文章取消收藏錯誤:", error);
+    });
 });
 
 
