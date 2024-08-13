@@ -65,7 +65,17 @@ $('#editorBtn').on('click', async event => {
     });
     let result = await response.json();
     console.log(result);
-
+    const {status} = result;
+    let mySubmitResult = '';
+    if (status == 'ok') {
+        mySubmitResult = '存檔成功';
+    } else {
+        mySubmitResult = '存檔失敗';
+    }
+    $('#mySubmitResult').text(mySubmitResult);
+        await sleep(2500);
+        $('#mySubmitResult').text('');
+        myBlog.reset();
 })
 
 // 實際用餐時間不能大於今天
@@ -98,9 +108,9 @@ let getRestaurantName = async () => {
     // console.log(data);
     data.map(element => {
         // console.log(element);
-        let { id, restaurant_name, restaurant_class } = element
+        let { name } = element
         // console.log(restaurant_name);
-        restaurantName = [restaurant_name, ...restaurantName]
+        restaurantName = [name, ...restaurantName]
 
         // console.log('111', restaurantName);
 

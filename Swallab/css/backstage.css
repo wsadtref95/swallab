@@ -517,6 +517,29 @@ input[type=hidden]{
     text-align: center;
 }
 
+.tagsContainer {
+    width: 500px;
+    height: 35px;
+    display: inline-block;
+}
+
+.tagsContainer input[type=checkbox] {
+    display: none;
+}
+
+.tagsContainer label {
+    padding: 0 20px;
+    margin: 0 11px;
+    border: 1px solid #000;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.tags-select {
+    background-color: #e5a67a;
+    color: #fff;
+}
+
 .submit-container {
     display: flex;
     justify-content: flex-end;

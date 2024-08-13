@@ -12,6 +12,7 @@ $().ready(function () {
         // fetch('http://localhost/myProj/php/management_menu1.php/getClass') // php
         fetch('http://localhost/MySwallab/public/api/getfoodclass') // laravel
             .then(response => {
+                mySmallLoading.classList.remove('d-none');
                 return response.json()
                 // return response.text()
             }).then(data => {
@@ -20,6 +21,7 @@ $().ready(function () {
                 // console.log(id);
                 data.map(({ id, section }) => {
                     // console.log(section);
+                    mySmallLoading.classList.add('d-none');
                     html += `<option value=${id}>${section}</option>`
                 })
                 // console.log(html);
@@ -59,7 +61,9 @@ $().ready(function () {
         // 抓名稱
         const body = new URLSearchParams({ classId: this.value }).toString();
         // console.log(body);
+        mySmallLoading.classList.remove('d-none');
         let data = await getDetail('getfoodname', body);
+        mySmallLoading.classList.add('d-none');
         console.log(data);
         let myHtml = '<option disabled selected>請選擇...</option>'
 
@@ -68,11 +72,6 @@ $().ready(function () {
             myHtml += `<option value=${id}>${item_name}</option>`
 
         });
-        // for (let i = 0; i < data.length; i++) {
-        //     const element = data[i]['meals_name'];
-        //     // console.log(element);
-        //     myHtml += `<option value=${data[i]['id']}>${element}</option>`
-        // }
         // console.log(myHtml);
         $(`#mealName${id}`).html(myHtml);
 
@@ -87,8 +86,10 @@ $().ready(function () {
         // console.log(foodId);
         const body = new URLSearchParams({ foodId: this.value }).toString();
         // console.log(body);
+        mySmallLoading.classList.remove('d-none');
         // let data = await getDetail('getPrice', body); // php
         let data = await getDetail('getfoodprice', body); // laravel
+        mySmallLoading.classList.add('d-none');
 
         console.log(data);
         let { item_price } = data;
@@ -283,13 +284,14 @@ $().ready(function () {
         const headers = {
             'content-type': 'application/json'
         }
-
+        mySmallLoading.classList.remove('d-none');
         let response = await fetch('http://localhost/MySwallab/public/api/discount/insert', {
             method: 'POST',
             headers,  // headers: headers
             body  // body: body
         })
         let result = await response.json()
+        mySmallLoading.classList.add('d-none');
         // let result = await response.text()
         console.log(result);
         let { status } = result;

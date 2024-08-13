@@ -257,6 +257,9 @@ document.getElementById('businessHoursForm').addEventListener('submit', async ev
             hBreakTime2: [hSBreakTimeH2, hSBreakTimeM2, hEBreakTimeH2, hEBreakTimeM2],
         })
 
+        console.log(body);
+        
+
         const url = 'http://localhost/MySwallab/public/api/worktime';
         let response = await fetch(url, {
             method: 'POST',

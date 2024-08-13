@@ -162,3 +162,7 @@ body {
     font-weight: bolder;
     box-shadow: 0 0 0 1px #000;
 }
+
+#mySubmitResult {
+    color: #f00;
+}
