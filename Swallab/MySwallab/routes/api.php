@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Models\RestInfos;
-use App\Models\FiltClass;
+use App\Models\FiltClasses;
 use App\Models\RestItems;
 use App\Models\FiltSectionDemos;
 
@@ -16,10 +16,25 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+// 更新訂單狀態 --> ok
+Route::get('/order/update/{orderId}/{status}', [OrderController::class, 'updateStatus']);
+
+// 取得有幾筆訂單 --> ok
+Route::get('/sumoforders/{status}', [OrderController::class, 'sumOfOrders']);
+
 // 取得所有訂單資訊 --> ok
 Route::get('/order', [OrderController::class, 'showAll']);
 
-// 送出已編輯玩的文章 --> ok
+// 依訂單狀態取得訂單
+Route::get('/order/{status}', [OrderController::class, 'getOrdersWithStatus']);
+
+// 取得食記首頁
+Route::get('getallnotes', [BlogController::class, 'getAllNotes']);
+
+// 取得寫完的文章
+Route::get('/getnote/{id}', [BlogController::class, 'getContent']);
+
+// 送出已編輯完的文章 --> ok
 Route::post('/submit', [BlogController::class, 'submit']);
 
 // 發表文章上傳圖片的路徑 --> ok
@@ -62,26 +77,16 @@ Route::post('/getfoodname', [FoodController::class, 'getName']);
 Route::post('/getfoodprice', [FoodController::class, 'getPrice']);
 
 // 寫入營業時間 --> ok
-// Route::post('/worktime', [SetTimeController::class, 'store']);
 Route::post('/worktime', [RestaurantController::class, 'setOpeningTime']);
 
+// 顯示所有 tags
+Route::get('/showtags', [RestaurantController::class, 'showTags']);
+
 // 取得店家資訊 --> ok
-Route::get("/restaurantinfo/{id}", function ($id) {
-    return response(
-        RestInfos::with('own')->find($id)->toJson(JSON_UNESCAPED_UNICODE)
-    )
-        ->header('content-type', 'application/json')
-        ->header('charset', 'utf-8');
-});
+Route::get("/restaurantinfo/{id}", [RestaurantController::class, 'restaurantInfo']);
 
 // 取得餐廳種類 --> ok
-Route::get('/restaurantClass', function () {
-    return response(
-        FiltClass::all()->toJson(JSON_UNESCAPED_UNICODE)
-    )
-        ->header('content-type', 'application/json')
-        ->header('charset', 'utf-8');
-});
+Route::get('/restaurantClass', [RestaurantController::class, 'restaurantClass']);
 
 // 修改店家資訊 --> ok
-Route::post('/restaurantinfo/update', [RestaurantController::class, 'restaurantInfo']);
+Route::post('/restaurantinfo/update', [RestaurantController::class, 'updateRestaurantInfo']);

@@ -19,4 +19,14 @@ class MemberNotes extends Model
         'content',
         'visited_date',
     ];
+
+    function members()
+    {
+        return $this->belongsTo(Members::class, 'm_id');
+    }
+
+    function restInfos()
+    {
+        return $this->belongsTo(RestInfos::class, 'r_id');
+    }
 }

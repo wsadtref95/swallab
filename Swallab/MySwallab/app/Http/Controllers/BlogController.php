@@ -3,11 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\RestaurantInfo;
+use App\Models\RestInfos;
 use App\Models\MemberNotes;
+use App\Models\Users;
 
 class BlogController extends Controller
 {
+    function getAllNotes()
+    {
+        $allNotes = MemberNotes::orderBy('created_at' , 'desc')
+                                ->select('id', 'title', 'main_photo', 'created_at')
+                                ->first();
+
+        return $allNotes;
+    }
+
+    function getContent($id)
+    {
+        $memberNote = MemberNotes::with(['members.users' => function($query){
+            $query->select('id', 'avatar', 'name');
+        }, 'restInfos' => function($query) {
+            $query->select('id', 'user_id', 'address', 'weekday', 'weekend', 'wd_operating', 'we_operating');
+        }, 'restInfos.users' => function($query) {
+            $query->select('id',  'phone', 'name');
+        }])
+        ->find($id);
+        // $memberNote = MemberNotes::with(['members.users' => function($query) {
+        //     $query->select('id', 'name');
+        // }])
+        // ->find($id);
+        return response()->json($memberNote);
+    }
+
     function upload(Request $request)
     {
         if ($request->hasFile('upload')) {
@@ -35,33 +62,10 @@ class BlogController extends Controller
         $eatTime = $request->eatTime;
         $content = $request->editor;
 
-        // return response()->json([
-        //                         'title' => $title,
-        //                         'photo' => $photo,
-        //                         'restaurantName' => $restaurantName,
-        //                         'averageCost' => $averageCost,
-        //                         'eatTime' => $eatTime,
-        //                         'content' => $content,
-    // ]);
-        $restaurant = RestaurantInfo::where('restaurant_name', $restaurantName)->first();
+        $restaurant = Users::where('name', $restaurantName)->first();
 
         // return response()->json($restaurant->id);
         if ($restaurant) {
-            // try {
-            //     $memberNote = MemberNotes::create([
-            //         'm_id' => $mId,
-            //         'r_id' => $restaurant->id,
-            //         'title' => $title,
-            //         'main_photo' => $photo,
-            //         'per_cost' => $averageCost,
-            //         'content' => $content,
-            //         'visited_date' => $eatTime
-            //     ]);
-    
-            //     return response()->json($memberNote);
-            // } catch (\Exception $e) {
-            //     return response()->json(['message' => $e->getMessage()]);
-            // }
 
             try {
                 $memberNote = new MemberNotes();
@@ -73,7 +77,7 @@ class BlogController extends Controller
                 $memberNote->content = $content;
                 $memberNote->visited_date = $eatTime;
                 $memberNote->save();
-                return response()->json(['memberNote' => 'ok']);
+                return response()->json(['status' => 'ok']);
             } catch (\Exception $e) {
                 return response()->json(['status' => 'fail', 'message', $e->getMessage()]);
             }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MealDiscount;
+use App\Models\RestDiscount;
 
 class DiscountController extends Controller
 {
@@ -26,13 +26,13 @@ class DiscountController extends Controller
         if (is_array($discountsData) && !empty($discountsData)) {
             try {
                 foreach ($discountsData as $data) {
-                    $discount = new MealDiscount();
-                    $discount->class_id = $data['menuList'];
-                    $discount->food_id = $data['menuName'];
-                    $discount->price = $data['menuPrice'];
+                    $discount = new RestDiscount();
+                    // $discount->class_id = $data['menuList'];
+                    $discount->r_i_id = $data['menuName'];
+                    $discount->discount_price = $data['menuPrice'];
                     $discount->start_time = $data['startTime'];
                     $discount->end_time = $data['endTime'];
-                    $discount->save(); // 保存資料
+                    $discount->save(); 
                 }
                 return response()->json(['status' => 'ok'], 200);
             } catch (\Exception $e) {
