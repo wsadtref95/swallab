@@ -2,8 +2,19 @@ document.getElementById("top").addEventListener("click", function () {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+function showLoading(){
+  $("#myLoading").css("display","block")
+  console.log("顯示loading");
+  
+}
+function hideLoading() {
+  $("#myLoading").css("display", "none");
+  console.log("隱藏loading");
+}
+showLoading();
 //網頁載入-最熱門
 window.onload = function () {
+  
   ///最新文章1+2 ==>標題+日期 ==> 用id
   $.ajax({
     url: "../php/hotTitle.php",
@@ -38,6 +49,7 @@ window.onload = function () {
     })
     .always(function () {
       console.log("3.always:最新文章");
+      
     });
 
   //最新文章的照片1+2
@@ -66,6 +78,7 @@ window.onload = function () {
     .then((response) => response.text())
     .then((text) => {
       cardTop.innerHTML = text;
+      hideLoading();
     })
     .catch((error) => {
       console.error("獲取圖片失敗", error);
@@ -206,6 +219,7 @@ $("#hotpot").on("click",function(){
     .then((response) => response.text())
     .then((text) => {
       cardTop.innerHTML = text;
+
     })
     .catch((error) => {
       console.error("獲取圖片失敗", error);
