@@ -29,20 +29,20 @@ try {
         $photoBase64 = base64_encode($photoBlob);
 
         // IMG的src
-        $photoSrc = "data:${photoMimeType};base64,${photoBase64}";
+        $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
 
         echo <<<HTML
         <div class="col-4 mb-4">
           <div class="card overflow-hidden">
             <div class="card-body p-0">
-              <img src="${photoSrc}" alt="" class="img-fluid notesImage" />
+              <img src="{$photoSrc}" alt="" class="img-fluid notesImage" />
             </div>
             <div class="card-footer align-items-center">
-              <p class="ellipsis notesTitle">${comment}</p>
+              <p class="ellipsis notesTitle">{$comment}</p>
               <div class="fixed-bottom-center">
                 <div class="d-flex align-items-center justify-content-center">
                   <img src="../images/other/eye.png" alt="" />
-                  <p class="m-0 viewNumber">${viewNumber}</p>
+                  <p class="m-0 viewNumber">{$viewNumber}</p>
                 </div>
               </div>
             </div>

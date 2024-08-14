@@ -49,15 +49,15 @@ try {
         $photoBase64 = base64_encode($photoBlob);
 
         // IMG的src
-        $photoSrc = "data:${photoMimeType};base64,${photoBase64}";
+        $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
 
         echo <<<HTML
-        <div class="d-flex justify-content-center mt-4 m-0 test"  data-uid=${uid} data-mid=${mid} id="test">
+        <div class="d-flex justify-content-center mt-4 m-0 test"  data-uid={$uid} data-mid={$mid} id="test">
             <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto">
                 <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3">
-                    <img src="${photoSrc}" alt="">    
-                    <a href="${href}" style="text-decoration: none;color:black">
-                        <div >${username}</div>      
+                    <img src="{$photoSrc}" alt="">    
+                    <a href="{$href}" style="text-decoration: none;color:black">
+                        <div >{$username}</div>      
                     </a>
 
                 </div>

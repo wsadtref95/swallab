@@ -6,7 +6,7 @@ $user = "root";
 //燒肉的最新文章-圖片
 
 try {
-    $db = new PDO("mysql:host=${host};dbname=${dbname}", $user);  
+    $db = new PDO("mysql:host={$host};dbname={$dbname}", $user);  
     $sql = "select image from foodnotes where type = 'bbq' order by date desc limit 3;";  
     $stmt = $db->prepare($sql);
     $stmt->execute();
