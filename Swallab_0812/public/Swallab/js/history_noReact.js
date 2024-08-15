@@ -1,64 +1,3 @@
-function count() {
-    if (window.countNumber === undefined) {
-        window.countNumber = 0; // 初始化 countNumber
-    }
-    window.countNumber += 1; // 根據需要增加
-    console.log('目前執行了' + window.countNumber + '次');
-}
-window.hasFetched = false; // 初始化 hasFetched
-
-function log(message, data = {}) {
-    const timestamp = new Date().toISOString();
-
-    // 將數據轉換為字符串，處理循環引用
-    const stringifyData = (obj) => {
-        const seen = new WeakSet();
-        return JSON.stringify(obj, (key, value) => {
-            if (typeof value === "object" && value !== null) {
-                if (seen.has(value)) {
-                    return "[Circular]";
-                }
-                seen.add(value);
-            }
-            return value;
-        }, 2);
-    };
-
-    // 格式化數據
-    const formattedData = Object.entries(data).map(([key, value]) => {
-        let formattedValue;
-        if (typeof value === 'object' && value !== null) {
-            formattedValue = stringifyData(value);
-        } else {
-            formattedValue = String(value);
-        }
-        return `${key}: ${formattedValue}`;
-    }).join('\n');
-
-    // 輸出到控制台
-    console.log(`[${timestamp}] ${message}\n${formattedData}`);
-}
-let hasMoreItems;
-document.addEventListener('DOMContentLoaded', () => {
-    loadItems();
-});
-
-// 設置 API 基礎 URL
-const API_BASE_URL = 'http://localhost:8000/api';
-
-//  CSRF 
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-// 設置 fetch headers
-const fetchOptions = {
-    headers: {
-        'X-CSRF-TOKEN': csrfToken,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'access-control-allow-origin': '*',
-    },
-};
-
 // // 全域變數
 // let currentTab = 'all';
 // let currentPage = 1;
@@ -147,11 +86,136 @@ const fetchOptions = {
 // 原本的程式碼
 
 // Global variables
+
+
+
+//載入
+// document.addEventListener('DOMContentLoaded', () => {
+//     console.log('DOMContentLoaded event fired');
+//     log('DOMContentLoaded event fired');
+//     loadAllTabItems();
+//     // 給加載一些時間,然後檢查
+//     // setTimeout(checkInitialLoad, 1000);
+// });
+
+
+window.LoadCount = 0;
+console.log('LoadCount', window.LoadCount);
+function setupEventListeners() {
+    tabButtons.forEach(button => {
+        button.removeEventListener('click', tabClickHandler);
+        button.addEventListener('click', tabClickHandler);
+    });
+}
+
+function tabClickHandler(event) {
+    const tab = event.target.dataset.tab;
+    switchTab(event, tab);
+}
+
+// 在 DOMContentLoaded 事件中调用
+// document.addEventListener('DOMContentLoaded', () => {
+//     if(window.LoadCount == 0)
+//     setupEventListeners();
+//     loadAllTabItems();
+// });
+
+
+// function domReady(fn) {
+//     if (document.readyState === "complete" || document.readyState === "interactive") {
+//         setTimeout(fn, 1);
+//     } else {
+//         document.addEventListener("DOMContentLoaded", fn);
+//     }
+// }
+
+// 使用 domReady 函數
+// domReady(() => {
+//     console.log('DOM is ready');
+//     log('DOM is ready');
+//     loadItems();
+//     setTimeout(checkInitialLoad, 2000);
+// });
+
+// 全域
 let isLoading = false;
 let currentTab = 'all';
 let currentPage = 1;
 let lastLoadedPage;
+let hasMoreItems;
 const itemsPerPage = 4;
+
+// 計數器除錯用
+function count() {
+    if (window.countNumber === undefined) {
+        window.countNumber = 0; // 初始化 countNumber
+    }
+    window.countNumber += 1; // 根據需要增加
+    console.log('目前執行了' + window.countNumber + '次');
+}
+window.hasFetched = false; // 初始化 hasFetched
+
+// 除錯器 by AI
+function log(message, data = {}) {
+    const timestamp = new Date().toISOString();
+
+    // 將數據轉換為字符串，處理循環引用
+    const stringifyData = (obj) => {
+        const seen = new WeakSet();
+        return JSON.stringify(obj, (key, value) => {
+            if (typeof value === "object" && value !== null) {
+                if (seen.has(value)) {
+                    return "[Circular]";
+                }
+                seen.add(value);
+            }
+            return value;
+        }, 2);
+    };
+
+    // 格式化數據
+    const formattedData = Object.entries(data).map(([key, value]) => {
+        let formattedValue;
+        if (typeof value === 'object' && value !== null) {
+            formattedValue = stringifyData(value);
+        } else {
+            formattedValue = String(value);
+        }
+        return `${key}: ${formattedValue}`;
+    }).join('\n');
+
+    // 輸出到控制台
+    console.log(`[${timestamp}] ${message}\n${formattedData}`);
+}
+
+
+
+// 確認初始化
+function checkInitialLoad() {
+    log('Checking initial load');
+    if (activityList.children.length === 0) {
+        log('No items loaded on initial load');
+        activityList.innerHTML = '<p>沒有可顯示的項目。請檢查網絡連接或重新加載頁面。</p>';
+    } else {
+        log('Items successfully loaded', { itemCount: activityList.children.length });
+    }
+}
+
+// 設置 API 基礎 URL
+const API_BASE_URL = 'http://localhost:8000/api';
+
+//  CSRF 
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+// 設置 fetch headers
+const fetchOptions = {
+    headers: {
+        'X-CSRF-TOKEN': csrfToken,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'access-control-allow-origin': '*',
+    },
+};
 
 // DOM elements
 const activityList = document.getElementById('activity-list');
@@ -198,15 +262,18 @@ loadMoreButton.addEventListener('click', loadMoreItems);
 //     loadItems();
 // }
 // Switch tab function by AI
+
+
 function switchTab(tab) {
-    if(currentTab === tab) return;
+    window.LoadCount = 0; // 救援投手==
+    if (currentTab === tab) return;
 
     console.log('Switching to tab:', tab);
     log('Switching tab', { from: currentTab, to: tab });
-    if (currentTab === tab) {
-        log('Already on this tab, not switching');
-        return;
-    }
+    // if (currentTab === tab) {
+    //     log('Already on this tab, not switching');
+    //     return;
+    // }
     currentTab = tab;
     currentPage = 1;
     hasMoreItems = true; // 重置 hasMoreItems
@@ -216,13 +283,32 @@ function switchTab(tab) {
     count();
     console.log(activityList);
     console.log('210' + currentTab);
-    if(currentTab !== 'all') {
-    loadItems();
+    if (tab === 'all' && window.LoadCount == 0) {
+        loadAllTabItems();
+        console.log('呼叫 loadAllTabItems');
+    } else {
+        // if(window.LoadCount != 0) return;
+        loadItems();
     }
     tabButtons.forEach(button => {
         button.classList.toggle('active', button.dataset.tab === tab);
     });
 }
+
+// 0329
+// function switchTab(tab) {
+//     if (currentTab === tab) return;
+
+//     log('Switching tab', { from: currentTab, to: tab });
+//     currentTab = tab;
+//     currentPage = 1;
+//     activityList.innerHTML = '';
+//     loadItems();
+
+//     tabButtons.forEach(button => {
+//         button.classList.toggle('active', button.dataset.tab === tab);
+//     });
+// }
 
 // LoadItems function
 // async function loadItems() {
@@ -377,17 +463,311 @@ function switchTab(tab) {
 function checkHasMoreItems(data, currentTab) {
     if (currentTab === 'all') {
         const totalItems = (data.orders?.data?.length || 0) +
-                           (data.notes?.data?.length || 0) +
-                           (data.comments?.data?.length || 0) +
-                           (data.favorites?.data?.length || 0);
+            (data.notes?.data?.length || 0) +
+            (data.comments?.data?.length || 0) +
+            (data.favorites?.data?.length || 0);
         return totalItems === 16;
     } else {
         return data.current_page < data.last_page;
     }
 }
 
+// 全部顯示
+let loadAllTabItemsPromise = null;
+// 後衛
+window.LoadCount++;
+console.log(window.LoadCount);
+// if (window.LoadCount !=0 ){stop()}
+
+
+async function loadAllTabItems() {
+    if (loadAllTabItemsPromise && window.LoadCount != 0) {
+        console.log('LoadCount in function', window.LoadCount);
+        console.log('loadAllTabItems already in progress, waiting for it to complete');
+        return loadAllTabItemsPromise;
+    }
+
+    loadAllTabItemsPromise = (async () => {
+        console.log('LoadCount', window.LoadCount);
+
+        window.LoadCount++;
+        console.log('LoadCount', window.LoadCount);
+
+        console.log('Loading All Tab Items');
+        const allTabContent = document.getElementById('activity-list');
+        if (!allTabContent) return;
+        window.LoadCount++;
+        console.log('LoadCount', window.LoadCount);
+
+        allTabContent.innerHTML = '<p>正在加載數據...</p>';
+        try {
+            // 後衛
+            window.LoadCount++;
+            console.log(window.LoadCount);
+            if (window.LoadCount != 0) { stop() } // 最佳守門員 = =
+
+            window.LoadCount++;
+            console.log('LoadCount', window.LoadCount);
+
+
+
+            const response = await fetch(`${API_BASE_URL}/member-activity/all?page=1&limit=16`);
+            const data = await response.json();
+            console.log('All tab data:', data);
+
+            renderAllTabItems(data, allTabContent);
+
+        } catch (error) {
+            window.LoadCount++;
+            console.log(window.LoadCount);
+            // // if (window.LoadCount != 0) return;
+
+            console.error('Error loading all tab items:', error);
+
+            allTabContent.innerHTML = '<p>加載數據時發生錯誤。請稍後再試。</p>';
+        } finally {
+            console.log('LoadCount', window.LoadCount);
+
+            loadAllTabItemsPromise = null;
+        }
+    })();
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount !=0 ){stop()}
+    return loadAllTabItemsPromise;
+}
+loadAllTabItems();
+
+function renderAllTabItems(data, container) {
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0) return;
+
+    container.innerHTML = '';
+    const allItems = [
+        ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
+        ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
+        ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
+        ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
+    ];
+
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0) return;
+
+    if (allItems.length === 0) {
+        window.LoadCount++;
+        console.log(window.LoadCount);
+        // if (window.LoadCount != 0) return;
+
+        container.innerHTML = '<p>沒有可顯示的項目。</p>';
+        return;
+    }
+
+    allItems.forEach(item => {
+        window.LoadCount++;
+        console.log(window.LoadCount);
+        // if (window.LoadCount != 0) return;
+
+        const itemElement = createItemElement(item);
+        container.appendChild(itemElement);
+    });
+}
+
+function renderAllTabItems(data, container) {
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    if (window.LoadCount != 0) { stop() }
+    // if (window.LoadCount != 0) return;
+    container.innerHTML = '';
+    const allItems = [
+        ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
+        ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
+        ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
+        ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
+    ];
+
+    if (allItems.length === 0) {
+        container.innerHTML = '<p>沒有可顯示的項目。</p>';
+        return;
+    }
+
+    allItems.forEach(item => {
+        // 後衛
+        window.LoadCount++;
+        console.log(window.LoadCount);
+        // if (window.LoadCount != 0){stop()}
+        const itemElement = createItemElement(item);
+        container.appendChild(itemElement);
+    });
+}
+
+// 後衛
+window.LoadCount++;
+console.log(window.LoadCount);
+// if (window.LoadCount != 0){stop()} // 守門員 2
+
+function renderAllTabItems(data, container) {
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0){stop()}
+
+    container.innerHTML = '';
+    const allItems = [
+        ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
+        ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
+        ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
+        ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
+    ];
+
+    if (allItems.length === 0) {
+        // 後衛
+        window.LoadCount++;
+        console.log(window.LoadCount);
+        // if (window.LoadCount != 0){stop()}
+        container.innerHTML = '<p>沒有可顯示的項目。</p>';
+        return;
+    }
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0){stop()}
+    allItems.forEach(item => {
+        // 後衛
+        window.LoadCount++;
+        console.log(window.LoadCount);
+        // if (window.LoadCount != 0){stop()}
+        const itemElement = createAllTabItemElement(item);
+        container.appendChild(itemElement);
+    });
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0){stop()}
+}
+window.LoadCount++;
+console.log(window.LoadCount);
+// if (window.LoadCount != 0){stop()}
+function createAllTabItemElement(item) {
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0){stop()}
+    const itemElement = document.createElement('div');
+    itemElement.classList.add('all-tab-item');
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    // if (window.LoadCount != 0){stop()}
+    let content = '';
+    switch (item.type) {
+
+        case 'order':
+            content = createAllTabOrderHTML(item);
+            break;
+        case 'note':
+            content = createAllTabNoteHTML(item);
+            break;
+        case 'comment':
+            content = createAllTabCommentHTML(item);
+            break;
+        case 'favorite':
+            content = createAllTabFavoriteHTML(item);
+            break;
+        default:
+            content = `<p>Unknown item type</p>`;
+    }
+    // 後衛
+    window.LoadCount++;
+    console.log(window.LoadCount);
+    if (window.LoadCount != 0) { stop() }
+
+    itemElement.innerHTML = content;
+    return itemElement;
+}
+// 後衛
+window.LoadCount++;
+console.log(window.LoadCount);
+// if (window.LoadCount > 60){stop()}
+function createAllTabOrderHTML(item) {
+
+    const restaurantName = item.rest_infos?.name || 'Unknown Restaurant';
+    const restaurantImage = item.rest_infos?.main_photo || '';
+    return `
+        <div class="activity-image">
+            <img src="${restaurantImage}" alt="${restaurantName}">
+        </div>
+        <div class="activity-content">
+            <div class="activity-title">${restaurantName}</div>
+            <div class="activity-info">訂單編號: ${item.o_s_id}</div>
+            <div class="activity-info">預訂日期: ${item.booking_date || ''} ${item.booking_time || ''}</div>
+            <div class="activity-info">創建時間: ${item.created_at_date || ''} ${item.created_at_time || ''}</div>
+            <button class="activity-button">檢視內容</button>
+        </div>
+    `;
+}
+
+function createAllTabNoteHTML(item) {
+    return `
+        <div class="activity-image">
+            <img src="${item.main_photo || ''}" alt="${item.title || 'Note'}">
+        </div>
+        <div class="activity-content">
+            <div class="activity-title">${item.title || 'Untitled Note'}</div>
+            <div class="activity-info">${item.rest_infos?.name || 'Unknown Restaurant'}</div>
+            <div class="activity-info">創建時間: ${item.created_at_date || ''} ${item.created_at_time || ''}</div>
+            <button class="activity-button">查看食記</button>
+        </div>
+    `;
+}
+
+function createAllTabCommentHTML(item) {
+    const isRestaurantComment = item.rest_infos;
+    const title = isRestaurantComment ? item.rest_infos?.name : item.member_notes?.title;
+    const image = isRestaurantComment ? item.rest_infos?.main_photo : item.member_notes?.main_photo;
+    return `
+        <div class="activity-image">
+            <img src="${image || ''}" alt="${title || 'Comment'}">
+        </div>
+        <div class="activity-content">
+            <div class="activity-title">${title || 'Unknown Title'}</div>
+            <div class="activity-info">${item.content || 'No comment'}</div>
+            <div class="activity-info">評分: ${item.score || 'N/A'}</div>
+            <div class="activity-info">創建時間: ${item.created_at_date || ''} ${item.created_at_time || ''}</div>
+            <div class="activity-buttons">
+                <button class="edit-button" data-id="${item.id}">編輯</button>
+                <button class="delete-button" data-id="${item.id}">刪除</button>
+            </div>
+        </div>
+    `;
+}
+
+function createAllTabFavoriteHTML(item) {
+    const isRestaurantFavorite = item.rest_infos;
+    const title = isRestaurantFavorite ? item.rest_infos?.name : item.member_notes?.title;
+    const image = isRestaurantFavorite ? item.rest_infos?.main_photo : item.member_notes?.main_photo;
+
+    return `
+        <div class="activity-image">
+            <img src="${image || ''}" alt="${title || 'Favorite'}">
+        </div>
+        <div class="activity-content">
+            <div class="activity-title">${title || 'Unknown Title'}</div>
+            <div class="activity-info">${isRestaurantFavorite ? '口袋名單' : '食記書籤'}</div>
+            <div class="activity-info">創建時間: ${item.created_at_date || ''} ${item.created_at_time || ''}</div>
+            <button class="remove-favorite" data-id="${item.id}">移除收藏</button>
+        </div>
+    `;
+}
+
+
 async function loadItems() {
-    count();    
+    // 確定流程
+    log('loadItems() Entering loadItems', { currentTab, currentPage, isLoading, hasMoreItems });
+    count();
     console.log('365');
     if (isLoading || !hasMoreItems) return;
 
@@ -414,22 +794,28 @@ async function loadItems() {
                 throw new Error(`Invalid tab: ${currentTab}`);
         }
         console.log('endpoint' + endpoint);
-        console.log('currentTab' + currentTab);  
+        console.log('currentTab' + currentTab);
+        // 
+        log('Before Fetch: About to fetch', { endpoint, url: `${endpoint}?page=${currentPage}&limit=4` });
         const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
         const data = await response.json();
+        log('After Fetch: Received data', { dataLength: JSON.stringify(data).length, data: data });
         console.log(data);
         let items;
         if (currentTab === 'all') {
+            log('if( currentTab === "all"): Processing all tab data');
             items = [
-                ...(data.orders?.data || []).map(item => ({...item, type: 'order'})),
-                ...(data.notes?.data || []).map(item => ({...item, type: 'note'})),
-                ...(data.comments?.data || []).map(item => ({...item, type: 'comment'})),
-                ...(data.favorites?.data || []).map(item => ({...item, type: 'favorite'}))
+                ...(data.orders?.data || []).map(item => ({ ...item, type: 'order' })),
+                ...(data.notes?.data || []).map(item => ({ ...item, type: 'note' })),
+                ...(data.comments?.data || []).map(item => ({ ...item, type: 'comment' })),
+                ...(data.favorites?.data || []).map(item => ({ ...item, type: 'favorite' }))
             ];
+            log('Processed items for all tab', { itemCount: items.length, items: items });
             console.log(items); //找不到
             renderItems(data.data);
             hasMoreItems = items.length === 16; // 4 types * 4 items per page
         } else {
+            log('Except tab "all":', { dataLength: data.data.length, data: data.data });
             console.log(data.data); //找得到
             renderItems(data.data);
             hasMoreItems = checkHasMoreItems(data, currentTab);
@@ -450,44 +836,89 @@ async function loadItems() {
         activityList.innerHTML += '<p>加載數據時發生錯誤。請稍後再試。</p>';
     } finally {
         isLoading = false;
+        console.log('finally')
     }
 }
+// 後衛
+window.LoadCount++;
+console.log(window.LoadCount);
+// if (window.LoadCount != 0){stop()}
+
+
+// 0329
+// async function loadItems() {
+//     log('loadItems() Entering loadItems', { currentTab, currentPage, isLoading });
+//     if (isLoading) return;
+
+//     isLoading = true;
+//     try {
+//         if (currentTab === 'all') {
+//             await loadAllItems();
+//         } else {
+//             let endpoint = `${API_BASE_URL}/member-activity/${currentTab}`;
+//             const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
+//             const data = await response.json();
+//             log('Received data', { data });
+
+//             if (data.data && data.data.length > 0) {
+//                 renderItems(data.data);
+//             } else {
+//                 activityList.innerHTML = '<p>沒有可顯示的項目。</p>';
+//             }
+//         }
+//     } catch (error) {
+//         console.error('Error loading items:', error);
+//         activityList.innerHTML = '<p>加載數據時發生錯誤。請稍後再試。</p>';
+//     } finally {
+//         isLoading = false;
+//     }
+// }
 
 
 function renderItems(items) {
-    console.log('Entering renderItems');
-    console.log('Items to render:', items);
-    
+    log('Entering renderItems():', { itemCount: items.length });
+    // console.log('Entering renderItems');
+    // console.log('Items to render:', items);
+
     if (!Array.isArray(items)) {
-        console.error('renderItems received non-array:', items);
+        log('Error: renderItems received non-array', { items });
         return;
     }
-    
+
     items.forEach((item, index) => {
-        console.log(`Processing item ${index}:`);
+        log(`Processing item ${index}`, { item });
+
+        // console.log(`Processing item ${index}:`);
         if (item && typeof item === 'object') {
-            console.log(`About to call createItemElement for item ${index}`);
+            // console.log(`About to call createItemElement for item ${index}`);
             const itemElement = createItemElement(item);
-            console.log(`Finished createItemElement for item ${index}, result:`, itemElement);
+            log(`Created element for item ${index}`, { element: itemElement.outerHTML });
+            // console.log(`Finished createItemElement for item ${index}, result:`, itemElement);
             activityList.appendChild(itemElement);
         } else {
-            console.warn('Invalid item in renderItems:', item);
+            log(`Invalid item at index ${index}`, { item });
+            // console.warn('Invalid item in renderItems:', item);
         }
     });
-    
-    console.log('Finished renderItems');
+    log('Finished renderItems');
+
+    // console.log('Finished renderItems');
 }
-// console.clear();
 
-// 更新 createItemElement 函數以處理不同的數據結構
+// 0329
+// function renderItems(items) {
+//     log('Entering renderItems', { itemCount: items.length });
+
+//     items.forEach((item, index) => {
+//         const itemElement = createItemElement(item);
+//         activityList.appendChild(itemElement);
+//     });
+// }
+
+
+// 處理不同的數據結構
 function createItemElement(item) {
-    console.log('1. Entering createItemElement');
-    console.log('2. Item received:', item);
-
-    if (!item || typeof item !== 'object') {
-        console.error('3. Invalid item:', item);
-        return document.createElement('div');
-    }
+    log('Entering createItemElement():', { item });
 
     const itemElement = document.createElement('div');
     console.log('4. Created itemElement');
@@ -501,7 +932,8 @@ function createItemElement(item) {
     console.log('6a. About to enter try block');
     try {
         console.log('7. Entering try block');
-        const itemType = inferItemType(item);
+        const itemType = item.type || inferItemType(item);
+        log('Inferred item type', { itemType, item });
         console.log('8. Inferred item type:', itemType);
 
         switch (itemType) {
@@ -523,19 +955,53 @@ function createItemElement(item) {
                 break;
             default:
                 console.warn('9. Unknown item type:', itemType, item);
+                log('Unknown item type', { itemType, item });
                 content = `<p>Unknown item type</p>`;
         }
         console.log('10. Content created:', content);
+        log('Created content', { content });
+
         itemElement.innerHTML = content;
         console.log('11. Set innerHTML of itemElement');
     } catch (error) {
         console.error('12. Error in createItemElement', error);
+        log('Error in createItemElement', { error: error.message, item });
+
         itemElement.textContent = 'Error creating item element';
     }
-    
+
     console.log('13. Returning itemElement');
     return itemElement;
 }
+
+// 0329
+// function createItemElement(item) {
+//     log('Creating item element', { item });
+
+//     const itemElement = document.createElement('div');
+//     itemElement.classList.add('activity-item');
+
+//     let content = '';
+//     switch (item.type) {
+//         case 'order':
+//             content = createOrderHTML(item);
+//             break;
+//         case 'note':
+//             content = createNoteHTML(item);
+//             break;
+//         case 'comment':
+//             content = createCommentHTML(item);
+//             break;
+//         case 'favorite':
+//             content = createFavoriteHTML(item);
+//             break;
+//         default:
+//             content = `<p>Unknown item type</p>`;
+//     }
+
+//     itemElement.innerHTML = content;
+//     return itemElement;
+// }
 
 function inferItemType(item) {
     console.log('Entering inferItemType');
@@ -602,7 +1068,7 @@ function createOrderHTML(item) {
     console.log('Entering createOrderHTML');
     const restaurantName = item.rest_infos?.name || 'Unknown Restaurant';
     const restaurantImage = item.rest_infos?.main_photo || '';
-    
+
     return `
         <div class="activity-image">
             <img src="${restaurantImage}" alt="${restaurantName}">
@@ -702,3 +1168,7 @@ activityList.addEventListener('click', async (e) => {
         }
     }
 });
+// 後衛
+window.LoadCount++;
+console.log(window.LoadCount);
+// if (window.LoadCount != 0){stop()}
