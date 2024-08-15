@@ -6,10 +6,66 @@ window.onload = function () {
 };
 // 按下愛心
 document.getElementById("hearticon").addEventListener("click", function () {
-  this.classList.toggle("fa-regular");
-  this.classList.toggle("fa-solid");
-});
+  if (this.classList.contains("fa-regular")) {
+    this.classList.toggle("fa-solid");
+    var form = new FormData();
+    form.append("service", "favorite");
+    form.append("m_id", "1");
+    form.append("r_id", "1");
+    form.append("alreadyAdd", true);
 
+    var settings = {
+      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      method: "POST",
+      timeout: 0,
+      processData: false,
+      mimeType: "multipart/form-data",
+      contentType: false,
+      data: form,
+    };
+    $.ajax(settings).done(function (response) {
+      
+    });
+  } else {
+    this.classList.toggle("fa-regular");
+    var form = new FormData();
+    form.append("service", "favorite");
+    form.append("m_id", "1");
+    form.append("r_id", "1");
+    form.append("alreadyAdd", false);
+
+    var settings = {
+      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      method: "POST",
+      timeout: 0,
+      processData: false,
+      mimeType: "multipart/form-data",
+      contentType: false,
+      data: form,
+    };
+    $.ajax(settings).done(function (response) {
+      
+    });
+  }
+});
+//收藏
+document.getElementById("hearticon").onclick = function (a) {
+  var form = new FormData();
+  form.append("service", "favorite");
+  form.append("m_id", "1");
+  form.append("r_id", "1");
+
+  var settings = {
+    url: "http://localhost/Swallab/swallab/back-end/detail.php",
+    method: "POST",
+    timeout: 0,
+    processData: false,
+    mimeType: "multipart/form-data",
+    contentType: false,
+    data: form,
+  };
+  $.ajax(settings).done(function (response) {});
+};
 // top
 document.getElementById("top").addEventListener("click", function () {
   window.scrollTo({
@@ -44,11 +100,7 @@ function updateSubtotal() {
   var allTotalPrice = document.querySelectorAll(
     ".total-price-forUpdateSubtotal"
   );
-  // [
-  //     <span>20</span>
-  //     <span>310</span>
-  //     <span>0</span>
-  // ]
+
   var subtotal = 0;
   //迭代這個陣列去處理每個元素
   //這邊的Element就是一個一個的網頁元素（名字隨便你取）
@@ -126,6 +178,7 @@ function sale() {
       var container = $("#restaurant-info");
       if (responseData.length > 0) {
         responseData.forEach(function (item) {
+          console.log(item);
           var html = `
                             <div class="hotpot">
                                 <div style="font-size: 30px; font-weight: bold;">${item.restaurant_name}</div>
@@ -133,7 +186,7 @@ function sale() {
                                     ${item.rating}分 <span style="font-size: 20px">(33)</span>
                                 </div>
                                 <div class="ml-5 mt-2">均消${item.avgcost}</div>
-                                <span class="mt-2">地址：${item.address}</span>
+                                <span class="mt-2 mr-2">地址：${item.address}</span>
                                 <button class="score" data-toggle="modal" data-target="#scoreModal" id="score">點我評分</button>
                             </div>
                         `;
@@ -180,14 +233,7 @@ stars.forEach((star, index) => {
     });
   });
 });
-//加入購物車modal
-// const showAlert = () => {
-//   Swal.fire({
-//       icon: 'success',
-//       title: 'Hi',
-//       text: 'Thanks for coming!',
-//   })
-//
+
 //按評分星星
 
 function saveComment(x, y) {
@@ -234,10 +280,18 @@ function showComment(input_restaurant_name) {
 
       container.empty();
       if (responseData.length > 0) {
+        
         i = 0;
+        console.log(responseData);
         responseData.forEach(function (item) {
           i += 1;
           if (i <= 3) {
+            
+            var stars = '';
+            for (var s = 0; s < item.rating; s++) {
+              stars += '<i class="fa-solid fa-star"></i>';
+            }
+
             var html = `
            <div class="row" >
                             <div class="col-3">
@@ -245,8 +299,12 @@ function showComment(input_restaurant_name) {
                               <div style="text-align: center;">David</div>
                             </div>
                             <div class="col-9 position-relative">
-                              <div id="userComment">
-                              ${item.comment}
+                            <div  class="d-flex mt-3" style="font-size: 20px; color: gold;">
+                              ${stars}
+                            </div>
+                              
+                              <div id="userComment" class="mt-3">
+                                ${item.comment}
                               </div>
                               <p class="position-absolute date p-0">${item.createDate}</p>
                             </div>
@@ -370,7 +428,7 @@ function allMenu(input_restaurant_name) {
           var html = `
         
         <div class=" col-4 mb-4">
-            <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" >
+            <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.photo}" alt="" >
             <div class="name">${item.meals_name}</div>
             <div class="d-flex money">
                 <div class="fs-20 ">$</div>
@@ -419,16 +477,21 @@ function saleMenu(input_restaurant_name) {
           let saleTime = Math.round(saleTimeCount / (1000 * 60 * 60));
           console.log("saleTimeCount : " + saleTimeCount);
           console.log("saleTime : " + saleTime);
+          console.log("1",item);
           var html = `
           <div class=" col-4 mb-4 position-relative" >
-            <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" > 
-            <span class="countDown">倒數<span>${saleTime}</span>hr</span>  
+            <img class="ml-3 myimg"  src="data:image/jpeg;base64,${item.photo}" alt="" > 
+            <span class="countDown">倒數<span class="countDownTime me-1">${saleTime}</span>小時<span>!!</span></span>
             <div class="name">${item.meals_name}</div>
-            <div class="d-flex money">
+            <div class="d-flex " style="justify-content: center;">
               <div class="fs-20 ">$</div>
-              <div class="price" id="price-1">${item.price}</div>
+              <div class="price" id="price-1" style="text-decoration: line-through;">${item.origin_price}</div>
+              <b><i><div class="fs-20 ml-3" style="color: red;">$</div></i></b>
+              <b><i><div class="price" id="price-1" style="color: red;">${item.sale_price}</div></i></b>
             </div>
-          
+            <div class="d-flex money">
+              
+            </div>
           <button class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.meals_name}' , ${item.price});">加入購物車</button>
       </div>
                         `;
@@ -457,12 +520,11 @@ function showShoppingCar(photo, meals_name, price) {
     data: form,
     dataType: "json",
   })
-  .done(function(responseData) {
-    var container = $(".lan-papapapa");
-    container.empty(); 
+    .done(function (responseData) {
+      var container = $(".lan-papapapa");
+      container.empty();
 
-    
-    var html = `
+      var html = `
       <div class="row" style="text-align: center;">
         <div>
           <img src="data:image/jpeg;base64,${photo}" class="product-img">
@@ -491,13 +553,13 @@ function showShoppingCar(photo, meals_name, price) {
         </div>
       </div>
     `;
-    container.append(html);
-  let count = 1;
-    
-    if (responseData.length > 0) {
-      responseData.forEach(function(item) {
-        count++;
-        var itemHtml = `
+      container.append(html);
+      let count = 1;
+
+      if (responseData.length > 0) {
+        responseData.forEach(function (item) {
+          count++;
+          var itemHtml = `
           <div class="row" style="text-align: center;">
             <div>
               <img src="data:image/jpeg;base64,${item.photo}" class="product-img">
@@ -526,17 +588,15 @@ function showShoppingCar(photo, meals_name, price) {
             </div>
           </div>
         `;
-        container.append(itemHtml);
-      // }
+          container.append(itemHtml);
+          // }
+        });
+      }
+
+      var cartModal = new bootstrap.Modal(document.getElementById("cartModal"));
+      cartModal.show();
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.error("AJAX 請求失敗:", textStatus, errorThrown);
     });
-    }
-
-    
-    var cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
-    cartModal.show();
-  })
-  .fail(function(jqXHR, textStatus, errorThrown) {
-    console.error("AJAX 請求失敗:", textStatus, errorThrown);
-  });
 }
-

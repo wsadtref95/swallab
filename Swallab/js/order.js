@@ -1,4 +1,6 @@
-
+window.onload = function(){
+    pickupTime();
+}
         function removeProduct(rowId) {
             const productRow = document.getElementById(rowId);
             if (productRow) {
@@ -80,32 +82,91 @@
         }
         //日期選單
         
-        let today = new Date();
-    
-        let dateOptions = [
-            today.toLocaleDateString(),
-            new Date(today.setDate(today.getDate() + 1)).toLocaleDateString(),
-            new Date(today.setDate(today.getDate() + 1)).toLocaleDateString()
-        ];
-
-        
-        let dateDropdown = document.getElementById('dateDropdown');
-        dateOptions.forEach(function(date) {
-            var dateOption = document.createElement('a');
-            dateOption.className = 'dropdown-item';
-            dateOption.href = '#';
-            dateOption.textContent = date;
-            dateOption.onclick = function() {
-                document.getElementById('dropdownMenuButton').textContent = date;
-            };
-            dateDropdown.appendChild(dateOption);
+        document.addEventListener('DOMContentLoaded', function() {
+            let today = new Date();
             
-        });
-        //時間選單
-        //購物車
-        //抓每樣商品加入購物車按鈕的id 
-        //購物車增減時更新總價
-        //按垃圾桶會移除該商品
+            let dateOptions = [
+                today.toLocaleDateString(),
+                new Date(today.setDate(today.getDate() + 1)).toLocaleDateString(),
+                new Date(today.setDate(today.getDate() + 1)).toLocaleDateString()
+            ];
+        
+            let dateSelect = document.getElementById('dateSelect');
+            let options = dateSelect.getElementsByTagName('option');
+        
+            for (let i = 0; i < options.length; i++) {
+                options[i].textContent = dateOptions[i];
+                options[i].value = dateOptions[i];
+            }
+        
+            
+            dateSelect.selectedIndex = 0;
+        })
+//時間選單
+function pickupTime() {
+    let x = new Date();
+    var form = new FormData();
+    form.append("service", "pickupTime");
+    form.append("current_time", x);  
+
+    $.ajax({
+        url: "http://localhost/Swallab/swallab/back-end/order.php",
+        method: "POST",
+        data: form,
+        processData: false,  
+        contentType: false,  
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            $('#hourSelect').empty();
+            // $('#minuteSelect').empty();
+            // response.hour
+            console.log(response.hour);
+            let startHour = response.hour+1;
+            let endHour = 24;
+            
+            for(let i = startHour; i < endHour; i++)
+                $('#hourSelect').append($('<option>', {
+                    value: i,
+                    text: i
+                }));
+                // console.log(text);
+            
+
+                // $('#minuteSelect').append($('<option>', {
+                //     value: response.minute,
+                //     text: response.minute
+                // }));
+                
+                
+                $('#hourSelect').on('change', function() {
+                    let selectedHour = parseInt($(this).val());
+                    let $minuteSelect = $('#minuteSelect');
+                    
+                    if (selectedHour === 11) {
+                        // 如果选择11时，只允许选择30分，禁用00分
+                        $minuteSelect.find('option[value="00"]').prop('disabled', true);
+                        $minuteSelect.find('option[value="30"]').prop('disabled', false);
+                        $minuteSelect.val('30'); // 自动选择30分
+                    } else {
+                        // 其他时间允许选择所有分钟选项
+                        $minuteSelect.find('option').prop('disabled', false);
+                        $minuteSelect.val('00'); // 自动选择00分
+                    }
+                });
+                
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Request failed: " + textStatus + ", " + errorThrown);
+        }
+    });
+}
+
+
+
+
+
+  
     
 
         

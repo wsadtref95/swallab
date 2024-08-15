@@ -53,7 +53,8 @@
                             <button class="btn btn-outline-primary mx-4">待出餐</button>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <hr>
+                    <div class="mt-5 justify-content-center col-12 d-flex">
                       <h3>青花驕 - 公益店</h3>  
                     </div>
                     
@@ -157,36 +158,29 @@
                     <div class="row ">
                         <div class="col-md-6">
                             <div class="p-3">
-                                <label for="pickupTime">取餐時間:</label>
+                                <label class="d-flex">取餐時間:</label>
                                     <div class="d-flex">
-                                        <label for="">日期</label>
-                                        <select  id="" >
-                                            <option value="" id="dateDropdown"></option>
-                                            <option value="" id="dateDropdown"></option>
-                                            <option value="" id="dateDropdown"></option>
-                                        </select>
-                                        <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dateMenuButton" data-toggle="dropdown" >
-                                            日期
-                                        </button>
-                                        <div class="dropdown-menu"  id="dateDropdown"> -->
-                                    </div>
-                                    
-                                    <div class="ml-2">
-                                        <select  id="">
+                                        <label for="dateSelect">日期</label>
+                                        <select id="dateSelect" class="ml-2">
+                                            <option value=""></option>
+                                            <option value=""></option>
                                             <option value=""></option>
                                         </select>
-                                        <label for="">時</label>
+                                        <div class="ml-3 d-flex">
+                                            <select  id="hourSelect">
+                                                <option id="hourOption"></option>
+                                            </select>
+                                            <label class="ml-2">時</label>
+                                        </div>
+                                        <div class="ml-3 d-flex">
+                                            <select id="minuteSelect">
+                                                <option>00</option>
+                                                <option>30</option>
+                                            </select>
+                                            <label class="ml-2">分</label>
+                                            
+                                        </div>
                                     </div>
-                                    <div class="ml-2">
-                                        <select name="" id="">
-                                            <option>00</option>
-                                            <option>30</option>
-                                        </select>
-                                        <label for="">分</label>
-                                        
-                                    </div>
-                                    
-                                    
                                 </div>
                             </div>
                         </div>

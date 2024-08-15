@@ -84,20 +84,34 @@ function sale (a){
         var container = $('#sale-container');
         container.empty(); // 清空現有的卡片
 
-        // 限制最多顯示 12 個卡片
+        // 限制最多顯示 5 個卡片
         var maxItems = 5;
         var itemsToShow = responseData.slice(0, maxItems);
 
         itemsToShow.forEach(function(item) {
-            var saleEndTime = new Date(item.SaleTime);
+            console.log("1",item);
+            var saleEndTime = new Date(item.end_time);
             // 創建卡片元素
             var salecardHtml = `
             <div class="card position-relative">
                 <div class="card-body">
-                <img src="data:image/jpeg;base64,${item.restaurant_image}" alt="" class="img-fluid">
+                <img src="data:image/jpeg;base64,${item.photo}" alt="" class="img-fluid">
                 </div>
-                <span class="countDown">倒數<span class="countDownTime" data-end-time="${saleEndTime.toISOString()}"></span>小時</span>
-                <div class="card-footer">${item.restaurant_name}</div>
+                <span class="countDown">倒數<span class="countDownTime me-1" data-end-time="${saleEndTime.toISOString()}"></span>
+                    小時<span>!!</span>
+                </span>
+                <div class="mt-3" style="text-align: center;">
+                    ${item.restaurant_name}
+                    <div class="name mt-2">${item.meals_name}</div>
+                    <div class="d-flex mt-2" style="justify-content: center;">
+                        <div class="fs-20 ">$</div>
+                        <div class="price me-2" id="price-1" style="text-decoration: line-through;">${item.origin_price}</div>
+                        <b><i><div class="fs-20 ml-5" style="color: red;font-size: 20px;">$</div></i></b>
+                        <b><i><div class="price pb-3" id="price-1" style="color: red;font-size: 20px;">${item.new_price}</div></i></b>
+                        
+                    </div>
+                </div>
+                
             </div>
             `;
 

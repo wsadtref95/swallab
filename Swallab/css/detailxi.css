@@ -169,11 +169,21 @@ footer{
 .position-relative{position: relative;}
 .countDown{
     position: absolute;
-    background-color: #efa47e;
+    background-color: white;
     top: -8%;
     right: -8%; 
-    padding: 3% 5%;
-    color:white;
+    padding: 1% 2%;
+    color: black;
+    border: 2px solid #FF4500;
+    border-radius: 10px;
+    
+}
+.countDownTime{
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
+    font-style: italic;
+    margin-left: 5px;
 }
 /* 購物車從右邊滑入的動畫 */
 @keyframes slideInRight {

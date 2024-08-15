@@ -35,9 +35,67 @@ switch ($service) {
     case 'saveShopCart':
         saleMenu($_POST["restaurant_name"]);
         break;
+    case 'favorite':
+        favorite($_POST["alreadyAdd"],$_POST["m_id"],$_POST["r_id"]);
+        break;
     default:
         print("未知的服務");
         break;
+}
+//收藏
+function favorite($alreadyAdd,$m_id,$r_id){
+    global $db;
+    if ($alreadyAdd) {
+        try {
+            // 建立資料庫連線
+            $sql = "DELETE FROM `MemberFavorites` WHERE m_id =? and r_id =?";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(1, $m_id, PDO::PARAM_INT);
+            $stmt->bindParam(2, $r_id, PDO::PARAM_INT);
+            $stmt->execute();
+            // 把所有的查詢結果存在 rows 裡
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            
+            
+    
+            // 返回 JSON 格式的數據
+            header('Content-Type: application/json');
+            echo json_encode($rows);
+    
+        } catch (PDOException $e) {
+            // 更正錯誤處理
+            error_log($e->getMessage());
+            header('Content-Type: application/json');
+            echo json_encode(["error" => "資料庫錯誤"]);
+        }
+    } else {
+        try {
+            // 建立資料庫連線
+            $sql = "INSERT INTO `MemberFavorites`(`m_f_id`, `m_id`, `r_id`) VALUES (DEFAULT,?,?)";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(1, $m_id, PDO::PARAM_INT);
+            $stmt->bindParam(2, $r_id, PDO::PARAM_INT);
+            $stmt->execute();
+            // 把所有的查詢結果存在 rows 裡
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            
+            
+    
+            // 返回 JSON 格式的數據
+            header('Content-Type: application/json');
+            echo json_encode($rows);
+    
+        } catch (PDOException $e) {
+            // 更正錯誤處理
+            error_log($e->getMessage());
+            header('Content-Type: application/json');
+            echo json_encode(["error" => "資料庫錯誤"]);
+        }
+    }
+    
+    
 }
 //取得餐廳資訊
 function sale ($a) {
@@ -45,7 +103,7 @@ function sale ($a) {
     global $db;
     try {
         // 建立資料庫連線
-        $sql = "SELECT * FROM `RestaurantCategory` WHERE id = 1";
+        $sql = "SELECT * FROM `restaurantcategory` WHERE id = 1";
         $stmt = $db->prepare($sql);
         $stmt->execute($a);
         
@@ -76,7 +134,7 @@ function sale ($a) {
         header('Content-Type: application/json');
         echo json_encode(["error" => "資料庫錯誤"]);
     }
-};
+}
 //評論
 //INSERT INTO `rating` VALUES ('1','1','1',4.1,'嗚哈哈')
 function saveComment($userid, $restaurantid, $star, $comment) {
@@ -193,7 +251,7 @@ function showComment($restaurant_name){
     global $db;
     try {
         // 建立資料庫連線
-        $sql = "SELECT comment , rating.createDate FROM RestaurantCategory left join rating on RestaurantCategory.id = rating.restaurantId
+        $sql = "SELECT comment , rating.rating, rating.createDate FROM RestaurantCategory left join rating on RestaurantCategory.id = rating.restaurantId
         where restaurant_name = ?
         order by rating.createDate desc;";
         $stmt = $db->prepare($sql);
@@ -223,7 +281,7 @@ function saleMenu($restaurant_name){
         global $db;
         try {
             // 建立資料庫連線
-            $sql = "SELECT meals_name ,meal_discount.price as price, photo , className , end_time FROM restaurant
+            $sql = "SELECT meals_name ,restaurant.price as origin_price ,meal_discount.price as sale_price, photo , className , end_time FROM restaurant
             left join RestaurantCategory on restaurant.r_id = RestaurantCategory.id
             left join class on restaurant.class = class.class_num
             right join meal_discount on restaurant.id = meal_discount.food_id
@@ -306,8 +364,8 @@ function saleMenu($restaurant_name){
     
     
     
-    // 加入購物車
-    function saveShopCart($userid, $restaurantid, $mealsId, $mealsCount) {
+// 加入購物車
+function saveShopCart($userid, $restaurantid, $mealsId, $mealsCount) {
         global $db;
         
         try {
@@ -329,7 +387,7 @@ function saleMenu($restaurant_name){
             // 錯誤處理
             echo "Error: " . $e->getMessage();
         }
-    };
+};
 
 
     //  移除購物車商品
