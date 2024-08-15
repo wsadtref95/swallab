@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class RestInfos extends Model
+{
+    // use SoftDeletes;
+
+    use HasFactory;
+
+    protected $table = 'RestInfos';
+    protected $fillable = [
+        'avg_price',
+        'address',
+        'weekday',
+        'weekend',
+        'wd_operating',
+        'wd_close_1',
+        'wd_close_2',
+        'we_operating',
+        'we_close_1',
+        'we_close_2',
+    ];
+    public function Users()
+    {
+        return $this->belongsTo(Users::class, 'user_id', 'id');
+    }
+    public function FiltClasses()
+    {
+        return $this->belongsTo(FiltClasses::class, 'f_c_id', 'id');
+    }
+    public function FiltLocations()
+    {
+        return $this->belongsTo(FiltLocations::class, 'f_l_id', 'id');
+    }
+}
