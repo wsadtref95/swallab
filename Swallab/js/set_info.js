@@ -1,8 +1,7 @@
-
+import { user_id, sleep } from "./backstage.js"
 $().ready(function () {
+    console.log('使用第二個JS中的 user_id:', user_id);
 
-    // 時間控制
-    let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
     // 顯示 tags
     let getTags = async selectedTags => {
@@ -73,7 +72,7 @@ $().ready(function () {
     let getInfo = async () => {
         // 編號一號
 
-        const url = 'http://localhost/MySwallab/public/api/restaurantinfo/1';
+        const url = `http://localhost/MySwallab/public/api/restaurantinfo/${user_id}`;
         let response = await fetch(url);
         let data = await response.json();
         // console.log(data);
@@ -113,8 +112,12 @@ $().ready(function () {
         event.preventDefault();
         const headers = {
             // 'content-type': 'application/x-www-form-urlencoded'
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            'X-User-Id': user_id
         }
+
+        console.log(headers);
+        
         const url = 'http://localhost/MySwallab/public/api/restaurantinfo/update'
         // const body = new FormData(restaurantInfo);
         const formData = new FormData(event.target);

@@ -1,4 +1,4 @@
-let sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+import { user_id, sleep } from "./backstage.js"
 // 營業時間
 let selectedWeekdays = [];
 let selectedHolidays = [];
@@ -37,6 +37,9 @@ function toggleHolidaySelection(day) {
     const hiddenInput = document.querySelector(`input[name="Holidays[]"][value="${day}"]`);
     hiddenInput.disabled = index !== -1;
 }
+
+window.toggleSelection = toggleSelection;
+window.toggleHolidaySelection = toggleHolidaySelection;
 
 // 平日
 for (var i = 0; i <= 24; i++) {

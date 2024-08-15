@@ -1,3 +1,4 @@
+import { user_id } from "./backstage.js"
 // 訂單狀況總和
 let getSumOfOrders = status => {
     const url = `http://localhost/MySwallab/public/api/sumoforders/${status}`;

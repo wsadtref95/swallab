@@ -1,3 +1,4 @@
+import { user_id } from "./backstage.js"
 $().ready(function () {
 
     // 間隔時間控制
@@ -9,12 +10,12 @@ $().ready(function () {
     const headers = {
         // 'content-type': 'application/json'
         'Content-Type': 'application/x-www-form-urlencoded',
-        // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        'X-User-Id': user_id
     }
 
     // 獲得分類
     let getClass = path => {
-        return fetch(`http://localhost/MySwallab/public/api/${path}`)
+        return fetch(`http://localhost/MySwallab/public/api/${path}`,{headers})
             .then(response => {
                 return response.json()
                 // return response.text()
@@ -155,8 +156,8 @@ $().ready(function () {
         // console.log(data);
         let html = '';
 
-        data.forEach(item => {
-            let { section, item_name, item_photo, item_price, id } = item;
+        data.forEach(({ section, item_name, item_photo, item_price, id }) => {
+            
             // console.log(className);
             // console.log(meals_name);
 
@@ -189,11 +190,14 @@ $().ready(function () {
         // console.log(data);
         let html = '<option disabled selected>請選擇...</option>'
 
-        for (let i = 0; i < data.length; i++) {
-            const element = data[i]['section'];
-            // console.log(element);
-            html += `<option value=${data[i]['id']}>${element}</option>`
-        }
+        // for (let i = 0; i < data.length; i++) {
+        //     const element = data[i];
+        //     // console.log(element);
+        //     html += `<option value=${data[i]['id']}>${element}</option>`
+        // }
+        data.forEach(({id, section}) => {
+            html += `<option value=${id}>${section}</option>`
+        });
         // console.log(html);
 
         $(`#classification`).html(html);
@@ -250,22 +254,23 @@ $().ready(function () {
         let foodName = $('#foodName').val();
         let classification = $('#classification').val();
         let addClass = $('#addClass').val();
-        // console.log(foodPrice);
-        // console.log(foodName);
-        // console.log(classification);
-        // console.log(addClass);
+        console.log(foodPrice);
+        console.log(foodName);
+        console.log(classification);
+        console.log(addClass);
         let myClass = classification ? classification : addClass
 
 
         // 檢查新增類別的項目是否有存在
-        let data = await getClass('getmenu');
-        // console.log(data);
+        let data = await getClass('getfoodclass');
+        console.log(data);
         let dataList = [];
-        data.forEach(element => {
+        data.forEach(({section}) => {
             // console.log(element);
-            let { className } = element;
-            dataList.push(className);
+            dataList.push(section);
         });
+        console.log(dataList);
+        
         // for (let i = 0; i < data.length; i++) {
         //     // console.log(data[i]['class']);
         //     dataList.push(data[i]['class'])
@@ -289,10 +294,10 @@ $().ready(function () {
             let body = new FormData(editForm);
             // console.log(body);
 
-            let response = await fetch('http://localhost/MySwallab/public/api/insertmenu', {
-                method: 'POST',
-                body
-            })
+            // let response = await fetch('http://localhost/MySwallab/public/api/insertmenu', {
+            //     method: 'POST',
+            //     body
+            // })
 
             mySmallLoading.classList.remove('d-none');
             let result = await response.json();

@@ -1,14 +1,27 @@
+import { user_id } from "./backstage.js"
+
+const headers = {
+    'content-type': 'application/json',
+    'X-User-Id': user_id
+}
+// console.log(headers);
+
+
 // 訂單狀況總和
 let getSumOfOrders = status => {
     const url = `http://localhost/MySwallab/public/api/sumoforders/${status}`;
-    return fetch(url)
+    return fetch(url, {
+        headers
+    })
         .then(response => response.json());
 }
 
 // 顯示訂單
 let showOrders = status => {
     const url = `http://localhost/MySwallab/public/api/order/${status}`;
-    return fetch(url)
+    return fetch(url, {
+        headers
+    })
         .then(response => response.json());
 }
 
@@ -45,7 +58,7 @@ let showOrders1 = async () => {
         } catch (e) {
             return;
         }
-        
+
         let [h, m] = booking_time;
         let myDate = new Date(created_at)
         // console.log(myDate);
@@ -94,13 +107,15 @@ let showOrders1 = async () => {
         // console.log('html : ' , html);
         // console.log('-----------------------------------');
     });
+    html == '' ? html = '<div style="text-align: center">目前沒有訂單</div>' :  html 
     $('#myOrders1').append(html)
 }
 showOrders1()
 // 顯示status2的訂單
 let showOrders2 = async () => {
     let data = await showOrders(2);
-    // console.log(data);
+    console.log(data); // []
+    
 
     $('#myOrders2').empty();
     let html = '';
@@ -156,6 +171,7 @@ let showOrders2 = async () => {
         // console.log('html : ' , html);
         // console.log('-----------------------------------');
     });
+    html == '' ? html = '<div style="text-align: center">目前沒有訂單</div>' :  html 
     $('#myOrders2').append(html)
 }
 showOrders2()

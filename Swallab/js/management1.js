@@ -1,12 +1,8 @@
+import { user_id, sleep } from "./backstage.js"
 $().ready(function () {
 
-    // 間隔時間控制
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-
-    // // 資料庫練習
+    console.log(user_id);
+    
     // // 抓分類
     let getClass = index => {
         // fetch('http://localhost/myProj/php/management_menu1.php/getClass') // php
