@@ -4,10 +4,14 @@ window.onload = function (){
     restaurantInfo('最高評分');
     sale('最高評分');
 }
-    
+ // top
+document.getElementById("top").addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+    });
+  });
 
-//     限時優惠的dom元素  = document.getElementById(限時優惠的dom元素);
-//     限時優惠的dom元素.innerHTML = a的結果.restaurantName;
+
 
 //抓餐廳資訊
 function restaurantInfo(b) {

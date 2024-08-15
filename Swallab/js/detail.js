@@ -5,50 +5,63 @@ window.onload = function () {
   showComment("青花驕-公益店");
 };
 // 按下愛心
+const showCollect = () => {
+  Swal.fire({
+      icon: 'success',
+      title: '收藏成功!',
+      text: '已成功收藏此文章',
+  })
+}
+const notshowCollect = () => {
+  Swal.fire({
+      icon: 'success',
+      title: '已移除',
+      text: '已從收藏中移除此文章',
+  })
+}
 document.getElementById("hearticon").addEventListener("click", function () {
   if (this.classList.contains("fa-regular")) {
-    this.classList.toggle("fa-solid");
+    
+    showCollect();
+    this.classList.remove("fa-regular");
+    this.classList.add("fa-solid");
+
     var form = new FormData();
     form.append("service", "favorite");
     form.append("m_id", "1");
     form.append("r_id", "1");
-    form.append("alreadyAdd", true);
+    form.append("alreadyAdd", true);  
 
-    var settings = {
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
-      method: "POST",
-      timeout: 0,
-      processData: false,
-      mimeType: "multipart/form-data",
-      contentType: false,
-      data: form,
-    };
-    $.ajax(settings).done(function (response) {
-      
-    });
   } else {
-    this.classList.toggle("fa-regular");
+    
+    
+    this.classList.remove("fa-solid");
+    this.classList.add("fa-regular");
+    notshowCollect();
+
     var form = new FormData();
     form.append("service", "favorite");
     form.append("m_id", "1");
     form.append("r_id", "1");
-    form.append("alreadyAdd", false);
-
-    var settings = {
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
-      method: "POST",
-      timeout: 0,
-      processData: false,
-      mimeType: "multipart/form-data",
-      contentType: false,
-      data: form,
-    };
-    $.ajax(settings).done(function (response) {
-      
-    });
+    form.append("alreadyAdd", false);  
   }
+
+  var settings = {
+    url: "http://localhost/Swallab/swallab/back-end/detail.php",
+    method: "POST",
+    timeout: 0,
+    processData: false,
+    mimeType: "multipart/form-data",
+    contentType: false,
+    data: form,
+  };
+
+  $.ajax(settings).done(function (response) {
+    // 处理响应
+  });
 });
 //收藏
+
 document.getElementById("hearticon").onclick = function (a) {
   var form = new FormData();
   form.append("service", "favorite");
@@ -66,6 +79,7 @@ document.getElementById("hearticon").onclick = function (a) {
   };
   $.ajax(settings).done(function (response) {});
 };
+
 // top
 document.getElementById("top").addEventListener("click", function () {
   window.scrollTo({
@@ -362,7 +376,7 @@ function menu(input_className, input_restaurant_name) {
         responseData.forEach(function (item) {
           var html = `
         <div class=" col-4 mb-4">
-            <img class="ml-3 myimg" src="data:image/jpeg;base64,${item.photo}" alt="" >
+            <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.photo}" alt="" >
             <div class="name">${item.meals_name}</div>
             <div class="d-flex money">
                 <div class="fs-20 ">$</div>
