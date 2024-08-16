@@ -29,14 +29,20 @@ class MemberReviewsSeeder extends Seeder
 
         $members = Members::all();
         $restInfos = RestInfos::all();
-        for ($i = 1; $i <= 60; $i++) {
-            $fileName = 'avatar_' . time() . '_' . $i . '.jpg';
 
-            DB::table('MemberReviews')->insert([
-                'm_id' => $faker->randomElement($members)->id,
-                'r_id' => $faker->randomElement($restInfos)->id,
-                'score' => $faker->numberBetween(1, 5),
-            ]);
+        $count = 0;
+        while ($count < 50) {
+            $m_id = $faker->randomElement($members)->id;
+            $r_id = $faker->randomElement($restInfos)->id;
+
+            if (!MemberReviews::where('m_id', $m_id)->where('r_id', $r_id)->exists()) {
+                DB::table('MemberReviews')->insert([
+                    'm_id' => $faker->randomElement($members)->id,
+                    'r_id' => $faker->randomElement($restInfos)->id,
+                    'score' => $faker->numberBetween(1, 5),
+                ]);
+                $count++;
+            }
         }
     }
 }

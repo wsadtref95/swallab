@@ -17,6 +17,7 @@ class RestInfos extends Model
         'href',
         'avg_price',
         'address',
+        'status',
         'weekday',
         'weekend',
         'wd_operating',

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link href="../css/root.css" rel="stylesheet">
     <link href="../css/nav.css" rel="stylesheet">
@@ -38,7 +39,6 @@
                 <!-- Input 都在這 -->
                 <form class="ms-2 me-1 w-100" role="search" name="search">
                     <!-- 接後端 Start -->
-                    @csrf
                     <input type="hidden" name="search_type" id="search_type" value="RestInfos">
                     <!-- 接後端 End -->
                     <div class="d-flex" style="width: 100%;">

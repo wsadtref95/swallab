@@ -23,5 +23,7 @@ Route::prefix('member-activity')->group(function () {
     Route::delete('NotesFavorites/{id}', [ActivityController::class, 'deleteNotesFavorite']);
     // nav_search
     Route::post('/search', [SearchController::class, 'search'])->name('search');
-
+    Route::get('/search_results', function () {
+        return view('search_results');
+    });
 });

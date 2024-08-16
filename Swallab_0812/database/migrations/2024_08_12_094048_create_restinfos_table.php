@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('Users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('f_c_id')->constrained('FiltClasses')->cascadeOnUpdate();
             $table->foreignId('f_l_id')->constrained('FiltLocations')->cascadeOnUpdate();
+            $table->integer('status')->default(0);
             $table->string('href');
             $table->integer('avg_price');
             $table->string('address');

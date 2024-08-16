@@ -103,7 +103,7 @@
         // 監聽頁面加載完成事件
 
         async function testAPI(event) {
-            event.preventDefault();
+            // event.preventDefault();
             log('開始 API 測試');
             try {
                 const response = await fetch('http://localhost:8000/api/member-activity/all?page=1&limit=4');
