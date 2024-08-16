@@ -7,15 +7,11 @@ $().ready(function () {
     }
 
     // headers
-    const headers = {
-        // 'content-type': 'application/json'
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-User-Id': user_id
-    }
+    const headers = { 'X-User-Id': user_id }
 
     // 獲得分類
     let getClass = path => {
-        return fetch(`http://localhost/MySwallab/public/api/${path}`,{headers})
+        return fetch(`http://localhost/MySwallab/public/api/${path}`, { headers })
             .then(response => {
                 return response.json()
                 // return response.text()
@@ -26,7 +22,10 @@ $().ready(function () {
     let connectDB = (path, body) => {
         return fetch(`http://localhost/MySwallab/public/api/${path}`, {
             method: 'POST',
-            headers,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-User-Id': user_id
+            },
             body,
         }).then(response => response.json())
         // }).then(response => response.text())
@@ -68,7 +67,7 @@ $().ready(function () {
         // console.log(id);
         let body = new URLSearchParams({ myFoodId: id }).toString();
         // console.log(body);
-        
+
         mySmallLoading.classList.remove('d-none');
         let data = await connectDB('getsinglemenu', body)
         const { item_name, item_price } = data;
@@ -157,7 +156,7 @@ $().ready(function () {
         let html = '';
 
         data.forEach(({ section, item_name, item_photo, item_price, id }) => {
-            
+
             // console.log(className);
             // console.log(meals_name);
 
@@ -195,7 +194,7 @@ $().ready(function () {
         //     // console.log(element);
         //     html += `<option value=${data[i]['id']}>${element}</option>`
         // }
-        data.forEach(({id, section}) => {
+        data.forEach(({ id, section }) => {
             html += `<option value=${id}>${section}</option>`
         });
         // console.log(html);
@@ -254,23 +253,23 @@ $().ready(function () {
         let foodName = $('#foodName').val();
         let classification = $('#classification').val();
         let addClass = $('#addClass').val();
-        console.log(foodPrice);
-        console.log(foodName);
-        console.log(classification);
-        console.log(addClass);
+        // console.log(foodPrice);
+        // console.log(foodName);
+        // console.log(classification);
+        // console.log(addClass);
         let myClass = classification ? classification : addClass
 
 
         // 檢查新增類別的項目是否有存在
         let data = await getClass('getfoodclass');
-        console.log(data);
+        // console.log(data);
         let dataList = [];
-        data.forEach(({section}) => {
+        data.forEach(({ section }) => {
             // console.log(element);
             dataList.push(section);
         });
-        console.log(dataList);
-        
+        // console.log(dataList);
+
         // for (let i = 0; i < data.length; i++) {
         //     // console.log(data[i]['class']);
         //     dataList.push(data[i]['class'])
@@ -294,10 +293,11 @@ $().ready(function () {
             let body = new FormData(editForm);
             // console.log(body);
 
-            // let response = await fetch('http://localhost/MySwallab/public/api/insertmenu', {
-            //     method: 'POST',
-            //     body
-            // })
+            let response = await fetch('http://localhost/MySwallab/public/api/insertmenu', {
+                method: 'POST',
+                headers,
+                body
+            })
 
             mySmallLoading.classList.remove('d-none');
             let result = await response.json();

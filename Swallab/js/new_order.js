@@ -107,15 +107,15 @@ let showOrders1 = async () => {
         // console.log('html : ' , html);
         // console.log('-----------------------------------');
     });
-    html == '' ? html = '<div style="text-align: center">目前沒有訂單</div>' :  html 
+    html == '' ? html = '<div style="text-align: center">目前沒有訂單</div>' : html
     $('#myOrders1').append(html)
 }
 showOrders1()
 // 顯示status2的訂單
 let showOrders2 = async () => {
     let data = await showOrders(2);
-    console.log(data); // []
-    
+    // console.log(data); // []
+
 
     $('#myOrders2').empty();
     let html = '';
@@ -171,7 +171,7 @@ let showOrders2 = async () => {
         // console.log('html : ' , html);
         // console.log('-----------------------------------');
     });
-    html == '' ? html = '<div style="text-align: center">目前沒有訂單</div>' :  html 
+    html == '' ? html = '<div style="text-align: center">目前沒有訂單</div>' : html
     $('#myOrders2').append(html)
 }
 showOrders2()
@@ -220,32 +220,49 @@ $('#myOrders2').on('click', '.done-btn', async function () {
     }
 })
 
+// 取得接單狀況
+let orderStatus = async () => {
+    let data = await showOrders('status');
+    // console.log(data);
+    let { status } = data;
+    status = status == 0 ? '恢復接單' : '暫停接單';
+    // console.log(status);
+    
+    $('#orderStatus').text('')
+    $('#orderStatus').text(status)
+}
+orderStatus();
+
 // 接單狀況
-document.addEventListener("DOMContentLoaded", function () {
-    const stopOrderBtn = document.getElementById("stopOrder");
-    const recoverOrderBtn = document.getElementById("recoverOrder");
+$('#orderStatus').on('click', async () => {
+    await showOrders('changestatus');
+    orderStatus()
+})
+// document.addEventListener("DOMContentLoaded", function () {
+//     const stopOrderBtn = document.getElementById("stopOrder");
+//     const recoverOrderBtn = document.getElementById("recoverOrder");
 
-    // 檢查 localStorage 中的按鈕狀態
-    const orderStatus = localStorage.getItem("orderStatus");
+//     // 檢查 localStorage 中的按鈕狀態
+//     const orderStatus = localStorage.getItem("orderStatus");
 
-    if (orderStatus === "stopped") {
-        stopOrderBtn.classList.add("d-none");
-        recoverOrderBtn.classList.remove("d-none");
-    } else {
-        stopOrderBtn.classList.remove("d-none");
-        recoverOrderBtn.classList.add("d-none");
-    }
+//     if (orderStatus === "stopped") {
+//         stopOrderBtn.classList.add("d-none");
+//         recoverOrderBtn.classList.remove("d-none");
+//     } else {
+//         stopOrderBtn.classList.remove("d-none");
+//         recoverOrderBtn.classList.add("d-none");
+//     }
 
-    stopOrderBtn.addEventListener("click", function () {
-        stopOrderBtn.classList.add("d-none");
-        recoverOrderBtn.classList.remove("d-none");
-        localStorage.setItem("orderStatus", "stopped");
-    });
+//     stopOrderBtn.addEventListener("click", function () {
+//         stopOrderBtn.classList.add("d-none");
+//         recoverOrderBtn.classList.remove("d-none");
+//         localStorage.setItem("orderStatus", "stopped");
+//     });
 
-    recoverOrderBtn.addEventListener("click", function () {
-        recoverOrderBtn.classList.add("d-none");
-        stopOrderBtn.classList.remove("d-none");
-        localStorage.setItem("orderStatus", "running");
-    });
-});
+//     recoverOrderBtn.addEventListener("click", function () {
+//         recoverOrderBtn.classList.add("d-none");
+//         stopOrderBtn.classList.remove("d-none");
+//         localStorage.setItem("orderStatus", "running");
+//     });
+// });
 // ================================

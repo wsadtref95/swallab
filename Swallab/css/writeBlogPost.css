@@ -45,6 +45,10 @@ body {
     height: 450px;
 }
 
+.col h4 {
+    margin: 20px 0;
+}
+
 .formCon {
     display: flex;
     justify-content: flex-start;
