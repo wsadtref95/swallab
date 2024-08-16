@@ -79,7 +79,7 @@ function getSaleInfo($a) {
         // 如果最高評分的話取全部分類的
         // 如果不是的話 取該分類的限時優惠
         if($a=='最高評分'){
-            $sql = "SELECT restaurant_name , rating , avgcost , address , href , meals_name , restaurant.price as origin_price , photo , meal_discount.price as new_price , end_time FROM RestaurantCategory
+            $sql = "SELECT restaurant_name , rating , avgcost , address , href , item_name , restaurant.price as origin_price , photo , meal_discount.price as new_price , end_time FROM RestaurantCategory
             right join restaurant on RestaurantCategory.id = restaurant.r_id
             right join meal_discount on restaurant.id = meal_discount.food_id
             group by restaurant_name
@@ -88,7 +88,7 @@ function getSaleInfo($a) {
             $stmt->execute();
 
         }else{
-            $sql = "SELECT restaurant_name ,  rating , avgcost , address , href , meals_name , restaurant.price as origin_price , photo , meal_discount.price as new_price , end_time FROM RestaurantCategory
+            $sql = "SELECT restaurant_name ,  rating , avgcost , address , href , item_name , restaurant.price as origin_price , photo , meal_discount.price as new_price , end_time FROM RestaurantCategory
             right join restaurant on RestaurantCategory.id = restaurant.r_id
             right join meal_discount on restaurant.id = meal_discount.food_id
             where category_name = ? 

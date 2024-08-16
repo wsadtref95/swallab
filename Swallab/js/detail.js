@@ -377,12 +377,12 @@ function menu(input_className, input_restaurant_name) {
           var html = `
         <div class=" col-4 mb-4">
             <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.photo}" alt="" >
-            <div class="name">${item.meals_name}</div>
+            <div class="name">${item.item_name}</div>
             <div class="d-flex money">
                 <div class="fs-20 ">$</div>
                 <div class="price" id="price-1">${item.price}</div>
             </div>
-            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.meals_name}" data-price="${item.price}" data-photo="${item.photo}" ">加入購物車</button>
+            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.item_name}" data-price="${item.price}" data-photo="${item.photo}" ">加入購物車</button>
         </div>    
                         `;
           container.append(html);
@@ -435,7 +435,7 @@ function allMenu(input_restaurant_name) {
   })
     .done(function (responseData) {
       var container = $("#menu-container");
-      console.log("名字", responseData[0].meals_name);
+      // console.log("名字", responseData[0].item_name);
       container.empty();
       if (responseData.length > 0) {
         responseData.forEach(function (item) {
@@ -443,12 +443,12 @@ function allMenu(input_restaurant_name) {
         
         <div class=" col-4 mb-4">
             <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.photo}" alt="" >
-            <div class="name">${item.meals_name}</div>
+            <div class="name">${item.item_name}</div>
             <div class="d-flex money">
                 <div class="fs-20 ">$</div>
                 <div class="price" id="price-1">${item.price}</div>
             </div>
-            <button id="aa" class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.meals_name}' , ${item.price});">加入購物車</button>
+            <button id="aa" class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.item_name}' , ${item.price});">加入購物車</button>
         </div>    
                         `;
           container.append(html);
@@ -496,7 +496,7 @@ function saleMenu(input_restaurant_name) {
           <div class=" col-4 mb-4 position-relative" >
             <img class="ml-3 myimg"  src="data:image/jpeg;base64,${item.photo}" alt="" > 
             <span class="countDown">倒數<span class="countDownTime me-1">${saleTime}</span>小時<span>!!</span></span>
-            <div class="name">${item.meals_name}</div>
+            <div class="name">${item.item_name}</div>
             <div class="d-flex " style="justify-content: center;">
               <div class="fs-20 ">$</div>
               <div class="price" id="price-1" style="text-decoration: line-through;">${item.origin_price}</div>
@@ -506,7 +506,7 @@ function saleMenu(input_restaurant_name) {
             <div class="d-flex money">
               
             </div>
-          <button class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.meals_name}' , ${item.price});">加入購物車</button>
+          <button class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.item_name}' , ${item.price});">加入購物車</button>
       </div>
                         `;
           container.append(html);
@@ -519,7 +519,7 @@ function saleMenu(input_restaurant_name) {
 }
 
 //渲染購物車
-function showShoppingCar(photo, meals_name, price) {
+function showShoppingCar(photo, item_name, price) {
   var form = new FormData();
   form.append("service", "queryShopCart");
   form.append("userid", "1");
@@ -544,7 +544,7 @@ function showShoppingCar(photo, meals_name, price) {
           <img src="data:image/jpeg;base64,${photo}" class="product-img">
         </div>
         <div class="product-details ml-3">
-          <div class="items mt-3">${meals_name}</div>
+          <div class="items mt-3">${item_name}</div>
           <div class="d-flex mt-4 ml-4">
             <span>$</span>
             <span class="prices" id="car-price-1">${price}</span>
@@ -579,7 +579,7 @@ function showShoppingCar(photo, meals_name, price) {
               <img src="data:image/jpeg;base64,${item.photo}" class="product-img">
             </div>
             <div class="product-details ml-3">
-              <div class="items mt-3">${item.meals_name}</div>
+              <div class="items mt-3">${item.item_name}</div>
               <div class="d-flex mt-4 ml-4">
                 <span>$</span>
                 <span class="prices" id="car-price-${count}">${item.price}</span>
