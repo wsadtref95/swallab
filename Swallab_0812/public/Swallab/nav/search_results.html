@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索結果</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- 試做表單接收結果 by AI -->
+    <h1>搜索結果</h1>
+    <table id="resultsTable">
+        <thead>
+            <tr id="headerRow"></tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchType = urlParams.get('search_type');
+            const category = urlParams.get('category');
+            const location = urlParams.get('location');
+
+            fetch(`/search?search_type=${searchType}&category=${category}&location=${location}`)
+                .then(response => response.json())
+                .then(data => {
+                    const headerRow = document.getElementById('headerRow');
+                    const resultsBody = document.getElementById('resultsBody');
+
+                    // 創建表頭
+                    if (data.length > 0) {
+                        Object.keys(data[0]).forEach(key => {
+                            const th = document.createElement('th');
+                            th.textContent = key;
+                            headerRow.appendChild(th);
+                        });
+                    }
+
+                    // 填充數據
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        Object.values(item).forEach(value => {
+                            const td = document.createElement('td');
+                            td.textContent = value;
+                            row.appendChild(td);
+                        });
+                        resultsBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

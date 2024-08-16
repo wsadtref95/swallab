@@ -37,6 +37,10 @@
                 </div>
                 <!-- Input 都在這 -->
                 <form class="ms-2 me-1 w-100" role="search" name="search">
+                    <!-- 接後端 Start -->
+                    @csrf
+                    <input type="hidden" name="search_type" id="search_type" value="RestInfos">
+                    <!-- 接後端 End -->
                     <div class="d-flex" style="width: 100%;">
                         <!-- hover、click 換 icon -> src="./img/blog.png" -->
                         <div id="theicon" class="theicon mt-2 me-0 align-items-center justify-content-center">
@@ -98,23 +102,23 @@
 
 
                             <!-- 搜尋框 end -->
-                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                            <button data-purpose="約會" class="position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 10%;">
                                 <img class="icon" src="../images/nav_icon/dating.png" alt="">約會
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                            <button data-purpose="聚餐" class="position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 30%;">
                                 <img class="icon" src="../images/nav_icon/group.png" alt="">聚餐
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                            <button data-purpose="慶生" class="position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 50%;">
                                 <img class="icon" src="../images/nav_icon/confetti.png" alt="">慶生
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                            <button data-purpose="商務" class="position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 70%;">
                                 <img class="icon" src="../images/nav_icon/handshake.png" alt="">商務
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                            <button data-purpose="無障礙" class="position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 90%;">
                                 <img class="icon" src="../images/nav_icon/disabled-people.png" alt="">無障礙
                             </button>
@@ -135,6 +139,7 @@
         </div>
     </nav>
     <!-- NAV_end -->
+    <script src="../js/nav_search.js"></script>
     <script src="../js/footer.js"></script>
     <script src="../js/nav.js"></script>
 </body>
