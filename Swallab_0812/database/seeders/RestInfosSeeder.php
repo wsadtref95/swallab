@@ -49,6 +49,7 @@ class RestInfosSeeder extends Seeder
                 'user_id' => $user->id,
                 'f_c_id' => $faker->randomElement($filtClasses)->id,
                 'f_l_id' => $faker->randomElement($filtLocations)->id,
+                'href' => $faker->url,
                 'avg_price' => $faker->numberBetween(30, 1000),
                 'address' => $address,
                 'weekday' => $faker->numberBetween(1, 5),

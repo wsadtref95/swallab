@@ -39,6 +39,7 @@ class MemberNotesSeeder extends Seeder
                 'content' => $faker->realText(600),
                 'visited_at_date' => $faker->date('Y-m-d'),
                 'visited_at_time' => $faker->time('H:i:s'),
+                'count' => $faker->numberBetween(0,10000),
             ]);
         }
     }

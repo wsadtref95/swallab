@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->string('visited_at_date');
             $table->string('visited_at_time');
+            $table->integer('count')->nullable();
             $table->date('created_at_date')->default(now());
             $table->time('created_at_time')->default(now());
             $table->date('updated_at_date')->nullable();

@@ -14,6 +14,7 @@ class RestInfos extends Model
 
     protected $table = 'RestInfos';
     protected $fillable = [
+        'href',
         'avg_price',
         'address',
         'weekday',
