@@ -2,9 +2,9 @@
 // 判斷是否登入
 const user = localStorage.getItem('user');
 const role = localStorage.getItem('role');
-// if (!user || role != 'admin') {
-//     window.location.href = 'http://localhost/swallab/Swallab/login/login.html';
-// };
+if (!user || role != 'admin') {
+    window.location.href = 'http://localhost/swallab/Swallab/login/login.html';
+};
 
 
 export const user_id = localStorage.getItem('user_id');

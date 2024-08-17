@@ -42,7 +42,8 @@ body {
 
 /* ============== */
 .ck-editor__editable_inline {
-    height: 450px;
+    height: 800px;
+    max-height: 1200px;
 }
 
 .col h4 {

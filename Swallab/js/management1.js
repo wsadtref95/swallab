@@ -6,7 +6,9 @@ $().ready(function () {
     // // 抓分類
     let getClass = index => {
         // fetch('http://localhost/myProj/php/management_menu1.php/getClass') // php
-        fetch('http://localhost/MySwallab/public/api/getfoodclass') // laravel
+        fetch('http://localhost/MySwallab/public/api/getfoodclass',{
+            headers: { 'X-User-Id': user_id }
+        }) // laravel
             .then(response => {
                 mySmallLoading.classList.remove('d-none');
                 return response.json()

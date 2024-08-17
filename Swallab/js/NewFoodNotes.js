@@ -12,7 +12,8 @@ let getAllBlog = async () => {
     created_at = `${year}/${month}/${day}`;
     console.log(created_at);
     
-    $('#jump').attr('href', `http://127.0.0.1:5504/Swallab/foodNotes/NewDemoHotpot.html?id=${id}`)
+    $('#jump').attr('href', `http://localhost/swallab/Swallab/foodNotes/NewDemoHotpot.html?id=${id}`)
+    
     $('#mainPhoto').attr('src', main_photo);
     $('#title').text(title);
     $('#createdAt').text(created_at)

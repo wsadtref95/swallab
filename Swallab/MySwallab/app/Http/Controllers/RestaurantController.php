@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class RestaurantController extends Controller
 {
-    function  getRestaurantName() 
+    function  getRestaurantName()
     {
         $allRestaurant = Users::where('role', 'admin')
-                                ->select('id', 'name')
-                                ->get();
+            ->select('id', 'name')
+            ->get();
         return response()->json($allRestaurant);
     }
 
@@ -49,9 +49,12 @@ class RestaurantController extends Controller
         // ]);
 
 
-        $id = 1;
+        // $id = 1;
 
         try {
+            $headers = $request->headers->all();
+            
+            $id = $request->header('X-User-Id');
             // 更新Users表
             $user = Users::find($id);
             $user->name = $request->restaurantName;
@@ -77,8 +80,8 @@ class RestaurantController extends Controller
                 ]);
             }
 
-            return response()->json(['status' => 'ok'], 200);
-        } catch(\Exception $e) {
+            return response()->json(['status' => 'ok', 'user_id' => $id, 'header' => $headers], 200);
+        } catch (\Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
@@ -112,7 +115,6 @@ class RestaurantController extends Controller
         )
             ->header('content-type', 'application/json')
             ->header('charset', 'utf-8');
-    
     }
 
     function restaurantInfo($id)

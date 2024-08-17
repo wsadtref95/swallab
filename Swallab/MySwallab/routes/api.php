@@ -11,10 +11,23 @@ use App\Models\FiltClasses;
 use App\Models\RestItems;
 use App\Models\FiltSectionDemos;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
 
+
+// 登入
+Route::post('/login', [LoginController::class, 'login']);
+
+// 註冊
+Route::post('/store', [LoginController::class, 'register']);
+
+
+// 調整接單狀態
+Route::get('/order/changestatus', [OrderController::class, 'changeStatus']);
+
+// 取得接單狀態
+Route::get('/order/status', [OrderController::class, 'getStatus']);
 
 // 更新訂單狀態 --> ok
 Route::get('/order/update/{orderId}/{status}', [OrderController::class, 'updateStatus']);
@@ -59,13 +72,7 @@ Route::post('/insertmenu', [FoodController::class, 'insertMenu']);
 Route::get('/getmenu', [FoodController::class, 'getMenuList']);
 
 // get 菜單種類分類 --> ok
-Route::get('/getfoodclass', function() {
-    return response(
-        FiltSectionDemos::all()->toJson(JSON_UNESCAPED_UNICODE)
-    )
-        ->header('content-type', 'application/json')
-        ->header('charset', 'utf-8');
-});
+Route::get('/getfoodclass', [FoodController::class, 'getFoodClass']);
 
 // 寫入折扣 --> ok
 Route::post('/discount/insert', [DiscountController::class, 'insertDiscount']);

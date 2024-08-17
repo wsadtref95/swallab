@@ -9,13 +9,27 @@ use Illuminate\Support\Facades\DB;
 
 class FoodController extends Controller
 {
+    function getFoodClass(Request $request)
+    {
+        $r_id = $request->header('X-User-Id'); // 1
+        // $r_id = 1;
+        $sections = DB::table('restitems')
+            ->join('filtsectiondemos', 'restitems.f_s_d_id', '=', 'filtsectiondemos.id')
+            ->where('restitems.r_id', $r_id)
+            ->distinct()
+            ->select('filtsectiondemos.section', 'filtsectiondemos.id')
+            ->get();
+
+        return response()->json($sections);
+    }
+
     function updateMenu(Request $request)
     {
         try {
             $id = $request->id;
             $updateMealName = $request->updateMealName;
             $updatePrice = $request->updatePrice;
-    
+
             $updateMenu = RestItems::find($id);
             $updateMenu->item_name = $updateMealName;
             $updateMenu->item_price = $updatePrice;
@@ -69,7 +83,8 @@ class FoodController extends Controller
                 $addFoodClass->save();
 
                 $addMenu = new RestItems();
-                $addMenu->r_id = 1;
+                // $addMenu->r_id = 1;
+                $addMenu->r_id = $request->header('X-User_id');
                 $addMenu->item_price = $price;
                 $addMenu->f_s_d_id = $addFoodClass->id;
                 $addMenu->item_name = $item_name;
@@ -81,7 +96,6 @@ class FoodController extends Controller
                 DB::rollBack();
                 return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
             }
-
         } else {
             try {
                 $addMenu = new RestItems();
@@ -94,7 +108,7 @@ class FoodController extends Controller
             } catch (\Exception $e) {
                 return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
             }
-            
+
             return response()->json(['status' => 'ok']);
         }
     }
@@ -120,10 +134,10 @@ class FoodController extends Controller
                 ->select('*')
                 ->orderBy('RestItems.created_at', 'desc')
                 ->get();
-    
-                return response()->json($menuList, 200, [], JSON_UNESCAPED_UNICODE)
-                    ->header('content-type', 'application/json')
-                    ->header('charset', 'utf-8');
+
+            return response()->json($menuList, 200, [], JSON_UNESCAPED_UNICODE)
+                ->header('content-type', 'application/json')
+                ->header('charset', 'utf-8');
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
         }
@@ -138,5 +152,4 @@ class FoodController extends Controller
         $foodPrice = RestItems::find($foodId);
         return response()->json($foodPrice, 200, [], JSON_UNESCAPED_UNICODE);
     }
-
 }

@@ -47,12 +47,21 @@ status2()
 // 顯示status1的訂單
 let showOrders1 = async () => {
     let data = await showOrders(1);
-    // console.log(data);
+    console.log(data);
 
     $('#myOrders1').empty();
     let html = '';
+    // data.forEach(({ id, booking_date, booking_time, created_at, details, members: { users: { name, phone } } }) => {
+    //     if (members && members.users) {
+    //         let { users: { name, phone } } = members;
+    //         console.log(name, phone);
+    //     } else {
+    //         console.log("members 或 users 不存在");
+    //     }
+    // });
     data.forEach(({ id, booking_date, booking_time, created_at, details, members: { users: { name, phone } } }) => {
-
+        console.log(details);
+        
         try {
             booking_time = JSON.parse(booking_time);
         } catch (e) {
@@ -87,10 +96,10 @@ let showOrders1 = async () => {
                             <div class="col-6">品項</div>
                             <div class="col-6">數量</div>`
         // console.log(details);
-        details.forEach(({ item, subtotal }) => {
+        details.forEach(({ item_name, item_qty }) => {
             html += `
-                    <div class="col-6">${item}</div>
-                    <div class="col-6">${subtotal}</div>
+                    <div class="col-6">${item_name}</div>
+                    <div class="col-6">${item_qty}</div>
                     `
         });
         html += `</div>
