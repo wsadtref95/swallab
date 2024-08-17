@@ -31,7 +31,6 @@ footer{
     cursor: pointer;
     z-index: 1;
     }
-
 /* 隱藏文字溢出 */
 .ellipsis { 
   display: -webkit-box;

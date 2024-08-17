@@ -37,6 +37,13 @@ li {
     width: 3%;
     cursor: pointer;
     z-index: 1;
+<<<<<<< HEAD
+=======
+    }
+.hrStyle{
+    border: 1px solid black;
+    width:80%;
+>>>>>>> 22cd3ffa00b91e09231c158c00c15ed445102000
 }
 
 /* 隱藏文字溢出 */
@@ -206,6 +213,7 @@ li {
 .modal-footer>button:hover {
     color: #efa47e;
     background-color: white;
+    font-weight: bold;
 }
 
 /* 留言評論區-會員發表處 */
@@ -220,8 +228,12 @@ li {
     overflow: hidden;
     margin: auto;
 }
+<<<<<<< HEAD
 
 .commentHeadphoto>div:nth-child(1)>img {
+=======
+.commentHeadphoto > div:nth-child(1) img{
+>>>>>>> 22cd3ffa00b91e09231c158c00c15ed445102000
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -237,8 +249,23 @@ li {
     display: flex;
     padding: 10px 20px 0 20px;
 }
+<<<<<<< HEAD
 
 .commentHeadphoto>div:nth-child(2)>p:nth-child(2) {
+=======
+/* .commentHeadphoto>div:nth-child(2)>p:nth-child(3) button{
+>>>>>>> 22cd3ffa00b91e09231c158c00c15ed445102000
     align-self: flex-end;
     margin-right: 10px;
+    text-align: right;
+    width: 100%;
+    float:right
+} */
+/* #edit{
+   text-align: right; width: 100%
+} */
+#edit button :hover{
+    color: #efa47e!important; 
+    background-color: white!important; 
 }
+#textLine{text-decoration: none;}
