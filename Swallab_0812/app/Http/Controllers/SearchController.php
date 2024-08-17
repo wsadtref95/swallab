@@ -25,7 +25,7 @@ class SearchController extends Controller
 
             $category = $request->input('category');
             $location = $request->input('location');
-            // $purpose = $request->input('purpose');
+            $purpose = $request->input('purpose');
 
             $query = DB::table($searchType);
 
@@ -41,11 +41,11 @@ class SearchController extends Controller
                     $query->where('RestInfos.address', 'like', "%$location%");
                 }
 
-                // if ($purpose && $purpose !== 'null') {
-                //     $query->join('SuitableFor', 'SuitableFor.r_id', '=', 'RestInfos.id')
-                //         ->join('FiltPurposes', 'FiltPurposes.id', '=', 'SuitableFor.f_p_id')
-                //         ->where('FiltPurposes.purpose', $purpose);
-                // }
+                if ($purpose && $purpose !== 'null') {
+                    $query->join('SuitableFor', 'SuitableFor.r_id', '=', 'RestInfos.id')
+                        ->join('FiltPurposes', 'FiltPurposes.id', '=', 'SuitableFor.f_p_id')
+                        ->where('FiltPurposes.purpose', $purpose);
+                }
 
                 $query->select('RestInfos.*', 'Users.name as user_name', 'FiltClasses.restclass as class',);
             } else {
@@ -62,11 +62,13 @@ class SearchController extends Controller
                     $query->where('RestInfos.address', 'like', "%$location%");
                 }
 
-                // if ($purpose && $purpose !== 'null') {
-                //     $query->join('SuitableFor', 'SuitableFor.r_id', '=', 'RestInfos.id')
-                //         ->join('FiltPurposes', 'FiltPurposes.id', '=', 'SuitableFor.f_p_id')
-                //         ->where('FiltPurposes.purpose', $purpose);
-                // }
+                if ($purpose && $purpose !== 'null') {
+                    $query->join('SuitableFor', 'SuitableFor.r_id', '=', 'RestInfos.id')
+                        ->join('FiltPurposes', 'FiltPurposes.id', '=', 'SuitableFor.f_p_id')
+                        ->where('FiltPurposes.purpose', $purpose);
+                }
+
+                
 
                 $query->select('MemberNotes.*', 'Users.name as user_name', 'RestInfos.address', 'FiltClasses.restclass as class');
             }

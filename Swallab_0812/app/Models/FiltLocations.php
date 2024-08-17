@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class FiltLocations extends Model
 {
-    // use HasFactory;
-    // public function RestInfos()
-    // {
-    //     return $this->hasMany(RestInfos::class, 'f_l_id', 'id');
-    // }
-    // protected $table = 'FiltLocations';
-    // protected $fillable = [
-    //     'location',
-    // ];
+    use HasFactory;
+    public function RestInfos()
+    {
+        return $this->hasMany(RestInfos::class, 'f_l_id', 'id');
+    }
+    protected $table = 'FiltLocations';
+    protected $fillable = [
+        'location',
+    ];
 
 }

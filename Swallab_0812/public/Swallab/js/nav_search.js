@@ -6,7 +6,7 @@
     // 載入完成後才做其他事
     document.addEventListener('DOMContentLoaded', function () {
         // window.location.href = '/search_results?' + searchParams.toString();
-        console.log = function() {
+        console.log = function () {
             var args = Array.prototype.slice.call(arguments);
             localStorage.setItem('debug_log', localStorage.getItem('debug_log') + JSON.stringify(args) + '\n');
         };
@@ -14,7 +14,7 @@
         const form = document.querySelector('form[name="search"]');
         const csrfInput = document.createElement('input');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
+
         const theicon = document.getElementById('theicon');
         const searchForm = document.querySelector('form[name="search"]');
         const searchTypeInput = document.getElementById('search_type');
@@ -22,6 +22,12 @@
         const locationInput = document.getElementById('myInput2');
         const csrfMeta = document.querySelector('meta[name="csrf-token"]');
         const purposeButtons = document.querySelectorAll('.filter_btn');
+
+        const searchParams = new URLSearchParams();
+        searchParams.append('search_type', searchType);
+        if (category) searchParams.append('category', category);
+        if (location) searchParams.append('location', location);
+        if (selectedPurpose) searchParams.append('purpose', selectedPurpose);
 
         if (form && csrfMeta) {
             const csrfToken = csrfMeta.getAttribute('content');
@@ -60,20 +66,20 @@
         }
         // 種類
         purposeButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const purpose = this.getAttribute('data-purpose');
                 const searchType = document.getElementById('search_type').value;
                 const category = document.getElementById('myInput').value;
                 const location = document.getElementById('myInput2').value;
-                
+
                 const searchParams = new URLSearchParams();
                 searchParams.append('search_type', searchType);
                 searchParams.append('category', category);
                 searchParams.append('location', location);
                 searchParams.append('purpose', purpose);
-        
+
                 window.location.href = '/search_results.html?' + searchParams.toString();
             });
         });
@@ -114,5 +120,16 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+    });
+
+    // purposes
+    let selectedPurpose = null;
+
+    document.querySelectorAll('.purpose-btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            selectedPurpose = this.getAttribute('data-purpose');
+            performSearch();
+        });
     });
 })();

@@ -2,7 +2,10 @@
 // routes/api.php
 
 use App\Http\Controllers\ActivityController;
+
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\FiltLocationsController;
+
 use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -26,6 +29,8 @@ Route::prefix('member-activity')->group(function () {
 
 // nav_search
 Route::get('/search', [SearchController::class, 'search']);
+Route::get('/filtlocations', [FiltLocationsController::class,'index']);
+
 // Route::get('/search/{type}/{query}', [SearchController::class, 'search']);
 Route::get('/Swallab/nav/search_results.html', function () {
     return File::get(public_path() . '/Swallab/nav/search_results.html');
