@@ -82,6 +82,74 @@ $("#heart").on("click", function () {
 
 //留言表單的送出+載入更新留言(新->舊)
 window.onload = () => {
+  //抓文章內文
+  fetch("../php/article.php?action=getArticle")
+    .then(function (response) {
+      console.log(response);
+
+      return response.text();
+    })
+    .then(function (html) {
+      console.log(html);
+
+      $("#bigArticle").html(html);
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+    });
+  //抓文章大標題
+  fetch("../php/article.php?action=getTitle")
+    .then(function (response) {
+      console.log(response);
+
+      return response.text();
+    })
+    .then(function (html) {
+      console.log(html);
+
+      $("#title").text(html);
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+    });
+
+  //抓文章發布時間
+  fetch("../php/article.php?action=createTime")
+    .then(function (response) {
+      console.log(response);
+
+      return response.text();
+    })
+    .then(function (html) {
+      console.log(html);
+
+      $("#createTime").text(html);
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+    });
+
+  //抓文章用餐時間
+  fetch("../php/article.php?action=dinningTime")
+    .then(function (response) {
+      console.log(response);
+
+      return response.text();
+    })
+    .then(function (html) {
+      console.log(html);
+
+      $("#dinningTime").text(html);
+    })
+    .catch(function (error) {
+      console.error("Error:", error);
+    });
+
+ 
+
+
+
+
   //const form=document.getElementById("myform")
   const messagesContainer = document.getElementById("messages-container");
 
@@ -263,12 +331,10 @@ window.onload = () => {
                 });
             });
         }
-
       })
 
       .catch((error) => console.error("資料庫抓留言最後有錯", error));
   };
-
 
   //新增留言
   let btnSubmit = document.getElementById("btnSubmit");
@@ -300,8 +366,6 @@ window.onload = () => {
       .catch((error) => console.error("新增留言失敗:", error));
   };
 
-
   // 初次載入頁面時加載留言
   updateMessages();
-
 };
