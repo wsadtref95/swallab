@@ -1,11 +1,16 @@
 
 
 
-
+// 立刻調用
 (function () {
+    // 載入完成後才做其他事
     document.addEventListener('DOMContentLoaded', function () {
         // window.location.href = '/search_results?' + searchParams.toString();
-
+        console.log = function() {
+            var args = Array.prototype.slice.call(arguments);
+            localStorage.setItem('debug_log', localStorage.getItem('debug_log') + JSON.stringify(args) + '\n');
+        };
+        // 
         const form = document.querySelector('form[name="search"]');
         const csrfInput = document.createElement('input');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -57,6 +62,7 @@
         purposeButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
+                
                 const purpose = this.getAttribute('data-purpose');
                 const searchType = document.getElementById('search_type').value;
                 const category = document.getElementById('myInput').value;

@@ -9,7 +9,8 @@ class NotesCommentsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'type' => 'note',
+            'm_id' => $this->m_id, // 新增：加入 m_id 欄位
+            'm_n_id' => $this->m_n_id, // 新增：加入 m_n_id 欄位
             'content' => $this->content,
             'note_title' => $this->whenLoaded('MemberNotes', fn() => $this->MemberNotes->title),
             'note_image' => $this->whenLoaded('MemberNotes', fn() => $this->MemberNotes->main_photo),

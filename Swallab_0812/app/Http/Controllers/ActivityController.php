@@ -26,23 +26,23 @@ class ActivityController extends Controller
                 return $order;
             });
             $notes = MemberNotes::with(['RestInfos'])->latest()->take(4)->get()
-            ->map(function ($order) {
-                $order->type = 'note';
-                return $order;
+            ->map(function ($note) {
+                $note->type = 'note';
+                return $note;
             });
             $comments = RestComments::with(['RestInfos'])->latest()->take(2)
                 ->union(NotesComments::with(['MemberNotes'])->latest()->take(2))
                 ->get()
-                ->map(function ($order) {
-                    $order->type = 'comment';
-                    return $order;
+                ->map(function ($comment) {
+                    $comment->type = 'comment';
+                    return $comment;
                 });
             $favorites = RestFavorites::with(['RestInfos'])->latest()->take(2)
                 ->union(NotesFavorites::with(['MemberNotes'])->latest()->take(2))
                 ->get()
-                ->map(function ($order) {
-                    $order->type = 'favorite';
-                    return $order;
+                ->map(function ($favorite) {
+                    $favorite->type = 'favorite';
+                    return $favorite;
                 });
 
             Log::info('All activities fetched successfully');
