@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 $password = "";
 
@@ -11,7 +11,7 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
     // 從資料庫中獲取資料
-    $sql = 'select * from foodnotes where type ="bbq" order by viewNumber desc limit 12';
+    $sql = 'select * from membernotes where r_id =2 order by count desc limit 12';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 
@@ -19,9 +19,9 @@ try {
     header('Content-Type: text/html; charset=utf-8');
 
     foreach ($rows as $row) {
-        $comment = htmlspecialchars($row['comment']); 
-        $viewNumber = htmlspecialchars($row['viewNumber']); 
-        $photoBlob = $row['image'];
+        $comment = htmlspecialchars($row['title']); 
+        $viewNumber = htmlspecialchars($row['count']); 
+        $photoBlob = $row['main_photo'];
 
         // 自動判斷照片格式型態
         $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);

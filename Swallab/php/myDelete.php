@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 $password = "";
 //$message = $_GET["message"];
@@ -14,7 +14,8 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // 準備 SQL 語句，使用佔位符
-    $sql = "delete from message where uid=1 and id =:id";
+    // $sql = "delete from message where uid=1 and id =:id";
+    $sql = "delete from notescomments where m_id=1 and id =:id";
     $stmt = $db->prepare($sql);
 
     // 綁定參數

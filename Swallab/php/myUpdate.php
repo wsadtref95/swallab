@@ -1,11 +1,12 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 $password = "";
 $message = $_GET["message"];
 $dataMid = $_GET["id"];
-
+print($message);
+print($dataMid);
 try {
     // 建立資料庫連接
     $db = new PDO("mysql:host={$host};dbname={$dbname}", $user, $password);
@@ -14,7 +15,8 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // 準備 SQL 語句，使用佔位符
-    $sql = "UPDATE message SET message=:message, date=now() WHERE uid=1 AND id=:id";
+    // $sql = "UPDATE message SET message=:message, date=now() WHERE uid=1 AND id=:id";
+    $sql = "UPDATE notescomments SET content=:message, updated_at=now() WHERE m_id=1 and id=:id ";
     $stmt = $db->prepare($sql);
 
     // 綁定參數

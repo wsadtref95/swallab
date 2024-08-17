@@ -25,9 +25,9 @@ window.onload = function () {
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -40,9 +40,9 @@ window.onload = function () {
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);
@@ -97,9 +97,9 @@ $("#hot").on("click",function(){
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -112,9 +112,9 @@ $("#hot").on("click",function(){
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);
@@ -167,9 +167,9 @@ $("#hotpot").on("click",function(){
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -182,9 +182,9 @@ $("#hotpot").on("click",function(){
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);
@@ -238,9 +238,9 @@ $("#bbq").on("click",function(){
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -253,9 +253,9 @@ $("#bbq").on("click",function(){
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);
@@ -308,9 +308,9 @@ $("#ramen").on("click", function () {
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -323,9 +323,9 @@ $("#ramen").on("click", function () {
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);
@@ -378,9 +378,9 @@ $("#beer").on("click",function(){
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -393,9 +393,9 @@ $("#beer").on("click",function(){
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);
@@ -448,9 +448,9 @@ $("#dessert").on("click", function () {
       console.log(mytitle);
 
       // 顯示評論
-      $("#title1").text(mytitle[0].comment);
-      $("#title2").text(mytitle[1].comment);
-      $("#title3").text(mytitle[2].comment);
+      $("#title1").text(mytitle[0].title);
+      $("#title2").text(mytitle[1].title);
+      $("#title3").text(mytitle[2].title);
 
       // 指定日期格式
       function formatDate(dateString) {
@@ -463,9 +463,9 @@ $("#dessert").on("click", function () {
       }
 
       // 顯示日期
-      $("#date1").text(formatDate(mytitle[0].date));
-      $("#date2").text(formatDate(mytitle[1].date));
-      $("#date3").text(formatDate(mytitle[2].date));
+      $("#date1").text(formatDate(mytitle[0].created_at));
+      $("#date2").text(formatDate(mytitle[1].created_at));
+      $("#date3").text(formatDate(mytitle[2].created_at));
     })
     .fail(function (cat) {
       console.log("2.最新文章fail:", cat);

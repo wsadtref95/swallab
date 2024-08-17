@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 $password = "";
 
@@ -11,7 +11,7 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
     // 從資料庫中獲取資料
-    $sql = 'select * from foodnotes order by viewNumber desc limit 12';
+    $sql = 'select membernotes.title,membernotes.count,membernotes.main_photo from membernotes left join restinfos on membernotes.r_id=restinfos.id order by membernotes.count desc limit 12;';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 
@@ -19,10 +19,10 @@ try {
     header('Content-Type: text/html; charset=utf-8');
 
     foreach ($rows as $row) {
-        $comment = htmlspecialchars($row['comment']); 
-        $viewNumber = htmlspecialchars($row['viewNumber']);
-        $href = $row['href'];
-        $photoBlob = $row['image'];
+        $comment = htmlspecialchars($row['title']); 
+        $viewNumber = htmlspecialchars($row['count']);
+        // $href = $row['href'];
+        $photoBlob = $row['main_photo'];
 
         // 自動判斷照片格式型態
         $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
@@ -36,7 +36,7 @@ try {
         <div class="col-4 mb-4">
           <div class="card overflow-hidden">
             <div class="card-body p-0">
-              <a href="{$href}">
+              <a href="../foodNotes/demohotpot.html">
                 <img src="{$photoSrc}" alt="" class="img-fluid notesImage" />
               </a>
             </div>

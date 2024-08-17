@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 $password = "";
 $dataMid = $_GET["id"];
@@ -10,7 +10,8 @@ try {
     $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 
     // 從資料庫中獲取資料
-    $sql = "SELECT * FROM message WHERE id =$dataMid;";
+    // $sql = "SELECT * FROM message WHERE id =$dataMid;";
+    $sql = "SELECT * from notescomments where id =$dataMid;";
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
    
@@ -18,7 +19,7 @@ try {
     header('Content-Type: text/html; charset=utf-8');
     // print_r($rows);
     foreach ($rows as $row) {
-        $messageId =($row['message']); 
+        $messageId =($row['content']); 
         print $messageId;
     }
 } catch (PDOException $e) {

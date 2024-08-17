@@ -92,9 +92,9 @@ window.onload = () => {
       .then((text) => {
         messagesContainer.innerHTML = text;
 
-        //留言的人uid是1的，就要有編輯+刪除按鈕
+        //留言的人uid是11的，就要有編輯+刪除按鈕
         document.querySelectorAll(".test").forEach((message, index) => {
-          if (message.dataset.uid == "1") {
+          if (message.dataset.uid == "11") {
             const editContainer = message.querySelector("#edit");
             if (editContainer) {
               editContainer.innerHTML = `
@@ -157,10 +157,10 @@ window.onload = () => {
               $("#editMessage").val(text);
             })
             .catch((error) => {
-              console.error(`编辑内容有错:`, error);
+              console.error(`編輯內容有錯:`, error);
             });
 
-          // 確保指綁定一個事件
+          // 確保只綁定一個事件
           $("#testEdit")
             .off("click", ".btnUpdate")
             .on("click", ".btnUpdate", function (event) {

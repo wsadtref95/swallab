@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 $password = "";
 
@@ -28,7 +28,7 @@ try {
 
 //新增收藏
 function collectOK($db) {
-    $sql = 'insert into collect (uid,nid,created_at_date) values (1,1,now())';
+    $sql = 'insert into notesfavorites (m_id,m_n_id,created_at) values (1,10,now())';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 
@@ -38,7 +38,7 @@ function collectOK($db) {
 }
 //抓文章大標題
 function collectNO($db) {
-    $sql = 'delete from collect where uid=1';
+    $sql = 'delete from notesfavorites where m_id=1';
     $stmt = $db->query($sql, PDO::FETCH_ASSOC);
     $rows = $stmt->fetchAll();
 

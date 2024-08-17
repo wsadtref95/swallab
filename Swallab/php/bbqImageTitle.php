@@ -1,13 +1,13 @@
 <?php
 $host = 'localhost';
-$dbname = "demo";
+$dbname = "swallab";
 $user = "root";
 
 //燒肉的最新文章-圖片
 
 try {
     $db = new PDO("mysql:host={$host};dbname={$dbname}", $user);  
-    $sql = "select image from foodnotes where type = 'bbq' order by date desc limit 3;";  
+    $sql = "select main_photo from membernotes where r_id = 2 order by created_at desc limit 3;";  
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();
@@ -15,7 +15,7 @@ try {
     if (count($rows) != 0) {
         $images = [];
         foreach ($rows as $row) {
-            $image = $row['image'];
+            $image = $row['main_photo'];
             $mime_type = (new finfo(FILEINFO_MIME_TYPE))->buffer($image);
             $images[] = [
                 'mime_type' => $mime_type,
