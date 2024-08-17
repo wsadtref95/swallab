@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('m_id')->constrained('Members')->onDelete('cascade');
             $table->foreignId('m_n_id')->constrained('MemberNotes')->onDelete('cascade');
             $table->text('content');
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
-            $table->date('updated_at_date')->nullable();
-            $table->time('updated_at_time')->nullable();
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
+            $table->string('updated_at_date')->nullable();
+            $table->string('updated_at_time')->nullable();
             $table->timestamps();
         });
     }

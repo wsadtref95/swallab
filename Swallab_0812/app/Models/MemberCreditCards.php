@@ -15,10 +15,6 @@ class MemberCreditCards extends Model
     }
     protected $table = 'MemberCreditCards';
     protected $fillable = [
-        'name',
-        'number',
-        'expiry_mm',
-        'expiry_yyyy',
-        'cvn',
+        'infos',
     ];
 }

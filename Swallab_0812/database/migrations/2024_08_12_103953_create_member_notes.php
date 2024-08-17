@@ -16,15 +16,15 @@ return new class extends Migration
             $table->foreignId('m_id')->constrained('Members')->onUpdate('cascade');
             $table->foreignId('r_id')->constrained('RestInfos')->onUpdate('cascade');
             $table->string('title');
-            $table->string('main_photo');
-            $table->text('content');
-            $table->string('visited_at_date');
-            $table->string('visited_at_time');
+            $table->longText('main_photo');
+            $table->string('per_cost')->nullable();
+            $table->longText('content');
+            $table->string('visited_date');
             $table->integer('count')->nullable();
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
-            $table->date('updated_at_date')->nullable();
-            $table->time('updated_at_time')->nullable();
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
+            $table->string('updated_at_date')->nullable();
+            $table->string('updated_at_time')->nullable();
             $table->timestamps();
         });
     }

@@ -20,9 +20,10 @@ class MemberNotes extends Model
     protected $fillable = [
         'title',
         'main_photo',
+        'per_cost',
         'content',
-        'visited_at_date',
-        'visited_at_time',
+        'visited_date',
+        'count',
     ];
 
 }

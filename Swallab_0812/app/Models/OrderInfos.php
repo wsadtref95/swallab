@@ -12,6 +12,7 @@ class OrderInfos extends Model
     protected $fillable = [
         'booking_date',
         'booking_time',
+        'utensils',
     ];
     public function Members()
     {

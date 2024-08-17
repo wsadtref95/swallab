@@ -37,6 +37,7 @@ class OrderInfosSeeder extends Seeder
                 'm_id' => $faker->randomElement($members)->id,
                 'r_id' => $faker->randomElement($restInfos)->id,
                 'o_s_id' => $faker->randomElement($orderStatuses)->id,
+                'utensils' => $faker->numberBetween(1, 0),
                 'booking_date' => $faker->date(),
                 'booking_time' => $faker->time(),
             ]);

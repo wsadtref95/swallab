@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreignId('f_s_d_id')->constrained('FiltSectionDemos')->onUpdate('cascade');
             $table->string('item_name');
             $table->integer('item_price');
-            $table->string('item_photo')->nullable();
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
-            $table->date('updated_at_date')->nullable();
-            $table->time('updated_at_time')->nullable();
+            $table->longText('item_photo')->nullable();
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
+            $table->string('updated_at_date')->nullable();
+            $table->string('updated_at_time')->nullable();
             $table->timestamps();
         });
     }

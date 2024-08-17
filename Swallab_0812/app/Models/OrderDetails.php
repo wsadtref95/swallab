@@ -13,7 +13,6 @@ class OrderDetails extends Model
         'item_name',
         'item_price',
         'item_qty',
-        'subtotal_price',
     ];
     public function OrderInfos()
     {

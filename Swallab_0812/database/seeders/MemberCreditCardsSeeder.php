@@ -31,11 +31,12 @@ class MemberCreditCardsSeeder extends Seeder
         $MemberCreditCardsData = $members->map(function ($member) use ($faker) {
             return [
                 'm_id' => $member->id,
-                'name' => $faker->creditCardType,
-                'number' => $faker->creditCardNumber,
-                'expiry_mm' => $faker->numberBetween(1, 12),
-                'expiry_yyyy' => $faker->numberBetween(2022, 2030),
-                'cvn' => $faker->numberBetween(100, 999),
+                'infos' => $faker->numberBetween(1000000000000000000000000,9999999999999999999999999),
+                // 'name' => $faker->creditCardType,
+                // 'number' => $faker->creditCardNumber,
+                // 'expiry_mm' => $faker->numberBetween(1, 12),
+                // 'expiry_yyyy' => $faker->numberBetween(2022, 2030),
+                // 'cvn' => $faker->numberBetween(100, 999),
             ];
         });
 

@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('role')->default('member');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
             $table->string('name');
-            $table->string('avatar');
-            $table->string('phone');
+            $table->longText('avatar')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }

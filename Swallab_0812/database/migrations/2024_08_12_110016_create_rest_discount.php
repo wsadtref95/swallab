@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('RestDiscount', function (Blueprint $table) {
             $table->id();
             $table->foreignId('r_i_id')->constrained('RestItems')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('discount_price');
+            $table->string('discount_price');
             $table->string('start_time')->default(now());
             $table->string('end_time')->nullable();
             $table->timestamps();

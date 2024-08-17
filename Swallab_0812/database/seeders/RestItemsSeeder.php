@@ -33,7 +33,15 @@ class RestItemsSeeder extends Seeder
         $filtsectiondemos = FiltSectionDemos::all();
 
         for($i = 1; $i <= 60; $i++) {
+            $image = imagecreatetruecolor(100, 100);
+            $backgroundColor = imagecolorallocate($image, rand(0, 255), rand(0, 255), rand(0, 255));
+            imagefill($image, 0, 0, $backgroundColor);
 
+            ob_start();
+            imagepng($image);
+            $imageData = ob_get_clean();
+
+            $base64Image = base64_encode($imageData);
             $fileName = 'avatar_' . time() . '_' . $i . '.jpg';
 
             DB::table('RestItems')->insert([
@@ -42,8 +50,10 @@ class RestItemsSeeder extends Seeder
             'f_s_d_id' => $faker->randomElement($filtsectiondemos)->id,
             'item_name' => $faker->name,
             'item_price' => $faker->numberBetween(1, 1000),
-            'item_photo' => 'storage/' . $fileName,
+            // 'item_photo' => 'storage/' . $fileName,
+            'item_photo' => 'data:image/png;base64,' . $base64Image,
             ]);
+            imagedestroy($image);
         }
 }
 }

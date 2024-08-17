@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('m_id')->constrained('Members')->onDelete('cascade');
             $table->foreignId('r_id')->constrained('RestInfos')->onDelete('cascade');
             $table->integer('score');
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
-            $table->date('updated_at_date')->nullable();
-            $table->time('updated_at_time')->nullable();
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
+            $table->string('updated_at_date')->nullable();
+            $table->string('updated_at_time')->nullable();
             $table->timestamps();
             $table->unique(['m_id', 'r_id']); // 複合索引
         });

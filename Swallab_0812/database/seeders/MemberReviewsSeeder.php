@@ -31,17 +31,25 @@ class MemberReviewsSeeder extends Seeder
         $restInfos = RestInfos::all();
 
         $count = 0;
-        while ($count < 50) {
+        for ($i = 0; $i < 50; $i++) {
             $m_id = $faker->randomElement($members)->id;
             $r_id = $faker->randomElement($restInfos)->id;
 
-            if (!MemberReviews::where('m_id', $m_id)->where('r_id', $r_id)->exists()) {
-                DB::table('MemberReviews')->insert([
-                    'm_id' => $faker->randomElement($members)->id,
-                    'r_id' => $faker->randomElement($restInfos)->id,
-                    'score' => $faker->numberBetween(1, 5),
+            // if (!MemberReviews::where('m_id', $m_id)->where('r_id', $r_id)->exists()) {
+            //     DB::table('MemberReviews')->insert([
+            //         'm_id' => $faker->randomElement($members)->id,
+            //         'r_id' => $faker->randomElement($restInfos)->id,
+            //         'score' => $faker->numberBetween(1, 5),
+            //     ]);
+            //     $count++;
+            $exists = MemberReviews::where('m_id', $m_id)->where('r_id', $r_id)->exists();
+            if (!$exists) {
+                MemberReviews::create([
+                    'm_id' => $m_id,
+                    'r_id' => $r_id,
+                    'score' => $faker->numberBetween(1,5),
                 ]);
-                $count++;
+            
             }
         }
     }

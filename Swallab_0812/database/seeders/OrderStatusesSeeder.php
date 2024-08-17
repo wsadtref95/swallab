@@ -13,7 +13,7 @@ Class OrderStatusesSeeder extends Seeder
      public function run():void
     {
 
-        $statuses = ['待確認','準備中','已完成'];
+        $statuses = ['unconfirmed','wip','done'];
 
         foreach ($statuses as $status) {
             OrderStatuses::create(['status' => $status]);

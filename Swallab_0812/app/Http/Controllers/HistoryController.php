@@ -17,7 +17,7 @@ use App\Models\NotesFavorites;
 use App\Models\RestFavorites;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class HistoryController extends Controller
 {
     public function all()
     {

@@ -10,13 +10,13 @@ class FiltClassesSeeder extends Seeder
      * Run the database seeds.
      */
 
-     public function run():void
+    public function run(): void
     {
 
-        $classes = ['火鍋', '燒烤', '居酒屋', '甜點', '拉麵'];
+        $restclasses = ['火鍋', '燒肉', '拉麵', '居酒屋', '甜點'];
 
-        foreach ($classes as $class) {
-            FiltClasses::create(['class' => $class]);
+        foreach ($restclasses as $restclass) {
+            FiltClasses::create(['restclass' => $restclass]);
         }
     }
 }

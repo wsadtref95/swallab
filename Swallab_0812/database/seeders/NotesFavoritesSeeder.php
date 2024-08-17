@@ -33,7 +33,6 @@ class NotesFavoritesSeeder extends Seeder
             $m_id = $faker->randomElement($members)->id;
             $m_n_id = $faker->randomElement($membernotes)->id;
         
-            // 检查是否存在重复的组合
             $exists = NotesFavorites::where('m_id', $m_id)->where('m_n_id', $m_n_id)->exists();
         
             if (!$exists) {

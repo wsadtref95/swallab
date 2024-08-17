@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('MemberCreditCards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('m_id')->constrained('Members')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name');
-            $table->string('number');
-            $table->integer('expiry_mm');
-            $table->integer('expiry_yyyy');
-            $table->string('cvn');
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
-            $table->date('updated_at_date')->nullable();
-            $table->time('updated_at_time')->nullable();
+            // $table->string('name');
+            $table->string('infos');
+            // $table->string('holder');
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
+            $table->string('updated_at_date')->nullable();
+            $table->string('updated_at_time')->nullable();
             $table->timestamps();
         });
     }

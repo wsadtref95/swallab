@@ -16,7 +16,7 @@ class FiltClasses extends Model
     }
     protected $table = 'FiltClasses';
     protected $fillable = [
-        'class',
+        'restclass',
     ];
     // 時間戳是否啟用
     // public $timestamps = true;

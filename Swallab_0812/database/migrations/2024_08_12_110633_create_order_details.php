@@ -17,11 +17,10 @@ return new class extends Migration
             $table->string('item_name');
             $table->integer('item_price');
             $table->integer('item_qty');
-            $table->integer('subtotal_price');
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
-            $table->date('updated_at_date')->nullable();
-            $table->time('updated_at_time')->nullable();
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
+            $table->string('updated_at_date')->nullable();
+            $table->string('updated_at_time')->nullable();
             $table->timestamps();
         });
     }

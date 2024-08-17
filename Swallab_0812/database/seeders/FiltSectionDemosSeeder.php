@@ -13,10 +13,16 @@ class FiltSectionDemosSeeder extends Seeder
     public function run(): void
     {
 
-        $sections = ['青菜', '餃類', '丸子', '飲料', '招牌'];
-
+        $sections = [
+            '多人饗宴','個人即享餐', '單點 丸子類', '單點 火鍋料',
+            '單點 主食','單點 主菜', '單點 餃類', '單點 蔬菜類',
+        ];
+        $i = 30;
         foreach ($sections as $section) {
-            FiltSectionDemos::create(['section' => $section]);
+            FiltSectionDemos::create([
+                'id' => $i++,
+                'section' => $section
+            ]);
         }
     }
 }

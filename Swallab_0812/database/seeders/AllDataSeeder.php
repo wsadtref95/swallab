@@ -15,7 +15,7 @@ class AllDataSeeder extends Seeder
         $this->call([
             UsersSeeder::class,
             FiltClassesSeeder::class,
-            FiltLocationsSeeder::class,
+            // FiltLocationsSeeder::class,
             FiltPurposesSeeder::class,
             FiltSectionDemosSeeder::class,
             OrderStatusesSeeder::class,

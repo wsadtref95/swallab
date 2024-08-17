@@ -28,18 +28,28 @@ class UsersSeeder extends Seeder
         
         for ($i = 0; $i < 100; $i++) {
             $fileName = 'avatar_' . time() . '_' . $i . '.jpg';
+            $image = imagecreatetruecolor(100, 100);
+            $backgroundColor = imagecolorallocate($image, rand(0, 255), rand(0, 255), rand(0, 255));
+            imagefill($image, 0, 0, $backgroundColor);
+            
+            ob_start();
+            imagepng($image);
+            $imageData = ob_get_clean();
+            
+            $base64Image = base64_encode($imageData);
+           
             DB::table('Users')->insert([
-
+                
             // \App\Models\User::create([
                 'role' => $faker->randomElement($roles),
                 'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('password'),
                 'name' => $faker->name,
                 // 'avatar' => $base64Image, // 加入此行
-                'avatar' => 'storage/' . $fileName,
+                'avatar' => 'data:image/png;base64,' . $base64Image,
                 // 'avatar' => null, // 加入此行
                 'phone' => $faker->phoneNumber,
-                'email_verified_at' => null,  // 加入此行
             ]);
+            imagedestroy($image);
     }
 }}

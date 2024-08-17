@@ -33,7 +33,6 @@ class OrderDetailsSeeder extends Seeder
                 'item_name' => $faker->name,
                 'item_price' => $faker->numberBetween(1,1000),
                 'item_qty' => $faker->numberBetween(1,20),
-                'subtotal_price' => $faker->numberBetween(1,5000),
             ];
         });
 

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('m_id')->constrained('Members')->onDelete('cascade');
             $table->foreignId('r_id')->constrained('RestInfos')->onDelete('cascade');
-            $table->date('created_at_date')->default(now());
-            $table->time('created_at_time')->default(now());
+            $table->string('created_at_date')->default(now());
+            $table->string('created_at_time')->default(now());
             $table->timestamps();
             $table->unique(['m_id', 'r_id']); // 複合索引
         });

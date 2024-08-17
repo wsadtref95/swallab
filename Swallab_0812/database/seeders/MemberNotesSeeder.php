@@ -28,19 +28,32 @@ class MemberNotesSeeder extends Seeder
 
         $members = Members::all();
         $restInfos = RestInfos::all();
+
         for ($i = 1; $i <= 60; $i++) {
             $fileName = 'avatar_' . time() . '_' . $i . '.jpg';
+
+            $image = imagecreatetruecolor(100, 100);
+            $backgroundColor = imagecolorallocate($image, rand(0, 255), rand(0, 255), rand(0, 255));
+            imagefill($image, 0, 0, $backgroundColor);
+
+            ob_start();
+            imagepng($image);
+            $imageData = ob_get_clean();
+
+            $base64Image = base64_encode($imageData);
+
 
             DB::table('MemberNotes')->insert([
                 'm_id' => $faker->randomElement($members)->id,
                 'r_id' => $faker->randomElement($restInfos)->id,
                 'title' => $faker->realText(20),
-                'main_photo' => 'storage/' . $fileName,
+                // 'main_photo' => 'storage/' . $fileName,
+                'main_photo' => 'data:image/png;base64,' . $base64Image,
                 'content' => $faker->realText(600),
-                'visited_at_date' => $faker->date('Y-m-d'),
-                'visited_at_time' => $faker->time('H:i:s'),
-                'count' => $faker->numberBetween(0,10000),
+                'visited_date' => $faker->date('Y-m-d'),
+                'count' => $faker->numberBetween(0, 10000),
             ]);
+            imagedestroy($image);
         }
     }
 }
