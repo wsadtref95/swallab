@@ -31,6 +31,10 @@ footer{
     cursor: pointer;
     z-index: 1;
     }
+.hrStyle{
+    border: 1px solid black;
+    width:80%;
+}
 
 /* 隱藏文字溢出 */
 .ellipsis { 
@@ -164,6 +168,7 @@ footer{
 .modal-footer>button:hover{
     color: #efa47e;
     background-color: white;
+    font-weight: bold;
 }
 /* 留言評論區-會員發表處 */
 .commentHeadphoto{
@@ -176,7 +181,7 @@ footer{
     overflow: hidden;
     margin: auto;
 }
-.commentHeadphoto>div:nth-child(1)>img{
+.commentHeadphoto > div:nth-child(1) img{
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -190,7 +195,18 @@ footer{
     display: flex;
     padding: 10px 20px 0 20px;
 }
-.commentHeadphoto>div:nth-child(2)>p:nth-child(2){
+/* .commentHeadphoto>div:nth-child(2)>p:nth-child(3) button{
     align-self: flex-end;
     margin-right: 10px;
+    text-align: right;
+    width: 100%;
+    float:right
+} */
+/* #edit{
+   text-align: right; width: 100%
+} */
+#edit button :hover{
+    color: #efa47e!important; 
+    background-color: white!important; 
 }
+#textLine{text-decoration: none;}

@@ -6,75 +6,120 @@
     <title>青花驕麻辣鍋</title>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/demoHotpot.css">
+    <link href="../css/root.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <link href="../css/footer.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        /* CSS 設定 */
+        .test {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .show {
+            opacity: 1;
+        }
+        
+    </style>
+
 </head>
 <body>
-    <header>
-         <nav class="navbar navbar-expand bg-primary sticky-top shadow bg-body rounded">
-        <div class="container-fluid">
+    <!-- NAV_begin : sticky-top -->
+    <nav class="navbar navbar-expand sticky-top shadow">
+        <div class="container">
             <!-- LOGO -->
-            <a class="navbar-brand ms-5" href="#">
-                <img src="../images/other/logo.jpg" alt="" class="logo d-inline-block align-text-top">
+            <a class="navbar-brand ms-5 col-1" href="http://localhost/swallabLa/swallab/public/headpage/headpage">
+                <img src="../images/other/logo.jpg" alt=""
+                    class="logo d-inline-block align-text-top">
             </a>
             <!-- 伸縮 -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="nav ms-2 me-auto">
-                    <div class="nav-item">
-                        <!-- 首頁沒有 active -->
-                        <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
-                        <a class="nav-link d-block" style="white-space: nowrap;" href="#">找餐廳</a>
+            <div class="collapse navbar-collapse col-10" id="navbarSupportedContent">
+                <div class="nav ms-0 me-3 row">
+                    <div class="nav-item col-6">
+                        <a id="rest" class="nav-link d-block nav_mainbtn"  style="color:#8B4513;font-weight: bold;text-decoration: none;"
+                            href="http://localhost/swallabLa/swallab/public/restaurant/detail">找餐廳</a>
                     </div>
-                    <div class="nav-item">
-                        <a class="nav-link d-block" style="white-space: nowrap;" href="#">看食記</a>
+                    <div class="nav-item col-6">
+                        <a id="resta" class="nav-link d-block nav_mainbtn" style="color:#8B4513;font-weight: bold;text-decoration: none;"
+                            href="http://localhost/swallab/Swallab/foodNotes/foodNotes.html">看食記</a>
                     </div>
                 </div>
                 <!-- Input 都在這 -->
-                <form class="ms-0 me-5" role="search" style="width: 100%;">
-                    <div class="d-flex container-fluid py-3">
-                        <!-- hover、click 換 icon -> src="./img/blog.png" -->
-                        <img src="../images/other/restaurant.png" class="icon mt-2 me-2" alt="">
+                <form class="ms-2 me-1 w-100" role="search" name="search">
+                    <div class="d-flex" style="width: 100%;">
+                        <div id="theicon" class="mt-2 me-0 align-items-center justify-content-center"></div>
                         <!-- 搜尋框 + 情境按鈕(pill 會改成底線) -->
-                        <div class="d-block container-fluid position-relative m-0 p-0">
-                            <input class="form-control m-0" type="search" placeholder="Click" aria-label="Search">
-                            <button class="position-absolute translate-middle rounded-pill"
-                                style="display: block; margin-left: 10%; margin-top: 1.5em; white-space: nowrap;">
+                        <div class="d-block position-relative m-0 p-0 col">
+                            <div style="display: flex;" class="row">
+                                <div class="col-6">
+                                    <input type="text" id="myInput" onclick="myFunction()" placeholder="點擊我"
+                                        class="form-control m-0">
+                                    <div id="myDropdown" class="dropdown-content"
+                                        style="display: none; position: absolute;">
+                                        <a href="#cate_no" onclick="fillInput('null')"
+                                            class="position-relative">不挑分類</a>
+                                        <a href="#cate_hotpot" onclick="fillInput('火鍋')"
+                                            class="position-relative">火鍋</a>
+                                        <a href="#cate_bbq" onclick="fillInput('燒肉')" class="position-relative">燒肉</a>
+                                        <a href="#cate_izakaya" onclick="fillInput('居酒屋')"
+                                            class="position-relative">居酒屋</a>
+                                        <a href="#cate_ramen" onclick="fillInput('拉麵')" class="position-relative">拉麵</a>
+                                        <a href="#cate_dessert" onclick="fillInput('甜點')"
+                                            class="position-relative">甜點</a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" id="myInput2" onclick="myFunction2()" placeholder="點擊我"
+                                        class="form-control m-0">
+                                    <div id="myDropdown2" class="dropdown-content"
+                                        style="display: none; position: absolute;">
+                                        <a href="#loc_no" onclick="fillInput2('null')"
+                                            class="position-relative">不挑地區</a>
+                                        <a href="#loc_Taichung" onclick="fillInput2('台中市')"
+                                            class="position-relative">台中市</a>
+                                        <a href="#loc_1" onclick="fillInput2('選項2')" class="position-relative">選項2</a>
+                                        <a href="#loc_2" onclick="fillInput2('選項3')" class="position-relative">選項3</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                                style="margin-left: 10%;">
                                 <img class="icon" src="../images/other/dating.png" alt="">約會
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill"
-                                style="display: block; margin-left: 30%; margin-top: 1.5em; white-space: nowrap;">
+                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                                style="margin-left: 30%;">
                                 <img class="icon" src="../images/other/group.png" alt="">聚餐
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill"
-                                style="display: block; margin-left: 50%; margin-top: 1.5em; white-space: nowrap;">
-                                <img class="icon" src="../images/other/confetti.png" alt="">慶生
+                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                                style="margin-left: 50%;">
+                                <img class="icon" src="../images/other//confetti.png"
+                                    alt="">慶生
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill"
-                                style="display: block; margin-left: 70%; margin-top: 1.5em; white-space: nowrap;">
-                                <img class="icon" src="../images/other/handshake.png" alt="">商務
+                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                                style="margin-left: 70%;">
+                                <img class="icon" src="../images/other//handshake.png"
+                                    alt="">商務
                             </button>
-                            <button class="position-absolute translate-middle rounded-pill"
-                                style="display: block; margin-left: 90%; margin-top: 1.5em; white-space: nowrap;">
-                                <img class="icon" src="../images/other/disabled-people.png" alt="">無障礙
+                            <button class="position-absolute translate-middle rounded-pill filter_btn"
+                                style="margin-left: 90%;">
+                                <img class="icon" src="../images/other/disabledpeople.png"
+                                    alt="">無障礙
                             </button>
                         </div>
-                        <!-- 搜尋 icon = submit -->
-                        <img src="../images/other/loupe.png" class="icon mt-2 ms-1" alt="" type="submit">
+                        <input type="image" src="../images/other//loupe.png" class="icon mt-2 ms-0"
+                            onclick="document.search.submit()">
                     </div>
                 </form>
                 <!-- 登入及註冊按鈕 -->
-                <div class="ms-auto me-5">
-                    <a href="#" class="container-fluid">
-                        <button class="btn btn-outline-success btn-sm">登入</button>
-                    </a>
-                    <a href="#" class="container-fluid">
-                        <button class="btn btn-outline-danger btn-sm">註冊</button>
-                    </a>
+                <div class="ms-3 me-5 col-1" style="color:#8B4513;font-weight: bold;">
+                    David
                 </div>
             </div>
         </div>
     </nav>
-
-    </header>
+    <!-- NAV_end -->
 
 
     
@@ -91,7 +136,7 @@
                 <div class="card author">
                     <a href="./author.html">
                         <div class="card-body p-0" >
-                            <img src="../images/other/winnie.webp" alt="" class="img-fluid">
+                            <img src="../images/other/winnie.webp" alt="" class="img-fluid"/>
                         </div>
                     </a>
                     <div class="card-footer d-flex align-items-center justify-content-center" >
@@ -105,9 +150,9 @@
             <!-- 右邊文章 -->
             <div class="col-9  p-3" >
                 <h3>【台中】青花驕麻辣鍋(崇德店)王品集團麻辣鍋、酸菜白肉鍋火鍋餐廳 牛三拼盛宴比臉大氣勢十足</h3>
-                <div class="mt-5" >發布時間：<span>2024-07-20</span></div>
+                <div class="mt-5" >發布時間：<span>2024-05-20 20:38</span></div>
                 <div class="d-flex justify-content-between align-items-center">
-                    <div>用餐時間：<span>2024-06-30</span></div>
+                    <div>用餐時間：<span>2024-04-30 12:30</span></div>
                     <!-- 下面這個<div>不可以刪掉 -->
                     <div>
                         <i class="fa-regular fa-heart noColorHeart"></i>
@@ -124,31 +169,31 @@
                     <p class="mb-3" >
                         ▼青花驕麻辣鍋台中崇德店位於崇德路三段與崇德九路交叉口，附近美食還有奧樂美特、很牛炭燒牛排、森森燒肉、拾七石頭火鍋、八豆食府、本格和牛燒肉放題、尚牛二館…等，完全是個美食餐廳聚集地。
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_1.webp" alt="" class="mb-5">
+                    <img src="../images/foodnotes_demo/qhj_1.webp" alt="" class="mb-5"/>
                     <p class="mb-3" >
                         ▼青花椒麻辣鍋，湯頭喝起來微麻帶辣、香醇順口，不過可能是我嘴鈍，覺得重慶江津九葉青花椒的層次香氣不明顯，好喝但不特別。而鍋底的鴨血滑嫩、豆腐孔洞不算多但有入味好吃。
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_spicyhotpot.jpg" alt="" class="mb-5" >
+                    <img src="../images/foodnotes_demo/qhj_spicyhotpot.jpg" alt="" class="mb-5"/ >
                     <p class="mb-3" >
                         ▼青花椒麻口水雞，椒麻醬香氣十足，雞肉也蠻嫩的，好吃。
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_chicken.jpg" alt="" class="mb-5">
+                    <img src="../images/foodnotes_demo/qhj_chicken.jpg" alt="" class="mb-5"/>
                     <p class="mb-3" >
                         ▼牛三拼盛宴(牛小排、雪花牛、牛梅花)，我最喜歡油脂分布均勻的牛小排，在熱湯裡輕涮至粉紅色就可以吃啦，香軟嫩口！
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_beef.jpg" alt="" class="mb-5">
+                    <img src="../images/foodnotes_demo/qhj_beef.jpg" alt="" class="mb-5"/>
                     <p class="mb-3" >
                         ▼仙氣海宴，這整盤~我只吃到了干貝，煮熟後軟彈帶嫩，不錯吃。
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_seafood.jpg" alt="" class="mb-5">
+                    <img src="../images/foodnotes_demo/qhj_seafood.jpg" alt="" class="mb-5"/>
                     <p class="mb-3">
                         ▼鮮蝦滑、墨魚滑，鮮蝦滑吃得到蝦肉、墨魚滑也吃得到細小墨魚肉，蠻實在的。
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_shrimp.jpg" alt="" class="mb-5">
+                    <img src="../images/foodnotes_demo/qhj_shrimp.jpg" alt="" class="mb-5"/>
                     <p class="mb-3" >
                         ▼甜點冰糖銀耳，裡頭除了細細的銀耳還有枸杞，冰甜好喝，只有一小杯不夠啊~
                     </p>
-                    <img src="../images/foodnotes_demo/qhj_dessert.jpg" alt="" class="mb-5">
+                    <img src="../images/foodnotes_demo/qhj_dessert.jpg" alt="" class="mb-5"/>
                 
                     <article>
                         <h5>青花驕麻辣鍋 台中崇德店</h5>
@@ -160,7 +205,18 @@
                 </article>
             </div>
 
-            <hr style="border: 2px solid black; width:80%">
+            <hr class="hrStyle">
+
+            <div id="editForm" style="background-color: lightgray; width: 50%;display: none;">
+                <form action="">
+                    <label for="myedit">修改留言：</label>
+                    <input type="text" style="width: 100%;height: 100px;"><br>
+                    <div style="text-align: right;">
+                        <button type="button">確認送出</button>
+                    </div>
+                </form>
+
+            </div>
 
             <!-- 留言區 -->
             <div class="p-4" >
@@ -180,76 +236,83 @@
                                 </div>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body p-4">
-                                <form>
+                           
+                            <form name="myForm" method="post" id="myForm" >
+                                <!-- Modal body -->
+                                <div class="modal-body p-4">
                                     <label for="message">留言：</label>
-                                    <textarea id="message" name="message" rows="5"></textarea>
-                                </form>
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer d-flex justify-content-center align-items-center">
-                                <button type="submit" class="btn login" data-bs-dismiss="modal">送出</button>
-                            </div>
+                                    <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer d-flex justify-content-end align-items-center">
+                                    <button type="submit" form="myForm" class="btn " id="btnSubmit">送出</button>
+                                </div>
+                            </form>
 
                         </div>
                     </div>
                 </div>
-
+                
             </div>
                 
-
-            <div class="d-flex justify-content-center mt-4 m-0">
-                <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
-                    <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
-                        <img src="../images/other/小豬皮傑.jpg" alt="">
-                        <div >小豬皮傑</div>
-                    </div>
-                    <div class="col-8 p-0 d-flex flex-column">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
-                        </p>
-                        <p style="align-self: flex-end; margin-right: 10px;">2024-07-20</p>
-                    </div>
-                </div>
+            <div id="testEdit">
+                
             </div>
-            <!-- <hr style="border: 2px solid black;"> -->
+            
 
-            <div class="d-flex justify-content-center mt-4 m-0">
-                <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
-                    <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
-                        <img src="../images/other/屹耳.webp" alt="">
-                        <div >屹耳</div>
-                    </div>
-                    <div class="col-8 p-0 d-flex flex-column">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
-                        </p>
-                        <p style="align-self: flex-end; margin-right: 10px;">2024-06-30</p>
-                    </div>
-                </div>
-            </div>
-            <!-- <hr style="border: 2px solid black;"> -->
+            <div id="messages-container">
 
-            <div class="d-flex justify-content-center mt-4 m-0">
-                <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
-                    <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
-                        <img src="../images/other/跳跳虎.jpg" alt="">
-                        <div >跳跳虎</div>
+                <!-- <div class="d-flex justify-content-center mt-4 m-0">
+                    <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
+                        <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
+                            <img src="../images/other/小豬皮傑.jpg" alt=""/>
+                            <div >小熊維尼</div>
+                        </div>
+                        <div class="col-8 p-0 d-flex flex-column">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
+                            </p>
+                            <p >2024-07-20</p>
+                        </div>
                     </div>
-                    <div class="col-8 p-0 d-flex flex-column">
-                        <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
-                        </p>
-                        <p >2024-05-20</p>
+                </div> -->
+                <!-- <hr style="border: 2px solid black;"/> -->
+
+                <!-- <div class="d-flex justify-content-center mt-4 m-0">
+                    <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
+                        <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
+                            <img src="../images/other/屹耳.webp" alt=""/>
+                            <div >屹耳</div>
+                        </div>
+                        <div class="col-8 p-0 d-flex flex-column">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
+                            </p>
+                            <p >2024-06-30</p>
+                        </div>
                     </div>
-                </div>
+                </div> -->
+                <!-- <hr style="border: 2px solid black;"/> -->
+
+                <!-- <div class="d-flex justify-content-center mt-4 m-0">
+                    <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto" >
+                        <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3" >
+                            <img src="../images/other/跳跳虎.jpg" alt=""/>
+                            <div >跳跳虎</div>
+                        </div>
+                        <div class="col-8 p-0 d-flex flex-column">
+                            <p>
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae debitis iure veritatis, totam, facere mollitia et recusandae molestiae vitae tenetur libero a incidunt rem neque accusantium vel. Doloremque, repellat. Debitis?
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem veritatis odio ea, maiores eaque nihil veniam vero non quasi? Ab ipsum eligendi accusantium ipsa ex totam quisquam eos enim unde!
+                            </p>
+                            <p >2024-05-20</p>
+                        </div>
+                    </div>
+                </div> -->
             </div>
+            
 
 
 
@@ -278,40 +341,47 @@
 
     
     <!-- TOP按鈕 -->
-    <img src="../images/other/top.png" alt="" class="top" id="top">
+    <img src="../images/other/top.png" alt="" class="top" id="top"/>
 
-    <footer>
-        <div class="container mt-3">
+    <footer class="myFooter mt-3">
         <!-- 左右二欄 -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-3 container">
             <!-- 左邊logo -->
-            <div class="col-4">
-                <img src="../images/other/logo.jpg" class="logo" alt="">
+            <div class="col-4 text-center"></div>
+            <div class="col-2 d-flex flex-column align-items-center">
+                <img src="../images/root/logo.jpg" class="logo mb-4" alt="">
+                <div class="rights text-nowrap">© 版權聲明</div>
             </div>
-            <!-- 右邊三列 -->
-            <div class="col-4">
-                <div class="row">
-                    <button class="btn btn-outline-success">找餐廳</button>
-                </div>
-                <div class="row">
-                    <button class="btn btn-outline-success">看食記</button>
-                </div>
-                <div class="row justify-content-center text-center">
-                    <!-- 二個 icon -->
-                    <a href="#" class="col-6">FBICON<img src="" alt=""></a>
-                    <a href="#" class="col-6">IGICON<img src="" alt=""></a>
-                </div>
-            </div>
-            <div class="row justify-content-center text-center">
-                <span>© 版權聲明</span>
-            </div>
-        </div>
-    </div>
 
+
+            <!-- 右邊三列 -->
+            <div class="col-2">
+                <div class="">
+                    <a class="btn btnFooter text-nowrap mb-2">找餐廳</a>
+                </div>
+                <div class="">
+                    <a class="btn btnFooter text-nowrap mb-2">看食記</a>
+                </div>
+                <div class="row justify-content-center mt-2 mb-3">
+                    <!-- 二個 icon -->
+                    <a href="#" class="col-6 text-center">
+                        <i class="fa-brands fa-facebook"></i>  <!-- facebook -->
+                    </a>
+                    <a href="#" class="col-6 text-center">
+                        <i class="fa-brands fa-instagram"></i> <!-- instagram -->
+                    </a>
+                </div>
+            </div>
+            <div class="col-4 text-center"></div>
+        </div>
     </footer>
+
 
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/jquery-3.7.1.js"></script>
     <script src="../js/demoHotpot.js"></script>
+    <script src="../js/footer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <!-- <script src="../js/nav.js"></script>     -->
 </body>
 </html>

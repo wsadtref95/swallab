@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>食記首頁</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/foodNotes.css">
-    <link href="../css/root.css" rel="stylesheet">
-    <link href="../css/nav.css" rel="stylesheet">
-    <link href="../css/footer.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../css/loading.css">
-</head>
-
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小豬皮傑</title>
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/author.css" />
+    <link href="../css/root.css" rel="stylesheet" />
+    <link href="../css/nav.css" rel="stylesheet" />
+    <link href="../css/footer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous"referrerpolicy="no-referrer"/>
+  </head>
+  <body>
     <nav class="navbar navbar-expand sticky-top shadow">
         <div class="container">
             <!-- LOGO -->
@@ -109,138 +106,108 @@
         </div>
     </nav>
 
-
     <div class="container p-0">
-        
-        <!-- 最新文章1+2 -->
-        <div class="row p-0 title">
-            
-            <div class="col-8 p-0">
-                <div class="height500">
-                    <img src="" class="img-fluid newTitle"/>
-                    <div class="text-con">
-                        <p class="ellipsis title" id="title1"></p>
-                        <p></p>
-                        <p class="latestDate-1" id="date1"></p>
-                    </div>
+      <div class="row d-flex justify-content-center p-0 mt-5 mb-2">
+        <!-- 個人資訊 -->
+        <img src="../images/other/小豬皮傑.jpg"class="img-fluid col-4 p-0 headphoto"/>
+        <div class="col-8 p-3">
+          <div class="d-flex justify-content-center align-items-center p-3">
+            <div class="d-flex" style="gap: 150px">
+              <!-- 下面這個<div>不可以刪掉 -->
+              <div>
+                <div class="d-flex justify-content-center align-items-center">
+                  <h3 class="authorName" style="margin-bottom: 40px">
+                    小豬皮傑
+                  </h3>
                 </div>
+                <div class="social-icon">
+                  <i class="fa-brands fa-instagram"></i>
+                  <i class="fa-brands fa-facebook"></i>
+                  <i class="fa-brands fa-threads"></i>
+                </div>
+              </div>
+              <!-- 下面這個<div>不可以刪掉 -->
+              <div>
+                <div class="d-flex justify-content-center align-items-center">
+                  <h4 class="followTitle">
+                    <strong>250</strong> 追蹤中
+                    <strong id="fans">85</strong> 粉絲
+                  </h4>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                  <button class="btn follow">+ 追蹤</button>
+                </div>
+              </div>
             </div>
-            
-            <div class="col-4 row p-0">
-                <div class="col-12">
-                    <div class="img-con">
-                        <img src="" class="newTitle"/>
-                        <div class="text-con">
-                            <p class="ellipsis title" id="title2"></p>
-                            <p></p>
-                            <p class="latestDate-1"id="date2"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="img-con">
-                        <img src="" class="newTitle"/>
-                        <div class="text-con">
-                            <p class="ellipsis title" id="title3"></p>
-                            <p></p>
-                            <p class="latestDate-1" id="date3"></p>
-                        </div>
-                    </div>
-                </div>
+          </div>
+
+          <!-- 個人簡介 -->
+          <div class="w-100 p-4">
+            <h5>個人簡介：</h5>
+            <div class="mt-2 p-2 information">
+              嗨，歡迎來到我的Blog！我是小豬皮傑，一個熱愛探索美食的餐廳迷。從街頭小吃到米其林餐廳，我都樂於品嚐和分享。這裡記錄了我的美食旅程，真實的餐廳體驗，以及我對美食的獨特見解。希望我的分享能為您帶來味蕾上的新發現！
             </div>
+          </div>
         </div>
-        
-
-
-
-        <!-- 側邊欄+店家3*4 -->
-        <div class="row align-items-start justify-content-center mt8" >
-            <!-- 側邊欄 -->
-            <div class="col-3 custom-ul sideBar">
-                <div class="mb-2 mt-3 ">
-                    <img src="../images/other/hot.png" alt="" id="hot"/>
-                    <li>本週熱門</li>
-                </div>
-                <div class="mb-2 ">
-                    <img src="../images/other/hotpot.png" alt="" id="hotpot"/>
-                    <li>火鍋</li>
-                </div>
-                <div class="mb-2">
-                    <img src="../images/other/barbecue.png" alt="" id="bbq"/>
-                    <li>燒肉</li>
-                </div>
-                <div class="mb-2"> 
-                    <img src="../images/other/ramen.png" alt="" id="ramen"/>
-                    <li>拉麵</li>
-                </div>
-                <div class="mb-2">
-                    <img src="../images/other/izakaya.png" alt="" id="beer"/>
-                    <li>居酒屋</li>
-                </div>
-                <div class="mb-2">
-                    <img src="../images/other/dessert.png" alt="" id="dessert"/>
-                    <li>甜點</li>
-                </div>               
-            </div>
-            <!-- 店家3*4 -->
-            <div class="col-9 mb-5">
-             <!-- 本週熱門 -->
-                <div class="row" id="cardTop">
-                    <div id="myLoading">
-                        <div class="loadingio-spinner-spinner-2by998twmg8">
-                            <div class="ldio-yzaezf3dcmj">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
+        <!-- <hr style="border:2px solid black"> -->
+        <!-- 博主之前發表過的食記 -->
+        <div class="mt-5 mb-5 p-0">
+          <div class="d-flex justify-content-center mt-4 m-0">
+            <div class="row d-flex justify-content-center m-2 p-0 foodNotes-bg">
+              <img src="../images/dessert/overture.jpg" alt="" class="col-5 m-4" />
+              <div class="col-7 d-flex align-items-center">
+                <div class="p-4">
+                  <h4 class="mb-4">Overture序曲</h4>
+                  <a href="#" style="text-decoration: none;">
+                        <div class="ellipsis-6 history">
+                          【台中甜點推薦】Overture序曲 千層蛋糕水果蛋糕IG網美人氣名店！<br>
+                          《Overture序曲》是台中老字號甜點蛋糕名店，我還沒開始寫部落格時就很有名<br>
+                          菜單上蛋糕品項非常多，招牌為千層蛋糕、水果蛋糕，戚風蛋糕、水果塔、布丁等的評價也蠻好的<br>
+                          《Overture序曲》目前在大台中地區有三家分店，菜單蛋糕種類不太一樣，各分店間可以外帶至另一家店內用的唷
                         </div>
-                    </div>
-                    
+                  </a>
+                  
                 </div>
-                
-                
-            
-                
+              </div>
             </div>
+          </div>
 
-            
+          <div class="d-flex justify-content-center mt-4 m-0">
+            <div class="row d-flex justify-content-center m-2 p-0 foodNotes-bg">
+              <img src="../images/izakaya/zhitxc.jpg" alt="" class="col-5 m-4" />
+              <div class="col-7 d-flex align-items-center">
+                <div class="p-4">
+                  <h4 class="mb-4">織田信長串燒</h4>
+                  <div class="ellipsis-6 history">
+                    織田信長串燒、酒場-西屯本舖│台中深夜美食推薦！日式居酒屋，串燒好吃，品項超多，宵夜最佳首選～<br>
+                    台中深夜美食推薦！這間位在北區的織田信長串燒、酒場是糖糖近期很愛的一間居酒屋，有著濃濃的日式裝潢，不僅用料實在，餐點品項也非常多樣化，光是串燒的種類就有好幾種，目前在台中共有兩間分店，一間在北區西屯路，另一間在西區東興路，營業至凌晨一點，宵夜最佳首選～
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="d-flex justify-content-center mt-4 m-0">
+            <div class="row d-flex justify-content-center m-2 p-0 foodNotes-bg">
+              <img src="../images/bbq/wuma.jpg" alt="" class="col-5 m-4" />
+              <div class="col-7 d-flex align-items-center">
+                <div class="p-4">
+                  <h4 class="mb-4">屋馬燒肉</h4>
+                  <div class="ellipsis-6 history">
+                    屋馬燒肉｜訂位很容易爆滿的知名台中燒肉店，屋馬菜單怎麼點才划算?
+                    台中最熱門最難訂位的燒肉店《屋馬燒肉》，跟茶六燒肉都是相當有名，《屋馬燒肉》在台北是沒有分店的，只有7家分店全部都是在台中，如果想要吃的話《屋馬燒肉》一定要先訂位，建議是屋馬燒肉線上訂位比較快，點餐方式有分套餐跟單點，大部份都是點套餐比較划算，套餐有前菜、肉品、海鮮與甜點等等，絕對是可以吃得飽的，網友說免費雞湯一定要喝。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
         </div>
-
-
-
-
+      </div>
     </div>
 
-
-
-
-
-
-
-
-    
-
- 
-
-
-
-                
-    <!-- 新增食記按鈕 -->
-    <a href="https://www.google.com.tw/"><img src="../images/other/write.png" alt="" width="40" id="write"/></a>
-    
     <!-- TOP按鈕 -->
-    <img src="../images/other/top.png" alt="" class="top" id="top"/>
+    <img src="../images/other/top.png" alt="" class="top" id="top" />
 
-    <!-- Footer_begin -->
     <footer class="myFooter mt-3">
         <!-- 左右二欄 -->
         <div class="row justify-content-center mt-3 container">
@@ -276,9 +243,8 @@
 
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/jquery-3.7.1.js"></script>
-    <script src="../js/foodNoted.js"></script>
+    <script src="../js/author.js"></script>
     <script src="../js/footer.js"></script>
     <!-- <script src="../js/nav.js"></script> -->
-</body>
+  </body>
 </html>
-
