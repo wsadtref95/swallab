@@ -24,20 +24,20 @@ try {
         // $href = $row['href'];
         $photoBlob = $row['main_photo'];
 
-        // 自動判斷照片格式型態
-        $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
-        // 轉base64
-        $photoBase64 = base64_encode($photoBlob);
+        // // 自動判斷照片格式型態
+        // $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
+        // // 轉base64
+        // $photoBase64 = base64_encode($photoBlob);
 
-        // IMG的src
-        $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
+        // // IMG的src
+        // $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
 
         echo <<<HTML
         <div class="col-4 mb-4">
           <div class="card overflow-hidden">
             <div class="card-body p-0">
               <a href="../foodNotes/demohotpot.html">
-                <img src="{$photoSrc}" alt="" class="img-fluid notesImage" />
+                <img src="{$photoBlob}" alt="" class="img-fluid notesImage" />
               </a>
             </div>
             <div class="card-footer align-items-center">
