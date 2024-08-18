@@ -1,8 +1,8 @@
 //onload時
 window.onload = function () {
-  sale("青花驕-公益店");
-  allMenu("青花驕-公益店");
-  showComment("青花驕-公益店");
+  sale("青花驕");
+  allMenu("青花驕");
+  showComment("青花驕");
 };
 // 按下愛心
 const showCollect = () => {
@@ -30,7 +30,7 @@ document.getElementById("hearticon").addEventListener("click", function () {
     form.append("service", "favorite");
     form.append("m_id", "1");
     form.append("r_id", "1");
-    form.append("alreadyAdd", true);  
+    form.append("alreadyAdd", 1);  
 
   } else {
     
@@ -43,7 +43,7 @@ document.getElementById("hearticon").addEventListener("click", function () {
     form.append("service", "favorite");
     form.append("m_id", "1");
     form.append("r_id", "1");
-    form.append("alreadyAdd", false);  
+    form.append("alreadyAdd", 0);  
   }
 
   var settings = {
@@ -62,23 +62,6 @@ document.getElementById("hearticon").addEventListener("click", function () {
 });
 //收藏
 
-document.getElementById("hearticon").onclick = function (a) {
-  var form = new FormData();
-  form.append("service", "favorite");
-  form.append("m_id", "1");
-  form.append("r_id", "1");
-
-  var settings = {
-    url: "http://localhost/Swallab/swallab/back-end/detail.php",
-    method: "POST",
-    timeout: 0,
-    processData: false,
-    mimeType: "multipart/form-data",
-    contentType: false,
-    data: form,
-  };
-  $.ajax(settings).done(function (response) {});
-};
 
 // top
 document.getElementById("top").addEventListener("click", function () {
@@ -195,11 +178,12 @@ function sale() {
           console.log(item);
           var html = `
                             <div class="hotpot">
-                                <div style="font-size: 30px; font-weight: bold;">${item.restaurant_name}</div>
+                                <div style="font-size: 30px; font-weight: bold;">${item.name}</div>
                                 <div class="ml-5" style="font-size: 25px; font-weight: bold;">
-                                    ${item.rating}分 <span style="font-size: 20px">(33)</span>
+                                    ${item.score}分 <span style="font-size: 20px">(33)</span>
                                 </div>
-                                <div class="ml-5 mt-2">均消${item.avgcost}</div>
+                                <div class="ml-5 mt-2">均消${item.avg_price}</div>
+                                <div class="mt-2 mr-2">地址：${item.phone}</div>
                                 <span class="mt-2 mr-2">地址：${item.address}</span>
                                 <button class="score" data-toggle="modal" data-target="#scoreModal" id="score">點我評分</button>
                             </div>
@@ -298,11 +282,12 @@ function showComment(input_restaurant_name) {
         i = 0;
         console.log(responseData);
         responseData.forEach(function (item) {
+          console.log(item);
           i += 1;
           if (i <= 3) {
             
             var stars = '';
-            for (var s = 0; s < item.rating; s++) {
+            for (var s = 0; s < item.score; s++) {
               stars += '<i class="fa-solid fa-star"></i>';
             }
 
@@ -310,7 +295,7 @@ function showComment(input_restaurant_name) {
            <div class="row" >
                             <div class="col-3">
                               <img class="ml-2" src="./../images/other/David.png" style="width: 150px;">
-                              <div style="text-align: center;">David</div>
+                              <div style="text-align: center;">${item.userName}</div>
                             </div>
                             <div class="col-9 position-relative">
                             <div  class="d-flex mt-3" style="font-size: 20px; color: gold;">
@@ -318,9 +303,9 @@ function showComment(input_restaurant_name) {
                             </div>
                               
                               <div id="userComment" class="mt-3">
-                                ${item.comment}
+                                ${item.content}
                               </div>
-                              <p class="position-absolute date p-0">${item.createDate}</p>
+                              <p class="position-absolute date p-0">${item.created_at_date}</p>
                             </div>
                             
                             </div>
@@ -353,6 +338,8 @@ function showComment(input_restaurant_name) {
 
 //抓各類別餐廳菜單
 function menu(input_className, input_restaurant_name) {
+  console.log(input_className)
+  console.log(input_restaurant_name)
   var form = new FormData();
   form.append("service", "menu");
   form.append("className", input_className);
@@ -376,13 +363,13 @@ function menu(input_className, input_restaurant_name) {
         responseData.forEach(function (item) {
           var html = `
         <div class=" col-4 mb-4">
-            <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.photo}" alt="" >
+            <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.item_photo}" alt="" >
             <div class="name">${item.item_name}</div>
             <div class="d-flex money">
                 <div class="fs-20 ">$</div>
-                <div class="price" id="price-1">${item.price}</div>
+                <div class="price" id="price-1">${item.item_price}</div>
             </div>
-            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.item_name}" data-price="${item.price}" data-photo="${item.photo}" ">加入購物車</button>
+            <button class="score ml-5" data-toggle="modal" data-target="#cartModal" data-name="${item.item_name}" data-price="${item.item_price}" data-photo="${item.item_photo}" ">加入購物車</button>
         </div>    
                         `;
           container.append(html);
@@ -391,7 +378,7 @@ function menu(input_className, input_restaurant_name) {
 
           title.empty();
           var html = `
-            <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">${responseData[0].className}</div>
+            <div class="ml-3 mb-4" style="font-size: 30px; font-weight: bold;">${responseData[0].section}</div>
           `;
           title.append(html);
         });
@@ -439,23 +426,24 @@ function allMenu(input_restaurant_name) {
       container.empty();
       if (responseData.length > 0) {
         responseData.forEach(function (item) {
+          // console.log('1',item);
           var html = `
         
         <div class=" col-4 mb-4">
-            <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.photo}" alt="" >
+            <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.item_photo}" alt="" >
             <div class="name">${item.item_name}</div>
             <div class="d-flex money">
                 <div class="fs-20 ">$</div>
-                <div class="price" id="price-1">${item.price}</div>
+                <div class="price" id="price-1">${item.item_price}</div>
             </div>
-            <button id="aa" class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.item_name}' , ${item.price});">加入購物車</button>
+            <button id="aa" class="score ml-5" onclick="showShoppingCar('${item.item_photo}' , '${item.item_name}' , ${item.item_price});">加入購物車</button>
         </div>    
                         `;
+
+console.log(html)
+
           container.append(html);
 
-          document.getElementById("aa").onclick = function aa() {
-            // console.log("名字",responseData);
-          };
         });
       }
     })
@@ -489,24 +477,21 @@ function saleMenu(input_restaurant_name) {
           let end_time = new Date(item.end_time);
           let saleTimeCount = end_time - nowDateTime;
           let saleTime = Math.round(saleTimeCount / (1000 * 60 * 60));
-          console.log("saleTimeCount : " + saleTimeCount);
-          console.log("saleTime : " + saleTime);
-          console.log("1",item);
           var html = `
           <div class=" col-4 mb-4 position-relative" >
-            <img class="ml-3 myimg"  src="data:image/jpeg;base64,${item.photo}" alt="" > 
+            <img class="ml-3 myimg"  src="data:image/jpeg;base64,${item.item_photo}" alt="" > 
             <span class="countDown">倒數<span class="countDownTime me-1">${saleTime}</span>小時<span>!!</span></span>
             <div class="name">${item.item_name}</div>
             <div class="d-flex " style="justify-content: center;">
               <div class="fs-20 ">$</div>
-              <div class="price" id="price-1" style="text-decoration: line-through;">${item.origin_price}</div>
+              <div class="price" id="price-1" style="text-decoration: line-through;">${item.item_price}</div>
               <b><i><div class="fs-20 ml-3" style="color: red;">$</div></i></b>
-              <b><i><div class="price" id="price-1" style="color: red;">${item.sale_price}</div></i></b>
+              <b><i><div class="price" id="price-1" style="color: red;">${item.discount_price}</div></i></b>
             </div>
             <div class="d-flex money">
               
             </div>
-          <button class="score ml-5" onclick="showShoppingCar('${item.photo}' , '${item.item_name}' , ${item.price});">加入購物車</button>
+          <button class="score ml-5" onclick="showShoppingCar('${item.item_photo}' , '${item.item_name}' , ${item.discount_price});">加入購物車</button>
       </div>
                         `;
           container.append(html);

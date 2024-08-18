@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "swallab";
+$dbname = "swallabfinal2";
 $user = "root";
 $db = new PDO("mysql:host=${host};dbname=${dbname}", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,58 +46,32 @@ switch ($service) {
 function favorite($alreadyAdd, $m_id, $r_id)
 {
     global $db;
-    if ($alreadyAdd) {
-        try {
-            // 建立資料庫連線
-            $sql = "DELETE FROM `MemberFavorites` WHERE m_id =? and r_id =?";
+    if ($alreadyAdd == 0) {
+            // 執行刪除操作
+            $sql = "DELETE FROM `restfavorites` WHERE m_id =? and r_id =?";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(1, $m_id, PDO::PARAM_INT);
             $stmt->bindParam(2, $r_id, PDO::PARAM_INT);
             $stmt->execute();
-            // 把所有的查詢結果存在 rows 裡
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-
-            // 返回 JSON 格式的數據
+            // 返回操作結果
             header('Content-Type: application/json');
-            echo json_encode($rows);
-
-        } catch (PDOException $e) {
-            // 更正錯誤處理
-            error_log($e->getMessage());
-            header('Content-Type: application/json');
-            echo json_encode(["error" => "資料庫錯誤"]);
-        }
+            echo json_encode(["status" => "deleted"]);
     } else {
-        try {
-            // 建立資料庫連線
-            $sql = "INSERT INTO `MemberFavorites`(`m_f_id`, `m_id`, `r_id`) VALUES (DEFAULT,?,?)";
+            // 執行插入操作
+            $sql = "INSERT INTO `restfavorites`(`id`, `m_id`, `r_id`) VALUES (DEFAULT,?,?)";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(1, $m_id, PDO::PARAM_INT);
             $stmt->bindParam(2, $r_id, PDO::PARAM_INT);
             $stmt->execute();
-            // 把所有的查詢結果存在 rows 裡
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-
-            // 返回 JSON 格式的數據
+            // 返回操作結果
             header('Content-Type: application/json');
-            echo json_encode($rows);
-
-        } catch (PDOException $e) {
-            // 更正錯誤處理
-            error_log($e->getMessage());
-            header('Content-Type: application/json');
-            echo json_encode(["error" => "資料庫錯誤"]);
-        }
+            echo json_encode(["status" => "added"]);
     }
-
-
 }
+
+
 //取得餐廳資訊
 function sale($a)
 {
@@ -105,7 +79,11 @@ function sale($a)
     global $db;
     try {
         // 建立資料庫連線
-        $sql = "SELECT * FROM `restaurantcategory` WHERE id = 1";
+        $sql = "SELECT name , address , avg_price , phone , ROUND(AVG(MemberReviews.score), 1) AS score FROM RestInfos 
+        left join Users on RestInfos.user_id = Users.id
+        left join MemberReviews on RestInfos.id = MemberReviews.r_id
+        WHERE r_id = 1
+        group by r_id;";
         $stmt = $db->prepare($sql);
         $stmt->execute($a);
 
@@ -144,17 +122,20 @@ function saveComment($userid, $restaurantid, $star, $comment)
     global $db;
 
     try {
-        // 建立 SQL 語句
-        $sql = "INSERT INTO rating (userid, restaurantid, rating, comment) VALUES (?, ?, ?, ?)";
+        // 插入 MemberReviews 表的数据
+        $sql = "INSERT INTO MemberReviews (m_id, r_id, score) VALUES (?, ?, ?)";
         $stmt = $db->prepare($sql);
-
-        // 綁定參數 (注意：索引從 1 開始)
         $stmt->bindParam(1, $userid, PDO::PARAM_STR);
         $stmt->bindParam(2, $restaurantid, PDO::PARAM_STR);
         $stmt->bindParam(3, $star, PDO::PARAM_INT);
-        $stmt->bindParam(4, $comment, PDO::PARAM_STR);
+        $stmt->execute();
 
-        // 執行 SQL 語句
+        // 插入 restcomments 表的数据
+        $sql = "INSERT INTO restcomments (m_id, r_id, content) VALUES (?, ?, ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(1, $userid, PDO::PARAM_STR);
+        $stmt->bindParam(2, $restaurantid, PDO::PARAM_STR);
+        $stmt->bindParam(3, $comment, PDO::PARAM_STR);
         $stmt->execute();
 
         echo "Comment successfully added.";
@@ -163,51 +144,44 @@ function saveComment($userid, $restaurantid, $star, $comment)
         echo "Error: " . $e->getMessage();
     }
 }
-;
+
 
 
 // 抓各類別的菜單
-// function menu($className, $restaurant_name)
-// {
-//     //取全域的資料庫配置
-//     global $db;
-//     try {
-//         // 建立資料庫連線
-//         $sql = "SELECT item_name ,price , photo  , className FROM restaurant
-//         left join RestaurantCategory on restaurant.r_id = RestaurantCategory.id
-//         left join class on restaurant.class = class.class_num
-//         where className = ? and restaurant_name = ?;";
-//         $stmt = $db->prepare($sql);
-//         $stmt->bindParam(1, $className, PDO::PARAM_STR);
-//         $stmt->bindParam(2, $restaurant_name, PDO::PARAM_STR);
-//         $stmt->execute();
+function menu($className, $restaurant_name)
+{
+    //取全域的資料庫配置
+    global $db;
+    try {
+        // 建立資料庫連線
+        // 品項名稱，價錢，照片，類別名稱
+        $sql = "SELECT item_name , item_price , item_photo , name , section FROM restitems 
+        left join RestInfos on restitems.r_id = RestInfos.id
+        left join filtclasses on RestInfos.f_c_id = filtclasses.id
+        left join Users on RestInfos.user_id = Users.id
+        left join filtsectiondemos on RestItems.f_s_d_id = filtsectiondemos.id
+         where section = ? and name = ?;";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(1, $className, PDO::PARAM_STR);
+        $stmt->bindParam(2, $restaurant_name, PDO::PARAM_STR);
+        $stmt->execute();
 
-//         // 把所有的查詢結果存在 rows 裡
-//         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-//         foreach ($rows as &$row) {
-//             $imgPath = $row['photo'];
-//             $img = file_get_contents('/Applications' . $imgPath);
-//             // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
-//             // print($img);
-//             //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
-
-//             $row['photo'] = base64_encode($img);
-//         }
-//         ;
+        // 把所有的查詢結果存在 rows 裡
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-//         // 返回 JSON 格式的數據
-//         header('Content-Type: application/json');
-//         echo json_encode($rows);
 
-//     } catch (PDOException $e) {
-//         // 更正錯誤處理
-//         error_log($e->getMessage());
-//         header('Content-Type: application/json');
-//         echo json_encode(["error" => "資料庫錯誤"]);
-//     }
-// }
+        // 返回 JSON 格式的數據
+        header('Content-Type: application/json');
+        echo json_encode($rows);
+
+    } catch (PDOException $e) {
+        // 更正錯誤處理
+        error_log($e->getMessage());
+        header('Content-Type: application/json');
+        echo json_encode(["error" => "資料庫錯誤"]);
+    }
+}
 ;
 
 
@@ -222,7 +196,92 @@ function allMenu($restaurant_name)
         // left join restaurantcategory on restinfos.r_id = restaurantcategory.id
         // left join filtsectiondemos on restitems.f_s_d_id = filtsectiondemos.id
         // where restaurant_name = ?;";
-        $sql = "SELECT * FROM users left join RestInfos on Users.id = RestInfos.user_id left join RestItems on RestInfos.id = RestItems.r_id left join filtsectiondemos on RestItems.f_s_d_id = filtsectiondemos.id;";
+        $sql = "SELECT * FROM users left join RestInfos on Users.id = RestInfos.user_id 
+            left join RestItems on RestInfos.id = RestItems.r_id 
+            left join filtsectiondemos on RestItems.f_s_d_id = filtsectiondemos.id
+            where name = ?;";
+        $stmt = $db->prepare($sql);
+        // $stmt->bindParam(1, $className, PDO::PARAM_STR);
+        $stmt->bindParam(1, $restaurant_name, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // 把所有的查詢結果存在 rows 裡
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // foreach ($rows as &$row) {
+        //     $imgPath = $row['photo'];
+        //     $img = file_get_contents('/Applications' . $imgPath);
+        //     // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
+        //     // print($img);
+        //     //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
+
+        //     $row['photo'] = base64_encode($img);
+        // }
+        // ;
+
+
+        // 返回 JSON 格式的數據
+        header('Content-Type: application/json');
+        echo json_encode($rows);
+
+    } catch (PDOException $e) {
+        // 更正錯誤處理
+        error_log($e->getMessage());
+        header('Content-Type: application/json');
+        echo json_encode(["error" => "資料庫錯誤"]);
+    }
+}
+//顯示留言
+function showComment($restaurant_name)
+{
+    //取全域的資料庫配置
+    global $db;
+    try {
+        // 建立資料庫連線
+        $sql = "SELECT name as userName, content , score , restcomments.created_at_date  , restName FROM restcomments 
+        inner join MemberReviews on restcomments.m_id = MemberReviews.m_id and restcomments.r_id = MemberReviews.r_id
+        left join members on restcomments.m_id = members.id
+        left join Users on members.user_id = Users.id
+        left join(
+        select RestInfos.id , name as restName from RestInfos left join Users on RestInfos.user_id = Users.id
+        )as rest on restcomments.r_id = rest.id
+        where restName = ?
+        order by restcomments.created_at_date  , restcomments.created_at_time;";
+        $stmt = $db->prepare($sql);
+        // $stmt->bindParam(1, $className, PDO::PARAM_STR);
+        $stmt->bindParam(1, $restaurant_name, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // 把所有的查詢結果存在 rows 裡
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        // 返回 JSON 格式的數據
+        header('Content-Type: application/json');
+        echo json_encode($rows);
+
+    } catch (PDOException $e) {
+        // 更正錯誤處理
+        error_log($e->getMessage());
+        header('Content-Type: application/json');
+        echo json_encode(["error" => "資料庫錯誤"]);
+    }
+}
+
+//抓限時優惠的菜單
+function saleMenu($restaurant_name)
+{
+    //取全域的資料庫配置
+    global $db;
+    try {
+        // 建立資料庫連線
+        $sql = "SELECT 
+        *
+        FROM Restinfos 
+                   left join Users on RestInfos.user_id = Users.id 
+                   left join restitems on RestInfos.id = restitems.r_id
+                   left join restdiscount on restitems.id = restdiscount.r_i_id
+                   where discount_price is not null and name = ?";
         $stmt = $db->prepare($sql);
         // $stmt->bindParam(1, $className, PDO::PARAM_STR);
         $stmt->bindParam(1, $restaurant_name, PDO::PARAM_STR);
@@ -254,80 +313,6 @@ function allMenu($restaurant_name)
         echo json_encode(["error" => "資料庫錯誤"]);
     }
 }
-//顯示留言
-function showComment($restaurant_name)
-{
-    //取全域的資料庫配置
-    global $db;
-    try {
-        // 建立資料庫連線
-        $sql = "SELECT comment , rating.rating, rating.createDate FROM RestaurantCategory left join rating on RestaurantCategory.id = rating.restaurantId
-        where restaurant_name = ?
-        order by rating.createDate desc;";
-        $stmt = $db->prepare($sql);
-        // $stmt->bindParam(1, $className, PDO::PARAM_STR);
-        $stmt->bindParam(1, $restaurant_name, PDO::PARAM_STR);
-        $stmt->execute();
-
-        // 把所有的查詢結果存在 rows 裡
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-        // 返回 JSON 格式的數據
-        header('Content-Type: application/json');
-        echo json_encode($rows);
-
-    } catch (PDOException $e) {
-        // 更正錯誤處理
-        error_log($e->getMessage());
-        header('Content-Type: application/json');
-        echo json_encode(["error" => "資料庫錯誤"]);
-    }
-}
-
-//抓限時優惠的菜單
-// function saleMenu($restaurant_name)
-// {
-//     //取全域的資料庫配置
-//     global $db;
-//     try {
-//         // 建立資料庫連線
-//         $sql = "SELECT item_name ,restaurant.price as origin_price ,meal_discount.price as sale_price, photo , className , end_time FROM restaurant
-//             left join RestaurantCategory on restaurant.r_id = RestaurantCategory.id
-//             left join class on restaurant.class = class.class_num
-//             right join meal_discount on restaurant.id = meal_discount.food_id
-//             where restaurant_name = ?;";
-//         $stmt = $db->prepare($sql);
-//         // $stmt->bindParam(1, $className, PDO::PARAM_STR);
-//         $stmt->bindParam(1, $restaurant_name, PDO::PARAM_STR);
-//         $stmt->execute();
-
-//         // 把所有的查詢結果存在 rows 裡
-//         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-//         foreach ($rows as &$row) {
-//             $imgPath = $row['photo'];
-//             $img = file_get_contents('/Applications' . $imgPath);
-//             // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
-//             // print($img);
-//             //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
-
-//             $row['photo'] = base64_encode($img);
-//         }
-//         ;
-
-
-//         // 返回 JSON 格式的數據
-//         header('Content-Type: application/json');
-//         echo json_encode($rows);
-
-//     } catch (PDOException $e) {
-//         // 更正錯誤處理
-//         error_log($e->getMessage());
-//         header('Content-Type: application/json');
-//         echo json_encode(["error" => "資料庫錯誤"]);
-//     }
-// }
 
 //查詢購物車
 // function queryShopCart($userid, $restaurantid)
@@ -433,3 +418,9 @@ function deleteShopCart($userid, $restaurantid, $star, $comment)
     }
 }
 ;
+
+
+
+
+
+// SELECT Users.name, Users.phone, RestInfos.avg_price, RestInfos.address, RestInfos.weekday, RestInfos.weekend, RestInfos.wd_operating, RestInfos.we_operating, RestInfos.wd_close_1, RestInfos.wd_close_2, RestInfos.we_close_1, RestInfos.we_close_2, RestItems.item_name, RestItems.item_price, RestItems.item_photo, filtsectiondemos.section FROM users left join RestInfos on Users.id = RestInfos.user_id left join RestItems on RestInfos.id = RestItems.r_id left join filtsectiondemos on RestItems.f_s_d_id = filtsectiondemos.id;

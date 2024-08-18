@@ -44,14 +44,14 @@ function restaurantInfo(b) {
                     <div class="card overflow-hidden">
                         <a href="./detail.html">
                             <div class="card-body">
-                                <img src="data:image/jpeg;base64,${item.restaurant_image}" alt="" class="img-fluid">
+                                <img src="data:image/jpeg;base64,${item.avatar}" alt="" class="img-fluid">
                             </div>
                         </a>
                         <div class="card-footer">
                             <div>
-                                <p>${item.restaurant_name}</p>
+                                <p>${item.name}</p>
                                 <i class="fa-solid fa-star"></i>
-                                <span>${item.rating}</span>
+                                <span>${item.score}</span>
                             </div>
                         </div>
                     </div>
@@ -99,19 +99,19 @@ function sale (a){
             var salecardHtml = `
             <div class="card position-relative">
                 <div class="card-body">
-                <img src="data:image/jpeg;base64,${item.photo}" alt="" class="img-fluid">
+                <img src="data:image/jpeg;base64,${item.avatar}" alt="" class="img-fluid">
                 </div>
                 <span class="countDown">倒數<span class="countDownTime me-1" data-end-time="${saleEndTime.toISOString()}"></span>
                     小時<span>!!</span>
                 </span>
                 <div class="mt-3" style="text-align: center;">
-                    ${item.restaurant_name}
-                    <div class="name mt-2">${item.meals_name}</div>
+                    ${item.name}
+                    <div class="name mt-2">${item.item_name}</div>
                     <div class="d-flex mt-2" style="justify-content: center;">
                         <div class="fs-20 ">$</div>
-                        <div class="price me-2" id="price-1" style="text-decoration: line-through;">${item.origin_price}</div>
+                        <div class="price me-2" id="price-1" style="text-decoration: line-through;">${item.item_price}</div>
                         <b><i><div class="fs-20 ml-5" style="color: red;font-size: 20px;">$</div></i></b>
-                        <b><i><div class="price pb-3" id="price-1" style="color: red;font-size: 20px;">${item.new_price}</div></i></b>
+                        <b><i><div class="price pb-3" id="price-1" style="color: red;font-size: 20px;">${item.discount_price}</div></i></b>
                         
                     </div>
                 </div>

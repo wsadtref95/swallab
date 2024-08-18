@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "swallab";
+$dbname = "swallabfinal2";
 $user = "root";
 $db = new PDO("mysql:host=${host};dbname=${dbname}", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,12 +30,19 @@ function getRestaurantInfo($a) {
         $sql = "";
         // 建立資料庫連線
         if ($a=='最高評分') {
-           $sql = "SELECT * FROM `RestaurantCategory` order by rating desc";
+            //  類別名稱圖片分數
+           $sql = "SELECT restclass , name , avatar , score FROM Restinfos 
+           left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
+           left join filtclasses on RestInfos.f_c_id =  filtclasses.id 
+           order by score desc";
            $stmt = $db->prepare($sql);
            $stmt->execute();
         
        } else {
-           $sql = "SELECT * FROM RestaurantCategory  WHERE category_name = ? order by rating desc";
+           $sql = "SELECT restclass , name , avatar , score FROM Restinfos 
+           left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
+           left join filtclasses on RestInfos.f_c_id =  filtclasses.id 
+            WHERE restclass = ? order by score desc";
            $stmt = $db->prepare($sql);
            $stmt->execute([$a]);
         
@@ -79,21 +86,31 @@ function getSaleInfo($a) {
         // 如果最高評分的話取全部分類的
         // 如果不是的話 取該分類的限時優惠
         if($a=='最高評分'){
-            $sql = "SELECT restaurant_name , rating , avgcost , address , href , item_name , restaurant.price as origin_price , photo , meal_discount.price as new_price , end_time FROM RestaurantCategory
-            right join restaurant on RestaurantCategory.id = restaurant.r_id
-            right join meal_discount on restaurant.id = meal_discount.food_id
-            group by restaurant_name
-            order by rating desc;";
+            //餐廳名，分數，均消，就價錢，新價錢，結束時間
+            $sql = "SELECT 
+            name , item_name , score , avg_price, item_price , discount_price , end_time 
+            FROM Restinfos 
+                       left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
+                       left join filtclasses on RestInfos.f_c_id =  filtclasses.id
+                       left join restitems on RestInfos.id = restitems.r_id
+                       left join restdiscount on restitems.id = restdiscount.r_i_id
+                       where discount_price is not null
+            group by name
+            order by score desc;";
             $stmt = $db->prepare($sql);
             $stmt->execute();
 
         }else{
-            $sql = "SELECT restaurant_name ,  rating , avgcost , address , href , item_name , restaurant.price as origin_price , photo , meal_discount.price as new_price , end_time FROM RestaurantCategory
-            right join restaurant on RestaurantCategory.id = restaurant.r_id
-            right join meal_discount on restaurant.id = meal_discount.food_id
-            where category_name = ? 
-            group by restaurant_name
-            order by rating desc";
+            $sql = "SELECT 
+            restclass , name , item_name , score , avg_price, item_price , discount_price , end_time 
+            FROM Restinfos 
+                       left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
+                       left join filtclasses on RestInfos.f_c_id =  filtclasses.id
+                       left join restitems on RestInfos.id = restitems.r_id
+                       left join restdiscount on restitems.id = restdiscount.r_i_id
+            where restclass = ? and discount_price is not null
+            group by name
+            order by score desc";
             $stmt = $db->prepare($sql);
             $stmt->execute([$a]); 
         }
@@ -125,7 +142,4 @@ function getSaleInfo($a) {
         echo json_encode(["error" => "資料庫錯誤"]);
     }
 }
-
-?>
-
 
