@@ -47,7 +47,7 @@ class SearchController extends Controller
                         ->where('FiltPurposes.purpose', $purpose);
                 }
 
-                $query->select('RestInfos.*', 'Users.name as user_name', 'FiltClasses.restclass as class',);
+                $query->select('RestInfos.*', 'Users.name as user_name', 'FiltClasses.restclass as class', );
             } else {
                 $query->join('Members', 'Members.id', '=', 'MemberNotes.m_id')
                     ->join('Users', 'Users.id', '=', 'Members.user_id')
@@ -67,20 +67,40 @@ class SearchController extends Controller
                         ->join('FiltPurposes', 'FiltPurposes.id', '=', 'SuitableFor.f_p_id')
                         ->where('FiltPurposes.purpose', $purpose);
                 }
-
-                
-
                 $query->select('MemberNotes.*', 'Users.name as user_name', 'RestInfos.address', 'FiltClasses.restclass as class');
             }
 
-            $results = $query->get();
-            \Log::info('Generated SQL query: ' . $query->toSql());
-            \Log::info('Query bindings: ', $query->getBindings());
-            return response()->json($results);
+            // $results = $query->get();
+            //         \Log::info('Generated SQL query: ' . $query->toSql());
+            //         \Log::info('Query bindings: ', $query->getBindings());
+            //         return response()->json($results);
+            //     } catch (\Exception $e) {
+            //         \Log::error('Search error: ' . $e->getMessage());
+            //         return response()->json(['error' => $e->getMessage()], 500);
+            //     }
+
+            // }}
+
+
+            // 不符合條件的其他資料
+            $filteredResults = $query->get();
+            $allQuery = DB::table($searchType);
+            if ($searchType === 'RestInfos') {
+                $allQuery->join('Users', 'Users.id', '=', 'RestInfos.user_id')
+                    ->join('FiltClasses', 'FiltClasses.id', '=', 'RestInfos.f_c_id')
+                    ->select('RestInfos.*', 'Users.name as user_name', 'FiltClasses.restclass as class')
+                    ->whereNotIn('RestInfos.id', $filteredResults->pluck('id'));
+            } else {
+                // MemberNotes 的查询逻辑
+            }
+            $allResults = $allQuery->take(20)->get();
+            return response()->json([
+                'filtered' => $filteredResults,
+                'all' => $allResults
+            ]);
         } catch (\Exception $e) {
             \Log::error('Search error: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 500);
         }
-
     }
 }

@@ -111,7 +111,7 @@
 
 
                             <!-- 搜尋框 end -->
-                            <button data-purpose="約會" 
+                            <button data-purpose="約會"
                                 class="purpose-btn position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 10%;">
                                 <img class="icon" src="../images/nav_icon/dating.png" alt="">約會
@@ -121,12 +121,12 @@
                                 style="margin-left: 30%;">
                                 <img class="icon" src="../images/nav_icon/group.png" alt="">聚餐
                             </button>
-                            <button data-purpose="慶生" 
+                            <button data-purpose="慶生"
                                 class="purpose-btn position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 50%;">
                                 <img class="icon" src="../images/nav_icon/confetti.png" alt="">慶生
                             </button>
-                            <button data-purpose="商務" 
+                            <button data-purpose="商務"
                                 class="purpose-btn position-absolute translate-middle rounded-pill filter_btn"
                                 style="margin-left: 70%;">
                                 <img class="icon" src="../images/nav_icon/handshake.png" alt="">商務
@@ -156,11 +156,19 @@
     <!-- 呈現搜尋結果 + API URL -->
     <div class="container">
         <h1>搜尋結果</h1>
-        <table id="resultsTable">
+        <h2>符合條件的結果</h2>
+        <table id="filteredResultsTable">
             <thead>
-                <tr id="headerRow"></tr>
+                <tr id="filteredHeaderRow"></tr>
             </thead>
-            <tbody id="resultsBody"></tbody>
+            <tbody id="filteredResultsBody"></tbody>
+        </table>
+        <h2>其他結果</h2>
+        <table id="allResultsTable">
+            <thead>
+                <tr id="allHeaderRow"></tr>
+            </thead>
+            <tbody id="allResultsBody"></tbody>
         </table>
     </div>
     <div id="searchResults"></div>
@@ -359,7 +367,7 @@
             console.log(`after defineURL#${searchCount}`);
             searchCount++;
 
-            // 顯示搜索 URL
+            // 顯示搜尋的 URL
             pastParamContainer.innerHTML = `<p>API URL: ${apiUrl}</p>`;
 
             console.log(`after show URL&b4 fetch#${searchCount}`);
@@ -371,21 +379,17 @@
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    console.log(response);
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data[0]);
-                    displayResults(data);
+                    displayResults(data.filtered, 'filteredResultsTable', 'filteredHeaderRow', 'filteredResultsBody');
+                    displayResults(data.all, 'allResultsTable', 'allHeaderRow', 'allResultsBody');
+                    updateSearchResults(data);
                 })
                 .catch(error => {
-                    console.error('搜索錯誤:', error);
-                    resultsContainer.innerHTML = '<p>獲取搜索結果時發生錯誤。</p>';
+                    console.error('搜索错误:', error);
+                    document.getElementById('searchResults').innerHTML = '<p>获取搜索结果时发生错误。</p>';
                 });
-
-            console.log(`after fetch#${searchCount}`);
-            searchCount++;
-            // if (searchCount > 1) return;
         }
 
         function getSearchType() {
@@ -395,13 +399,13 @@
         let selectedPurpose = null;
 
         document.querySelectorAll('.purpose-btn').forEach(button => {
-                button.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    selectedPurpose = this.getAttribute('data-purpose');
-                    console.log('selectedPurpose:', selectedPurpose);
-                    performSearch();
-                });
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                selectedPurpose = this.getAttribute('data-purpose');
+                console.log('selectedPurpose:', selectedPurpose);
+                performSearch();
             });
+        });
 
         // 二個都有值就 submit
         function checkAndTriggerSearch() {
@@ -431,67 +435,51 @@
         searchCount++;
         // if (searchCount > MAX_SEARCHES) stop();
 
-        function displayResults(data) {
-            console.log(`start displayResults()#${searchCount}`); //6
+        function displayResults(data, tableID, headerRowID, bodyID) {
+            console.log(`開始顯示結果#${searchCount}`); //6
             searchCount++;
             // if (searchCount > MAX_SEARCHES) stop();
-            resultsContainer.innerHTML = '';
-            if (data.length === 0) {
-                console.log(`start .innerHTML#${searchCount}`); //?
-                searchCount++;
-                resultsContainer.innerHTML = '<p>沒有找到結果</p>';
+            const table = document.getElementById(tableID);
+            const headerRow = document.getElementById(headerRowID);
+            const body = document.getElementById(bodyID);
 
-                // if (searchCount != MAX_SEARCHES) stop();
-                // debugger;
+            headerRow.innerHTML = '';
+            body.innerHTML = '';
+
+            if (data.length === 0) {
+                body.innerHTML = '<tr><td colspan="100%">沒有找到結果</td></tr>';
                 return;
             }
-            console.log(data[0]);
-            console.log(`after .innerHTML#${searchCount}`); //7
-            // debugger;
 
-            console.log(`after appendChild()#${searchCount}`);
-            searchCount++;
-
-            const table = document.createElement('table');
-            table.border = '1';
-
-
-            // 創建表頭
-            const headerRow = table.insertRow();
             Object.keys(data[0]).forEach(key => {
                 const th = document.createElement('th');
                 th.textContent = key;
                 headerRow.appendChild(th);
             });
 
-            // 填充數據
             data.forEach(item => {
-                const row = table.insertRow();
+                const row = body.insertRow();
                 Object.values(item).forEach(value => {
                     const cell = row.insertCell();
                     cell.textContent = value;
                 });
             });
-            console.log(`b4 appendChild()#${searchCount}`);
-            searchCount++;
-            // if (searchCount > MAX_SEARCHES) stop();
-            for (i = 0; i < 1; i++) {
-                console.log(`searchCount#${searchCount}`);
-                resultsContainer.appendChild(table);
-            }
-            return;
-            console.log(`after appendChild()#${searchCount}`);
-            searchCount++;
-            // if (searchCount > MAX_SEARCHES) stop();
-            // debugger; //No.3, After Submit, everything shows up, then reload...
         }
-        // debugger; //No.1
 
+        function updateSearchResults(data) {
+            for (i = 0; i < data.filtered.length; i++) {
+                const searchResultsDiv = document.getElementById('searchResults');
 
+                searchResultsDiv.innerHTML = `
+        <p>符合條件的結果數量: ${data.filtered.length}</p>
+        <p>其他結果數量: ${data.all.length}</p>
+        `;
+            }
+        }
 
         searchForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            console.log(`after submit #${searchCount}`); //1
+            console.log(`提交後 #${searchCount}`); //1
             searchCount++;
             performSearch();
             return false;
@@ -505,7 +493,7 @@
         document.getElementById('popupRest').addEventListener('click', function () {
             searchTypeIcon.className = 'fa-solid fa-utensils';
         });
-        // debugger; //NO.2, then DOMContentLoaded
+        // debugger; //NO.2, 然後 DOMContentLoaded
 
         // });
     </script>
