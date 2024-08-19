@@ -28,6 +28,16 @@
     text-decoration: underline;
 }
 
+.rightpart{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    /* flex-wrap: wrap; */
+    margin-top: calc(-1* var(--bs-gutter-y));
+    margin-right: calc(-.5* var(--bs-gutter-x));
+    margin-left: calc(-.5* var(--bs-gutter-x));
+}
+
 .sidebar {
     height: 300px;
     margin: 15% 30px 0 0;
@@ -61,4 +71,73 @@
 .sidebar a p:hover {
     background-color: #e5a67a;
     color: #fff;
+}
+
+/* member-activity-styles.css */
+
+.member-activity-container {
+    padding: 20px;
+}
+
+.tab-button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.activity-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.activity-image {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+}
+
+.activity-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.activity-content {
+    margin-bottom: 10px;
+}
+
+.activity-info {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.activity-buttons {
+    margin-top: 10px;
+}
+
+.activity-button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.load-more-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
