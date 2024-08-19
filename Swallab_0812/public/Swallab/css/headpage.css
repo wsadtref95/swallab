@@ -1,4 +1,22 @@
-        /* 餐廳大門圖 */
+/* 標題 */
+.myTitle{
+    /* font-family: 'Noto Sans TC', sans-serif; */
+    font-size: 6em;
+    font-weight: bolder;
+    text-align: center;
+    margin-bottom: 8%;
+    position: relative;
+    top: 40px;
+}
+
+/* 介紹 */
+article{
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+/* 餐廳大門圖 */
         #mainImageRest {
             transform-origin: center center;
             transition: all 1.5s ease-in-out;
