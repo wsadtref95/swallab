@@ -225,90 +225,90 @@
             return children;
         };
         // <!-- mockData ok -->
-        const mockData = {
-            all: [
-                ...[...Array(10)].map((_, index) => ({
-                    id: index + 1,
-                    type: 'order',
-                    restaurant_name: `餐廳${String.fromCharCode(65 + index)}`,
-                    restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(65 + index)}`,
-                    items: [{ item_qty: 2, item_price: 100 + index * 10, item_name: `餐點${String.fromCharCode(65 + index)}` }],
-                    total_price: 200 + index * 20,
-                    created_at_date: `2024-02-${String(index + 1).padStart(2, '0')}`,
-                    created_at_time: `${String(12 + index).padStart(2, '0')}:00`
-                })),
-                ...[...Array(10)].map((_, index) => ({
-                    id: index + 11,
-                    type: 'note',
-                    title: `美食記錄 ${index + 1}`,
-                    main_photo: `https://placehold.co/100x100?text=美食記錄${index + 1}`,
-                    content: `這是第 ${index + 1} 次的美食體驗`,
-                    restaurant_name: `餐廳${String.fromCharCode(75 + index)}`,
-                    created_at_date: `2024-01-${String(index + 1).padStart(2, '0')}`,
-                    created_at_time: `${String(13 + index).padStart(2, '0')}:00`
-                })),
-                ...[...Array(10)].map((_, index) => ({
-                    id: index + 21,
-                    type: 'comment',
-                    content: `這是第 ${index + 1} 條評論`,
-                    restaurant_name: `餐廳${String.fromCharCode(85 + index)}`,
-                    restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(85 + index)}`,
-                    created_at_date: `2024-03-${String(index + 1).padStart(2, '0')}`,
-                    created_at_time: `${String(14 + index).padStart(2, '0')}:00`
-                })),
-                ...[...Array(10)].map((_, index) => ({
-                    id: index + 31,
-                    type: 'favorite',
-                    restaurant_name: `餐廳${String.fromCharCode(95 + index)}`,
-                    main_photo: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(95 + index)}`,
-                    address: `台北市${['中山', '大安', '信義', '松山', '內湖', '南港', '士林', '北投', '文山', '萬華'][index]}區`,
-                    avg_price: 300 + index * 50,
-                    wd_operating: `${11 + index}:00-${21 + index}:00`,
-                    created_at_date: `2024-04-${String(index + 1).padStart(2, '0')}`,
-                    created_at_time: `${String(15 + index).padStart(2, '0')}:00`
-                }))
-            ],
-            OrderInfos: [...Array(10)].map((_, index) => ({
-                id: index + 1,
-                type: 'order',
-                restaurant_name: `餐廳${String.fromCharCode(65 + index)}`,
-                restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(65 + index)}`,
-                items: [{ item_qty: 2, item_price: 100 + index * 10, item_name: `餐點${String.fromCharCode(65 + index)}` }],
-                total_price: 200 + index * 20,
-                created_at_date: `2024-02-${String(index + 1).padStart(2, '0')}`,
-                created_at_time: `${String(12 + index).padStart(2, '0')}:00`
-            })),
-            MemberNotes: [...Array(10)].map((_, index) => ({
-                id: index + 11,
-                type: 'note',
-                title: `美食記錄 ${index + 1}`,
-                main_photo: `https://placehold.co/100x100?text=美食記錄${index + 1}`,
-                content: `這是第 ${index + 1} 次的美食體驗`,
-                restaurant_name: `餐廳${String.fromCharCode(75 + index)}`,
-                created_at_date: `2024-01-${String(index + 1).padStart(2, '0')}`,
-                created_at_time: `${String(13 + index).padStart(2, '0')}:00`
-            })),
-            Comments: [...Array(10)].map((_, index) => ({
-                id: index + 21,
-                type: 'comment',
-                content: `這是第 ${index + 1} 條評論`,
-                restaurant_name: `餐廳${String.fromCharCode(85 + index)}`,
-                restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(85 + index)}`,
-                created_at_date: `2024-03-${String(index + 1).padStart(2, '0')}`,
-                created_at_time: `${String(14 + index).padStart(2, '0')}:00`
-            })),
-            Favorites: [...Array(10)].map((_, index) => ({
-                id: index + 31,
-                type: 'favorite',
-                restaurant_name: `餐廳${String.fromCharCode(95 + index)}`,
-                main_photo: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(95 + index)}`,
-                address: `台北市${['中山', '大安', '信義', '松山', '內湖', '南港', '士林', '北投', '文山', '萬華'][index]}區`,
-                avg_price: 300 + index * 50,
-                wd_operating: `${11 + index}:00-${21 + index}:00`,
-                created_at_date: `2024-04-${String(index + 1).padStart(2, '0')}`,
-                created_at_time: `${String(15 + index).padStart(2, '0')}:00`
-            }))
-        };
+        // const mockData = {
+        //     all: [
+        //         ...[...Array(10)].map((_, index) => ({
+        //             id: index + 1,
+        //             type: 'order',
+        //             restaurant_name: `餐廳${String.fromCharCode(65 + index)}`,
+        //             restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(65 + index)}`,
+        //             items: [{ item_qty: 2, item_price: 100 + index * 10, item_name: `餐點${String.fromCharCode(65 + index)}` }],
+        //             total_price: 200 + index * 20,
+        //             created_at_date: `2024-02-${String(index + 1).padStart(2, '0')}`,
+        //             created_at_time: `${String(12 + index).padStart(2, '0')}:00`
+        //         })),
+        //         ...[...Array(10)].map((_, index) => ({
+        //             id: index + 11,
+        //             type: 'note',
+        //             title: `美食記錄 ${index + 1}`,
+        //             main_photo: `https://placehold.co/100x100?text=美食記錄${index + 1}`,
+        //             content: `這是第 ${index + 1} 次的美食體驗`,
+        //             restaurant_name: `餐廳${String.fromCharCode(75 + index)}`,
+        //             created_at_date: `2024-01-${String(index + 1).padStart(2, '0')}`,
+        //             created_at_time: `${String(13 + index).padStart(2, '0')}:00`
+        //         })),
+        //         ...[...Array(10)].map((_, index) => ({
+        //             id: index + 21,
+        //             type: 'comment',
+        //             content: `這是第 ${index + 1} 條評論`,
+        //             restaurant_name: `餐廳${String.fromCharCode(85 + index)}`,
+        //             restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(85 + index)}`,
+        //             created_at_date: `2024-03-${String(index + 1).padStart(2, '0')}`,
+        //             created_at_time: `${String(14 + index).padStart(2, '0')}:00`
+        //         })),
+        //         ...[...Array(10)].map((_, index) => ({
+        //             id: index + 31,
+        //             type: 'favorite',
+        //             restaurant_name: `餐廳${String.fromCharCode(95 + index)}`,
+        //             main_photo: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(95 + index)}`,
+        //             address: `台北市${['中山', '大安', '信義', '松山', '內湖', '南港', '士林', '北投', '文山', '萬華'][index]}區`,
+        //             avg_price: 300 + index * 50,
+        //             wd_operating: `${11 + index}:00-${21 + index}:00`,
+        //             created_at_date: `2024-04-${String(index + 1).padStart(2, '0')}`,
+        //             created_at_time: `${String(15 + index).padStart(2, '0')}:00`
+        //         }))
+        //     ],
+        //     OrderInfos: [...Array(10)].map((_, index) => ({
+        //         id: index + 1,
+        //         type: 'order',
+        //         restaurant_name: `餐廳${String.fromCharCode(65 + index)}`,
+        //         restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(65 + index)}`,
+        //         items: [{ item_qty: 2, item_price: 100 + index * 10, item_name: `餐點${String.fromCharCode(65 + index)}` }],
+        //         total_price: 200 + index * 20,
+        //         created_at_date: `2024-02-${String(index + 1).padStart(2, '0')}`,
+        //         created_at_time: `${String(12 + index).padStart(2, '0')}:00`
+        //     })),
+        //     MemberNotes: [...Array(10)].map((_, index) => ({
+        //         id: index + 11,
+        //         type: 'note',
+        //         title: `美食記錄 ${index + 1}`,
+        //         main_photo: `https://placehold.co/100x100?text=美食記錄${index + 1}`,
+        //         content: `這是第 ${index + 1} 次的美食體驗`,
+        //         restaurant_name: `餐廳${String.fromCharCode(75 + index)}`,
+        //         created_at_date: `2024-01-${String(index + 1).padStart(2, '0')}`,
+        //         created_at_time: `${String(13 + index).padStart(2, '0')}:00`
+        //     })),
+        //     Comments: [...Array(10)].map((_, index) => ({
+        //         id: index + 21,
+        //         type: 'comment',
+        //         content: `這是第 ${index + 1} 條評論`,
+        //         restaurant_name: `餐廳${String.fromCharCode(85 + index)}`,
+        //         restaurant_image: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(85 + index)}`,
+        //         created_at_date: `2024-03-${String(index + 1).padStart(2, '0')}`,
+        //         created_at_time: `${String(14 + index).padStart(2, '0')}:00`
+        //     })),
+        //     Favorites: [...Array(10)].map((_, index) => ({
+        //         id: index + 31,
+        //         type: 'favorite',
+        //         restaurant_name: `餐廳${String.fromCharCode(95 + index)}`,
+        //         main_photo: `https://placehold.co/100x100?text=餐廳${String.fromCharCode(95 + index)}`,
+        //         address: `台北市${['中山', '大安', '信義', '松山', '內湖', '南港', '士林', '北投', '文山', '萬華'][index]}區`,
+        //         avg_price: 300 + index * 50,
+        //         wd_operating: `${11 + index}:00-${21 + index}:00`,
+        //         created_at_date: `2024-04-${String(index + 1).padStart(2, '0')}`,
+        //         created_at_time: `${String(15 + index).padStart(2, '0')}:00`
+        //     }))
+        // };
 
         // function MemberActivity() {
         //     const [activeTab, setActiveTab] = useState('all');
@@ -377,266 +377,154 @@
         // 設置 API 基礎 URL
         const API_BASE_URL = 'http://localhost:8000/api';
         function MemberActivity() {
-            const [activeTab, setActiveTab] = useState('all');
-            const [activities, setActivities] = useState([]);
-            const [displayedActivities, setDisplayedActivities] = useState([]);
-            const [hasMore, setHasMore] = useState(true);
-            const isLoadingRef = useRef(false);
-            const [expanded, setExpanded] = useState(false);
-            const [currentPage, setCurrentPage] = useState(1);
-            const fetchCountRef = useRef(0);
-            const loadCountRef = useRef(0);
+    const [state, setState] = useState({
+        activeTab: 'all',
+        activities: [],
+        hasMore: true,
+        currentPage: 1,
+        isLoading: true
+    });
 
-            const [loadCount, setLoadCount] = useState(0);
+    useEffect(() => {
+        fetchAllActivities();
+    }, []);
 
+    const fetchAllActivities = async () => {
+        
+        try {
+            setState(prev => ({ ...prev, isLoading: true }));
+            const response = await fetch(`${API_BASE_URL}/member-activity/all`);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            const sortedActivities = sortActivitiesByDate(data);
+            setState(prev => ({
+                ...prev,
+                activities: sortedActivities,
+                isLoading: false
+            }));
+        } catch (error) {
+            console.error('Error fetching all activities:', error);
+            setState(prev => ({ ...prev, isLoading: false }));
+        }
+    };
 
-
-            useEffect(() => {
-                setLoadCount(prev => prev + 1);
-                if (loadCount == 0) { // 設置一個合理的上限
-                    throw new Error('Load count exceeded, stopping to prevent infinite loop');
-                }
-
-                console.log('Load count:', loadCount);
-                try {
-                    fetchActivities();
-                } catch (error) {
-                    console.error('Error fetching activities:', error);
-                }
-            }, [activeTab, currentPage]);
-
-            const fetchActivities = async () => {
-                
-                if (isLoadingRef.current) {
-                    console.log('Already loading. Skipping fetch.');
-                    return;
-                }
-
-                fetchCountRef.current += 1;
-                console.log(`Fetching activities. Count: ${fetchCountRef.current}`);
-
-                if (fetchCountRef.current > 5) {
-                    console.error('Fetch count exceeded limit. Stopping to prevent infinite loop.');
-                    return;
-                }
-
-                isLoadingRef.current = true;
-                try {
-                    // let data;
-                    // if (CONFIG.USE_MOCK_DATA) {
-                    //     // 使用 mock 數據
-                    //     data = mockData[activeTab] || mockData.all;
-                    //     console.log('Using mock data:', data);
-                    // } else {
-                    //     // 使用真實 API
-                    //     const endpoint = `${CONFIG.API_BASE_URL}/member-activity/${activeTab}`;
-                    //     const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
-                    //     if (!response.ok) {
-                    //         throw new Error('Network response was not ok');
-                    //     }
-                    //     data = await response.json();
-                    //     console.log('Received data from API:', data);
-                    // }
-                    let endpoint;
-                    switch (activeTab) {
-                        case 'all':
-                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/all`;
-                            break;
-                        case 'OrderInfos':
-                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/OrderInfos`;
-                            break;
-                        case 'MemberNotes':
-                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/MemberNotes`;
-                            break;
-                        case 'Comments':
-                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/Comments`;
-                            break;
-                        case 'Favorites':
-                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/Favorites`;
-                            break;
-                        default:
-                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/all`;
-                            consoel.log('endpoint', endpoint)
-                    }
-
-                    console.log(`Fetching from endpoint: ${endpoint}?page=${currentPage}&limit=4`);
-
-                    const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-
-                    const data = await response.json();
-                    console.log('Received data:', data);
-
-                    // 處理不同的數據結構
-                    let processedData;
-                    if (activeTab === 'all') {
-                        processedData = [
-                            ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
-                            ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
-                            ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
-                            ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
-                        ];
-                    } else {
-                        processedData = data.data || [];
-                    }
-
-                    console.log('Processed data:', processedData);
-
-                    // 按時間從新到舊排序
-                    const sortedData = processedData.sort((a, b) => {
-                        const dateA = new Date(a.created_at_date + ' ' + a.created_at_time);
-                        const dateB = new Date(b.created_at_date + ' ' + b.created_at_time);
-                        return dateB - dateA;
-                    });
-
-                    setActivities(prevActivities => {
-                        const newActivities = [...prevActivities, ...sortedData];
-                        console.log('Updated activities:', newActivities);
-                        return newActivities;
-                    });
-
-                    setDisplayedActivities(prevDisplayed => {
-                        const newDisplayed = [...prevDisplayed, ...sortedData];
-                        console.log('Updated displayed activities:', newDisplayed);
-                        return newDisplayed;
-                    });
-
-                    setHasMore(data.next_page_url !== null);
-                    setExpanded(false);
-                } catch (error) {
-                    console.error('Error fetching activities:', error);
-                } finally {
-                    isLoadingRef.current = false;
-                }
-            };
-
-            const handleTabChange = (tab) => {
-                console.log(`Changing tab to: ${tab}`);
-                setActiveTab(tab);
-                setExpanded(false);
-                // setLoadCount(0); // 重置計數器
-
-                //
-                setActivities([]);
-                setDisplayedActivities([]);
-                setCurrentPage(1);
-                setHasMore(true);
-                // 重置狀態在 useEffect 中處理
-            };
-
-            const handleLoadMore = () => {
-                console.log('Loading more items');
-                setCurrentPage(prevPage => {
-                    const newPage = prevPage + 1;
-                    console.log(`Incrementing page to: ${newPage}`);
-                    return newPage;
-                });
-                // fetchActivities();
-            };
-
-            //後衛
-            window.LoadCount++;
-            console.log(window.LoadCount);
-            // if (window.LoadCount != 0) { stop() }
-            const handleEditComment = (id, content) => {
-                console.log(`Editing comment ${id} with content: ${content}`);
-                // 實際應用中應調用 API
-            };
-            //後衛
-            window.LoadCount++;
-            console.log(window.LoadCount);
-            // if (window.LoadCount != 0) { stop() }
-            const handleDeleteComment = (id) => {
-                console.log(`Deleting comment ${id}`);
-                // 實際應用中應調用 API
-            };
-            //後衛
-            window.LoadCount++;
-            console.log(window.LoadCount);
-            // if (window.LoadCount != 0) { stop() }
-            const handleDeleteFavorite = (id) => {
-                const confirmed = window.confirm('確定要移除收藏嗎？');
-                if (confirmed) {
-                    console.log(`Deleting favorite ${id}`);
-                    // 實際應用中應調用 API
-                }
+    const handleTabChange = async (tab) => {
+        setState(prev => ({ ...prev, activeTab: tab, isLoading: true }));
+        if (tab === 'all') {
+            await fetchAllActivities();
+        } else {
+            try {
+                const response = await fetch(`${API_BASE_URL}/member-activity/${tab}?page=1&limit=10`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                setState(prev => ({
+                    ...prev,
+                    activities: data.data,
+                    hasMore: data.next_page_url !== null,
+                    currentPage: 1,
+                    isLoading: false
+                }));
+            } catch (error) {
+                console.error(`Error fetching ${tab} activities:`, error);
+                setState(prev => ({ ...prev, isLoading: false }));
             }
-            return (
-                <div className="member-activity-container">
-                    <div className="rightpart">
-                        <div id="sidebar" className="sidebar col-2 text-center">
-                            <div className="col align-self-center">
-                                <a href="#"><p>個人檔案</p></a>
-                                <a href="#"><p>我的訂單</p></a>
-                                <a href="#" className="active"><p>歷史紀錄</p></a>
-                                <a href="#"><p>發布食記</p></a>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="breadcrumb">
-                                <a href="#">會員中心</a>
-                                <span> → </span>
-                                <a href="./myHistory.html" className="active">歷史紀錄</a>
-                            </div>
-                            <div className="row ms-5 justify-content-center">
-                                {['all', 'OrderInfos', 'MemberNotes', 'Comments', 'Favorites'].map(tab => (
-                                    <div className="col-2" key={tab}>
-                                        <button
-                                            className={`btn btn-outline-success tab-button ${activeTab === tab ? 'active' : ''}`}
-                                            onClick={() => handleTabChange(tab)}
-                                        >
-                                            {tab === 'all' ? '全部' :
-                                                tab === 'OrderInfos' ? '歷史訂單' :
-                                                    tab === 'MemberNotes' ? '歷史食記' :
-                                                        tab === 'Comments' ? '我的評論' : '我的收藏'}
-                                        </button>
-                                    </div>
-                                ))}
-                                <hr className="mt-3" />
-                            </div>
+        }
+    };
 
-                            {isLoadingRef.current ? (
-                                <p>Loading...</p>
-                            ) : (
-                                displayedActivities.map(activity => {
-                                    switch (activity.type) {
-                                        case 'order':
-                                            return <OrderInfos key={activity.id} order={activity} />;
-                                        case 'note':
-                                            return <MemberNotes key={activity.id} note={activity} />;
-                                        case 'comment':
-                                            return <Comments key={activity.id} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} />;
-                                        case 'favorite':
-                                            return <Favorites key={activity.id} favorite={activity} onDelete={handleDeleteFavorite} />;
-                                        default:
-                                            return null;
-                                    }
-                                })
-                            )}
+    const handleLoadMore = async () => {
+        if (state.activeTab === 'all' || state.isLoading) return;
 
-                            {hasMore && !isLoadingRef.current && !expanded && (
-                                <button className="btn btn-outline-success" onClick={handleLoadMore}>觀看更多</button>
-                            )}
-                        </div>
+        try {
+            setState(prev => ({ ...prev, isLoading: true }));
+            const response = await fetch(`${API_BASE_URL}/member-activity/${state.activeTab}?page=${state.currentPage + 1}&limit=10`);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            setState(prev => ({
+                ...prev,
+                activities: [...prev.activities, ...data.data],
+                hasMore: data.next_page_url !== null,
+                currentPage: prev.currentPage + 1,
+                isLoading: false
+            }));
+        } catch (error) {
+            console.error('Error loading more activities:', error);
+            setState(prev => ({ ...prev, isLoading: false }));
+        }
+    };
+
+    const sortActivitiesByDate = (data) => {
+        const allActivities = [
+            ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
+            ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
+            ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
+            ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
+        ];
+        return allActivities.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    };
+
+    return (
+        <div className="member-activity-container">
+            <div className="rightpart">
+                <div id="sidebar" className="sidebar col-2 text-center">
+                    <div className="col align-self-center">
+                        <a href="#"><p>個人檔案</p></a>
+                        <a href="#"><p>我的訂單</p></a>
+                        <a href="#" className="active"><p>歷史紀錄</p></a>
+                        <a href="#"><p>發布食記</p></a>
                     </div>
                 </div>
-
-            );
-        }
-
-        function OrderInfos({ order }) {
-            // 檢查 order 和 order.items 是否存在
-            console.log('order', order);
-            if (!order || !order.items) {
-                return (
-                    <div className="row mt-5 myRecordsTemp align-self-center">
-                        <p>訂單信息不完整</p>
+                <div className="col">
+                    <div className="breadcrumb">
+                        <a href="#">會員中心</a>
+                        <span> → </span>
+                        <a href="./myHistory.html" className="active">歷史紀錄</a>
                     </div>
-                );
-            }
-            console.log('order.items', order.items);
+                    <div className="row ms-5 justify-content-center">
+                        {['all', 'OrderInfos', 'MemberNotes', 'Comments', 'Favorites'].map(tab => (
+                            <div className="col-2" key={tab}>
+                                <button
+                                    className={`btn btn-outline-success tab-button ${state.activeTab === tab ? 'active' : ''}`}
+                                    onClick={() => handleTabChange(tab)}
+                                >
+                                    {tab === 'all' ? '全部' :
+                                     tab === 'OrderInfos' ? '歷史訂單' :
+                                     tab === 'MemberNotes' ? '歷史食記' :
+                                     tab === 'Comments' ? '我的評論' : '我的收藏'}
+                                </button>
+                            </div>
+                        ))}
+                        <hr className="mt-3" />
+                    </div>
+
+                    {state.isLoading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        state.activities.map(activity => {
+                            switch (activity.type) {
+                                case 'order':
+                                    return <OrderInfos key={`order-${activity.id}`} order={activity} />;
+                                case 'note':
+                                    return <MemberNotes key={`note-${activity.id}`} note={activity} />;
+                                case 'comment':
+                                    return <Comments key={`comment-${activity.id}`} comment={activity} />;
+                                case 'favorite':
+                                    return <Favorites key={`favorite-${activity.id}`} favorite={activity} />;
+                                default:
+                                    return null;
+                            }
+                        })
+                    )}
+
+                    {state.hasMore && !state.isLoading && state.activeTab !== 'all' && (
+                        <button className="btn btn-outline-success" onClick={handleLoadMore}>觀看更多</button>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function OrderInfos({ order }) {
             return (
                 <div className="row mt-5 myRecordsTemp align-self-center">
                     <div className="col-2">
@@ -644,27 +532,33 @@
                             <img className="activity-image" src={order.restaurant_image} alt={order.restaurant_name} />
                         </div>
                     </div>
-                    <div className="col-6">
+                    <div className="col-1"></div>
+                    <div className="col-5">
                         <div className="activity-title">
+                            <div>訂單狀態：已完成</div>
                             <a href="#"><span>{order.restaurant_name}</span></a>
                         </div>
                         <div className="row myRecordsInfo container">
-                            {Array.isArray(order.items) ? order.items.map((item, index) => (
+                            {order.items.map((item, index) => (
                                 <div key={index}>
-                                    <span>{item.item_qty}</span>份 <span>{item.item_price}</span> 的 <span>{item.item_name}</span>
+                                    {item.item_qty}份 {item.item_price}的 {item.item_name} <br />
+                                    {item.item_qty}份 {item.item_price}的 {item.item_name} <br />
+                                    {item.item_qty}份 {item.item_price}的 {item.item_name}
                                 </div>
-                            )) : <div>訂單項目不可用</div>}
+                            ))}
+                            <a href="" className="me-0">more...</a>
                         </div>
                     </div>
-                    <div className="col-2">
-                        <div><span>${order.total_price} NT</span></div>
+                    <div className="col-1 align-items-center">
+                        <div><span>${order.total_price} </span></div>
                     </div>
                     <div className="col-2 myRecordsBtn">
-                        <div><span>{order.created_at_date}</span><br /> <span>{order.created_at_time}</span></div>
-                        <button className="activity-button">檢視內容</button>
+                        <div><span>{order.created_at_date}</span></div>
+                        <button className="activity-button">再次訂購</button>
                     </div>
-                </div>
+                    <div className="col-1"></div>
 
+                </div>
             );
         }
 
@@ -697,8 +591,6 @@
                         </div>
                     </div>
                 </div>
-
-
             );
         }
         //後衛
@@ -801,11 +693,7 @@
         console.log(window.LoadCount);
         // if (window.LoadCount != 0) { stop() }
         ReactDOM.createRoot(document.getElementById('root')).render(
-            <React.StrictMode>
-                <ErrorBoundary>
-                    <MemberActivity />
-                </ErrorBoundary>
-            </React.StrictMode>
+            <MemberActivity />
         );
         //後衛
         window.LoadCount++;

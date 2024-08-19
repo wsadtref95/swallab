@@ -16,133 +16,6 @@
 
     <!-- <link rel="stylesheet" href="style.css"> -->
     <title>HeadPage</title>
-    <!-- <style>
-        :root {
-            nav {
-                background-color: #E5A67A !important;
-            }
-
-            body {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-                background-image: url(./img/bgi.png);
-                background-color: #EEE9D5;
-            }
-
-            footer {
-                flex-shrink: 0;
-                width: 100vw !important;
-                background-color: #6377B8;
-            }
-
-            /* 餐廳或食記 icon */
-            .theicon {
-                height: 1.5em !important;
-                background-size: 1.5em;
-                background-image: url(./img/restaurant.png);
-                background-repeat: no-repeat;
-                /* z-index: 999; */
-            }
-
-            .icon {
-                height: 1.5em;
-                /* z-index:999; */
-                background-size: cover;
-            }
-
-            /* 餐廳或食記 icon 觸發 */
-            .popup {
-                display: none;
-                position: relative;
-                top: 100%;
-                width: 1.5em;
-                height: 1.5em;
-                /* background-image: url('./img/blog.png'); */
-                background-size: cover;
-            }
-
-            /* 食記 icon 彈出 */
-            .popupBlog {
-                display: none;
-                position: relative;
-                /* top: 100%; */
-                width: 1.5em;
-                height: 1.5em;
-                background-image: url('./img/blog.png');
-                background-size: cover;
-            }
-
-            /* 餐廳 icon 彈出 */
-            .popupRest {
-                display: none;
-                position: relative;
-                top: -100%;
-                left: 100%;
-                width: 1.5em;
-                height: 1.5em;
-                background-image: url('./img/restaurant.png');
-                background-size: cover;
-            }
-
-            .logo {
-                height: 5em;
-                width: auto;
-                border-radius: 50%;
-            }
-
-            /* .btnPills{
-                display: block; 
-                margin-left: 10%; 
-                margin-top: 1.5em; 
-                white-space: nowrap; z-index: 1;
-            } */
-        }
-
-        /* 餐廳大門圖 */
-        #mainImageRest {
-            transform-origin: left;
-            transition: all 1.5s ease-in-out;
-        }
-
-        /* 食記大門圖 */
-        #mainImageNotes {
-            transform-origin: right;
-            transition: all 1.5s ease-in-out;
-        }
-
-        /* 餐廳開門動畫 */
-        .doorOpenLeft {
-            transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(105deg);
-            animation-fill-mode: forwards;
-        }
-
-        /* 食記開門動畫 */
-        .doorOpenRight {
-            transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg);
-            animation-fill-mode: forwards;
-        }
-
-        /* 搜尋框相關 */
-        .dropdown-content a {
-            background-color: #fff;
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            border: 1px solid #ddd;
-            /* 淺色框線 */
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-            /* 立體感 */
-            position: absolute;
-            z-index: 99999 !important;
-
-        }
-
-        .dropdown-content a:hover {
-            background-color: rgba(111, 107, 107)
-        }
-    </style> -->
 </head>
 
 <body>
@@ -159,10 +32,10 @@
                     <div class="nav-item col-6">
                         <!-- 首頁沒有 active -->
                         <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
-                        <a class="nav-link d-block nav_mainbtn" href="../restaurant/detail.html">找餐廳</a>
+                        <a class="d-block nav_mainbtn nav_mainbtn_rest" href="../restaurant/detail.html">找餐廳</a>
                     </div>
                     <div class="nav-item col-6">
-                        <a class="nav-link d-block nav_mainbtn" href="../foodNotes/foodNotes.html">看食記</a>
+                        <a class="d-block nav_mainbtn nav_mainbtn_note" href="../foodNotes/foodNotes.html">看食記</a>
                     </div>
                 </div>
                 <!-- Input 都在這 -->
@@ -273,13 +146,13 @@
             <div class="row align-self-center">
                 <div class="myTitle">Swallab</div>
                 <article>
-                    <br>
                         吃，除了吃飽，可以吃好，還可以吃得巧妙<br>
                         吃可以是日常生活的一個小實驗<br>
-                        實驗你與餐廳的匠心<br>
+                        實驗你與大廚的匠心<br>
                         實驗你與其他人的默契<br>
-                        實驗你自己的餐飲慣習<br>
-                        讓我們一起探索喜歡的餐廳</br>和
+                        實驗你自己的餐飲慣習<br><br>
+                        歡迎來到食嚥室<br>
+                        讓我們一起探索大街小巷的美食！<br>
                     </span>
                 </article>
             </div>
