@@ -87,8 +87,8 @@
                                     <!-- 寫死 -->
                                     <div id="myDropdown" class="dropdown-content"
                                         style="display: none; position: absolute;">
-                                        <a href="#cate_no" onclick="fillInput('null')"
-                                            class="position-relative">不挑分類</a>
+                                        <a href="#cate_no" onclick="fillInput('所有類型')"
+                                            class="position-relative">所有類型</a>
                                         <a href="#cate_hotpot" onclick="fillInput('火鍋')"
                                             class="position-relative">火鍋</a>
                                         <a href="#cate_bbq" onclick="fillInput('燒肉')" class="position-relative">燒肉</a>
@@ -155,6 +155,8 @@
 
     <!-- 呈現搜尋結果 + API URL -->
     <div class="container">
+        <div id="searchResults"></div>
+        <div id="pastParam"></div>
         <h1>搜尋結果</h1>
         <h2>符合條件的結果</h2>
         <table id="filteredResultsTable">
@@ -171,8 +173,7 @@
             <tbody id="allResultsBody"></tbody>
         </table>
     </div>
-    <div id="searchResults"></div>
-    <div id="pastParam"></div>
+
 
 
 
@@ -255,6 +256,7 @@
             fetch('http://localhost:8000/api/filtlocations')
                 .then(response => response.json())
                 .then(data => {
+
                     console.log(data);
                     data.forEach(location => {
                         var option = document.createElement('a');
@@ -265,6 +267,8 @@
                         };
                         option.textContent = location.location;
                         dropdown.appendChild(option);
+                        // updateSearchResults(data);
+
                     });
                 })
                 .catch(error => console.error('Error fetching locations:', error));
@@ -274,8 +278,8 @@
         // 搜尋框顯示
         // FiltClasses
         function fillInput(value) {
-            if (value === '不設分類') {
-                document.getElementById('myInput').value = '不設分類';
+            if (value === '所有類型') {
+                document.getElementById('myInput').value = '所有類型';
                 document.getElementById('myInput').dataset.value = '';
             } else {
                 document.getElementById('myInput').value = value;
@@ -474,6 +478,7 @@
         <p>符合條件的結果數量: ${data.filtered.length}</p>
         <p>其他結果數量: ${data.all.length}</p>
         `;
+
             }
         }
 

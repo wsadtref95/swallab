@@ -196,34 +196,34 @@
 
 
     <!-- React -->
-
+    <script src="../js/config.js"></script>
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
         window.LoadCount = 0;
         const ErrorBoundary = ({ children }) => {
-                const [hasError, setHasError] = React.useState(false);
-                const [error, setError] = React.useState(null);
+            const [hasError, setHasError] = React.useState(false);
+            const [error, setError] = React.useState(null);
 
-                React.useEffect(() => {
-                    const errorHandler = (error) => {
-                        console.error("Caught an error:", error);
-                        setHasError(true);
-                        setError(error);
-                    };
+            React.useEffect(() => {
+                const errorHandler = (error) => {
+                    console.error("Caught an error:", error);
+                    setHasError(true);
+                    setError(error);
+                };
 
-                    window.addEventListener('error', errorHandler);
+                window.addEventListener('error', errorHandler);
 
-                    return () => {
-                        window.removeEventListener('error', errorHandler);
-                    };
-                }, []);
+                return () => {
+                    window.removeEventListener('error', errorHandler);
+                };
+            }, []);
 
-                if (hasError) {
-                    return <h1>Something went wrong. Error: {error?.message}</h1>;
-                }
+            if (hasError) {
+                return <h1>Something went wrong. Error: {error?.message}</h1>;
+            }
 
-                return children;
-            };
+            return children;
+        };
         // <!-- mockData ok -->
         const mockData = {
             all: [
@@ -310,6 +310,72 @@
             }))
         };
 
+        // function MemberActivity() {
+        //     const [activeTab, setActiveTab] = useState('all');
+        //     const [activities, setActivities] = useState([]);
+        //     const [displayedActivities, setDisplayedActivities] = useState([]);
+        //     const [hasMore, setHasMore] = useState(true);
+        //     const isLoadingRef = useRef(false);
+        //     const [expanded, setExpanded] = useState(false);
+
+        //     useEffect(() => {
+        //         fetchActivities();
+        //     }, [activeTab]);
+
+        //     const fetchActivities = async () => {
+        //         isLoadingRef.current = true;
+        //         try {
+        //             // 模擬 API 調用
+        //             const data = mockData[activeTab] || mockData.all;
+        //             // 按時間從新到舊排序
+        //             const sortedData = data.sort((a, b) => {
+        //                 const dateA = new Date(a.created_at_date + ' ' + a.created_at_time);
+        //                 const dateB = new Date(b.created_at_date + ' ' + b.created_at_time);
+        //                 return dateB - dateA;
+        //             });
+        //             setActivities(sortedData);
+        //             setDisplayedActivities(sortedData.slice(0, 4));
+        //             setHasMore(sortedData.length > 4);
+        //             setExpanded(false);
+        //             isLoadingRef.current = false;
+        //         } catch (error) {
+        //             console.error('Error fetching activities:', error);
+        //             isLoadingRef.current = false;
+        //         }
+        //     };
+
+        //     const handleTabChange = (tab) => {
+        //         setActiveTab(tab);
+        //         setExpanded(false);
+        //     };
+
+        //     const handleLoadMore = () => {
+        //         setDisplayedActivities(activities);
+        //         setExpanded(true);
+        //         setHasMore(false);
+        //     };
+
+        //     const handleEditComment = (id, content) => {
+        //         console.log(`Editing comment ${id} with content: ${content}`);
+        //         // 實際應用中應調用 API
+        //     };
+
+        //     const handleDeleteComment = (id) => {
+        //         console.log(`Deleting comment ${id}`);
+        //         // 實際應用中應調用 API
+        //     };
+
+        //     const handleDeleteFavorite = (id) => {
+        //         const confirmed = window.confirm('確定要移除收藏嗎？');
+        //         if (confirmed) {
+        //             console.log(`Deleting favorite ${id}`);
+        //             // 實際應用中應調用 API
+        //         }
+        //     };
+
+
+        // 設置 API 基礎 URL
+        const API_BASE_URL = 'http://localhost:8000/api';
         function MemberActivity() {
             const [activeTab, setActiveTab] = useState('all');
             const [activities, setActivities] = useState([]);
@@ -317,234 +383,186 @@
             const [hasMore, setHasMore] = useState(true);
             const isLoadingRef = useRef(false);
             const [expanded, setExpanded] = useState(false);
+            const [currentPage, setCurrentPage] = useState(1);
+            const fetchCountRef = useRef(0);
+            const loadCountRef = useRef(0);
+
+            const [loadCount, setLoadCount] = useState(0);
+
+
 
             useEffect(() => {
-                fetchActivities();
-            }, [activeTab]);
+                setLoadCount(prev => prev + 1);
+                if (loadCount == 0) { // 設置一個合理的上限
+                    throw new Error('Load count exceeded, stopping to prevent infinite loop');
+                }
+
+                console.log('Load count:', loadCount);
+                try {
+                    fetchActivities();
+                } catch (error) {
+                    console.error('Error fetching activities:', error);
+                }
+            }, [activeTab, currentPage]);
 
             const fetchActivities = async () => {
+                
+                if (isLoadingRef.current) {
+                    console.log('Already loading. Skipping fetch.');
+                    return;
+                }
+
+                fetchCountRef.current += 1;
+                console.log(`Fetching activities. Count: ${fetchCountRef.current}`);
+
+                if (fetchCountRef.current > 5) {
+                    console.error('Fetch count exceeded limit. Stopping to prevent infinite loop.');
+                    return;
+                }
+
                 isLoadingRef.current = true;
                 try {
-                    // 模擬 API 調用
-                    const data = mockData[activeTab] || mockData.all;
+                    // let data;
+                    // if (CONFIG.USE_MOCK_DATA) {
+                    //     // 使用 mock 數據
+                    //     data = mockData[activeTab] || mockData.all;
+                    //     console.log('Using mock data:', data);
+                    // } else {
+                    //     // 使用真實 API
+                    //     const endpoint = `${CONFIG.API_BASE_URL}/member-activity/${activeTab}`;
+                    //     const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
+                    //     if (!response.ok) {
+                    //         throw new Error('Network response was not ok');
+                    //     }
+                    //     data = await response.json();
+                    //     console.log('Received data from API:', data);
+                    // }
+                    let endpoint;
+                    switch (activeTab) {
+                        case 'all':
+                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/all`;
+                            break;
+                        case 'OrderInfos':
+                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/OrderInfos`;
+                            break;
+                        case 'MemberNotes':
+                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/MemberNotes`;
+                            break;
+                        case 'Comments':
+                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/Comments`;
+                            break;
+                        case 'Favorites':
+                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/Favorites`;
+                            break;
+                        default:
+                            endpoint = `${CONFIG.API_BASE_URL}/member-activity/all`;
+                            consoel.log('endpoint', endpoint)
+                    }
+
+                    console.log(`Fetching from endpoint: ${endpoint}?page=${currentPage}&limit=4`);
+
+                    const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    console.log('Received data:', data);
+
+                    // 處理不同的數據結構
+                    let processedData;
+                    if (activeTab === 'all') {
+                        processedData = [
+                            ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
+                            ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
+                            ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
+                            ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
+                        ];
+                    } else {
+                        processedData = data.data || [];
+                    }
+
+                    console.log('Processed data:', processedData);
+
                     // 按時間從新到舊排序
-                    const sortedData = data.sort((a, b) => {
+                    const sortedData = processedData.sort((a, b) => {
                         const dateA = new Date(a.created_at_date + ' ' + a.created_at_time);
                         const dateB = new Date(b.created_at_date + ' ' + b.created_at_time);
                         return dateB - dateA;
                     });
-                    setActivities(sortedData);
-                    setDisplayedActivities(sortedData.slice(0, 4));
-                    setHasMore(sortedData.length > 4);
+
+                    setActivities(prevActivities => {
+                        const newActivities = [...prevActivities, ...sortedData];
+                        console.log('Updated activities:', newActivities);
+                        return newActivities;
+                    });
+
+                    setDisplayedActivities(prevDisplayed => {
+                        const newDisplayed = [...prevDisplayed, ...sortedData];
+                        console.log('Updated displayed activities:', newDisplayed);
+                        return newDisplayed;
+                    });
+
+                    setHasMore(data.next_page_url !== null);
                     setExpanded(false);
-                    isLoadingRef.current = false;
                 } catch (error) {
                     console.error('Error fetching activities:', error);
+                } finally {
                     isLoadingRef.current = false;
                 }
             };
 
             const handleTabChange = (tab) => {
+                console.log(`Changing tab to: ${tab}`);
                 setActiveTab(tab);
                 setExpanded(false);
+                // setLoadCount(0); // 重置計數器
+
+                //
+                setActivities([]);
+                setDisplayedActivities([]);
+                setCurrentPage(1);
+                setHasMore(true);
+                // 重置狀態在 useEffect 中處理
             };
 
             const handleLoadMore = () => {
-                setDisplayedActivities(activities);
-                setExpanded(true);
-                setHasMore(false);
+                console.log('Loading more items');
+                setCurrentPage(prevPage => {
+                    const newPage = prevPage + 1;
+                    console.log(`Incrementing page to: ${newPage}`);
+                    return newPage;
+                });
+                // fetchActivities();
             };
 
+            //後衛
+            window.LoadCount++;
+            console.log(window.LoadCount);
+            // if (window.LoadCount != 0) { stop() }
             const handleEditComment = (id, content) => {
                 console.log(`Editing comment ${id} with content: ${content}`);
                 // 實際應用中應調用 API
             };
-
+            //後衛
+            window.LoadCount++;
+            console.log(window.LoadCount);
+            // if (window.LoadCount != 0) { stop() }
             const handleDeleteComment = (id) => {
                 console.log(`Deleting comment ${id}`);
                 // 實際應用中應調用 API
             };
-
+            //後衛
+            window.LoadCount++;
+            console.log(window.LoadCount);
+            // if (window.LoadCount != 0) { stop() }
             const handleDeleteFavorite = (id) => {
                 const confirmed = window.confirm('確定要移除收藏嗎？');
                 if (confirmed) {
                     console.log(`Deleting favorite ${id}`);
                     // 實際應用中應調用 API
                 }
-            };
-
-
-            // 設置 API 基礎 URL
-            const API_BASE_URL = 'http://localhost:8000/api';
-
-
-
-
-
-            function MemberActivity() {
-                const [activeTab, setActiveTab] = useState('all');
-                const [activities, setActivities] = useState([]);
-                const [displayedActivities, setDisplayedActivities] = useState([]);
-                const [hasMore, setHasMore] = useState(true);
-                const isLoadingRef = useRef(false);
-                const [expanded, setExpanded] = useState(false);
-                const [currentPage, setCurrentPage] = useState(1);
-                const fetchCountRef = useRef(0);
-                const loadCountRef = useRef(0);
-
-                const [loadCount, setLoadCount] = useState(0);
-
-
-
-                useEffect(() => {
-                    setLoadCount(prev => prev + 1);
-                    if (loadCount > 50) { // 設置一個合理的上限
-                        throw new Error('Load count exceeded, stopping to prevent infinite loop');
-                    }
-                }, []);
-
-
-
-                const fetchActivities = async () => {
-
-
-                    if (isLoadingRef.current) {
-                        console.log('Already loading. Skipping fetch.');
-                        return;
-                    }
-
-                    fetchCountRef.current += 1;
-                    console.log(`Fetching activities. Count: ${fetchCountRef.current}`);
-
-                    if (fetchCountRef.current > 5) {
-                        console.error('Fetch count exceeded limit. Stopping to prevent infinite loop.');
-                        return;
-                    }
-
-                    isLoadingRef.current = true;
-                    try {
-                        let endpoint;
-                        switch (activeTab) {
-                            case 'all':
-                                endpoint = `${API_BASE_URL}/member-activity/all`;
-                                break;
-                            case 'OrderInfos':
-                                endpoint = `${API_BASE_URL}/member-activity/OrderInfos`;
-                                break;
-                            case 'MemberNotes':
-                                endpoint = `${API_BASE_URL}/member-activity/MemberNotes`;
-                                break;
-                            case 'Comments':
-                                endpoint = `${API_BASE_URL}/member-activity/Comments`;
-                                break;
-                            case 'Favorites':
-                                endpoint = `${API_BASE_URL}/member-activity/Favorites`;
-                                break;
-                            default:
-                                endpoint = `${API_BASE_URL}/member-activity/all`;
-                        }
-
-                        console.log(`Fetching from endpoint: ${endpoint}?page=${currentPage}&limit=4`);
-
-                        const response = await fetch(`${endpoint}?page=${currentPage}&limit=4`);
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        const data = mockData[activeTab] || mockData.all;
-
-
-
-                        // const data = await response.json();
-                        console.log('Received data:', data);
-
-                        // 處理不同的數據結構
-                        let processedData;
-                        if (activeTab === 'all') {
-                            processedData = [
-                                ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
-                                ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
-                                ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
-                                ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
-                            ];
-                        } else {
-                            processedData = data.data || [];
-                        }
-
-                        console.log('Processed data:', processedData);
-
-                        // 按時間從新到舊排序
-                        const sortedData = processedData.sort((a, b) => {
-                            const dateA = new Date(a.created_at_date + ' ' + a.created_at_time);
-                            const dateB = new Date(b.created_at_date + ' ' + b.created_at_time);
-                            return dateB - dateA;
-                        });
-
-                        setActivities(prevActivities => {
-                            const newActivities = [...prevActivities, ...sortedData];
-                            console.log('Updated activities:', newActivities);
-                            return newActivities;
-                        });
-
-                        setDisplayedActivities(prevDisplayed => {
-                            const newDisplayed = [...prevDisplayed, ...sortedData];
-                            console.log('Updated displayed activities:', newDisplayed);
-                            return newDisplayed;
-                        });
-
-                        setHasMore(data.next_page_url !== null);
-                        setExpanded(false);
-                    } catch (error) {
-                        console.error('Error fetching activities:', error);
-                    } finally {
-                        isLoadingRef.current = false;
-                    }
-                };
-
-                const handleTabChange = (tab) => {
-                    console.log(`Changing tab to: ${tab}`);
-                    setActiveTab(tab);
-                    // 重置狀態在 useEffect 中處理
-                };
-
-                const handleLoadMore = () => {
-                    console.log('Loading more items');
-                    setCurrentPage(prevPage => {
-                        const newPage = prevPage + 1;
-                        console.log(`Incrementing page to: ${newPage}`);
-                        return newPage;
-                    });
-                    fetchActivities();
-                };
-
-                //後衛
-                window.LoadCount++;
-                console.log(window.LoadCount);
-                // if (window.LoadCount != 0) { stop() }
-                const handleEditComment = (id, content) => {
-                    console.log(`Editing comment ${id} with content: ${content}`);
-                    // 實際應用中應調用 API
-                };
-                //後衛
-                window.LoadCount++;
-                console.log(window.LoadCount);
-                // if (window.LoadCount != 0) { stop() }
-                const handleDeleteComment = (id) => {
-                    console.log(`Deleting comment ${id}`);
-                    // 實際應用中應調用 API
-                };
-                //後衛
-                window.LoadCount++;
-                console.log(window.LoadCount);
-                // if (window.LoadCount != 0) { stop() }
-                const handleDeleteFavorite = (id) => {
-                    const confirmed = window.confirm('確定要移除收藏嗎？');
-                    if (confirmed) {
-                        console.log(`Deleting favorite ${id}`);
-                        // 實際應用中應調用 API
-                    }
-                }
             }
-
             return (
                 <div className="member-activity-container">
                     <div className="rightpart">
@@ -608,11 +626,18 @@
             );
         }
 
-
-
         function OrderInfos({ order }) {
+            // 檢查 order 和 order.items 是否存在
+            console.log('order', order);
+            if (!order || !order.items) {
+                return (
+                    <div className="row mt-5 myRecordsTemp align-self-center">
+                        <p>訂單信息不完整</p>
+                    </div>
+                );
+            }
+            console.log('order.items', order.items);
             return (
-
                 <div className="row mt-5 myRecordsTemp align-self-center">
                     <div className="col-2">
                         <div className="myRecordsContainer align-self-center">
@@ -624,11 +649,11 @@
                             <a href="#"><span>{order.restaurant_name}</span></a>
                         </div>
                         <div className="row myRecordsInfo container">
-                            {order.items.map((item, index) => (
+                            {Array.isArray(order.items) ? order.items.map((item, index) => (
                                 <div key={index}>
                                     <span>{item.item_qty}</span>份 <span>{item.item_price}</span> 的 <span>{item.item_name}</span>
                                 </div>
-                            ))}
+                            )) : <div>訂單項目不可用</div>}
                         </div>
                     </div>
                     <div className="col-2">
@@ -776,9 +801,11 @@
         console.log(window.LoadCount);
         // if (window.LoadCount != 0) { stop() }
         ReactDOM.createRoot(document.getElementById('root')).render(
-            <ErrorBoundary>
-                <MemberActivity />
-            </ErrorBoundary>
+            <React.StrictMode>
+                <ErrorBoundary>
+                    <MemberActivity />
+                </ErrorBoundary>
+            </React.StrictMode>
         );
         //後衛
         window.LoadCount++;
@@ -798,6 +825,7 @@
         // localStorage.setItem('Favorites', JSON.stringify(MemberActivity()));
 
     </script>
+    <!-- <script src=""></script> -->
 </body>
 
 </html>

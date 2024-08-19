@@ -692,22 +692,55 @@ function createAllTabItemElement(item) {
 window.LoadCount++;
 console.log(window.LoadCount);
 // if (window.LoadCount > 60){stop()}
-function createAllTabOrderHTML(item) {
+// function createAllTabOrderHTML(item) {
 
-    const restaurantName = item.rest_infos?.name || 'Unknown Restaurant';
-    const restaurantImage = item.rest_infos?.main_photo || '';
-    return `
-        <div class="activity-image">
-            <img src="${restaurantImage}" alt="${restaurantName}">
+//     const restaurantName = item.rest_infos?.name || 'Unknown Restaurant';
+//     const restaurantImage = item.rest_infos?.main_photo || '';
+//     return `
+//         <div class="activity-image">
+//             <img src="${restaurantImage}" alt="${restaurantName}">
+//         </div>
+//         <div class="activity-content">
+//             <div class="activity-title">${restaurantName}</div>
+//             <div class="activity-info">訂單編號: ${item.o_s_id}</div>
+//             <div class="activity-info">預訂日期: ${item.booking_date || ''} ${item.booking_time || ''}</div>
+//             <div class="activity-info">創建時間: ${item.created_at_date || ''} ${item.created_at_time || ''}</div>
+//             <button class="activity-button">檢視內容</button>
+//         </div>
+//     `;
+// }
+function createAllTabOrderHTML(order) {
+    const element = document.createElement('div');
+    element.className = 'row mt-5 myRecordsTemp align-self-center';
+    element.innerHTML = `
+        <div class="col-2">
+            <div class="myRecordsContainer align-self-center">
+                <img class="activity-image" src="${order.restaurant_image}" alt="${order.restaurant_name}" />
+            </div>
         </div>
-        <div class="activity-content">
-            <div class="activity-title">${restaurantName}</div>
-            <div class="activity-info">訂單編號: ${item.o_s_id}</div>
-            <div class="activity-info">預訂日期: ${item.booking_date || ''} ${item.booking_time || ''}</div>
-            <div class="activity-info">創建時間: ${item.created_at_date || ''} ${item.created_at_time || ''}</div>
-            <button class="activity-button">檢視內容</button>
+        <div class="col-1"></div>
+        <div class="col-5">
+            <div class="activity-title">
+                <div>訂單狀態：已完成</div>
+                <a href="#"><span>${order.restaurant_name}</span></a>
+            </div>
+            <div class="row myRecordsInfo container">
+                ${order.items.map(item => `
+                    ${item.item_qty}份 ${item.item_price}的 ${item.item_name} <br />
+                `).join('')}
+                <a href="" class="me-0">more...</a>
+            </div>
         </div>
+        <div class="col-1 align-items-center">
+            <div><span>$${order.total_price} </span></div>
+        </div>
+        <div class="col-2 myRecordsBtn">
+            <div><span>${order.created_at_date}</span></div>
+            <button class="activity-button">再次訂購</button>
+        </div>
+        <div class="col-1"></div>
     `;
+    return element;
 }
 
 function createAllTabNoteHTML(item) {
