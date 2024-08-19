@@ -8,7 +8,7 @@ $password = "";
 $action = $_GET['action'];
 
 try {
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     switch ($action) {

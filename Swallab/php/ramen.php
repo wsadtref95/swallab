@@ -8,7 +8,7 @@ $password = "";
 
 try {
     // 連接資料庫
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
 
     // 從資料庫中獲取資料
     $sql = 'select * from membernotes where r_id =3 order by count desc limit 12';

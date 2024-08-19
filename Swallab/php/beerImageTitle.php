@@ -6,7 +6,7 @@ $user = "root";
 //居酒屋的最新文章-圖片
 
 try {
-    $db = new PDO("mysql:host={$host};dbname={$dbname}", $user);  
+    $db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $user);  
     $sql = "select main_photo from membernotes where r_id = 4 order by created_at desc limit 3;";  
     $stmt = $db->prepare($sql);
     $stmt->execute();
