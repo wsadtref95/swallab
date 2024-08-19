@@ -9,7 +9,7 @@ $uid=1;
 
 try {
     // 建立資料庫連接
-    $db = new PDO("mysql:host={$host};dbname={$dbname}", $user, $password);
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
     // 关闭外键检查
     $db->exec('SET FOREIGN_KEY_CHECKS = 0;');
     // 設置錯誤模式為異常

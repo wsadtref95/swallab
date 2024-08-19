@@ -6,7 +6,7 @@ $password = "";
 
 try {
     // 連接資料庫
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
 
     // 從資料庫中獲取資料
     // $sql = 'SELECT users.name, users.avatar, users.id AS user_id, users.href, message.content, message.created_at, message.id AS message_id FROM users INNER JOIN message ON users.id = message.id ORDER BY message.created_at DESC;';
@@ -43,19 +43,19 @@ try {
         $mid = $row['commentsId'];
         $uid = $row['uid'];
 
-        // 自動判斷照片格式型態
-        $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
-        // 轉base64
-        $photoBase64 = base64_encode($photoBlob);
+        // // 自動判斷照片格式型態
+        // $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
+        // // 轉base64
+        // $photoBase64 = base64_encode($photoBlob);
 
-        // IMG的src
-        $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
+        // // IMG的src
+        // $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
 
         echo <<<HTML
         <div class="d-flex justify-content-center mt-4 m-0 test"  data-uid={$uid} data-mid={$mid} id="test">
             <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto">
                 <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3">
-                    <img src="{$photoSrc}" alt="">    
+                    <img src="{$photoBlob}" alt="">    
                     <a href="../foodNotes/demoPiggy.html" style="text-decoration: none;color:black">
                         <div >{$username}</div>      
                     </a>
