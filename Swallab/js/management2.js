@@ -148,11 +148,13 @@ $().ready(function () {
 
     // 顯示菜單清單
     let displayMenu = async () => {
+        console.log(headers); // {X-User-Id: '1'}
+        
 
-        let response = await fetch('http://localhost/MySwallab/public/api/getmenu')
+        let response = await fetch('http://localhost/MySwallab/public/api/getmenu', {headers})
         let data = await response.json();
 
-        // console.log(data);
+        console.log(data);
         let html = '';
 
         data.forEach(({ section, item_name, item_photo, item_price, id }) => {

@@ -6,7 +6,7 @@ $password = "";
 
 try {
     // 連接資料庫
-    $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
 
     // 從資料庫中獲取資料
     // $sql = 'SELECT users.name, users.avatar, users.id AS user_id, users.href, message.content, message.created_at, message.id AS message_id FROM users INNER JOIN message ON users.id = message.id ORDER BY message.created_at DESC;';

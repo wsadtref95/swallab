@@ -8,7 +8,11 @@ $password = "";
 
 try {
     // 連接資料庫
+<<<<<<< HEAD
   $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
+=======
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
+>>>>>>> 1b9f9882b3924f0fb6fd88535a6b7dd7e97dfc9f
 
     // 從資料庫中獲取資料
     $sql = 'select membernotes.title,membernotes.count,membernotes.main_photo from membernotes left join restinfos on membernotes.r_id=restinfos.id left join  users on restinfos.user_id=users.id order by membernotes.count desc limit 12;';

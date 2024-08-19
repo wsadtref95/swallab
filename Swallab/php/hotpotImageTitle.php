@@ -6,8 +6,13 @@ $user = "root";
 //火鍋的最新文章-圖片
 
 try {
+<<<<<<< HEAD
     $db = new PDO("mysql:host={$host};dbname={$dbname}", $user);  
     $sql = "select main_photo from membernotes left join restinfos on membernotes.r_id=restinfos.id left join filtclasses on filtclasses.id=restinfos.f_c_id where filtclasses.id=1 order by membernotes.created_at desc limit 3;";  
+=======
+    $db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $user);  
+    $sql = "select main_photo from membernotes where r_id = 1 order by created_at desc limit 3";  
+>>>>>>> 1b9f9882b3924f0fb6fd88535a6b7dd7e97dfc9f
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();
