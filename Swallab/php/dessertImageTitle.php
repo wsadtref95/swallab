@@ -7,7 +7,7 @@ $user = "root";
 
 try {
     $db = new PDO("mysql:host={$host};dbname={$dbname}", $user);  
-    $sql = "select main_photo from membernotes where r_id = 5 order by created_at desc limit 3;";  
+    $sql = "select main_photo from membernotes left join restinfos on membernotes.r_id=restinfos.id left join filtclasses on filtclasses.id=restinfos.f_c_id where filtclasses.id=5 order by membernotes.created_at desc limit 3;";  
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $rows = $stmt->fetchAll();
