@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand sticky-top shadow">
+    <nav id="myNav" class="navbar navbar-expand sticky-top shadow">
         <div class="container">
             <!-- LOGO -->
             <a class="navbar-brand ms-5 col-1" href="../headpage/headpage.html">
@@ -391,8 +391,8 @@
                     updateSearchResults(data);
                 })
                 .catch(error => {
-                    console.error('catch:', error);
-                    document.getElementById('searchResults').innerHTML = '<p>Fetch Failed。</p>';
+                    console.error('Fetch catch error:', error);
+                    document.getElementById('searchResults').innerHTML = '<p>Fetch 錯誤。</p>';
                 });
         }
 
