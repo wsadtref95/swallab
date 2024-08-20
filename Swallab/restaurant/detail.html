@@ -128,11 +128,11 @@
     <div class="container">
         <div class="container">
             <div class="myimg mt-3">
-                <div class="">
-                    <img src="./../images/qhjpage/qhjdetail.jpg">
+                <div class="img-container">
+                    <!-- <img src="./../images/qhjpage/qhjdetail.jpg"> -->
                     <!-- 收藏icon -->
-                    <div class="icon-heart" onclick="showCollect()">
-                        <i class="fa-regular fa-heart" id="hearticon" style="z-index: 1;"></i>
+                    <div class="icon-heart" >
+                        <i class="fa-regular fa-heart" id="hearticon" style="z-index: 1;" onclick="setFavorite()"></i>
                     </div>
                 </div>
             </div>
@@ -176,8 +176,8 @@
                     </div>
                     <div class="modal-body">
                         
-                        <form>
-                            <div class="form-group">
+                        <form> 
+                            <div class="form-group" >
                                 <label>評分:</label>
                                 <div class="star-rating">
                                     <i class="fa-regular fa-star"></i>
@@ -189,6 +189,7 @@
                             </div>
                             <div class="form-group">
                                 <label>留言</label>
+                                <input type="hidden" id="rid">
                                 <input type="text" id="commentInput" class="form-control" style="padding: 30px 30;">
                             </div>
                         </form>

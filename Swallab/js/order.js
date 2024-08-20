@@ -110,7 +110,7 @@ function pickupTime() {
     form.append("current_time", x);  
 
     $.ajax({
-        url: "http://localhost/Swallab/swallab/back-end/order.php",
+        url: "http://localhost/Swallab/swallab/php/order.php",
         method: "POST",
         data: form,
         processData: false,  

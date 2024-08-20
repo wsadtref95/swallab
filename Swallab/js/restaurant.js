@@ -22,7 +22,7 @@ function restaurantInfo(b) {
     };
 
     $.ajax({
-        url: 'http://localhost/Swallab/swallab/back-end/restaurant.php',
+        url: 'http://localhost/Swallab/swallab/php/restaurant.php',
         method: 'POST',
         data: parameters,
         dataType: 'json'
@@ -44,7 +44,7 @@ function restaurantInfo(b) {
                     <div class="card overflow-hidden">
                         <a href="./detail.html">
                             <div class="card-body">
-                                <img src="data:image/jpeg;base64,${item.avatar}" alt="" class="img-fluid">
+                                <img src="${item.avatar}" alt="" class="img-fluid">
                             </div>
                         </a>
                         <div class="card-footer">
@@ -80,7 +80,7 @@ function sale (a){
     };
 
     $.ajax({
-        url: 'http://localhost/Swallab/swallab/back-end/restaurant.php',
+        url: 'http://localhost/Swallab/swallab/php/restaurant.php',
         method: 'POST',
         data: parameters,
         dataType: 'json'
@@ -99,7 +99,7 @@ function sale (a){
             var salecardHtml = `
             <div class="card position-relative">
                 <div class="card-body">
-                <img src="data:image/jpeg;base64,${item.avatar}" alt="" class="img-fluid">
+                <img src="http://localhost/MySwallab/public/${item.item_photo}" class="img-fluid">
                 </div>
                 <span class="countDown">倒數<span class="countDownTime me-1" data-end-time="${saleEndTime.toISOString()}"></span>
                     小時<span>!!</span>

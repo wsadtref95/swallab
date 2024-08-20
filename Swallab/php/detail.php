@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$dbname = "swallabfinal2";
+$dbname = "swallab";
 $user = "root";
-$db = new PDO("mysql:host=${host};dbname=${dbname}", $user);
+$db = new PDO("mysql:host={$host};dbname={$dbname}", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
@@ -24,19 +24,25 @@ switch ($service) {
         allMenu($_POST["restaurant_name"]);
         break;
     case 'showComment':
-        showComment($_POST["restaurant_name"]);
+        showComment($_POST["r_id"]);
+        break;
+    case 'star':
+        star($_POST["r_id"]);
         break;
     case 'saleMenu':
         saleMenu($_POST["restaurant_name"]);
         break;
-    case 'queryShopCart':
-        queryShopCart($_POST["userid"], $_POST["restaurantid"]);
-        break;
+    // case 'queryShopCart':
+    //     queryShopCart($_POST["userid"], $_POST["restaurantid"]);
+    //     break;
     case 'saveShopCart':
         saleMenu($_POST["restaurant_name"]);
         break;
     case 'favorite':
         favorite($_POST["alreadyAdd"], $_POST["m_id"], $_POST["r_id"]);
+        break;
+    case 'getImg':
+        getImg($_POST["restaurant_name"]);
         break;
     default:
         print ("未知的服務");
@@ -79,7 +85,7 @@ function sale($a)
     global $db;
     try {
         // 建立資料庫連線
-        $sql = "SELECT name , address , avg_price , phone , ROUND(AVG(MemberReviews.score), 1) AS score FROM RestInfos 
+        $sql = "SELECT name, RestInfos.id , address , avg_price , phone , ROUND(AVG(MemberReviews.score), 1) AS score FROM RestInfos 
         left join Users on RestInfos.user_id = Users.id
         left join MemberReviews on RestInfos.id = MemberReviews.r_id
         WHERE r_id = 1
@@ -123,15 +129,16 @@ function saveComment($userid, $restaurantid, $star, $comment)
 
     try {
         // 插入 MemberReviews 表的数据
-        $sql = "INSERT INTO MemberReviews (m_id, r_id, score) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO MemberReviews (m_id, r_id, score, created_at) VALUES (?, ?, ?, NOW())";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(1, $userid, PDO::PARAM_STR);
         $stmt->bindParam(2, $restaurantid, PDO::PARAM_STR);
         $stmt->bindParam(3, $star, PDO::PARAM_INT);
         $stmt->execute();
 
+
         // 插入 restcomments 表的数据
-        $sql = "INSERT INTO restcomments (m_id, r_id, content) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO restcomments (m_id, r_id, content, created_at) VALUES (?, ?, ?, NOW())";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(1, $userid, PDO::PARAM_STR);
         $stmt->bindParam(2, $restaurantid, PDO::PARAM_STR);
@@ -145,6 +152,31 @@ function saveComment($userid, $restaurantid, $star, $comment)
     }
 }
 
+function timeAgo($timestamp) {
+    $time = time() - strtotime($timestamp);
+
+    if ($time < 60) {
+        return $time . '秒前';
+    } elseif ($time < 3600) {
+        return floor($time / 60) . '分钟前';
+    } elseif ($time < 86400) {
+        return floor($time / 3600) . '小时前';
+    } elseif ($time < 604800) {
+        return floor($time / 86400) . '天前';
+    } else {
+        return date("Y-m-d", strtotime($timestamp));
+    }
+}
+
+$sql = "SELECT m_id, r_id, content, created_at FROM restcomments WHERE r_id = ?";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(1, $restaurantid, PDO::PARAM_STR);
+$stmt->execute();
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($rows as &$row) {
+    $row['created_at'] = timeAgo($row['created_at']);
+}
 
 
 // 抓各類別的菜單
@@ -232,24 +264,52 @@ function allMenu($restaurant_name)
     }
 }
 //顯示留言
-function showComment($restaurant_name)
+function showComment($r_id)
 {
     //取全域的資料庫配置
     global $db;
     try {
         // 建立資料庫連線
-        $sql = "SELECT name as userName, content , score , restcomments.created_at_date  , restName FROM restcomments 
-        inner join MemberReviews on restcomments.m_id = MemberReviews.m_id and restcomments.r_id = MemberReviews.r_id
-        left join members on restcomments.m_id = members.id
-        left join Users on members.user_id = Users.id
-        left join(
-        select RestInfos.id , name as restName from RestInfos left join Users on RestInfos.user_id = Users.id
-        )as rest on restcomments.r_id = rest.id
-        where restName = ?
-        order by restcomments.created_at_date  , restcomments.created_at_time;";
+        // $sql = "SELECT Users.avatar, name as userName, content , score , restcomments.created_at_date  , restName FROM restcomments 
+        // inner join MemberReviews on restcomments.m_id = MemberReviews.m_id and restcomments.r_id = MemberReviews.r_id
+        // left join members on restcomments.m_id = members.id
+        // left join Users on members.user_id = Users.id
+        // left join(
+        // select RestInfos.id , name as restName from RestInfos left join Users on RestInfos.user_id = Users.id
+        // )as rest on restcomments.r_id = rest.id
+        // where restName = ?
+        // order by restcomments.created_at_date desc ;";
+        $sql = "SELECT * from users right join members on users.id = members.user_id LEFT JOIN restcomments on members.id = restcomments.m_id where restcomments.r_id = ? order by restcomments.created_at_date desc";
         $stmt = $db->prepare($sql);
         // $stmt->bindParam(1, $className, PDO::PARAM_STR);
-        $stmt->bindParam(1, $restaurant_name, PDO::PARAM_STR);
+        $stmt->bindParam(1, $r_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // 把所有的查詢結果存在 rows 裡
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        // 返回 JSON 格式的數據
+        header('Content-Type: application/json');
+        echo json_encode($rows);
+
+    } catch (PDOException $e) {
+        // 更正錯誤處理
+        error_log($e->getMessage());
+        header('Content-Type: application/json');
+        echo json_encode(["error" => "資料庫錯誤"]);
+    }
+    
+}
+//顯示星星
+function star($r_id){
+    global $db;
+        try {
+        // 建立資料庫連線
+        $sql = "SELECT * from users left join members on users.id = members.user_id LEFT JOIN memberreviews on members.id = memberreviews.m_id where memberreviews.r_id = ? order by memberreviews.created_at_date desc";
+        $stmt = $db->prepare($sql);
+        // $stmt->bindParam(1, $className, PDO::PARAM_STR);
+        $stmt->bindParam(1, $r_id, PDO::PARAM_INT);
         $stmt->execute();
 
         // 把所有的查詢結果存在 rows 裡
@@ -419,6 +479,32 @@ function deleteShopCart($userid, $restaurantid, $star, $comment)
 }
 ;
 
+
+function getImg($a)
+{
+    //取全域的資料庫配置
+    global $db;
+    try {
+        // 建立資料庫連線
+        $sql = "SELECT avatar from users where name = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(1, $a, PDO::PARAM_STR);
+        $stmt->execute();
+
+        // 把所有的查詢結果存在 rows 裡
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // 返回 JSON 格式的數據
+        header('Content-Type: application/json');
+        echo json_encode($rows);
+
+    } catch (PDOException $e) {
+        // 更正錯誤處理
+        error_log($e->getMessage());
+        header('Content-Type: application/json');
+        echo json_encode(["error" => "資料庫錯誤"]);
+    }
+}
 
 
 

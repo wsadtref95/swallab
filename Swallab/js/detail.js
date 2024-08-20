@@ -1,8 +1,10 @@
 //onload時
-window.onload = function () {
+window.onload = async function () {
     sale("青花驕");
     allMenu("青花驕");
-    showComment("青花驕");
+    await showComment(1);
+    await star(1);
+    getImg("青花驕");
   };
   // 按下愛心
   const showCollect = () => {
@@ -19,47 +21,90 @@ window.onload = function () {
         text: '已從收藏中移除此文章',
     })
   }
-  document.getElementById("hearticon").addEventListener("click", function () {
-    if (this.classList.contains("fa-regular")) {
+  function setFavorite (){
+   const a =  document.getElementById("hearticon")
+   if (a.classList.contains("fa-regular")) {
       
-      showCollect();
-      this.classList.remove("fa-regular");
-      this.classList.add("fa-solid");
-  
-      var form = new FormData();
-      form.append("service", "favorite");
-      form.append("m_id", "1");
-      form.append("r_id", "1");
-      form.append("alreadyAdd", 1);  
-  
-    } else {
-      
-      
-      this.classList.remove("fa-solid");
-      this.classList.add("fa-regular");
-      notshowCollect();
-  
-      var form = new FormData();
-      form.append("service", "favorite");
-      form.append("m_id", "1");
-      form.append("r_id", "1");
-      form.append("alreadyAdd", 0);  
-    }
-  
-    var settings = {
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
-      method: "POST",
-      timeout: 0,
-      processData: false,
-      mimeType: "multipart/form-data",
-      contentType: false,
-      data: form,
-    };
-  
-    $.ajax(settings).done(function (response) {
-      // 处理响应
-    });
+    showCollect();
+    a.classList.remove("fa-regular");
+    a.classList.add("fa-solid");
+
+    var form = new FormData();
+    form.append("service", "favorite");
+    form.append("m_id", "1");
+    form.append("r_id", "1");
+    form.append("alreadyAdd", 1);  
+
+  } else {
+    
+    
+    a.classList.remove("fa-solid");
+    a.classList.add("fa-regular");
+    notshowCollect();
+
+    var form = new FormData();
+    form.append("service", "favorite");
+    form.append("m_id", "1");
+    form.append("r_id", "1");
+    form.append("alreadyAdd", 0);  
+  }
+
+  var settings = {
+    url: "http://localhost/Swallab/swallab/php/detail.php",
+    method: "POST",
+    timeout: 0,
+    processData: false,
+    mimeType: "multipart/form-data",
+    contentType: false,
+    data: form,
+  };
+
+  $.ajax(settings).done(function (response) {
+    // 处理响应
   });
+
+  }
+  // document.getElementById("hearticon").addEventListener("click", function () {
+  //   if (this.classList.contains("fa-regular")) {
+      
+  //     showCollect();
+  //     this.classList.remove("fa-regular");
+  //     this.classList.add("fa-solid");
+  
+  //     var form = new FormData();
+  //     form.append("service", "favorite");
+  //     form.append("m_id", "1");
+  //     form.append("r_id", "1");
+  //     form.append("alreadyAdd", 1);  
+  
+  //   } else {
+      
+      
+  //     this.classList.remove("fa-solid");
+  //     this.classList.add("fa-regular");
+  //     notshowCollect();
+  
+  //     var form = new FormData();
+  //     form.append("service", "favorite");
+  //     form.append("m_id", "1");
+  //     form.append("r_id", "1");
+  //     form.append("alreadyAdd", 0);  
+  //   }
+  
+  //   var settings = {
+  //     url: "http://localhost/Swallab/swallab/php/detail.php",
+  //     method: "POST",
+  //     timeout: 0,
+  //     processData: false,
+  //     mimeType: "multipart/form-data",
+  //     contentType: false,
+  //     data: form,
+  //   };
+  
+  //   $.ajax(settings).done(function (response) {
+  //     // 处理响应
+  //   });
+  // });
   //收藏
   
   
@@ -117,8 +162,6 @@ window.onload = function () {
     currentNumber++;
     // 更新數量的 span 元素的文本
     numberSpan.innerText = currentNumber;
-    // 在控制台輸出 2
-    // console.log(2);
     // 更新總價（這部分取決於你的邏輯，可以省略）
     updateTotalPrice(numberSpanId, priceId, totalPriceId);
   }
@@ -135,7 +178,6 @@ window.onload = function () {
       // 更新數量的 span 元素的文本
       numberSpan.innerText = currentNumber;
       // 在控制台輸出當前數量
-      // console.log(currentNumber);
       // 更新總價（這部分取決於你的邏輯，可以省略）
       updateTotalPrice(numberSpanId, priceId, totalPriceId);
     }
@@ -156,7 +198,6 @@ window.onload = function () {
     // 更新總價的元素的文本
     totalPriceElement.innerText = `$${totalPrice}`;
   
-    //console.log(totalprices);
     updateSubtotal();
   }
   
@@ -166,7 +207,7 @@ window.onload = function () {
       service: "sale",
     };
     $.ajax({
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       data: a,
       dataType: "json",
@@ -175,17 +216,17 @@ window.onload = function () {
         var container = $("#restaurant-info");
         if (responseData.length > 0) {
           responseData.forEach(function (item) {
-            console.log(item);
+            document.getElementById('rid').value = item.id;
             var html = `
                               <div class="hotpot">
-                                  <div style="font-size: 30px; font-weight: bold;">${item.name}</div>
+                                  <div class="ml-5" style="font-size: 30px; font-weight: bold;">${item.name}</div>
                                   <div class="ml-5" style="font-size: 25px; font-weight: bold;">
                                       ${item.score}分 <span style="font-size: 20px">(33)</span>
                                   </div>
                                   <div class="ml-5 mt-2">均消${item.avg_price}</div>
-                                  <div class="mt-2 mr-2">地址：${item.phone}</div>
+                                  <div class="mt-2 mr-2">電話：${item.phone}</div>
                                   <span class="mt-2 mr-2">地址：${item.address}</span>
-                                  <button class="score" data-toggle="modal" data-target="#scoreModal" id="score">點我評分</button>
+                                  <button class="score ml-3" data-toggle="modal" data-target="#scoreModal"  id="score" >點我評分</button>
                               </div>
                           `;
             container.append(html);
@@ -199,27 +240,26 @@ window.onload = function () {
   
   //送出餐廳評論
   document.getElementById("enterComment").addEventListener("click", function () {
+    let rid = document.getElementById('rid').value;
     const commentInput = document.getElementById("commentInput").value;
     let selectedRating = 0;
     let stars = document.querySelectorAll(".star-rating i");
-  
     stars.forEach((star, index) => {
       if (star.classList.contains("fa-solid")) {
         selectedRating = index + 1;
       }
     });
   
-    saveComment(commentInput, selectedRating);
+    saveComment(commentInput, selectedRating,rid);
     // 更新留言
-    const updateComment = document.getElementById("userComment");
-    updateComment.innerText = `${commentInput}`;
+    // const updateComment = document.getElementById("userComment");
+    // updateComment.innerText = `${commentInput}`;
   });
   
   let stars = document.querySelectorAll(".star-rating i");
   
   stars.forEach((star, index) => {
     star.addEventListener("click", () => {
-      // console.log(index);
       stars.forEach((s, i) => {
         if (i <= index) {
           s.classList.remove("fa-regular");
@@ -231,19 +271,40 @@ window.onload = function () {
       });
     });
   });
-  
+  //評論時間
+  function timeAgo(date) {
+    var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+    if (interval > 1) return interval + " 年前";
+
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) return interval + " 个月前";
+
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) return interval + " 天前";
+
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) return interval + " 小时前";
+
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) return interval + " 分钟前";
+
+    return Math.floor(seconds) + " 秒前";
+}
   //按評分星星
   
-  function saveComment(x, y) {
+  function saveComment(x, y, z) {
     var form = new FormData();
     form.append("service", "saveComment");
     form.append("userid", "1");
-    form.append("restaurantid", "1");
+    form.append("restaurantid", z);
     form.append("star", y);
     form.append("comment", x);
+
   
     var settings = {
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       timeout: 0,
       processData: false,
@@ -252,19 +313,137 @@ window.onload = function () {
       data: form,
     };
   
-    $.ajax(settings).done(function (response) {
-      // console.log(response);
-      showComment("青花驕-公益店");
+    $.ajax(settings).done(async function (response) {
+      // showComment("青花驕-公益店");
+      await showComment(1);
+      await star(1);
     });
   }
   //抓評論在留言區
-  function showComment(input_restaurant_name) {
-    //console.log(1);
+  async function showComment(input_r_id) {
     var form = new FormData();
+    
     form.append("service", "showComment");
-    form.append("restaurant_name", input_restaurant_name);
+    form.append("r_id", input_r_id);
     $.ajax({
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
+      method: "POST",
+      timeout: 0,
+      processData: false,
+      mimeType: "multipart/form-data",
+      contentType: false,
+      data: form,
+      dataType: "json",
+    })
+      .done(function (responseData) {
+        var container = $("#inputcomment");
+        container.empty();
+        if (responseData.length > 0) {
+          
+          i = 0;
+        
+          responseData.forEach(function (item) {
+            i += 1;
+            if (i <= 2) {
+              console.log(item)
+              var stars = '';
+              for (var s = 0; s < item.score; s++) {
+                stars += '<i class="fa-solid fa-star"></i>';
+                console.log(stars);
+              }
+  
+              var createdAt = new Date(item.created_at_date);
+              var now = new Date();
+              var diffInSeconds = Math.floor((now - createdAt) / 1000);
+              var timeAgo = '';
+
+              if (diffInSeconds < 60) {
+                  timeAgo = `${diffInSeconds} 秒前`;
+              } else if (diffInSeconds < 3600) {
+                  timeAgo = `${Math.floor(diffInSeconds / 60)} 分鐘前`;
+              } else if (diffInSeconds < 86400) {
+                  timeAgo = `${Math.floor(diffInSeconds / 3600)} 小時前`;
+              } else {
+                  timeAgo = `${Math.floor(diffInSeconds / 86400)} 天前`;
+              }
+
+              var html = `
+              <div class="row">
+                  <div class="col-3">
+                      <div class="ml-2">
+                        <img  src="${item.avatar}" style="width: 200px;">
+                      </div>
+                      <div style="text-align: center;font-size: 20px;">${item.name}</div>
+                  </div>
+                  <div class="col-9 position-relative mt-3">
+                      <div class="d-flex mt-3 star" style="font-size: 20px; color: gold;">
+                          ${stars}
+                      </div>
+                      <div id="userComment" class="mt-3" style="font-size: 20px;">
+                          ${item.content}
+                      </div>
+                      <p class="position-absolute date p-0">${timeAgo}</p>
+                  </div>
+              </div>
+              <hr> 
+              `;
+              container.append(html);
+            } else {
+              var stars = '';
+              for (var s = 0; s < item.score; s++) {
+                stars += '<i class="fa-solid fa-star"></i>';
+              }
+
+              var createdAt = new Date(item.created_at_date);
+              var now = new Date();
+              var diffInSeconds = Math.floor((now - createdAt) / 1000);
+              var timeAgo = '';
+
+              if (diffInSeconds < 60) {
+                  timeAgo = `${diffInSeconds} 秒前`;
+              } else if (diffInSeconds < 3600) {
+                  timeAgo = `${Math.floor(diffInSeconds / 60)} 分鐘前`;
+              } else if (diffInSeconds < 86400) {
+                  timeAgo = `${Math.floor(diffInSeconds / 3600)} 小時前`;
+              } else {
+                  timeAgo = `${Math.floor(diffInSeconds / 86400)} 天前`;
+              }
+              var html = `
+              <div class="row hidden"  id="hidden-Comment" style="display: none;">
+              <div class="col-3">
+                      <div class="ml-2">
+                        <img  src="${item.avatar}" style="width: 200px;">
+                      </div>
+                      <div style="text-align: center;font-size: 20px;">${item.name}</div>
+                  </div>
+                  <div class="col-9 position-relative mt-3">
+                      <div class="d-flex mt-3 star" style="font-size: 20px; color: gold;">
+                          ${stars}
+                      </div>
+                      <div id="userComment" class="mt-3" style="font-size: 20px;">
+                          ${item.content}
+                      </div>
+                      <p class="position-absolute date p-0">${timeAgo}</p>
+                  </div>
+          </div>
+                            `;
+              container.append(html);
+            }
+          });
+          star(input_r_id);
+        }
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("AJAX 請求失敗:", textStatus, errorThrown);
+      });
+  }
+  //顯示星星
+  async function star(input_r_id) {
+    var form = new FormData();
+    form.append("service", "star");
+    form.append("r_id", input_r_id);
+    $.ajax({
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       timeout: 0,
       processData: false,
@@ -276,13 +455,24 @@ window.onload = function () {
       .done(function (responseData) {
         var container = $("#inputcomment");
   
-        container.empty();
+        // container.empty();
+        
         if (responseData.length > 0) {
           
           i = 0;
-          console.log(responseData);
+          responseData.forEach(function (item, index) {
+            var stars = '';
+            for (var s = 0; s < item.score; s++) {
+                stars += '<i class="fa-solid fa-star"></i>';
+            }
+        
+            var starElements = document.querySelectorAll('.star');
+            if (starElements[index]) {
+                starElements[index].innerHTML = stars;
+            }
+        });
+        
           responseData.forEach(function (item) {
-            console.log(item);
             i += 1;
             if (i <= 3) {
               
@@ -290,43 +480,15 @@ window.onload = function () {
               for (var s = 0; s < item.score; s++) {
                 stars += '<i class="fa-solid fa-star"></i>';
               }
-  
-              var html = `
-             <div class="row" >
-                              <div class="col-3">
-                                <img class="ml-2" src="./../images/other/David.png" style="width: 150px;">
-                                <div style="text-align: center;">${item.userName}</div>
-                              </div>
-                              <div class="col-9 position-relative">
-                              <div  class="d-flex mt-3" style="font-size: 20px; color: gold;">
-                                ${stars}
-                              </div>
-                                
-                                <div id="userComment" class="mt-3">
-                                  ${item.content}
-                                </div>
-                                <p class="position-absolute date p-0">${item.created_at_date}</p>
-                              </div>
-                              
-                              </div>
-                              <hr> 
-                          `;
-              container.append(html);
+              $(`.star`).html(stars)
+              
             } else {
-              var html = `
-              <div class="row hidden"  id="hidden-Comment" style="display: none;">
-              <div class="col-3">
-              <img class="ml-2" src="./../images/other/David.png" style="width: 150px;">
-              </div>
-              <div class="col-9">
-                  <div>
-                  ${item.comment}
-                  </div>
-                  <div class="date" style="margin-top: 60px;">${item.createDate}</div>
-              </div>
-          </div>
-                            `;
-              container.append(html);
+              var stars = '';
+              for (var s = 0; s < item.score; s++) {
+                stars += '<i class="fa-solid fa-star"></i>';
+              }
+              
+              $(`.star`).html(stars)
             }
           });
         }
@@ -335,18 +497,15 @@ window.onload = function () {
         console.error("AJAX 請求失敗:", textStatus, errorThrown);
       });
   }
-  
   //抓各類別餐廳菜單
   function menu(input_className, input_restaurant_name) {
-    console.log(input_className)
-    console.log(input_restaurant_name)
     var form = new FormData();
     form.append("service", "menu");
     form.append("className", input_className);
     form.append("restaurant_name", input_restaurant_name);
   
     $.ajax({
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       timeout: 0,
       processData: false,
@@ -363,8 +522,8 @@ window.onload = function () {
           responseData.forEach(function (item) {
             var html = `
           <div class=" col-4 mb-4">
-              <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.item_photo}" alt="" >
-              <div class="name">${item.item_name}</div>
+              <img class="ml-3 myimg" style="border-radius: 2%;" src="http://localhost/MySwallab/public/${item.item_photo}"  >
+              <div class="name mr-5">${item.item_name}</div>
               <div class="d-flex money">
                   <div class="fs-20 ">$</div>
                   <div class="price" id="price-1">${item.item_price}</div>
@@ -394,9 +553,6 @@ window.onload = function () {
       var price = $(this).data("price");
       var photo = $(this).data("photo");
   
-      // console.log('名字',name);
-      // console.log('價格',price);
-      // console.log('照片',photo);
   
       $("#cartModal .product-img").attr("src", "data:image/jpeg;base64," + photo);
       $("#cartModal .items").text(name);
@@ -409,9 +565,8 @@ window.onload = function () {
     var form = new FormData();
     form.append("service", "allMenu");
     form.append("restaurant_name", input_restaurant_name);
-    // console.log(123);
     $.ajax({
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       timeout: 0,
       processData: false,
@@ -422,15 +577,13 @@ window.onload = function () {
     })
       .done(function (responseData) {
         var container = $("#menu-container");
-        // console.log("名字", responseData[0].item_name);
         container.empty();
         if (responseData.length > 0) {
           responseData.forEach(function (item) {
-            // console.log('1',item);
             var html = `
           
           <div class=" col-4 mb-4">
-              <img class="ml-3 myimg" style="border-radius: 2%;" src="data:image/jpeg;base64,${item.item_photo}" alt="" >
+              <img class="ml-3 myimg" style="border-radius: 2%;" src="http://localhost/MySwallab/public/${item.item_photo}" alt="" >
               <div class="name">${item.item_name}</div>
               <div class="d-flex money">
                   <div class="fs-20 ">$</div>
@@ -440,7 +593,6 @@ window.onload = function () {
           </div>    
                           `;
   
-  console.log(html)
   
             container.append(html);
   
@@ -458,7 +610,7 @@ window.onload = function () {
     form.append("restaurant_name", input_restaurant_name);
   
     $.ajax({
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       timeout: 0,
       processData: false,
@@ -473,13 +625,14 @@ window.onload = function () {
         container.empty();
         if (responseData.length > 0) {
           responseData.forEach(function (item) {
+            console.log('25',item);
             let nowDateTime = new Date();
             let end_time = new Date(item.end_time);
             let saleTimeCount = end_time - nowDateTime;
             let saleTime = Math.round(saleTimeCount / (1000 * 60 * 60));
             var html = `
             <div class=" col-4 mb-4 position-relative" >
-              <img class="ml-3 myimg"  src="data:image/jpeg;base64,${item.item_photo}" alt="" > 
+              <img class="ml-3 myimg"  src="http://localhost/MySwallab/public/${item.item_photo}" alt="" > 
               <span class="countDown">倒數<span class="countDownTime me-1">${saleTime}</span>小時<span>!!</span></span>
               <div class="name">${item.item_name}</div>
               <div class="d-flex " style="justify-content: center;">
@@ -511,7 +664,7 @@ window.onload = function () {
     form.append("restaurantid", "1");
   
     $.ajax({
-      url: "http://localhost/Swallab/swallab/back-end/detail.php",
+      url: "http://localhost/Swallab/swallab/php/detail.php",
       method: "POST",
       timeout: 0,
       processData: false,
@@ -526,7 +679,7 @@ window.onload = function () {
         var html = `
         <div class="row" style="text-align: center;">
           <div>
-            <img src="data:image/jpeg;base64,${photo}" class="product-img">
+            <img src="http://localhost/MySwallab/public/${item.item_photo}" class="product-img">
           </div>
           <div class="product-details ml-3">
             <div class="items mt-3">${item_name}</div>
@@ -594,6 +747,43 @@ window.onload = function () {
   
         var cartModal = new bootstrap.Modal(document.getElementById("cartModal"));
         cartModal.show();
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("AJAX 請求失敗:", textStatus, errorThrown);
+      });
+  }
+  //青花驕圖片
+  function getImg(input_restaurant_name) {
+    var form = new FormData();
+    form.append("service", "getImg");
+    form.append("restaurant_name", input_restaurant_name);
+  
+    $.ajax({
+      url: "http://localhost/Swallab/swallab/php/detail.php",
+      method: "POST",
+      timeout: 0,
+      processData: false,
+      contentType: false,
+      data: form,
+      //後端傳回來的格式
+      dataType: "json",
+    })
+      .done(function (responseData) {
+        var container = $(".img-container");
+        container.empty();
+        if (responseData.length > 0) {
+          responseData.forEach(function (item) {
+            
+            var html = `
+            <img src="${item.avatar}">
+                    <!-- 收藏icon -->
+                    <div class="icon-heart" onclick="setFavorite()">
+                        <i class="fa-regular fa-heart" id="hearticon" style="z-index: 1;"></i>
+                    </div>
+                          `;
+            container.append(html);
+          });
+        }
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
         console.error("AJAX 請求失敗:", textStatus, errorThrown);

@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$dbname = "swallabfinal2";
+$dbname = "swallab";
 $user = "root";
-$db = new PDO("mysql:host=${host};dbname=${dbname}", $user);
+$db = new PDO("mysql:host={$host};dbname={$dbname}", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $service = isset($_POST["service"]) ? $_POST["service"] : '';
 
@@ -31,18 +31,22 @@ function getRestaurantInfo($a) {
         // 建立資料庫連線
         if ($a=='最高評分') {
             //  類別名稱圖片分數
-           $sql = "SELECT restclass , name , avatar , score FROM Restinfos 
+           $sql = "SELECT restclass , name , avatar , score , avg(score) as a FROM Restinfos 
            left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
            left join filtclasses on RestInfos.f_c_id =  filtclasses.id 
+           group by name
            order by score desc";
            $stmt = $db->prepare($sql);
            $stmt->execute();
         
        } else {
-           $sql = "SELECT restclass , name , avatar , score FROM Restinfos 
+           $sql = "SELECT restclass , name , avatar , score , avg(score) as a  FROM Restinfos 
            left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
            left join filtclasses on RestInfos.f_c_id =  filtclasses.id 
-            WHERE restclass = ? order by score desc";
+            WHERE restclass = ? 
+            group by name 
+            order by score desc";
+            
            $stmt = $db->prepare($sql);
            $stmt->execute([$a]);
         
@@ -54,18 +58,7 @@ function getRestaurantInfo($a) {
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         // 處理圖片並將其轉換為 base64
-        foreach ($rows as &$row) {
-            if (isset($row['restaurant_image'])) {
-                $image = $row['restaurant_image'];
-                
-                // 確保 $image 是有效的二進制數據
-                // 這裡假設 $image 是二進制數據，根據實際情況你可能需要用 file_get_contents 讀取文件
-                $image_base64 = base64_encode($image);
-                
-                // 更新 $row 以包含 base64 編碼的圖片
-                $row['restaurant_image'] = $image_base64;
-            }
-        }
+        
 
         // 返回 JSON 格式的數據
         header('Content-Type: application/json');
@@ -88,7 +81,7 @@ function getSaleInfo($a) {
         if($a=='最高評分'){
             //餐廳名，分數，均消，就價錢，新價錢，結束時間
             $sql = "SELECT 
-            name , item_name , score , avg_price, item_price , discount_price , end_time 
+            name , item_name , score , avg_price, item_price , discount_price , end_time , item_photo
             FROM Restinfos 
                        left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
                        left join filtclasses on RestInfos.f_c_id =  filtclasses.id
@@ -102,7 +95,7 @@ function getSaleInfo($a) {
 
         }else{
             $sql = "SELECT 
-            restclass , name , item_name , score , avg_price, item_price , discount_price , end_time 
+            restclass , name , item_name , score , avg_price, item_price , discount_price , end_time , item_photo
             FROM Restinfos 
                        left join Users on RestInfos.user_id = Users.id left join MemberReviews on RestInfos.id = MemberReviews.r_id
                        left join filtclasses on RestInfos.f_c_id =  filtclasses.id
@@ -120,16 +113,16 @@ function getSaleInfo($a) {
         // 把所有的查詢結果存在 rows 裡
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // 處理圖片並將其轉換為 base64
-        foreach ($rows as &$row){
-            $imgPath = $row['photo'];
-            $img = file_get_contents('/Applications' . $imgPath);
-            // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
-            // print($img);
-        //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
+        // // 處理圖片並將其轉換為 base64
+        // foreach ($rows as &$row){
+        //     $imgPath = $row['photo'];
+        //     $img = file_get_contents('/Applications' . $imgPath);
+        //     // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
+        //     // print($img);
+        // //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
 
-            $row['photo'] = base64_encode($img);
-        };
+        //     $row['photo'] = base64_encode($img);
+        // };
 
         // 返回 JSON 格式的數據
         header('Content-Type: application/json');

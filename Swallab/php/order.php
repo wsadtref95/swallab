@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "swallabfinal2";
+$dbname = "swallab";
 $user = "root";
 $db = new PDO("mysql:host=${host};dbname=${dbname}", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
