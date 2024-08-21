@@ -8,15 +8,21 @@ class RestFavoriteResource extends JsonResource
 {
     public function toArray($request)
     {
-        $avgRating = $this->when($this->restInfo && $this->restInfo->memberReviews, function () {
-            return $this->restInfo->memberReviews->avg('score');});
-            
         return [
-            'id' => optional($this)->id,
-            'restaurant' => new RestaurantResource(optional($this)->restInfo),
-            'member' => new MemberResource(optional($this)->member),
-            'average_rating' => $avgRating,
-            'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
+            'id' => $this->id,
+            'type' => 'restFavorite',
+            'restaurant' => [
+                'name' => $this->RestInfos->Users->name,
+                'avatar' => $this->RestInfos->Users->avatar,
+                'address' => $this->RestInfos->address,
+                'avg_price' => $this->RestInfos->avg_price,
+                'wd_operating' => $this->RestInfos->wd_operating,
+                'purposes' => $this->RestInfos->SuitableFor->map(function ($suitableFor) {
+                    return $suitableFor->FiltPurposes->purpose;
+                }),
+            ],
+            'created_at' => optional($this->created_at)->toDateTimeString(),
         ];
     }
 }
+

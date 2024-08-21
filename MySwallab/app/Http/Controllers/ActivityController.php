@@ -159,170 +159,43 @@ class ActivityController extends Controller
             $restFavorites = RestFavorites::with([
                 'RestInfos.Users',
                 'RestInfos.FiltClasses',
-                'RestInfos.MemberReviews'
-            ])->latest();
+                'RestInfos.MemberReviews',
+                'RestInfos.SuitableFor.FiltPurposes'  // 添加這行以獲取適合的目的
+            ])->latest()->get();
 
             $notesFavorites = NotesFavorites::with([
                 'MemberNotes.RestInfos.Users',
                 'MemberNotes.RestInfos.FiltClasses',
-                'MemberNotes.RestComments',
-                'MemberNotes.RestFavorites'
-            ])->latest();
+                'MemberNotes.NotesComments',
+                'MemberNotes.NotesFavorites'
+            ])->latest()->get();
 
-            $favorites = $restFavorites->union($notesFavorites)->paginate(4);
+            $favorites = $restFavorites->concat($notesFavorites)->sortByDesc('created_at')->take(4);
 
-            return RestFavoriteResource::collection($favorites->filter(function ($favorite) {
+            $restFavoriteResources = RestFavoriteResource::collection($favorites->filter(function ($favorite) {
                 return $favorite instanceof RestFavorites;
-            }))->concat(NotesFavoriteResource::collection($favorites->filter(function ($favorite) {
+            }));
+
+            $notesFavoriteResources = NotesFavoriteResource::collection($favorites->filter(function ($favorite) {
                 return $favorite instanceof NotesFavorites;
-            })));
+            }));
+
+            return response()->json([
+                'restFavorites' => $restFavoriteResources,
+                'notesFavorites' => $notesFavoriteResources
+            ]);
+
         } catch (\Exception $e) {
             return response()->json([
                 'error' => '內部伺服器錯誤',
                 'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()
             ], 500);
         }
     }
 
-
-
-
-
-    // namespace App\Http\Controllers;
-
-    // use App\Models\OrderInfos;
-// use App\Models\MemberNotes;
-// use App\Models\RestComments;
-// use App\Models\NotesComments;
-// use App\Models\RestFavorites;
-// use App\Models\NotesFavorites;
-// use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Log;
-
-    // class ActivityController extends Controller
-// {
-//     public function all()
-//     {
-//         try {
-//             $orders = OrderInfos::with([
-//                 'RestInfos.Users',
-//                 'OrderStatuses',
-//                 'OrderDetails',
-//                 'Members.Users',
-//             ])->latest()->take(4)->get()
-//                 ->map(function ($order) {
-//                     $order->type = 'order';
-//                     $order->restaurant_name = $order->RestInfos->Users->name ?? "Unknown";
-//                     $order->total_price = $order->OrderDetails->sum(function ($detail) {
-//                         return $detail->item_price * $detail->item_qty;
-//                     });
-//                     return $order;
-//                 });
-
-    //             $notes = MemberNotes::with([
-//                 'RestInfos.Users',
-//                 'Members.Users'
-//             ])->latest()->take(4)->get()
-//                 ->map(function ($note) {
-//                     $note->type = 'note';
-//                     return $note;
-//                 });
-
-    //             $comments = RestComments::with([
-//                 'RestInfos.Users',
-//                 'Members.Users'
-//             ])->latest()->take(2)
-//                 ->union(NotesComments::with([
-//                     'MemberNotes.RestInfos.Users',
-//                     'Members.Users'
-//                 ])->latest()->take(2))
-//                 ->get()
-//                 ->map(function ($comment) {
-//                     $comment->type = 'comment';
-//                     $comment->restaurant_name = $comment->RestInfos ? $comment->RestInfos->Users->name : $comment->MemberNotes->RestInfos->Users->name;
-//                     $comment->restaurant_image = $comment->RestInfos ? $comment->RestInfos->Users->avatar : $comment->MemberNotes->RestInfos->Users->avatar;
-//                     return $comment;
-//                 });
-
-    //             $favorites = RestFavorites::with([
-//                 'RestInfos.Users',
-//                 'Members.Users'
-//             ])->latest()->take(2)
-//                 ->union(NotesFavorites::with([
-//                     'MemberNotes.RestInfos.Users',
-//                     'Members.Users'
-//                 ])->latest()->take(2))
-//                 ->get()
-//                 ->map(function ($favorite) {
-//                     $favorite->type = 'favorite';
-//                     $favorite->restaurant_name = $favorite->RestInfos ? $favorite->RestInfos->Users->name : $favorite->MemberNotes->RestInfos->Users->name;
-//                     $favorite->main_photo = $favorite->RestInfos ? $favorite->RestInfos->Users->avatar : $favorite->MemberNotes->main_photo;
-//                     $favorite->address = $favorite->RestInfos ? $favorite->RestInfos->address : null;
-//                     $favorite->avg_price = $favorite->RestInfos ? $favorite->RestInfos->avg_price : null;
-//                     $favorite->wd_operating = $favorite->RestInfos ? $favorite->RestInfos->wd_operating : null;
-//                     return $favorite;
-//                 });
-
-    //             return response()->json([
-//                 'orders' => $orders,
-//                 'notes' => $notes,
-//                 'comments' => $comments,
-//                 'favorites' => $favorites,
-//             ]);
-//         } catch (\Exception $e) {
-//             return response()->json(['error' => '內部伺服器錯誤'], 500);
-//         }
-//     }
-
-    //     public function orderInfos(Request $request)
-//     {
-//         try {
-//             $result = OrderInfos::with([
-//                 'RestInfos.Users',
-//                 'OrderStatuses',
-//                 'OrderDetails',
-//                 'Members.Users',
-//             ])->latest()->paginate(4);
-//             return $result;
-//         } catch (\Exception $e) {
-//             return response()->json(['error' => '內部伺服器錯誤'], 500);
-//         }
-//     }
-
-    //     public function memberNotes(Request $request)
-//     {
-//         try {
-//             $result = MemberNotes::with(['RestInfos'])->latest()->paginate(4);
-//             return $result;
-//         } catch (\Exception $e) {
-//             return response()->json(['error' => '內部伺服器錯誤'], 500);
-//         }
-//     }
-
-    //     public function comments(Request $request)
-//     {
-//         try {
-//             $comments = RestComments::with(['RestInfos'])->latest()
-//                 ->union(NotesComments::with(['MemberNotes'])->latest())
-//                 ->paginate(4);
-//             return $comments;
-//         } catch (\Exception $e) {
-//             return response()->json(['error' => '內部伺服器錯誤'], 500);
-//         }
-//     }
-
-    //     public function favorites(Request $request)
-//     {
-//         try {
-//             $favorites = RestFavorites::with(['RestInfos'])->latest()
-//                 ->union(NotesFavorites::with(['MemberNotes'])->latest())
-//                 ->paginate(4);
-//             return $favorites;
-//         } catch (\Exception $e) {
-//             return response()->json(['error' => '內部伺服器錯誤'], 500);
-//         }
-//     }
 
     public function updateRestComment(Request $request, $id)
     {

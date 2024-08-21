@@ -33,8 +33,8 @@ class RestaurantResource extends JsonResource
                 'email' => optional(optional($this)->Users)->email,
                 'avatar' => optional(optional($this)->Users)->avatar,
             ],
-            'filt_class' => optional(optional($this)->filtClasses)->restclass,
-            'filt_location' => optional(optional($this)->filtLocations)->location,
+            'filt_class' => optional(optional($this)->FiltClasses)->restclass,
+            'filt_location' => optional(optional($this)->FiltLocations)->location,
             'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
             'updated_at' => optional(optional($this)->updated_at)->toDateTimeString(),
 

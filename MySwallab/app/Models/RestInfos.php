@@ -61,4 +61,7 @@ class RestInfos extends Model
     public function RestComments(){
         return $this->hasMany(RestComments::class,'r_id','id');
     }
+    public function SuitableFor(){
+        return $this->hasMany(SuitableFor::class,'r_id','id');
+    }
 }
