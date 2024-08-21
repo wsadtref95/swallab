@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
+    <link href="../css/root.css" rel="stylesheet">
+    <link href="../css/nav.css" rel="stylesheet">
+    <link href="../css/footer.css" rel="stylesheet">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- css -->
+    <link rel="stylesheet" href="../css/history_react.css">
+    <link rel="stylesheet" href="../css/myHistory.css">
+    <link rel="stylesheet" href="../css/myHistory_temp_order.css">
+    <!-- <link rel="stylesheet" href="../css/history_react.css"> -->
+    <!-- icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- jQuery -->
+    <script src="../js/jquery-3.7.1.js"></script>
+</head>
+
+<body>
+    <!-- NAV -->
+    <div id="nav-container"></div>
+    <!-- NAV -->
+
+    <main>
+        <div class="w-100 container mt-5" style="flex:1">
+            <div id="root"></div>
+
+            <!-- main content_end -->
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <!-- <script src="../js/nav.js"></script> -->
+    <!-- FOOTER -->
+
+    <script>
+        //載入 nav
+        // $(document).ready(function () {
+        //     // $("#nav-container").load("../nav/nav.html");
+        //     $("#nav-container").load("../nav/search_results.html #myNav");
+        // });
+
+        // 待測試怎麼載入 script
+        // $.get("../nav/search_results.html", function (data) {
+        //     $("#nav-container").html(data);
+        //     $(data).find("script").each(function () {
+        //         $.getScript($(this).attr("src"));
+        //     });
+        // });
+    </script>
+    <!-- 
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        // API 共用 URL
+        const API_BASE_URL = 'http://localhost:8000/api';
+
+        function MemberActivity() {
+            const [state, setState] = useState({
+                activeTab: 'all',
+                activities: [],
+                isLoading: false
+            });
+
+            const isInitialMount = useRef(true);
+            const shouldFetchData = useRef(false);
+
+            const updateState = (newState) => {
+                setState(prevState => ({ ...prevState, ...newState }));
+            };
+
+            const fetchActivities = async (tab) => {
+                console.log('Fetching activities for tab:', tab);
+                updateState({ isLoading: true });
+                try {
+                    const response = await fetch(`${API_BASE_URL}/member-activity/${tab}`);
+                    if (!response.ok) throw new Error('網絡響應不正確');
+                    const data = await response.json();
+                    console.log('Fetched data:', data);
+                    updateState({
+                        activities: data,
+                        isLoading: false
+                    });
+                } catch (error) {
+                    console.error('獲取活動時出錯：', error);
+                    updateState({ isLoading: false });
+                }
+                shouldFetchData.current = false;
+            };
+
+            useEffect(() => {
+                if (isInitialMount.current) {
+                    console.log('Initial mount, fetching data');
+                    isInitialMount.current = false;
+                    fetchActivities(state.activeTab);
+                } else if (shouldFetchData.current) {
+                    console.log('Fetching data due to tab change');
+                    fetchActivities(state.activeTab);
+                }
+            }, [state.activeTab]);
+
+            const handleTabChange = (tab) => {
+                console.log('Tab changed to:', tab);
+                shouldFetchData.current = true;
+                updateState({ activeTab: tab });
+            };
+
+            return (
+                <div className="member-activity-container">
+                    <h1>會員活動</h1>
+                    <div className="tab-buttons">
+                        {['all', 'OrderInfos', 'MemberNotes', 'Comments', 'Favorites'].map(tab => (
+                            <button
+                                key={tab}
+                                className={`tab-button ${state.activeTab === tab ? 'active' : ''}`}
+                                onClick={() => handleTabChange(tab)}
+                            >
+                                {tab}
+                            </button>
+                        ))}
+                    </div>
+                    {state.isLoading ? (
+                        <div>載入中...</div>
+                    ) : (
+                        <div>
+                            <h2>活動列表</h2>
+                            <pre>{JSON.stringify(state.activities, null, 2)}</pre>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<MemberActivity />);
+    </script> -->
+
+    <script type="text/babel">
+
+
+        // React
+        const { useState, useEffect } = React;
+        // API URL 共用部分
+        const API_BASE_URL = 'http://localhost:8000/api';
+
+        // 主程式
+        function MemberActivity() {
+            const [state, setState] = useState({
+                activeTab: 'all',
+                activities: [],
+                hasMore: true,
+                currentPage: 1,
+                isLoading: true
+            });
+            // 切換 tab
+            const [activeTab, setActiveTab] = useState('all');
+            // 儲存 API 數據，每次獲取時更新
+            const [activities, setActivities] = useState([]);
+            // 是否載入中
+            const [isLoading, setIsLoading] = useState(true);
+
+            // 渲染時間點：獲取數據（ 切換 tab ）時 -> 載入及切換 tab 
+            useEffect(() => {
+                console.log('Fetching activities for tab:', activeTab);
+                fetchActivities(activeTab);
+            }, []);
+            {
+                state.activities.map(activity => {
+                    switch (activity.type) {
+                        case 'order':
+                            return activity ? <OrderInfos key={`order-${activity.id}`} order={activity} /> : null;
+                        case 'note':
+                            return <MemberNotes key={`note-${activity.id}`} note={activity} />;
+                        case 'comment':
+                            return <Comments key={`comment-${activity.id}`} comment={activity} />;
+                        case 'favorite':
+                            return <Favorites key={`favorite-${activity.id}`} favorite={activity} />;
+                        default:
+                            return null;
+                    }
+                })
+            }
+            // Fetch 依據：tab
+            const fetchActivities = async (tab) => {
+                setIsLoading(true);
+                try {
+
+                    // const response = await fetch(`https://reqres.in/api/users?page=2`);
+                    // const response = await fetch(`http://localhost:8000/api/member-activity/all`);
+                    setState(prev => ({ ...prev, isLoading: true }));
+                    const response = await fetch(`${API_BASE_URL}/member-activity/all`);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+                    console.log('Fetched data:', data);
+                    const sortedActivities = sortActivitiesByDate(data);
+                    setState(prev => ({
+                        ...prev,
+                        activities: sortedActivities,
+                        isLoading: false
+                    }));
+                } catch (error) {
+                    console.error('Error fetching all activities:', error);
+                    setState(prev => ({ ...prev, isLoading: false }));
+                }
+            };
+
+            // 傳入選中的標籤觸發 useState 
+            const handleTabChange = async (tab) => {
+                setState(prev => ({ ...prev, activeTab: tab, isLoading: true }));
+                if (tab === 'all') {
+                    await fetchAllActivities();
+                } else {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/member-activity/${tab}?page=1&limit=10`);
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        const data = await response.json();
+                        setState(prev => ({
+                            ...prev,
+                            activities: data.data,
+                            hasMore: data.next_page_url !== null,
+                            currentPage: 1,
+                            isLoading: false
+                        }));
+                    } catch (error) {
+                        console.error(`Error fetching ${tab} activities:`, error);
+                        setState(prev => ({ ...prev, isLoading: false }));
+                    }
+                }
+            };
+
+            const handleLoadMore = async () => {
+                if (state.activeTab === 'all' || state.isLoading) return;
+
+                try {
+                    setState(prev => ({ ...prev, isLoading: true }));
+                    const response = await fetch(`${API_BASE_URL}/member-activity/${state.activeTab}?page=${state.currentPage + 1}&limit=10`);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+                    setState(prev => ({
+                        ...prev,
+                        activities: [...prev.activities, ...data.data],
+                        hasMore: data.next_page_url !== null,
+                        currentPage: prev.currentPage + 1,
+                        isLoading: false
+                    }));
+                } catch (error) {
+                    console.error('Error loading more activities:', error);
+                    setState(prev => ({ ...prev, isLoading: false }));
+                }
+            };
+
+            const sortActivitiesByDate = (data) => {
+                console.log(data);
+                const allActivities = [
+                    ...(data.orders || []).map(item => ({ ...item, type: 'order' })),
+                    ...(data.notes || []).map(item => ({ ...item, type: 'note' })),
+                    ...(data.comments || []).map(item => ({ ...item, type: 'comment' })),
+                    ...(data.favorites || []).map(item => ({ ...item, type: 'favorite' }))
+                ];
+                return allActivities.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            };
+
+            return (
+                <div className="member-activity-container">
+                    <div className="rightpart">
+                        <div id="sidebar" className="sidebar col-2 text-center">
+                            <div className="col align-self-center">
+                                <a href="#"><p>個人檔案</p></a>
+                                <a href="#"><p>我的訂單</p></a>
+                                <a href="#" className="active"><p>歷史紀錄</p></a>
+                                <a href="#"><p>發布食記</p></a>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="breadcrumb">
+                                <a href="#">會員中心</a>
+                                <span> → </span>
+                                <a href="./myHistory.html" className="active">歷史紀錄</a>
+                            </div>
+                            <div className="row ms-5 justify-content-center">
+                                {['all', 'OrderInfos', 'MemberNotes', 'Comments', 'Favorites'].map(tab => (
+                                    <div className="col-2" key={tab}>
+                                        <button
+                                            className={`btn btn-outline-success tab-button ${state.activeTab === tab ? 'active' : ''}`}
+                                            onClick={() => handleTabChange(tab)}
+                                        >
+                                            {tab === 'all' ? '全部' :
+                                                tab === 'OrderInfos' ? '歷史訂單' :
+                                                    tab === 'MemberNotes' ? '歷史食記' :
+                                                        tab === 'Comments' ? '我的評論' : '我的收藏'}
+                                        </button>
+                                    </div>
+                                ))}
+                                <hr className="mt-3" />
+                            </div>
+
+                            {state.isLoading ? (
+                                <p>Loading...</p>
+                            ) : (
+                                state.activities.map(activity => {
+                                    switch (activity.type) {
+                                        case 'order':
+                                            return <OrderInfos key={`order-${activity.id}`} order={activity} />;
+                                        case 'note':
+                                            return <MemberNotes key={`note-${activity.id}`} note={activity} />;
+                                        case 'comment':
+                                            return <Comments key={`comment-${activity.id}`} comment={activity} />;
+                                        case 'favorite':
+                                            return <Favorites key={`favorite-${activity.id}`} favorite={activity} />;
+                                        default:
+                                            return null;
+                                    }
+                                })
+                            )}
+
+                            {state.hasMore && !state.isLoading && state.activeTab !== 'all' && (
+                                <button className="btn btn-outline-success" onClick={handleLoadMore}>觀看更多</button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+
+        // components
+        // function OrderInfos({ order }) {
+        //     if (!order || !order.OrderDetails) {
+        //         return <div>載入中</div>;
+        //     }
+        //     return (
+        //         <div className="row mt-5 myRecordsTemp align-self-center">
+        //             <div className="col-2">
+        //                 <div className="myRecordsContainer align-self-center">
+        //                     <img className="activity-image" src={order.RestInfos?.Users?.avatar} alt={order.restaurant_name} />
+        //                 </div>
+        //             </div>
+        //             <div className="col-1"></div>
+        //             <div className="col-5">
+        //                 <div className="activity-title">
+        //                     <div>訂單狀態：{order.OrderStatuses?.status}</div>
+        //                     <a href="#"><span>{order.restaurant_name}</span></a>
+        //                 </div>
+        //                 <div className="row myRecordsInfo container">
+        //                     {order.OrderDetails.map((item, index) => (
+        //                         <div key={index}>
+        //                             {item.item_qty}份 {item.item_price}的 {item.item_name}
+        //                         </div>
+        //                     ))}
+        //                     <a href="" className="me-0">more...</a>
+        //                 </div>
+        //             </div>
+        //             <div className="col-1 align-items-center">
+        //                 <div><span>${order.total_price}</span></div>
+        //             </div>
+        //             <div className="col-2 myRecordsBtn">
+        //                 <div><span>{order.created_at_date}</span></div>
+        //                 <button className="activity-button">再次訂購</button>
+        //             </div>
+        //             <div className="col-1"></div>
+        //         </div>
+        //     );
+        // }
+        // function MemberNotes({ note }) {
+        //     return (
+        //         <div className="row mt-5 myRecordsTemp align-self-center">
+        //             <div className="col-2">
+        //                 <div className="myRecordsContainer align-self-center">
+        //                     <img className="activity-image" src={note.main_photo} alt={note.title} />
+        //                 </div>
+        //             </div>
+        //             <div className="col-8">
+        //                 <div className="row activity-title">
+        //                     <a href=""><span>{note.title}</span></a>
+        //                 </div>
+        //                 <div className="row myRecordsInfo container-fluid myNotes">
+        //                     <div className="activity-content">{note.content}</div>
+        //                 </div>
+        //             </div>
+        //             <div className="col-2">
+        //                 <div><span>{note.created_at_date}</span> <br /><span>{note.created_at_time}</span></div>
+        //                 <div className="activity-buttons">
+        //                     <button className="activity-button">
+        //                         <i className="fa-solid fa-pen-to-square"></i>
+        //                     </button>
+        //                     <button className="activity-button">
+        //                         <i className="fa-solid fa-trash-can"></i>
+        //                     </button>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     );
+        // }
+
+        // function Comments({ comment, onEdit, onDelete }) {
+        //     const [isEditing, setIsEditing] = useState(false);
+        //     const [editedContent, setEditedContent] = useState(comment.content);
+
+        //     const handleEdit = () => {
+        //         onEdit(comment.id, editedContent);
+        //         setIsEditing(false);
+        //     };
+
+        //     return (
+        //         <div className="row mt-5 myRecordsTemp align-self-center">
+        //             <div className="col-2">
+        //                 <div className="myRecordsContainer align-self-center">
+        //                     <img className="activity-image" src={comment.restaurant_image} alt={comment.restaurant_name} />
+        //                 </div>
+        //             </div>
+        //             <div className="col-8">
+        //                 <div className="row myRecordsTitle">
+        //                     <a href="#"><span>{comment.restaurant_name}</span></a>
+        //                 </div>
+        //                 <div className="row myRecordsContent container">
+        //                     {isEditing ? (
+        //                         <textarea
+        //                             value={editedContent}
+        //                             onChange={(e) => setEditedContent(e.target.value)}
+        //                         />
+        //                     ) : (
+        //                         comment.content
+        //                     )}
+        //                 </div>
+        //             </div>
+        //             <div className="col-2">
+        //                 <div><span>{comment.created_at_date}</span> <br /><span>{comment.created_at_time}</span></div>
+        //                 <div className="activity-buttons">
+        //                     {isEditing ? (
+        //                         <>
+        //                             <button className="activity-button" onClick={handleEdit}>保存</button>
+        //                             <button className="activity-button" onClick={() => setIsEditing(false)}>取消</button>
+        //                         </>
+        //                     ) : (
+        //                         <>
+        //                             <button className="activity-button" onClick={() => setIsEditing(true)}>
+        //                                 <i className="fa-solid fa-pen-to-square"></i>
+        //                             </button>
+        //                             <button className="activity-button" onClick={() => onDelete(comment.id)}>
+        //                                 <i className="fa-solid fa-trash-can"></i>
+        //                             </button>
+        //                         </>
+        //                     )}
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     );
+        // }
+
+        // function Favorites({ favorite, onDelete }) {
+        //     return (
+        //         <div className="row mt-5 myRecordsTemp align-self-center">
+        //             <div className="col-2">
+        //                 <div className="myRecordsContainer align-self-center">
+        //                     <img className="activity-image" src={favorite.main_photo} alt={favorite.restaurant_name} />
+        //                 </div>
+        //             </div>
+        //             <div className="col-8">
+        //                 <div className="activity-title">
+        //                     <a href="#"><span>{favorite.restaurant_name}</span></a>
+        //                 </div>
+        //                 <div className="row myRecordsInfo container activity-content">
+        //                     <div><span>地址: {favorite.address}</span></div>
+        //                     <div><span>均價: ${favorite.avg_price}</span></div>
+        //                     <div><span>營業時間: {favorite.wd_operating}</span></div>
+        //                 </div>
+        //             </div>
+        //             <div className="col-2 myRecordsBtn">
+        //                 <div><span>{favorite.created_at_date}</span><br /><span> {favorite.created_at_time}</span></div>
+        //                 <button className="activity-button" onClick={() => onDelete(favorite.id)}>移除收藏</button>
+        //             </div>
+        //         </div>
+        //     );
+        // }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<MemberActivity />);
+
+    </script>
+
+</body>
+
+</html>

@@ -256,7 +256,6 @@
             fetch('http://localhost:8000/api/filtlocations')
                 .then(response => response.json())
                 .then(data => {
-
                     console.log(data);
                     data.forEach(location => {
                         var option = document.createElement('a');
@@ -267,8 +266,6 @@
                         };
                         option.textContent = location.location;
                         dropdown.appendChild(option);
-                        // updateSearchResults(data);
-
                     });
                 })
                 .catch(error => console.error('Error fetching locations:', error));
@@ -278,8 +275,8 @@
         // 搜尋框顯示
         // FiltClasses
         function fillInput(value) {
-            if (value === '所有類型') {
-                document.getElementById('myInput').value = '所有類型';
+            if (value === '不設分類') {
+                document.getElementById('myInput').value = '不設分類';
                 document.getElementById('myInput').dataset.value = '';
             } else {
                 document.getElementById('myInput').value = value;
@@ -478,7 +475,6 @@
         <p>符合條件的結果數量: ${data.filtered.length}</p>
         <p>其他結果數量: ${data.all.length}</p>
         `;
-
             }
         }
 
@@ -498,7 +494,7 @@
         document.getElementById('popupRest').addEventListener('click', function () {
             searchTypeIcon.className = 'fa-solid fa-utensils';
         });
-        // debugger; //NO.2, 然後 DOMContentLoaded
+        // debugger; //NO.2, then DOMContentLoaded
 
         // });
     </script>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test with Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #result,
+        #debug {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>API Test with Enhanced Debugging</h1>
+    <button id="testButton">Test API</button>
+    <div id="result"></div>
+    <div id="debug"></div>
+
+    <script>
+        // localStorage.removeItem('reloadCount');
+        
+        window.addEventListener('load', function () {
+            const navigation = performance.getEntriesByType('navigation')[0];
+            log(`頁面加載類型: ${navigation.type}`);
+            if (navigation.type === 'reload') {
+                log('頁面被重新加載');
+            }
+        });
+        let debugInfo = [];
+        let reloadCount = 0;
+
+        function log(message) {
+            const timestamp = new Date().toISOString();
+
+            debugInfo.push(`${timestamp}: ${message}`);
+            updateDebugDisplay();
+        }
+
+        function updateDebugDisplay() {
+            const debugElement = document.getElementById('debug');
+            debugElement.innerHTML = '<h3>Debug Log:</h3><pre>' + debugInfo.join('\n') + '</pre>';
+        }
+
+        // function testAPI() {
+        //     log('開始 API 測試');
+        //     const resultDiv = document.getElementById('result');
+        //     resultDiv.innerHTML = 'Loading...';
+
+        //     fetch('http://localhost:8000/api/member-activity/all?page=1&limit=4')
+        //         .then(response => {
+        //             log(`收到 API 響應，狀態碼: ${response.status}`);
+        //             response.headers.forEach((value, name) => {
+        //                 log(`響應頭: ${name}: ${value}`);
+        //             });
+        //         })
+        //         .then(data => {
+        //             log('API 響應內容: ' + JSON.stringify(data));
+        //             console.log('API Response:', data);
+        //             resultDiv.innerHTML = '<h2>API Response:</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        //             log('API 處理完成，檢查是否有重定向');
+        //             setTimeout(() => {
+        //                 log('1秒後，頁面仍然存在，沒有重定向');
+        //             }, 1000);
+        //         })
+        //         .then(() => {
+        //             log('延遲後檢查：頁面未刷新');
+        //         })
+        //         .catch(error => {
+        //             log('捕獲到錯誤: ' + error.message);
+        //             console.error('Error:', error);
+        //             resultDiv.innerHTML = '<h2>Error:</h2><p>' + error.message + '</p>';
+        //         });
+
+        //     log('API 請求已發送，等待響應');
+        // }
+
+        // 監聽頁面加載完成事件
+
+        async function testAPI(event) {
+            // event.preventDefault();
+            log('開始 API 測試');
+            try {
+                const response = await fetch('http://localhost:8000/api/member-activity/all?page=1&limit=4');
+                log(`收到 API 響應，狀態碼: ${response.status}`);
+                const data = await response.json();
+                log('API 響應內容: ' + JSON.stringify(data));
+                // 處理數據...
+                log('API 處理完成，檢查是否有重定向');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                log('1秒後，頁面仍然存在，沒有重定向');
+            } catch (error) {
+                log('API 請求錯誤: ' + error.message);
+            }
+        }
+
+        window.addEventListener('load', function () {
+            log('頁面加載完成');
+            reloadCount = parseInt(localStorage.getItem('reloadCount') || '0');
+            reloadCount++;
+            localStorage.setItem('reloadCount', reloadCount);
+            log(`這是第 ${reloadCount} 次加載頁面`);
+
+            document.getElementById('testButton').addEventListener('click', function (event) {
+                event.preventDefault();
+                log('測試按鈕被點擊');
+                testAPI();
+            });
+        });
+
+        // 監聽頁面即將卸載事件
+        window.addEventListener('beforeunload', function (event) {
+            log('頁面即將卸載');
+            localStorage.setItem('lastLog', JSON.stringify(debugInfo));
+        });
+
+        // 檢查是否有上一次的日誌
+        const lastLog = localStorage.getItem('lastLog');
+        if (lastLog) {
+            debugInfo = JSON.parse(lastLog);
+            log('載入了上一次的日誌');
+            updateDebugDisplay();
+        }
+        log('當前全局事件監聽器：');
+        for (let ev in window) {
+            if (/^on/.test(ev)) {
+                log(ev);
+            }
+        }
+    </script>
+</body>
+
+</html>
