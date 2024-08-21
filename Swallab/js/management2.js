@@ -40,11 +40,11 @@ $().ready(function () {
         let id = myMenuListDiv[0]['id'];
         modifyFormCon.classList.remove('d-none');
         let body = new URLSearchParams({ myFoodId: id }).toString();
-        // console.log(body);
+        console.log(body);
         mySmallLoading.classList.remove('d-none');
         let data = await connectDB('getsinglemenu', body)
         mySmallLoading.classList.add('d-none');
-        // console.log(data);
+        console.log(data);
         const { item_name, item_price, item_photo } = data;
         // 照片
         // console.log(data[0]['photo']);

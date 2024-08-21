@@ -108,8 +108,15 @@ $().ready(function () {
         let inputValue = parseInt($(`#${this.id}`).val());
         // console.log(inputValue);
         if (inputValue >= price || inputValue <= 0) {
-            $(`#originalPrice${id}`).text('請輸入正確金額')
+            $(`#originalPrice${id}`).text('')
+            $('#myResult').text('  請輸入正確金額')
+            console.log($('#myResult'));
+            $(`#${this.id}`).val('')
+            
+            
             await sleep(3000);
+            $('#myResult').text('')
+            console.log(2222);
             $(`#originalPrice${id}`).text(price1)
         }
     })
