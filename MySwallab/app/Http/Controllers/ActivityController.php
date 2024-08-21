@@ -78,10 +78,10 @@ class ActivityController extends Controller
     {
         try {
             $result = OrderInfos::with([
-                'OrderDetails',
-                'OrderStatuses',
                 'RestInfos.Users',
-                'Members.Users'
+                'OrderStatuses',
+                'OrderDetails',
+                // 'Members.Users'
             ])->latest()->paginate(4);
             return OrderResource::collection($result);
         } catch (\Exception $e) {

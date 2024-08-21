@@ -8,6 +8,9 @@ class RestaurantResource extends JsonResource
 {
     public function toArray($request)
     {
+        $restInfo = $this->RestInfos;
+        $users = optional($restInfo)->Users;
+
         return [
             'id' => optional($this)->id,
             'user_id' => optional($this)->user_id,
@@ -26,14 +29,18 @@ class RestaurantResource extends JsonResource
             'we_close_1' => optional($this)->we_close_1,
             'we_close_2' => optional($this)->we_close_2,
             'user' => [
-                'name' => optional(optional($this)->users)->name,
-                'email' => optional(optional($this)->users)->email,
-                'avatar' => optional(optional($this)->users)->avatar,
+                'name' => optional(optional($this)->Users)->name,
+                'email' => optional(optional($this)->Users)->email,
+                'avatar' => optional(optional($this)->Users)->avatar,
             ],
             'filt_class' => optional(optional($this)->filtClasses)->restclass,
             'filt_location' => optional(optional($this)->filtLocations)->location,
             'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
             'updated_at' => optional(optional($this)->updated_at)->toDateTimeString(),
+
+            'restaurant_name' => optional($users)->name,
+            'debug_rest_info' => $restInfo,
+            'debug_user' => $users,
         ];
     }
 }

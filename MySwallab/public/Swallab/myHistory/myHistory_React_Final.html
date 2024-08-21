@@ -603,17 +603,20 @@
 
         function OrderInfos({ order }) {
             console.log('Order:', order);
-
+            console.log('raw_totalPrice:', typeof (order.total_price));
             // const restaurantName = order.RestInfos?.Users?.name || '未知餐廳';
-            const restaurantName = order.RestInfos?.f_c_id || '未知餐廳';
-            const restaurantImage = order.RestInfos?.Users?.avatar || '預設圖片URL';
-            const orderStatus = order.OrderStatuses?.status || '未知狀態';
-            const orderDate = order.created_at_date || '未知日期';
-            const orderItems = order.OrderDetails || [];
-            const totalPrice = orderItems.reduce((sum, item) => sum + (item.item_price * item.item_qty), 0);
+            const restaurantName = order.restaurant_name || '未知餐廳';
+            const restaurantImage = order.restaurant_img.avatar || '預設圖片URL';
+            const orderStatus = order.status || '未知狀態';
+            const raw_orderDate = new Date();
+            const raw_year = raw_orderDate.getFullYear();
+            const raw_date = raw_orderDate.getDate();
+            const raw_day = raw_orderDate.getDay();
+            const orderDate = raw_year + '-' + raw_date + '-' + raw_day;
+            const orderItems = order.details || [];
+            const totalPrice = Math.round(order.total_price) || 0;
             const [isExpanded, setIsExpanded] = useState(false);
 
-            // console.clear();
 
 
             console.log('OrderInfos',
@@ -640,21 +643,16 @@
                             <div>訂單狀態：{orderStatus}</div>
                             <a href="#"><span>{restaurantName}</span></a>
                         </div>
-                        <div className={`row myRecordsInfo container ${isExpanded ? 'expanded' : ''}`}>
+                        <div className="row myRecordsInfo container">
                             {orderItems.map((item, index) => (
                                 <div key={index}>
                                     {item.item_qty}份 ${item.item_price}的 {item.item_name} <br />
                                 </div>
                             ))}
                         </div>
-                        {orderItems.length > 0 && (
-                            <button onClick={() => setIsExpanded(!isExpanded)} className="btn btn-link">
-                                {isExpanded ? '收起' : '顯示更多...'}
-                            </button>
-                        )}
                     </div>
                     <div className="col-1 align-items-center">
-                        <div><span>${totalPrice.toFixed(2)} </span></div>
+                        <div><span>${totalPrice} </span></div>
                     </div>
                     <div className="col-2 myRecordsBtn">
                         <div><span>{orderDate}</span></div>
@@ -670,9 +668,9 @@
             const noteContent = note.content || '無內容';
             const noteImage = note.main_photo || '預設圖片URL';
             const viewCount = note.count || 0;
-            const commentCount = note.NotesComments?.length || 0;
-            const createdDate = note.created_at_date || '未知日期';
-            console.log('Note:', note);
+            const commentCount = note.comments?.length || 0;
+            const createdDate = note.created_at || '未知日期';
+            const restaurantName = note.restaurant?.user?.name || '未知餐廳';
 
             return (
                 <div className="row mt-5 myRecordsTemp align-self-center">
@@ -685,6 +683,7 @@
                     <div className="col-4">
                         <div className="row activity-title">
                             <a href=""><span>{noteTitle}</span></a>
+                            <div>{restaurantName}</div>
                         </div>
                         <div className="row myRecordsInfo container-fluid myNotes border border-secondary rounded">
                             <div className="activity-content">{noteContent}</div>
@@ -720,7 +719,7 @@
             const createdDate = comment.created_at_date || '未知日期';
 
             console.log('Comment:', comment);
-            console.log('comment.rest_infos.id: ',comment.rest_infos.id )
+            console.log('comment.rest_infos.id: ', comment.rest_infos.id)
 
             function handleEdit() {
                 onEdit(comment.id, editedContent, !!comment.RestInfos);
