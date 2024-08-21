@@ -19,61 +19,67 @@ use Illuminate\Support\Facades\Log;
 
 class ActivityController extends Controller
 {
-    public function all()
+    public function all(Request $request)
     {
         try {
-            $orders = OrderResource::collection(OrderInfos::with([
-                'OrderDetails',
-                'OrderStatuses',
-                'RestInfos.Users',
-                'Members.Users'
-            ])->latest()->take(4)->get());
+            // 現成
+            $ordersResponse = $this->orderInfos($request);
+            // dd($ordersResponse);
 
-            $notes = NoteResource::collection(MemberNotes::with([
-                'RestInfos.Users',
-                'RestInfos.RestItems',
-                'RestInfos.RestDiscount',
-                'RestInfos.FiltClasses',
-                'NotesComments',
-                'NotesFavorites',
-                'Members.Users'
-            ])->latest()->take(4)->get());
+            $notesResponse = $this->memberNotes($request);
+            // dd($notesResponse);
 
-            $comments = RestCommentResource::collection(RestComments::with([
-                'RestInfos.Users',
-                'RestInfos.FiltClasses',
-                'Members.Users',
-                'Members.MemberReviews'
-            ])->latest()->take(2)->get())
-                ->concat(NotesCommentResource::collection(NotesComments::with([
-                    'MemberNotes.RestInfos.Users',
-                    'Members.Users'
-                ])->latest()->take(2)->get()));
+            $commentsResponse = $this->comments($request);
+            // dd($commentsResponse);
 
-            $favorites = RestFavoriteResource::collection(RestFavorites::with([
-                'RestInfos.Users',
-                'RestInfos.FiltClasses',
-                'RestInfos.MemberReviews'
-            ])->latest()->take(2)->get())
-                ->concat(NotesFavoriteResource::collection(NotesFavorites::with([
-                    'MemberNotes.RestInfos.Users',
-                    'MemberNotes.RestInfos.FiltClasses',
-                    'MemberNotes.RestComments',
-                    'MemberNotes.RestFavorites'
-                ])->latest()->take(2)->get()));
+            $favoritesResponse = $this->favorites($request);
+            // dd($favoritesResponse);
 
+    
+            // 根據 dd 解構
+            $orders = $ordersResponse->resource->items();
+            $notes = json_decode($notesResponse->content(), true)['query_result']['data'] ?? [];
+            $comments = json_decode($commentsResponse->content(), true);
+            $favorites = json_decode($favoritesResponse->content(), true);
+    
+            $restComments = $comments['restComments'] ?? [];
+            $notesComments = $comments['notesComments'] ?? [];
+            $restFavorites = $favorites['restFavorites'] ?? [];
+            $notesFavorites = $favorites['notesFavorites'] ?? [];
+    
+            // 合併所有數據
+            $allActivities = collect()
+                ->concat(collect($orders)->map(fn($item) => ['type' => 'order'] + $item->toArray($request)))
+                ->concat(collect($notes)->map(fn($item) => ['type' => 'note'] + (array)$item))
+                ->concat(collect($restComments)->map(fn($item) => ['type' => 'restComment'] + (array)$item))
+                ->concat(collect($notesComments)->map(fn($item) => ['type' => 'noteComment'] + (array)$item))
+                ->concat(collect($restFavorites)->map(fn($item) => ['type' => 'restFavorite'] + (array)$item))
+                ->concat(collect($notesFavorites)->map(fn($item) => ['type' => 'noteFavorite'] + (array)$item))
+                ->sortByDesc('created_at')
+                ->take(6);
+    
             return response()->json([
+                'all' => $allActivities,
                 'orders' => $orders,
                 'notes' => $notes,
-                'comments' => $comments,
-                'favorites' => $favorites,
+                'comments' => [
+                    'restComments' => $restComments,
+                    'notesComments' => $notesComments
+                ],
+                'favorites' => [
+                    'restFavorites' => $restFavorites,
+                    'notesFavorites' => $notesFavorites
+                ],
             ]);
         } catch (\Exception $e) {
-            return $orders;
-            // return response()->json(['error' => '內部伺服器錯誤'], 500);
+            return response()->json([
+                'error' => '內部伺服器錯誤',
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ], 500);
         }
     }
-
     public function orderInfos(Request $request)
     {
         try {
@@ -160,7 +166,7 @@ class ActivityController extends Controller
                 'RestInfos.Users',
                 'RestInfos.FiltClasses',
                 'RestInfos.MemberReviews',
-                'RestInfos.SuitableFor.FiltPurposes'  // 添加這行以獲取適合的目的
+                'RestInfos.SuitableFor.FiltPurposes'
             ])->latest()->get();
 
             $notesFavorites = NotesFavorites::with([

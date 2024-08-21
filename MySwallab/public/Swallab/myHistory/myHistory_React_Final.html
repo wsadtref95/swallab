@@ -334,7 +334,41 @@
                     const result = await response.json();
 
                     let processedData;
-                    if (activeTab === 'Comments') {
+                    if (activeTab === 'all') {
+                        processedData = [
+                            ...(Array.isArray(result.orders) ? result.orders.map(item => ({ ...item, type: 'order' })) : []),
+                            ...(Array.isArray(result.notes) ? result.notes.map(item => ({ ...item, type: 'note' })) : []),
+                            ...(Array.isArray(result.comments)
+                                ? result.comments.map(item => {
+                                    if (item.rest_infos) {
+                                        return { ...item, type: 'restComment' };
+                                    } else {
+                                        return { ...item, type: 'noteComment' };
+                                    }
+                                })
+                                : Array.isArray(result.comments?.restComments) && Array.isArray(result.comments?.notesComments)
+                                    ? [
+                                        ...result.comments.restComments.map(item => ({ ...item, type: 'restComment' })),
+                                        ...result.comments.notesComments.map(item => ({ ...item, type: 'noteComment' }))
+                                    ]
+                                    : []),
+                            ...(Array.isArray(result.favorites)
+                                ? result.favorites.map(item => {
+                                    if (item.rest_infos) {
+                                        return { ...item, type: 'restFavorite' };
+                                    } else {
+                                        return { ...item, type: 'noteFavorite' };
+                                    }
+                                })
+                                : Array.isArray(result.favorites?.restFavorites) && Array.isArray(result.favorites?.notesFavorites)
+                                    ? [
+                                        ...result.favorites.restFavorites.map(item => ({ ...item, type: 'restFavorite' })),
+                                        ...result.favorites.notesFavorites.map(item => ({ ...item, type: 'noteFavorite' }))
+                                    ]
+                                    : [])
+                        ];
+
+                    } else if (activeTab === 'Comments') {
                         processedData = [
                             ...(result.restComments?.map(item => ({ ...item, type: 'restComment' })) || []),
                             ...(result.notesComments?.map(item => ({ ...item, type: 'noteComment' })) || [])
@@ -565,7 +599,7 @@
                                     <div className="col-3">
                                         <button
                                             className={`btn btn-outline-secondary ${(activeTab === 'Comments' && commentType === 'rest') ||
-                                                    (activeTab === 'Favorites' && favoriteType === 'rest') ? 'active' : ''
+                                                (activeTab === 'Favorites' && favoriteType === 'rest') ? 'active' : ''
                                                 }`}
                                             onClick={() => {
                                                 if (activeTab === 'Comments') {
@@ -581,7 +615,7 @@
                                     <div className="col-3">
                                         <button
                                             className={`btn btn-outline-secondary ${(activeTab === 'Comments' && commentType === 'note') ||
-                                                    (activeTab === 'Favorites' && favoriteType === 'note') ? 'active' : ''
+                                                (activeTab === 'Favorites' && favoriteType === 'note') ? 'active' : ''
                                                 }`}
                                             onClick={() => {
                                                 if (activeTab === 'Comments') {
@@ -664,7 +698,7 @@
             console.log('raw_totalPrice:', typeof (order.total_price));
             // const restaurantName = order.RestInfos?.Users?.name || '未知餐廳';
             const restaurantName = order.restaurant_name || '未知餐廳';
-            const restaurantImage = order.restaurant_img.avatar || '預設圖片URL';
+            const restaurantImage = order.restaurant_img?.avatar || '預設圖片URL';
             const orderStatus = order.status || '未知狀態';
             const raw_orderDate = new Date();
             const raw_year = raw_orderDate.getFullYear();
