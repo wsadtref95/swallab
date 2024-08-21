@@ -121,21 +121,35 @@ class ActivityController extends Controller
                 'RestInfos.FiltClasses',
                 'Members.Users',
                 'Members.MemberReviews'
-            ])->latest();
+            ])->latest()->get();
 
             $notesComments = NotesComments::with([
                 'MemberNotes.RestInfos.Users',
                 'Members.Users'
-            ])->latest();
+            ])->latest()->get();
 
-            $comments = $restComments->union($notesComments)->paginate(4);
+            $comments = $restComments->concat($notesComments)->sortByDesc('created_at')->take(4);
 
+            $restCommentResources = RestCommentResource::collection($comments->filter(function ($comment) {
+                return $comment instanceof RestComments;
+            }));
+
+            $notesCommentResources = NotesCommentResource::collection($comments->filter(function ($comment) {
+                return $comment instanceof NotesComments;
+            }));
             return response()->json([
-                'data' => RestCommentResource::collection($restComments)
-                    ->concat(NotesCommentResource::collection($notesComments)),
+                'restComments' => $restCommentResources,
+                'notesComments' => $notesCommentResources
             ]);
+
         } catch (\Exception $e) {
-            return response()->json(['error' => '內部伺服器錯誤'], 500);
+            return response()->json([
+                'error' => '內部伺服器錯誤',
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
         }
     }
 

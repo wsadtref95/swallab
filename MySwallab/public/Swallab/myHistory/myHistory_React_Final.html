@@ -327,44 +327,23 @@
                 // };
                 try {
                     let endpoint = activeTab === 'all' ? '/all' : `/${activeTab}`;
-                    console.log('Fetching from endpoint:', `${API_BASE_URL}${endpoint}`);
-
                     const response = await fetch(`${API_BASE_URL}${endpoint}`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     const result = await response.json();
-                    console.log('raw API response:', result);
 
-                    //V1
-                    // switch (activeTab) {
-                    //     case 'OrderInfos':
-                    //     // endpoint = '/orderInfos';
-                    //     // break;
-                    //     case 'MemberNotes':
-                    //     // endpoint = '/memberNotes';
-                    //     // break;
-                    //     case 'Comments':
-                    //     // endpoint = '/comments';
-                    //     // break;
-                    //     case 'Favorites':
-                    //         // endpoint = '/favorites';
-                    //         // break;
-                    //         endpoint = `/${activeTab}`;
-                    //         break;
-                    //     default:
-                    //         endpoint = '/all';
-                    // }
-
-                    //V2
                     let processedData;
-                    if (activeTab === 'all') {
+                    if (activeTab === 'Comments') {
                         processedData = [
-                            ...(result.orders?.map(item => ({ ...item, type: 'order' })) || []),
-                            ...(result.notes?.map(item => ({ ...item, type: 'note' })) || []),
-                            ...(result.comments?.map(item => ({ ...item, type: 'comment' })) || []),
-                            ...(result.favorites?.map(item => ({ ...item, type: 'favorite' })) || [])
-                        ]
+                            ...(result.restComments?.map(item => ({ ...item, type: 'restComment' })) || []),
+                            ...(result.notesComments?.map(item => ({ ...item, type: 'noteComment' })) || [])
+                        ];
+                    } else if (activeTab === 'Favorites') {
+                        processedData = [
+                            ...(result.restFavorites?.map(item => ({ ...item, type: 'restFavorite' })) || []),
+                            ...(result.notesFavorites?.map(item => ({ ...item, type: 'noteFavorite' })) || [])
+                        ];
                     } else {
                         let type;
                         console.log('b4 switch', activeTab);
@@ -431,9 +410,9 @@
 
                 } catch (error) {
                     console.error('Error fetching activities:', error);
-                    setActivities([]);
-                    setDisplayedActivities([]);
-                    setHasMore(false);
+                    // setActivities([]);
+                    // setDisplayedActivities([]);
+                    // setHasMore(false);
                 } finally {
                     isLoadingRef.current = false;
                 }
@@ -442,6 +421,8 @@
             const handleTabChange = (tab) => {
                 console.log('Changing tab to:', tab);
                 setActiveTab(tab);
+                setCommentType('all');
+                setFavoriteType('all');
                 setExpanded(false);
             };
 
@@ -569,6 +550,26 @@
 
                                 <hr className="mt-3" />
                             </div>
+                            {activeTab === 'Comments' || activeTab === 'Favorites' ? (
+                                <div className="row ms-5 justify-content-center mt-3">
+                                    <div className="col-3">
+                                        <button
+                                            className={`btn btn-outline-secondary ${commentType === 'rest' ? 'active' : ''}`}
+                                            onClick={() => setCommentType('rest')}
+                                        >
+                                            餐廳評論
+                                        </button>
+                                    </div>
+                                    <div className="col-3">
+                                        <button
+                                            className={`btn btn-outline-secondary ${commentType === 'note' ? 'active' : ''}`}
+                                            onClick={() => setCommentType('note')}
+                                        >
+                                            食記評論
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : null}
                             {console.log('Rendering with displayedActivities:', displayedActivities)}
 
                             {isLoadingRef.current ? (
@@ -577,27 +578,41 @@
                                 <p>No activities found</p>
                             ) : (
 
-                                displayedActivities.map((activity, index) => {
-                                    const uniqueKey = `${activity.type}-${activity.id}-${index}`;
-                                    switch (activity.type) {
-                                        case 'order':
-                                            return <OrderInfos key={uniqueKey} order={activity} />;
-                                        case 'note':
-                                            return <MemberNotes key={uniqueKey} note={activity} />;
-                                        case 'restComment':
-                                            return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} isRestComment={true} />;
-                                        case 'noteComment':
-                                            return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} isRestComment={false} />;
-                                        case 'restFavorite':
-                                            return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} isRestFavorite={true} />;
-                                        case 'noteFavorite':
-                                            return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} isRestFavorite={false} />;
-                                        default:
-                                            console.log('Unknown activity type:', activity.type);
-                                            return null;
+                                displayedActivities
+                                    .filter(activity => {
+                                        if (activeTab === 'Comments') {
+                                            return commentType === 'all' ||
+                                                (commentType === 'rest' && activity.type === 'restComment') ||
+                                                (commentType === 'note' && activity.type === 'noteComment');
+                                        }
+                                        if (activeTab === 'Favorites') {
+                                            return favoriteType === 'all' ||
+                                                (favoriteType === 'rest' && activity.type === 'restFavorite') ||
+                                                (favoriteType === 'note' && activity.type === 'noteFavorite');
+                                        }
+                                        return true;
+                                    })
+                                    .map((activity, index) => {
+                                        const uniqueKey = `${activity.type}-${activity.id}-${index}`;
+                                        switch (activity.type) {
+                                            case 'order':
+                                                return <OrderInfos key={uniqueKey} order={activity} />;
+                                            case 'note':
+                                                return <MemberNotes key={uniqueKey} note={activity} />;
+                                            case 'restComment':
+                                                return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} isRestComment={true} />;
+                                            case 'noteComment':
+                                                return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} isRestComment={false} />;
+                                            case 'restFavorite':
+                                                return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} isRestFavorite={true} />;
+                                            case 'noteFavorite':
+                                                return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} isRestFavorite={false} />;
+                                            default:
+                                                console.log('Unknown activity type:', activity.type);
+                                                return null;
+                                        }
                                     }
-                                }
-                                )
+                                    )
 
                             )}
                             {console.log('加載', {
