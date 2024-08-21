@@ -8,17 +8,21 @@ class OrderResource extends JsonResource
 {
     public function toArray($request)
     {
+        $member = new MemberResource(optional($this)->member);
         return [
-            'id' => $this->id,
-            'status' => $this->orderStatus->status,
-            'restaurant' => new RestaurantResource($this->restInfo),
-            'member' => new MemberResource($this->member),
-            'details' => OrderDetailResource::collection($this->orderDetails),
-            'total_price' => $this->orderDetails->sum(function ($detail) {
-                return $detail->item_price * $detail->item_qty;
+            'id' => optional($this)->id,
+            'status' => optional(optional($this)->orderStatuses)->status,
+            'restaurant' => new RestaurantResource(optional($this)->restInfo),
+            'member' => $member,
+            'name' => optional(optional($member->resource)->user)->name,
+            'details' => OrderDetailResource::collection(optional($this)->orderDetails),
+            'total_price' => $this->when(optional($this)->orderDetails, function () {
+                return optional($this)->orderDetails->sum(function ($detail) {
+                    return optional($detail)->item_price * optional($detail)->item_qty;
+                });
             }),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
+            'updated_at' => optional(optional($this)->updated_at)->toDateTimeString(),
         ];
     }
 }

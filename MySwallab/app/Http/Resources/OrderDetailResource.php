@@ -9,12 +9,12 @@ class OrderDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'item_name' => $this->item_name,
-            'item_price' => $this->item_price,
-            'item_qty' => $this->item_qty,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'id' => optional($this)->id,
+            'item_name' => optional($this)->item_name,
+            'item_price' => optional($this)->item_price,
+            'item_qty' => optional($this)->item_qty,
+            'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
+            'updated_at' => optional(optional($this)->updated_at)->toDateTimeString(),
         ];
     }
 }

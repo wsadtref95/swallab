@@ -22,4 +22,8 @@ class RestItems extends Model
     {
         return $this->belongsTo(FiltSectionDemos::class, 'f_s_d_id', 'id');
     }
+    public function RestDiscount()
+    {
+        return $this->belongsTo(RestDiscount::class,'r_i_id', 'id');
+    }
 }

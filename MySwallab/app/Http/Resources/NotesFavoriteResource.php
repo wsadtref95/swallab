@@ -9,10 +9,10 @@ class NotesFavoriteResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'note' => new NoteResource($this->memberNote),
-            'member' => new MemberResource($this->member),
-            'created_at' => $this->created_at,
+            'id' => optional($this)->id,
+            'note' => new NoteResource(optional($this)->memberNote),
+            'member' => new MemberResource(optional($this)->member),
+            'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
         ];
     }
 }

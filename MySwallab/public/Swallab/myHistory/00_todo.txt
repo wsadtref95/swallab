@@ -1,12 +1,13 @@
-資料
+**資料
+    1. -> resource
+
+API 後
     1. href（待確認）
 
 樣式
     1. 顯示字數
     2. 
 
-資料
-    1. -> resource
 
 function
     1. 修改功能

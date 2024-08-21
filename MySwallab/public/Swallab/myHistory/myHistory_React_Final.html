@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- css -->
     <link href="../css/root.css" rel="stylesheet">
     <link href="../css/nav.css" rel="stylesheet">
@@ -305,8 +306,8 @@
 
             const fetchActivities = async () => {
                 isLoadingRef.current = true;
-                // try {
                 // 模擬 API 調用
+                // try {
                 //     // const data = mockData[activeTab] || mockData.all;
                 //     // 按時間從新到舊排序
                 //     const sortedData = data.sort((a, b) => {
@@ -546,6 +547,7 @@
                                         </button>
                                     </div>
                                 ))}
+
                                 <hr className="mt-3" />
                             </div>
                             {console.log('Rendering with displayedActivities:', displayedActivities)}
@@ -718,6 +720,7 @@
             const createdDate = comment.created_at_date || '未知日期';
 
             console.log('Comment:', comment);
+            console.log('comment.rest_infos.id: ',comment.rest_infos.id )
 
             function handleEdit() {
                 onEdit(comment.id, editedContent, !!comment.RestInfos);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NotesCommentResource extends JsonResource
@@ -10,12 +9,12 @@ class NotesCommentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'content' => $this->content,
-            'note' => new NoteResource($this->memberNote),
-            'member' => new MemberResource($this->member),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'id' => optional($this)->id,
+            'content' => optional($this)->content,
+            'note' => new NoteResource(optional($this)->memberNote),
+            'member' => new MemberResource(optional($this)->member),
+            'created_at' => optional(optional($this)->created_at)->toDateTimeString(),
+            'updated_at' => optional(optional($this)->updated_at)->toDateTimeString(),
         ];
     }
 }

@@ -43,4 +43,22 @@ class RestInfos extends Model
     {
         return $this->hasMany(OrderInfos::class,'r_id','id');
     }
+    public function RestItems()
+    {
+        return $this->hasMany(RestItems::class,'r_id','id');
+    }
+    public function MemberNotes()
+    {
+        return $this->hasMany(MemberNotes::class,'r_id','id');
+    }
+    public function MemberReviews()
+    {
+        return $this->hasMany(MemberReviews::class,'r_id','id');
+    }
+    public function RestFavorites(){
+        return $this->hasMany(RestFavorites::class,'r_id','id');
+    }
+    public function RestComments(){
+        return $this->hasMany(RestComments::class,'r_id','id');
+    }
 }
