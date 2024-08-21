@@ -130,11 +130,10 @@ class ActivityController extends Controller
 
             $comments = $restComments->union($notesComments)->paginate(4);
 
-            return RestCommentResource::collection($comments->filter(function ($comment) {
-                return $comment instanceof RestComments;
-            }))->concat(NotesCommentResource::collection($comments->filter(function ($comment) {
-                return $comment instanceof NotesComments;
-            })));
+            return response()->json([
+                'data' => RestCommentResource::collection($restComments)
+                    ->concat(NotesCommentResource::collection($notesComments)),
+            ]);
         } catch (\Exception $e) {
             return response()->json(['error' => '內部伺服器錯誤'], 500);
         }
@@ -322,7 +321,7 @@ class ActivityController extends Controller
     {
         $comment = NotesComments::findOrFail($id);
         $comment->update($request->all());
-        return new NotesCommentsResource($comment);
+        return new NotesCommentResource($comment);
     }
 
     public function deleteRestComment($id)

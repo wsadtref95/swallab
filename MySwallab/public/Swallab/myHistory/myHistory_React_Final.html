@@ -366,7 +366,6 @@
                             ...(result.favorites?.map(item => ({ ...item, type: 'favorite' })) || [])
                         ]
                     } else {
-                        // 修改這裡
                         let type;
                         console.log('b4 switch', activeTab);
                         switch (activeTab) {
@@ -374,20 +373,40 @@
                                 // debugger;
                                 type = 'order';
                                 console.log('in switch', type);
+                                processedData = result.data?.map(item => ({ ...item, type })) || [];
+
                                 break;
                             case 'MemberNotes':
                                 type = 'note';
+                                console.log('in switch', type);
+                                processedData = result.query_result?.data?.map(item => ({ ...item, type })) || [];
+
                                 break;
                             case 'Comments':
-                                type = 'comment';
+                                // type = 'comment';
+                                console.log('in switch', result.data);
+                                processedData = result.data?.map(item => {
+                                    if (item.rest_infos) {
+                                        return { ...item, type: 'restComment' };
+                                    } else {
+                                        return { ...item, type: 'noteComment' };
+                                    }
+                                }) || [];
                                 break;
                             case 'Favorites':
                                 type = 'favorite';
+                                processedData = result.data?.map(item => {
+                                    if (item.rest_infos) {
+                                        return { ...item, type: 'restFavorite' };
+                                    } else {
+                                        return { ...item, type: 'noteFavorite' };
+                                    }
+                                }) || [];
                                 break;
                             default:
                                 type = activeTab.toLowerCase();
+                                processedData = [];
                         }
-                        processedData = result.data?.map(item => ({ ...item, type })) || [];
                         console.log('fetch type:', type);
 
                     }
@@ -559,25 +578,20 @@
                             ) : (
 
                                 displayedActivities.map((activity, index) => {
-                                    console.log('displayedActivities', {
-                                        'Activity:': activity,
-                                        'index:': index,
-                                        'activeTab:': activeTab,
-                                        'activity.type:': activity.type,
-                                        'activity.id:': activity.id,
-                                    });
                                     const uniqueKey = `${activity.type}-${activity.id}-${index}`;
-
-                                    console.log(`Rendering activity ${uniqueKey}`);
                                     switch (activity.type) {
                                         case 'order':
                                             return <OrderInfos key={uniqueKey} order={activity} />;
                                         case 'note':
                                             return <MemberNotes key={uniqueKey} note={activity} />;
-                                        case 'comment':
-                                            return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} />
-                                        case 'favorite':
-                                            return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} />;
+                                        case 'restComment':
+                                            return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} isRestComment={true} />;
+                                        case 'noteComment':
+                                            return <Comments key={uniqueKey} comment={activity} onEdit={handleEditComment} onDelete={handleDeleteComment} isRestComment={false} />;
+                                        case 'restFavorite':
+                                            return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} isRestFavorite={true} />;
+                                        case 'noteFavorite':
+                                            return <Favorites key={uniqueKey} favorite={activity} onDelete={handleDeleteFavorite} isRestFavorite={false} />;
                                         default:
                                             console.log('Unknown activity type:', activity.type);
                                             return null;
@@ -664,13 +678,14 @@
         }
 
         function MemberNotes({ note }) {
+            console.log(note);
             const noteTitle = note.title || '無標題';
             const noteContent = note.content || '無內容';
             const noteImage = note.main_photo || '預設圖片URL';
             const viewCount = note.count || 0;
-            const commentCount = note.comments?.length || 0;
+            const commentCount = note.notes_comments?.length || 0;
             const createdDate = note.created_at || '未知日期';
-            const restaurantName = note.restaurant?.user?.name || '未知餐廳';
+            const restaurantName = note.rest_infos?.users?.name || '未知餐廳';
 
             return (
                 <div className="row mt-5 myRecordsTemp align-self-center">
@@ -709,20 +724,21 @@
             );
         }
 
-        function Comments({ comment, onEdit, onDelete }) {
+        function Comments({ comment, onEdit, onDelete, isRestComment }) {
             const [isEditing, setIsEditing] = React.useState(false);
             const [editedContent, setEditedContent] = React.useState(comment.content || '');
 
-            const restaurantName = comment.RestInfos?.Users?.name || comment.MemberNotes?.RestInfos?.Users?.name || '未知餐廳';
-            const restaurantImage = comment.RestInfos?.Users?.avatar || comment.MemberNotes?.RestInfos?.Users?.avatar || '預設圖片URL';
+            const restaurantName = isRestComment
+                ? comment.rest_infos?.users?.name
+                : comment.member_notes?.rest_infos?.users?.name || '未知餐廳';
+            const restaurantImage = isRestComment
+                ? comment.rest_infos?.users?.avatar
+                : comment.member_notes?.rest_infos?.users?.avatar || '預設圖片URL';
             const commentContent = comment.content || '無評論內容';
-            const createdDate = comment.created_at_date || '未知日期';
-
-            console.log('Comment:', comment);
-            console.log('comment.rest_infos.id: ', comment.rest_infos.id)
+            const createdDate = comment.created_at || '未知日期';
 
             function handleEdit() {
-                onEdit(comment.id, editedContent, !!comment.RestInfos);
+                onEdit(comment.id, editedContent, isRestComment);
                 setIsEditing(false);
             }
 
@@ -775,19 +791,27 @@
             );
         }
 
-        function Favorites({ favorite, onDelete }) {
-            const restaurantName = favorite.RestInfos?.Users?.name || '未知餐廳';
-            const restaurantImage = favorite.RestInfos?.Users?.avatar || '預設圖片URL';
-            const restaurantAddress = favorite.RestInfos?.address || '地址未知';
-            const restaurantAvgPrice = favorite.RestInfos?.avg_price || '價格未知';
-            const restaurantOperatingHours = favorite.RestInfos?.wd_operating || '營業時間未知';
-            const createdDate = favorite.created_at_date || '未知日期';
+        function Favorites({ favorite, onDelete, isRestFavorite }) {
+            const restaurantName = isRestFavorite
+                ? favorite.rest_infos?.users?.name
+                : favorite.member_notes?.rest_infos?.users?.name || '未知餐廳';
+            const restaurantImage = isRestFavorite
+                ? favorite.rest_infos?.users?.avatar
+                : favorite.member_notes?.main_photo || '預設圖片URL';
+            const restaurantAddress = isRestFavorite
+                ? favorite.rest_infos?.address
+                : favorite.member_notes?.rest_infos?.address || '地址未知';
+            const restaurantAvgPrice = isRestFavorite
+                ? favorite.rest_infos?.avg_price
+                : favorite.member_notes?.rest_infos?.avg_price || '價格未知';
+            const restaurantOperatingHours = isRestFavorite
+                ? favorite.rest_infos?.wd_operating
+                : favorite.member_notes?.rest_infos?.wd_operating || '營業時間未知';
+            const createdDate = favorite.created_at || '未知日期';
 
-            console.log('Favorite:', favorite);
-
-            // 注意：這裡假設 SuitableFor 關係已經被加載
-            const purposes = favorite.RestInfos?.SuitableFor?.map(sf => sf.FiltPurposes?.purpose).filter(Boolean) || [];
-
+            const purposes = isRestFavorite
+                ? favorite.rest_infos?.suitable_for?.map(sf => sf.filt_purposes?.purpose).filter(Boolean) || []
+                : [];
             return (
                 <div className="row mt-5 myRecordsTemp align-self-center">
                     <div className="col-2">
