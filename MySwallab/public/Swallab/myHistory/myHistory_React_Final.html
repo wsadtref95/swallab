@@ -32,6 +32,7 @@
             <!-- LOGO -->
             <a class="navbar-brand ms-5 col-1" href="../headpage/headpage.html">
                 <img src="../images/root/logo.jpg" alt="" class="logo d-inline-block align-text-top">
+                <!-- <img src="../../public/storage/avatar/1.jpg" alt="" class="avatar d-inline-block align-text-top"> -->
             </a>
             <!-- 伸縮 -->
             <div class="collapse navbar-collapse col-10" id="navbarSupportedContent">
@@ -558,7 +559,8 @@
                 activitiesCount: activities.length,
                 displayedActivitiesCount: displayedActivities.length,
                 hasMore,
-                isLoading: isLoadingRef.current
+                isLoading: isLoadingRef.current,
+
             });
             return (
                 <div className="member-activity-container">
@@ -698,7 +700,22 @@
             console.log('raw_totalPrice:', typeof (order.total_price));
             // const restaurantName = order.RestInfos?.Users?.name || '未知餐廳';
             const restaurantName = order.restaurant_name || '未知餐廳';
-            const restaurantImage = order.restaurant_img?.avatar || '預設圖片URL';
+
+            function convertToRelativePath(url) {
+                if (url.includes('/storage/')) {
+                    const parts = url.split('/storage/');
+                    if (parts.length > 1) {
+                        return `../../public/storage/${parts[1]}`;
+                    }
+                }
+                console.log('url', url);
+                return url;
+            }
+            // http://localhost/MySwallab/public/storage/avatar/1.jpg
+            const raw_restaurantImage = order.restaurant_img || '預設圖片URL';
+            // ../../public/storage/avatar/1.jpg
+            const restaurantImage = convertToRelativePath(raw_restaurantImage) || '預設圖片URL';
+
             const orderStatus = order.status || '未知狀態';
             const raw_orderDate = new Date();
             const raw_year = raw_orderDate.getFullYear();
@@ -759,7 +776,20 @@
             console.log(note);
             const noteTitle = note.title || '無標題';
             const noteContent = note.content || '無內容';
-            const noteImage = note.main_photo || '預設圖片URL';
+
+            function convertToRelativePath(url) {
+                if (url.includes('/storage/')) {
+                    const parts = url.split('/storage/');
+                    if (parts.length > 1) {
+                        return `../../public/storage/${parts[1]}`;
+                    }
+                }
+                console.log('url', url);
+                return url;
+            }
+
+            const raw_noteImage = note.main_photo || '預設圖片URL';
+            const noteImage = convertToRelativePath(raw_noteImage) || '預設圖片URL';
             const viewCount = note.count || 0;
             const commentCount = note.notes_comments?.length || 0;
             const createdDate = note.created_at || '未知日期';
@@ -807,11 +837,27 @@
             const [editedContent, setEditedContent] = React.useState(comment.content || '');
 
             const restaurantName = isRestComment
-                ? comment.rest_infos?.users?.name
-                : comment.member_notes?.rest_infos?.users?.name || '未知餐廳';
-            const restaurantImage = isRestComment
-                ? comment.rest_infos?.users?.avatar
-                : comment.member_notes?.rest_infos?.users?.avatar || '預設圖片URL';
+                ? comment.restaurant.name
+                : comment.note.restaurant.name;
+
+            function convertToRelativePath(url) {
+                if (url.includes('/storage/')) {
+                    const parts = url.split('/storage/');
+                    if (parts.length > 1) {
+                        return `../../public/storage/${parts[1]}`;
+                    }
+                } else {
+                    return;
+                }
+                console.log('url', url);
+                return url;
+            }
+
+            const raw_restaurantImage = isRestComment
+                ? comment.restaurant.image
+                : comment.note.restaurant.image;
+            const restaurantImage = convertToRelativePath(raw_restaurantImage) || '預設圖片URL';
+
             const commentContent = comment.content || '無評論內容';
             const createdDate = comment.created_at || '未知日期';
 
@@ -872,7 +918,20 @@
         function Favorites({ favorite, onDelete, isRestFavorite }) {
             // const isRestFavorite = favorite.type === 'restFavorite';
             const restaurantName = isRestFavorite ? favorite.restaurant.name : favorite.note.restaurant.name;
-            const restaurantImage = isRestFavorite ? favorite.restaurant.avatar : favorite.note.main_photo;
+
+            function convertToRelativePath(url) {
+                if (url.includes('/storage/')) {
+                    const parts = url.split('/storage/');
+                    if (parts.length > 1) {
+                        return `../../public/storage/${parts[1]}`;
+                    }
+                }
+                console.log('url', url);
+                return url;
+            }
+
+            const raw_restaurantImage = isRestFavorite ? favorite.restaurant.avatar : favorite.note.main_photo;
+            const restaurantImage = convertToRelativePath(raw_restaurantImage) || '預設圖片URL';
             const restaurantAddress = isRestFavorite ? favorite.restaurant.address : favorite.note.restaurant.address;
             const restaurantAvgPrice = isRestFavorite ? favorite.restaurant.avg_price : favorite.note.restaurant.avg_price;
             const restaurantOperatingHours = isRestFavorite ? favorite.restaurant.wd_operating : favorite.note.restaurant.wd_operating;

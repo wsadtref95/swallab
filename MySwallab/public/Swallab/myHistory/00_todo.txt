@@ -1,5 +1,7 @@
 **資料
-    1. -> resource
+    OK 1. -> resource
+    2. 圖片
+    3. 
 
 API 後
     1. href（待確認）

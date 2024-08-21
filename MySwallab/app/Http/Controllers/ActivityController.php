@@ -131,7 +131,9 @@ class ActivityController extends Controller
 
             $notesComments = NotesComments::with([
                 'MemberNotes.RestInfos.Users',
+                'MemberNotes.RestInfos.FiltClasses',
                 'Members.Users'
+                
             ])->latest()->get();
 
             $comments = $restComments->concat($notesComments)->sortByDesc('created_at')->take(4);

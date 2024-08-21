@@ -16,8 +16,15 @@ class RestCommentResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'type' => 'restComment',
             'content' => $this->content,
-            'restaurant' => new RestaurantResource($this->whenLoaded('restInfo')),
+            'restaurant' => [
+                'name' => $this->RestInfos->Users->name,
+                'image' => $this->RestInfos->Users->avatar,
+                'address' => $this->RestInfos->address,
+                'avg_price' => $this->RestInfos->avg_price,
+                'wd_operating' => $this->RestInfos->wd_operating,
+            ],
             'member' => new MemberResource($this->whenLoaded('member')),
             'score' => $this->when($memberReview && !$memberReview instanceof \Illuminate\Http\Resources\MissingValue, function () use ($memberReview) {
                 return $memberReview->score;
