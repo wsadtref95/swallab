@@ -16,13 +16,13 @@ try {
 
     // 設定內容類型
     header('Content-Type: text/html; charset=utf-8');
-    $index=0;
+    $index = 0;
     foreach ($rows as $row) {
-        $message = htmlspecialchars($row['content']); 
-        $DateTime = new DateTime($row['commentsDate']); 
+        $message = htmlspecialchars($row['content']);
+        $DateTime = new DateTime($row['commentsDate']);
         $currentDateTime = new DateTime();
         $minus = $currentDateTime->diff($DateTime);
-    
+
         // 時間相差的判斷
         if ($minus->y > 0) {
             $date = $minus->y . ' 年前';
@@ -43,19 +43,19 @@ try {
         $mid = $row['commentsId'];
         $uid = $row['uid'];
 
-        // 自動判斷照片格式型態
-        $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
-        // 轉base64
-        $photoBase64 = base64_encode($photoBlob);
+        // // 自動判斷照片格式型態
+        // $photoMimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($photoBlob);
+        // // 轉base64
+        // $photoBase64 = base64_encode($photoBlob);
 
-        // IMG的src
-        $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
+        // // IMG的src
+        // $photoSrc = "data:{$photoMimeType};base64,{$photoBase64}";
 
         echo <<<HTML
         <div class="d-flex justify-content-center mt-4 m-0 test"  data-uid={$uid} data-mid={$mid} id="test">
             <div class="row d-flex justify-content-center m-2 p-2 commentHeadphoto">
                 <div class="col-4 d-flex flex-column align-items-center justify-content-center p-3">
-                    <img src="{$photoSrc}" alt="">    
+                    <img src="{$photoBlob}" alt="">    
                     <a href="../foodNotes/demoPiggy.html" style="text-decoration: none;color:black">
                         <div >{$username}</div>      
                     </a>
