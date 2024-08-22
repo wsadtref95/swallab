@@ -56,7 +56,7 @@ class ActivityController extends Controller
                 ->concat(collect($restFavorites)->map(fn($item) => ['type' => 'restFavorite'] + (array)$item))
                 ->concat(collect($notesFavorites)->map(fn($item) => ['type' => 'noteFavorite'] + (array)$item))
                 ->sortByDesc('created_at')
-                ->take(6);
+                ->take(20);
     
             return response()->json([
                 'all' => $allActivities,
@@ -172,6 +172,7 @@ class ActivityController extends Controller
             ])->latest()->get();
 
             $notesFavorites = NotesFavorites::with([
+                'MemberNotes',
                 'MemberNotes.RestInfos.Users',
                 'MemberNotes.RestInfos.FiltClasses',
                 'MemberNotes.NotesComments',

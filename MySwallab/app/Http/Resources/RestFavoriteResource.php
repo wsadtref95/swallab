@@ -20,6 +20,7 @@ class RestFavoriteResource extends JsonResource
                 'purposes' => $this->RestInfos->SuitableFor->map(function ($suitableFor) {
                     return $suitableFor->FiltPurposes->purpose;
                 }),
+                'avg_score' => $this->RestInfos->MemberReviews->avg('score'), 
             ],
             'created_at' => optional($this->created_at)->toDateTimeString(),
         ];

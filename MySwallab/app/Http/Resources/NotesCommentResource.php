@@ -14,6 +14,7 @@ class NotesCommentResource extends JsonResource
             'content' => optional(optional($this))->content,
             'note' => [
                 'title' => optional(optional($this)->MemberNotes)->title,
+                'content' => optional(optional($this)->MemberNotes)->content,
                 'main_photo' => optional(optional($this)->MemberNotes)->main_photo,
                 'restaurant' => [
                     'name' => optional(optional($this)->MemberNotes)->RestInfos->Users->name,
@@ -21,7 +22,7 @@ class NotesCommentResource extends JsonResource
                     'address' => optional(optional($this)->MemberNotes)->RestInfos->address,
                     'avg_price' => optional(optional($this)->MemberNotes)->RestInfos->avg_price,
                     'wd_operating' => optional(optional($this)->MemberNotes)->RestInfos->wd_operating,
-                ],
+                ]
             ],
             'created_at' => optional($this)->created_at,
             'updated_at' => optional($this)->updated_at,
