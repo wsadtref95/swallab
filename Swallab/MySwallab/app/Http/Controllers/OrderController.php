@@ -54,7 +54,8 @@ class OrderController extends Controller
 
     function showAll(Request $request)
     {
-        $id = $request->header('X-User-Id'); // 1
+        // $id = $request->header('X-User-Id'); // 1
+        $id = 1;
         // 獲取指定 id 的 OrderInfos 及其關聯資料
         $orderInfo = OrderInfos::with(['details', 'status'])
             ->where('r_id', $id)
@@ -71,7 +72,8 @@ class OrderController extends Controller
 
     function getOrdersWithStatus(Request $request, $status)
     {
-        $id = $request->header('X-User-Id'); // 1
+        // $id = $request->header('X-User-Id'); // 1
+        $id = 1;
         $orders = OrderInfos::where('o_s_id', $status)
             ->where('r_id', $id)
             ->with('details')

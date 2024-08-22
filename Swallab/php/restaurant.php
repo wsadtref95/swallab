@@ -1,8 +1,13 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Method: GET, POST, PUT, DELETE, OPTIONS");
+header("Content-type: application/json; charset=UTF-8");
+
 $host = "localhost";
 $dbname = "swallab";
 $user = "root";
-$db = new PDO("mysql:host={$host};dbname={$dbname}", $user);
+$db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $service = isset($_POST["service"]) ? $_POST["service"] : '';
 
