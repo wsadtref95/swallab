@@ -11,7 +11,7 @@ $service = isset($_POST["service"]) ? $_POST["service"] : '';
 
 switch ($service) {
     case 'sale':
-        sale($_POST["restaurantName"]);
+        sale();
         break;
 
     case 'saveComment':
@@ -79,7 +79,7 @@ function favorite($alreadyAdd, $m_id, $r_id)
 
 
 //取得餐廳資訊
-function sale($a)
+function sale()
 {
     //取全域的資料庫配置
     global $db;
@@ -91,24 +91,24 @@ function sale($a)
         WHERE r_id = 1
         group by r_id;";
         $stmt = $db->prepare($sql);
-        $stmt->execute($a);
+        $stmt->execute();
 
         // 把所有的查詢結果存在 rows 裡
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // 處理圖片並將其轉換為 base64
-        foreach ($rows as &$row) {
-            if (isset($row['restaurant_image'])) {
-                $image = $row['restaurant_image'];
+        // // 處理圖片並將其轉換為 base64
+        // foreach ($rows as &$row) {
+        //     if (isset($row['restaurant_image'])) {
+        //         $image = $row['restaurant_image'];
 
-                // 確保 $image 是有效的二進制數據
-                // 這裡假設 $image 是二進制數據，根據實際情況你可能需要用 file_get_contents 讀取文件
-                $image_base64 = base64_encode($image);
+        //         // 確保 $image 是有效的二進制數據
+        //         // 這裡假設 $image 是二進制數據，根據實際情況你可能需要用 file_get_contents 讀取文件
+        //         $image_base64 = base64_encode($image);
 
-                // 更新 $row 以包含 base64 編碼的圖片
-                $row['restaurant_image'] = $image_base64;
-            }
-        }
+        //         // 更新 $row 以包含 base64 編碼的圖片
+        //         $row['restaurant_image'] = $image_base64;
+        //     }
+        // }
 
         // 返回 JSON 格式的數據
         header('Content-Type: application/json');
