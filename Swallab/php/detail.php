@@ -1,17 +1,22 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Method: GET, POST, PUT, DELETE, OPTIONS");
+header("Content-type: application/json; charset=UTF-8");
+
+
 $host = "localhost";
 $dbname = "swallab";
 $user = "root";
-$db = new PDO("mysql:host={$host};dbname={$dbname}", $user);
+$db = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8mb4", $user);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 
 $service = isset($_POST["service"]) ? $_POST["service"] : '';
 
 switch ($service) {
     case 'sale':
-        sale($_POST["restaurantName"]);
+        sale();
         break;
 
     case 'saveComment':
@@ -79,7 +84,7 @@ function favorite($alreadyAdd, $m_id, $r_id)
 
 
 //取得餐廳資訊
-function sale($a)
+function sale()
 {
     //取全域的資料庫配置
     global $db;
@@ -91,7 +96,7 @@ function sale($a)
         WHERE r_id = 1
         group by r_id;";
         $stmt = $db->prepare($sql);
-        $stmt->execute($a);
+        $stmt->execute();
 
         // 把所有的查詢結果存在 rows 裡
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -350,16 +355,17 @@ function saleMenu($restaurant_name)
         // 把所有的查詢結果存在 rows 裡
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($rows as &$row) {
-            $imgPath = $row['photo'];
-            $img = file_get_contents('/Applications' . $imgPath);
-            // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
-            // print($img);
-            //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
+        // foreach ($rows as &$row) {
+        //     $imgPath = $row['photo'];
+        //     // $img = file_get_contents('/Applications' . $imgPath);
+        //     $img = file_get_contents('/Applications' . $imgPath);
+        //     // $mimeType = (new finfo(FILEINFO_MIME_TYPE))-buffer($img);
+        //     // print($img);
+        //     //     // $base64Img = 'data:' . $mineType . ';base64' . base64_encode($img);
 
-            $row['photo'] = base64_encode($img);
-        }
-        ;
+        //     $row['photo'] = base64_encode($img);
+        // }
+        // ;
 
 
         // 返回 JSON 格式的數據

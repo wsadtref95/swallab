@@ -14,6 +14,6 @@ class FiltClasses extends Model
 
     function restInfos()
     {
-        return $this->hasOne(RestInfos::class, 'f_c_id');
+        return $this->hasMany(RestInfos::class, 'f_c_id');
     }
 }

@@ -211,8 +211,11 @@ window.onload = async function () {
       method: "POST",
       data: a,
       dataType: "json",
+      // dataType: "text",
     })
       .done(function (responseData) {
+        console.log(responseData);
+        
         var container = $("#restaurant-info");
         if (responseData.length > 0) {
           responseData.forEach(function (item) {
@@ -618,14 +621,17 @@ window.onload = async function () {
       data: form,
       //後端傳回來的格式
       dataType: "json",
+      // dataType: "text",
     })
       .done(function (responseData) {
+        // console.log(responseData);
+        
         var container = $("#menu-container");
   
         container.empty();
         if (responseData.length > 0) {
           responseData.forEach(function (item) {
-            console.log('25',item);
+            // console.log('25',item);
             let nowDateTime = new Date();
             let end_time = new Date(item.end_time);
             let saleTimeCount = end_time - nowDateTime;

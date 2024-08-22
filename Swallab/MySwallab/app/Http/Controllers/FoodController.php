@@ -99,7 +99,7 @@ class FoodController extends Controller
         } else {
             try {
                 $addMenu = new RestItems();
-                $addMenu->r_id = 1;
+                $addMenu->r_id = $request->header('X-User_id');
                 $addMenu->item_price = $price;
                 $addMenu->f_s_d_id = $request->classification;
                 $addMenu->item_name = $item_name;
@@ -126,18 +126,21 @@ class FoodController extends Controller
         }
     }
 
-    function getMenuList()
+    function getMenuList(Request $request)
     {
+        // $r_id = $request->header('X-User-Id');
+        $r_id = 1;
+        // return response()->json(['$r_id' => $r_id]);
         try {
-            $menuList = DB::table('filtSectionDemos')
-                ->leftJoin('RestItems', 'filtSectionDemos.id', '=', 'RestItems.f_s_d_id')
-                ->select('*')
+            $menuList = DB::table('RestItems')
+                ->leftJoin('filtSectionDemos', 'RestItems.f_s_d_id', '=', 'filtSectionDemos.id')
+                ->select('RestItems.id', 'section', 'item_name', 'item_photo', 'item_price' )
+                // ->select('*' )
+                ->where('RestItems.r_id', $r_id)
                 ->orderBy('RestItems.created_at', 'desc')
                 ->get();
 
-            return response()->json($menuList, 200, [], JSON_UNESCAPED_UNICODE)
-                ->header('content-type', 'application/json')
-                ->header('charset', 'utf-8');
+            return response()->json($menuList, 200, [], JSON_UNESCAPED_UNICODE);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()]);
         }

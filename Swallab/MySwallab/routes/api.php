@@ -16,6 +16,16 @@ use App\Models\FiltSectionDemos;
 // })->middleware('auth:sanctum');
 
 
+// 測試
+Route::get('/test', function() {
+    $data = FiltClasses::with('restInfos')->where('FiltClasses.id', 1)->get();
+    
+    return response()->json($data);
+});
+
+// =================
+
+
 // 登入
 Route::post('/login', [LoginController::class, 'login']);
 
@@ -97,31 +107,3 @@ Route::get('/restaurantClass', [RestaurantController::class, 'restaurantClass'])
 
 // 修改店家資訊 --> ok
 Route::post('/restaurantinfo/update', [RestaurantController::class, 'updateRestaurantInfo']);
-
-// history.html 
-Route::prefix('member-activity')->group(function () {
-    Route::get('all', [ActivityController::class, 'all']);
-    // Route::get('all', function() {
-    //     return response()->json(['test' => 'OK']);
-    // });
-    Route::get('OrderInfos', [ActivityController::class, 'orderInfos']);
-    Route::get('MemberNotes', [ActivityController::class, 'memberNotes']);
-    Route::get('Comments', [ActivityController::class, 'comments']);
-    Route::get('Favorites', [ActivityController::class, 'favorites']);
-    Route::put('RestComments/{id}', [ActivityController::class, 'updateRestComment']);
-    Route::put('NotesComments/{id}', [ActivityController::class, 'updateNotesComment']);
-    Route::delete('RestComments/{id}', [ActivityController::class, 'deleteRestComment']);
-    Route::delete('NotesComments/{id}', [ActivityController::class, 'deleteNotesComment']);
-    Route::delete('RestFavorites/{id}', [ActivityController::class, 'deleteRestFavorite']);
-    Route::delete('NotesFavorites/{id}', [ActivityController::class, 'deleteNotesFavorite']);
-
-});
-
-// nav_search
-Route::get('/search', [SearchController::class, 'search']);
-Route::get('/filtlocations', [FiltLocationsController::class,'index']);
-
-// Route::get('/search/{type}/{query}', [SearchController::class, 'search']);
-Route::get('/Swallab/nav/search_results.html', function () {
-    return File::get(public_path() . '/Swallab/nav/search_results.html');
-});
