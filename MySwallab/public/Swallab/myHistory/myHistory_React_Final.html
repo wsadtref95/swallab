@@ -27,6 +27,8 @@
 
 <body>
     <!-- NAV_begin : sticky-top -->
+    <!-- <div id="nav-container"></div> -->
+
     <nav class="navbar navbar-expand sticky-top shadow">
         <div class="container">
             <!-- LOGO -->
@@ -40,10 +42,10 @@
                     <div class="nav-item col-6">
                         <!-- 首頁沒有 active -->
                         <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
-                        <a class="nav-link d-block nav_mainbtn" href="../restaurant/detail.html">找餐廳</a>
+                        <a class="d-block nav_mainbtn nav_mainbtn_rest" href="../restaurant/detail.html">找餐廳</a>
                     </div>
                     <div class="nav-item col-6">
-                        <a class="nav-link d-block nav_mainbtn" href="../foodNotes/foodNotes.html">看食記</a>
+                        <a class="d-block nav_mainbtn nav_mainbtn_note" href="../foodNotes/foodNotes.html">看食記</a>
                     </div>
                 </div>
                 <!-- Input 都在這 -->
@@ -200,6 +202,11 @@
 
     <!-- mockData ok -->
     <script type="text/babel">
+        //         // 載入 nav
+        // $(document).ready(function () {
+        //     $("#nav-container").load("../nav/nav.html");
+        //     // $("#nav-container").load("../nav/search_results.html #myNav");
+        // });
 
         // const mockData = {
         //     all: [
@@ -574,11 +581,11 @@
                             </div>
                         </div>
                         <div className="col">
-                            <div className="breadcrumb">
+                            {/*<div className="breadcrumb">
                                 <a href="#">會員中心</a>
                                 <span> → </span>
                                 <a href="./myHistory.html" className="active">歷史紀錄</a>
-                            </div>
+                            </div>*/}
                             <div className="row ms-5 justify-content-center">
                                 {['all', 'OrderInfos', 'MemberNotes', 'Comments', 'Favorites'].map(tab => (
                                     <div className="col-2" key={tab}>
@@ -977,13 +984,13 @@
             //     ? favorite.rest_infos?.wd_operating
             //     : favorite.member_notes?.rest_infos?.wd_operating || '營業時間未知';
             // const createdDate = favorite.created_at || '未知日期';
-            
-            
-            // const noteContent = favorite.note.content || '無內容';
-            // const viewCount = favorite.note.count || 0;
 
+            const noteContent = isRestFavorite ? '' : favorite.note.content || '無內容';
+            const viewCount = isRestFavorite ? '' : favorite.note.count || 0;
+            const commentCount = isRestFavorite ? '' : favorite.note.notes_comments?.length || 0;
+            const visitedDate = isRestFavorite ? '' : favorite.note.visited_date || createdDate;
             const purposes = isRestFavorite ? favorite.restaurant.purposes : [];
-
+            console.log('visitedDate',visitedDate);
 
             return (
                 <div className="row mt-5 myRecordsTemp align-self-center">
@@ -994,7 +1001,7 @@
                         </div>
                     </div>
                     <div className="col-1"></div>
-                    <div className="col-5">
+                    <div className="col-6">
                         <div className="activity-title-note">
                             <a href="#"><span>{restaurantName}</span></a>
                         </div>
@@ -1014,23 +1021,7 @@
                         ) : (
                             <div>
                                 <div className="row myRecordsInfo container-fluid myNotes border border-secondary rounded">
-                                    <div className="activity-content-note">{/*noteContent*/}</div>
-                                </div>
-
-                                <div className="col-3 myRecordsBtn">
-                                    <div><span>{createdDate}</span></div>
-                                    <div className="mt-2 activity-content text-left fs-small">
-                                        <span>瀏覽次數：{/*viewCount*/}</span> <br />
-                                        <span>留言總計：{/*commentCount*/}</span>
-                                    </div>
-                                    <div className="activity-buttons">
-                                        <button className="activity-button">
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <button className="activity-button">
-                                            <i className="fa-solid fa-trash-can"></i>
-                                        </button>
-                                    </div>
+                                    <div className="activity-content-note">{noteContent}</div>
                                 </div>
                             </div>
                         )}
@@ -1038,11 +1029,22 @@
 
                         </div>
                     </div>
-                    <div className="col-1">
+                    {/*<div className="col-1">
                         <i className="fa-solid fa-heart"></i>
-                    </div>
-                    <div className="col-2 myRecordsBtn">
+                    </div>*/}
+                    <div className="col-3 myRecordsBtn">
                         <div><span>{createdDate}</span></div>
+                        {isRestFavorite ? ('') : (
+                            <div>
+                                <div className="mt-2 activity-content text-left fs-small">
+                                    <span>瀏覽次數：{viewCount}</span> <br />
+                                    <span>留言總計：{commentCount}</span> <br />
+                                    <span>造訪日期：{visitedDate}</span>
+
+                                </div>
+
+                            </div>
+                        )}
                         <button className="activity-button" onClick={() => onDelete(favorite.id, isRestFavorite)}>
                             <i className="fa-solid fa-trash-can"></i>
                         </button>

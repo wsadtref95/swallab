@@ -91,12 +91,11 @@ body {
 }
 
 /* Tab button styles */
-.tab-buttons {
-    margin-bottom: 20px;
-}
 
 .tab-button {
-    margin-right: 10px;
+    color:#000 !important;
+    --bs-btn-active-bg:none;
+        margin-right: 10px;
     padding: 10px 15px;
     background-color: #f0f0f0;
     border: none;
