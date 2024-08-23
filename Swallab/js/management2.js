@@ -149,9 +149,9 @@ $().ready(function () {
     // 顯示菜單清單
     let displayMenu = async () => {
         console.log(headers); // {X-User-Id: '1'}
-        
 
-        let response = await fetch('http://localhost/MySwallab/public/api/getmenu', {headers})
+
+        let response = await fetch('http://localhost/MySwallab/public/api/getmenu', { headers })
         let data = await response.json();
 
         console.log(data);
@@ -185,12 +185,22 @@ $().ready(function () {
     }
     displayMenu();
 
+    $('#classification').on('click', () => {
+        let value = $('#classification').val();
+        console.log(value); // add
+
+        if (value == 'add') {
+            $('.myClass').addClass('d-none')
+            $('.myAddClass').removeClass('d-none')
+        }
+    })
+
     // 點擊新增 將分類顯示到螢幕上
     let displayClassList = async () => {
         let data = await getClass('getfoodclass'); // laravel -> ok
         // console.log(data);
-        let html = '<option disabled selected>請選擇...</option>'
-
+        let html = `<option disabled selected>請選擇...</option>
+                    <option value="add">新增分類</option>`
         // for (let i = 0; i < data.length; i++) {
         //     const element = data[i];
         //     // console.log(element);
@@ -279,11 +289,7 @@ $().ready(function () {
         // console.log(dataList.includes(addClass))
 
         let resultText = '';
-        if (classification && addClass) {
-            // console.log('請輸入正確的分類');
-            resultText = '請輸入正確的分類';
-        }
-        else if (dataList.includes(addClass)) {
+        if (dataList.includes(addClass)) {
             // console.log('餐點分類已存在');
             resultText = '餐點分類已存在';
         }
@@ -294,6 +300,11 @@ $().ready(function () {
         else {
             let body = new FormData(editForm);
             // console.log(body);
+            if (classification === 'add') {
+                body.set('classification', addClass);
+            } else {
+                body.set('classification', classification);
+            }
 
             let response = await fetch('http://localhost/MySwallab/public/api/insertmenu', {
                 method: 'POST',

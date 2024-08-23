@@ -1,5 +1,16 @@
 import { user_id } from "./backstage.js"
 
+// let getUser = async () => {
+//     const url = 'http://localhost/MySwallab/public/user_id'
+//     let response = await fetch(url);
+//     let data = await response.json();
+//     // console.log(data);
+//     return data
+// }
+
+// let info = await getUser();
+// console.log(info.role);
+
 const headers = {
     'content-type': 'application/json',
     'X-User-Id': user_id
@@ -47,7 +58,7 @@ status2()
 // 顯示status1的訂單
 let showOrders1 = async () => {
     let data = await showOrders(1);
-    console.log(data);
+    // console.log(data);
 
     $('#myOrders1').empty();
     let html = '';
@@ -60,7 +71,7 @@ let showOrders1 = async () => {
     //     }
     // });
     data.forEach(({ id, booking_date, booking_time, created_at, details, members: { users: { name, phone } } }) => {
-        console.log(details);
+        // console.log(details);
         
         try {
             booking_time = JSON.parse(booking_time);
@@ -123,7 +134,7 @@ showOrders1()
 // 顯示status2的訂單
 let showOrders2 = async () => {
     let data = await showOrders(2);
-    // console.log(data); // []
+    console.log(data); // []
 
 
     $('#myOrders2').empty();
@@ -160,11 +171,11 @@ let showOrders2 = async () => {
                         <div class="col-9 row">
                             <div class="col-6">品項</div>
                             <div class="col-6">數量</div>`
-        // console.log(details);
-        details.forEach(({ item, subtotal }) => {
+        console.log(details);
+        details.forEach(({ item_name, item_qty }) => {
             html += `
-                    <div class="col-6">${item}</div>
-                    <div class="col-6">${subtotal}</div>
+                    <div class="col-6">${item_name}</div>
+                    <div class="col-6">${item_qty}</div>
                     `
         });
         html += `</div>
