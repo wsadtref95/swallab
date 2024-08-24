@@ -134,7 +134,7 @@ showOrders1()
 // 顯示status2的訂單
 let showOrders2 = async () => {
     let data = await showOrders(2);
-    console.log(data); // []
+    // console.log(data); // []
 
 
     $('#myOrders2').empty();

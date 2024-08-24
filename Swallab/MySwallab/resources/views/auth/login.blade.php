@@ -16,7 +16,7 @@
         }
 
         body {
-            background-image: url("../public/images/other/subtle_white_feathers.webp");
+            background-image: url("{{ asset('images/bgi.png') }}");
 
         }
     </style>
@@ -46,6 +46,7 @@
                         @endif
                         <form method="POST" action="{{ url('/login') }}">
                             @csrf
+                            <input type="hidden" name="redirectUrl" value="{{ $redirectUrl }}">
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>

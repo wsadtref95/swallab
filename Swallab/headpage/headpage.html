@@ -55,8 +55,8 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
 
                         <!-- 搜尋框 + 情境按鈕(pill 會改成底線) -->
                         <div class="d-block position-relative m-0 p-0 col">
@@ -146,13 +146,13 @@
             <div class="row align-self-center">
                 <div class="myTitle">Swallab</div>
                 <article>
-                        吃，除了吃飽，可以吃好，還可以吃得巧妙<br>
-                        吃可以是日常生活的一個小實驗<br>
-                        實驗你與大廚的匠心<br>
-                        實驗你與其他人的默契<br>
-                        實驗你自己的餐飲慣習<br><br>
-                        歡迎來到食嚥室<br>
-                        讓我們一起探索大街小巷的美食！<br>
+                    吃，除了吃飽，可以吃好，還可以吃得巧妙<br>
+                    吃可以是日常生活的一個小實驗<br>
+                    實驗你與大廚的匠心<br>
+                    實驗你與其他人的默契<br>
+                    實驗你自己的餐飲慣習<br><br>
+                    歡迎來到食嚥室<br>
+                    讓我們一起探索大街小巷的美食！<br>
                     </span>
                 </article>
             </div>
@@ -218,15 +218,34 @@
         </div>
     </footer>
     <!-- Footer_end -->
+    <script>
+        // let getUser = async () => {
+        //     const url = 'http://localhost/MySwallab/public/user_id'
+        //     let response = await fetch(url);
+        //     let data = await response.json();
+        //     // console.log(data);
+        //     return data
+        // }
+        let getUser = () => {
+            const url = 'http://localhost/MySwallab/public/user_id'
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+        }
+
+        let info = getUser();
+        console.log(info);
+    </script>
 
 
-    <!-- <script>
-    </script> -->
-
+    <!-- <script type="module" src="../js/login.js"></script>
+    <script type="module" src="../js/backstage.js"></script> -->
     <script src="../js/jquery-3.7.1.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/headpage_opendoor_animate.js"></script>
-    <script src="../js/nav.js"></script>
+    <!-- <script src="../js/nav.js"></script> -->
     <script src="../js/footer.js"></script>
 </body>
 

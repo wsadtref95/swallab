@@ -20,7 +20,7 @@ Route::get('/test', function () {
 Route::view('/register', 'auth.register');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::view('/login', 'auth.login');
+// Route::view('/login', 'auth.login');
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 });
@@ -38,26 +38,40 @@ Route::post('/profile/update-social-link', [ProfileController::class, 'updateSoc
 Route::post('/profile/update-credit-card', [ProfileController::class, 'updateCreditCard'])->name('profile.updateCreditCard');
 Route::post('/profile/delete-credit-card', [ProfileController::class, 'deleteCreditCard'])->name('profile.deleteCreditCard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::middleware([IsAdmin::class])->group(function () {
-        Route::get('/admin', function () {
-            return view('/backstage/new_oder');
-        });
-    });
+// Route::middleware(['auth'])->group(function () {
+//     Route::middleware([IsAdmin::class])->group(function () {
+//         Route::get('/admin', function () {
+//             return view('/backstage/new_oder');
+//         });
+//     });
 
-    Route::middleware([IsMember::class])->group(function () {
-        Route::get('/headpage/headpage', function () {
-            return view('headpage.headpage');
-        });
+//     Route::middleware([IsMember::class])->group(function () {
+//         Route::get('/headpage/headpage', function () {
+//             return view('headpage.headpage');
+//         });
 
-        Route::get('/profile', function () {
-            $user = Auth::user();
-            return view('login.profile', compact('user'));
-        })->name('profile.show');
-        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
-    });
+//         Route::get('/profile', function () {
+//             $user = Auth::user();
+//             return view('login.profile', compact('user'));
+//         })->name('profile.show');
+//         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+//         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+//         Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+//     });
+// });
+
+
+// 取得登入的使用者資訊
+Route::get('user_id', function() {
+    return response()->json([
+        'role' => session('role') ?? '', 
+        'r_id' => session('r_id') ?? '', 
+        'name' => session('name') ?? ''
+    ]);
 });
 
+// 取得使用者名稱
+Route::get('user_name', [AuthController::class, 'getUserName']);
 
+// ===========================================================
+Route::view('/aa','aa');

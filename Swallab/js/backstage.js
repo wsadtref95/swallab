@@ -17,8 +17,12 @@ console.log(info);
 // =========================
 const user = info.r_id;
 const role = info.role;
+const name = info.name;
 localStorage.setItem('user_id', user);
 localStorage.setItem('role', user);
+$('#userName').text(name);
+console.log(name);
+
 if (!user || role != 'admin') {
     // window.location.href = 'http://localhost/swallab/Swallab/login/login.html';
     window.location.href = 'http://localhost/MySwallab/public/login';

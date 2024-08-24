@@ -1,3 +1,16 @@
+/* 家緯加的 */
+.d-none {
+    display: none;
+}
+
+#userName {
+    padding: 4px 20px;
+    margin: 0;
+    font-weight: bold;
+    color: #8B4513;
+}
+/* ============== */
+
 .nav_mainbtn {
     white-space: nowrap;
     color:#8B4513;font-weight: bold;
