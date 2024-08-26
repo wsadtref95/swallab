@@ -66,11 +66,10 @@
 
 
             var googleOption = document.createElement('a');
-            googleOption.href = "http://www.google.com";
+            googleOption.href = "#";
             googleOption.onclick = function (e) {
-                // e.preventDefault();
-                window.location.href = "http://www.google.com";
-                // window.open("https://www.google.com.tw/")
+                e.preventDefault();
+                fillInput2('離我最近');
             };
             googleOption.textContent = '離我最近';
             dropdown.appendChild(googleOption);
